@@ -1,0 +1,180 @@
+#############################################
+# Syntax Coloring Map For WebSockets2_Generic
+#############################################
+
+#######################################
+# Datatypes (KEYWORD1)
+#######################################
+
+websockets	KEYWORD1
+network	KEYWORD1
+
+
+################
+# Client
+################
+WebsocketsEvent	KEYWORD1
+WebsocketsClient	KEYWORD1
+
+################
+# Server
+################
+WebsocketsServer	KEYWORD1
+
+####################
+# WebsocketsMessage
+####################
+
+MessageType	KEYWORD1
+MessageRole KEYWORD1
+WebsocketsMessage	KEYWORD1
+StreamBuilder KEYWORD1
+
+####################
+# EndPoint
+####################
+
+CloseReason	KEYWORD1
+FragmentsPolicy	KEYWORD1
+
+WSString	KEYWORD1
+
+#######################################
+# Methods and Functions (KEYWORD2)
+#######################################
+
+################
+# Client
+################
+
+addHeader	KEYWORD2
+connect	KEYWORD2
+onMessage	KEYWORD2
+onEvent	KEYWORD2
+poll	KEYWORD2
+available	KEYWORD2
+send	KEYWORD2
+sendBinary	KEYWORD2
+stream  KEYWORD2
+streamBinary  KEYWORD2
+end KEYWORD2
+setFragmentsPolicy	KEYWORD2
+getFragmentsPolicy	KEYWORD2
+readBlocking	KEYWORD2
+ping	KEYWORD2
+pong	KEYWORD2
+close	KEYWORD2
+getCloseReason	KEYWORD2
+setUseMasking KEYWORD2
+setInsecure	KEYWORD2
+setFingerprint	KEYWORD2
+setClientRSACert  KEYWORD2
+setTrustAnchors KEYWORD2
+setCACert	KEYWORD2
+setCertificate  KEYWORD2
+setPrivateKey KEYWORD2
+setAuthorization  KEYWORD2
+getAuthorization  KEYWORD2
+
+################
+# Server
+################
+
+available KEYWORD2
+listen	KEYWORD2
+poll	KEYWORD2
+accept	KEYWORD2
+
+####################
+# WebsocketsMessage
+####################
+
+CreateFromFrame KEYWORD2
+isEmpty	KEYWORD2
+type	KEYWORD2
+isText	KEYWORD2
+isBinary	KEYWORD2
+isPing	KEYWORD2
+isPong	KEYWORD2
+isClose	KEYWORD2
+role  KEYWORD2
+isComplete	KEYWORD2
+isPartial	KEYWORD2
+isFirst	KEYWORD2
+isContinuation	KEYWORD2
+isLast	KEYWORD2
+data	KEYWORD2
+rawData	KEYWORD2
+c_str	KEYWORD2
+length  KEYWORD2
+
+####################
+# StreamBuilder
+####################
+first KEYWORD2
+append  KEYWORD2
+end KEYWORD2
+badFragment KEYWORD2
+isErrored KEYWORD2
+isOk  KEYWORD2
+isComplete  KEYWORD2
+isEmpty KEYWORD2
+type  KEYWORD2
+build KEYWORD2
+
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+####################
+# WebsocketsEvent
+####################
+
+ConnectionOpened	LITERAL1
+ConnectionClosed	LITERAL1
+GotPing	LITERAL1
+GotPong	LITERAL1
+
+####################
+# MessageType
+####################
+
+Empty LITERAL1
+Text	LITERAL1
+Binary	LITERAL1
+Ping	LITERAL1
+Pong	LITERAL1
+Close	LITERAL1
+
+####################
+# MessageType
+####################
+
+Complete  LITERAL1
+First LITERAL1
+Continuation  LITERAL1
+Last  LITERAL1
+
+####################
+# CloseReason
+####################
+
+CloseReason_None	LITERAL1
+CloseReason_NormalClosure	LITERAL1
+CloseReason_GoingAway	LITERAL1
+CloseReason_ProtocolError	LITERAL1
+CloseReason_UnsupportedData	LITERAL1
+CloseReason_NoStatusRcvd	LITERAL1
+CloseReason_AbnormalClosure	LITERAL1
+CloseReason_InvalidPayloadData	LITERAL1
+CloseReason_PolicyViolation	LITERAL1
+CloseReason_MessageTooBig	LITERAL1
+CloseReason_InternalServerError	LITERAL1
+
+####################
+# FragmentsPolicy
+####################
+
+FragmentsPolicy_Aggregate	LITERAL1
+FragmentsPolicy_Notify	LITERAL1
