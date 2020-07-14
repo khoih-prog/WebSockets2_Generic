@@ -187,12 +187,12 @@ client.onMessage([&](WebsocketsMessage message)
 
 ##### For ESP8266 boards
 
-1. [ESP8266-Client](examples/ESP8266/ESP8266-Client)
-2. [Minimal-Esp32-Client](examples/ESP8266/Minimal-ESP8266-Client)
-3. [Secured-ESP8266-Client](examples/ESP8266/Secured-ESP8266-Client)
-4. [SecuredTwoWay-ESP8266-Client](examples/ESP8266/SecuredTwoWay-ESP8266-Client)
+1. [Esp8266-Client](examples/ESP8266/Esp8266-Client)
+2. [Minimal-Esp8266-Client](examples/ESP8266/Minimal-Esp8266-Client)
+3. [Secured-Esp8266-Client](examples/ESP8266/Secured-Esp8266-Client)
+4. [SecuredTwoWay-Esp8266-Client](examples/ESP8266/SecuredTwoWay-Esp8266-Client)
 5. [ESP8266-Client_SINRIC](examples/ESP8266/ESP8266-Client_SINRIC)
-6. [ESP8266-Server](examples/ESP8266/ESP8266-Server)
+6. [Esp8266-Server](examples/ESP8266/Esp8266-Server)
 
 ##### For nRF52 boards using WiFiNINA
 
@@ -214,7 +214,7 @@ client.onMessage([&](WebsocketsMessage message)
 
 Please take a look at other examples, as well.
 
-1. File [SAMD-Client_SINRIC.ino](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC.ino)
+1. File [SAMD-Client_SINRIC.ino](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino)
 
 ```cpp
 #include "defines.h"
@@ -432,7 +432,7 @@ void loop()
 }
 ```
 
-2. File [defines.h](examples/Generic/WiFiNINA/SAMD/defines.h)
+2. File [defines.h](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h)
 
 ```cpp
 #ifndef defines_h
