@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  crypto.hpp
+  WebSockets2_Generic_Message.hpp
   For WebSockets2_Generic Library
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
@@ -14,21 +14,34 @@
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
-  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards     
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards      
  *****************************************************************************************************************************/
- 
+
+#ifndef _WEBSOCKETS2_GENERIC_MESSAGE_H
+#define _WEBSOCKETS2_GENERIC_MESSAGE_H
+
 #pragma once
 
-#include <Tiny_Websockets_Generic/internals/ws_common.hpp>
+// KH
+#include <WebSockets2_Generic.h>
+#include "WebSockets2_Generic_Debug.h"
+
+#include <Tiny_Websockets_Generic/message.hpp>
 
 namespace websockets2_generic
 {
-  namespace crypto2_generic
+  MessageType messageTypeFromOpcode(uint8_t opcode) 
   {
-    WSString base64Encode(WSString data);
-    WSString base64Encode(uint8_t* data, size_t len);
-    WSString base64Decode(WSString data);
-    WSString websocketsHandshakeEncodeKey(WSString key);
-    WSString randomBytes(size_t len);
-  }       // namespace crypto2_generic
-}         // namespace websockets2_generic
+    switch (opcode) 
+    {
+      case internals2_generic::ContentType::Binary: return MessageType::Binary;
+      case internals2_generic::ContentType::Text: return MessageType::Text;
+      case internals2_generic::ContentType::Ping: return MessageType::Ping;
+      case internals2_generic::ContentType::Pong: return MessageType::Pong;
+      case internals2_generic::ContentType::Close: return MessageType::Close;
+      default: return MessageType::Empty;
+    }
+  }
+}   // namespace websockets2_generic
+
+#endif    // _WEBSOCKETS2_GENERIC_MESSAGE_H

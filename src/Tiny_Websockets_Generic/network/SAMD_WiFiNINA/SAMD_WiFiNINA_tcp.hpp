@@ -9,11 +9,12 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/ESP8266_AT_WebServer
   Licensed under MIT license
-  Version: 0.4.17
-   
+  Version: 1.0.1
+
   Version Modified By   Date      Comments
- ------- -----------  ---------- -----------
-  0.4.17  K Hoang      12/07/2020 Initial coding and porting to support nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32       
+  ------- -----------  ---------- -----------
+  1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards        
  *****************************************************************************************************************************/
  
 #pragma once
@@ -68,7 +69,11 @@ namespace websockets2_generic
     };
 
     
-    #define DUMMY_PORT 0
+    #ifndef WEBSOCKETS_PORT
+      #define DUMMY_PORT    8080
+    #else
+      #define DUMMY_PORT    WEBSOCKETS_PORT
+    #endif
     
     // KH, quick fix for WiFiNINA port
     #define CLOSED     0

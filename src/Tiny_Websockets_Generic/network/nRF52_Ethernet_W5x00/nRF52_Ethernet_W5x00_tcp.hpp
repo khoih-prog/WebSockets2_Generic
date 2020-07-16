@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  nRF52_WiFiNINA_tcp.hpp
-  For nRF52 boards with WiFiNINA module/shield.
+  nRF52_Ethernet_tcp.hpp
+  For nRF52 boards with Ethernet W5x00 module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
@@ -14,7 +14,7 @@
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
-  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards        
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards      
  *****************************************************************************************************************************/
  
 #pragma once
@@ -29,15 +29,32 @@
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-#include <WiFiNINA_Generic.h>
+// KH, from v1.0.1
+#if USE_ETHERNET_LIB
+  #warning Using Ethernet Lib in nRF52_Ethernet_tcp.hpp
+  #include <Ethernet.h>
+#elif USE_ETHERNET2_LIB
+  #warning Using Ethernet2 Lib in nRF52_Ethernet_tcp.hpp
+  #include <Ethernet2.h>
+#elif USE_ETHERNET_LARGE_LIB
+  #warning Using EthernetLarge Lib in nRF52_Ethernet_tcp.hpp
+  #include <EthernetLarge.h>
+#else
+  // Default to Ethernet library
+  #warning Using default Ethernet Lib in nRF52_Ethernet_tcp.hpp
+  #include <Ethernet.h>
+#endif
+//////
 
 namespace websockets2_generic
 {
   namespace network2_generic
   {
-    typedef GenericEspTcpClient<WiFiClient> WiFiNINATcpClient;
+    typedef GenericEspTcpClient<EthernetClient> EthernetTcpClient;
 
-    class SecuredWiFiNINATcpClient : public GenericEspTcpClient<WiFiSSLClient> 
+#if 0
+    // KH, no SSL support for Ethernet
+    class SecuredEthernetTcpClient : public GenericEspTcpClient<EthernetSSLClient> 
     {
       public:
         void setInsecure() 
@@ -51,7 +68,7 @@ namespace websockets2_generic
           // KH, to fix, for testing only
           //this->client.setFingerprint(fingerprint);
         }
-#if 0    
+
         void setClientRSACert(const X509List *cert, const PrivateKey *sk) 
         {
           // KH, to fix, for v1.0.0 only
@@ -62,10 +79,9 @@ namespace websockets2_generic
         {
           // KH, to fix, for v1.0.0 only
           //this->client.setTrustAnchors(ta);
-        }
-#endif    
+        }  
     };
-
+#endif
     
     #ifndef WEBSOCKETS_PORT
       #define DUMMY_PORT    8080
@@ -73,13 +89,13 @@ namespace websockets2_generic
       #define DUMMY_PORT    WEBSOCKETS_PORT
     #endif
     
-    // KH, quick fix for WiFiNINA port
+    // KH, quick fix for Ethernet port
     #define CLOSED     0
     
-    class WiFiNINATcpServer : public TcpServer 
+    class EthernetTcpServer : public TcpServer 
     {
       public:
-        WiFiNINATcpServer() : server(DUMMY_PORT) {}
+        EthernetTcpServer() : server(DUMMY_PORT) {}
         
         bool poll() override 
         {
@@ -94,8 +110,9 @@ namespace websockets2_generic
         bool listen(const uint16_t port) override 
         {
           yield();
-          // KH, to fix WiFiNINA_Generic => v1.5.3
-          server.begin(port);
+          // KH, already use WEBSOCKETS_PORT
+          //server.begin(port);
+          server.begin();
           //////
           return available();
         }
@@ -108,15 +125,20 @@ namespace websockets2_generic
             auto client = server.available();
             
             if (client) 
-              return new WiFiNINATcpClient{client};
+              return new EthernetTcpClient{client};
           }
-          return new WiFiNINATcpClient;
+          return new EthernetTcpClient;
         }
     
         bool available() override 
         {
           yield();
-          return server.status() != CLOSED;
+          
+          // KH
+          //return server.status() != CLOSED;
+          // Use EthernetServer::operator bool()
+          //return (server);
+          return true;
         }
     
         void close() override 
@@ -128,7 +150,7 @@ namespace websockets2_generic
           //////
         }
     
-        virtual ~WiFiNINATcpServer() 
+        virtual ~EthernetTcpServer() 
         {
           if (available()) close();
         }
@@ -140,7 +162,7 @@ namespace websockets2_generic
         }
     
       private:
-        WiFiServer server;
+        EthernetServer server;
     };
   }   // namespace network2_generic
 }     // namespace websockets2_generic
