@@ -9,11 +9,12 @@
 
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.0
+  Version: 1.0.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards 
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
   ESP32 Websockets Server : Minimal ESP32 Websockets Server
@@ -46,7 +47,39 @@ using namespace websockets2_generic;
 
 WebsocketsServer server;
 
-#define WEBSOCKETS_PORT     8080
+void heartBeatPrint(void)
+{
+  static int num = 1;
+
+  if (WiFi.status() == WL_CONNECTED)
+    Serial.print("H");        // H means server WiFi connected
+  else  
+    Serial.print("F");        // F means server WiFi not connected
+    
+  if (num == 80)
+  {
+    Serial.println();
+    num = 1;
+  }
+  else if (num++ % 10 == 0)
+  {
+    Serial.print(" ");
+  }
+}
+
+void check_status()
+{
+  static unsigned long checkstatus_timeout = 0;
+
+  //KH
+#define HEARTBEAT_INTERVAL    10000L
+  // Print hearbeat every HEARTBEAT_INTERVAL (10) seconds.
+  if ((millis() > checkstatus_timeout) || (checkstatus_timeout == 0))
+  {
+    heartBeatPrint();
+    checkstatus_timeout = millis() + HEARTBEAT_INTERVAL;
+  }
+}
 
 void setup()
 {
@@ -65,7 +98,13 @@ void setup()
     delay(1000);
   }
 
-  Serial.println("\nWiFi connected");
+  if (WiFi.status() == WL_CONNECTED)
+    Serial.println("\nWiFi connected");
+  else
+  {
+    Serial.println("\nNo WiFi");
+    return;
+  }
 
   server.listen(WEBSOCKETS_PORT);
   
@@ -78,9 +117,11 @@ void setup()
 }
 
 void loop()
-{
+{ 
+  check_status();
+  
   WebsocketsClient client = server.accept();
-
+ 
   if (client.available())
   {
     WebsocketsMessage msg = client.readBlocking();

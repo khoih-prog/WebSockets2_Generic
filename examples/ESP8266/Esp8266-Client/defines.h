@@ -9,11 +9,12 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.0
+  Version: 1.0.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support     
+  1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards    
  *****************************************************************************************************************************/
 
 #ifndef defines_h
@@ -27,16 +28,17 @@
 
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     2
+#define _WEBSOCKETS_LOGLEVEL_     3
 
 const char* ssid = "ssid"; //Enter SSID
 const char* password = "password"; //Enter Password
 
+//const char* websockets_server_host = "192.168.2.152"; //Enter server address
 const char* websockets_server_host = "192.168.2.95"; //Enter server address
-//const char* websockets_server_host = "192.168.2.99"; //Enter server address
-//const char* websockets_server_host = "192.168.2.105"; //Enter server address
 //const char* websockets_server_host = "serverip_or_name"; //Enter server address
 
-const uint16_t websockets_server_port = 8080; // Enter server port
+#define WEBSOCKETS_PORT   8080
+
+const uint16_t websockets_server_port = WEBSOCKETS_PORT; // Enter server port
 
 #endif      //defines_h

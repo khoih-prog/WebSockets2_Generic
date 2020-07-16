@@ -9,11 +9,12 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.0
+  Version: 1.0.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support      
+  1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards     
  *****************************************************************************************************************************/
 
 #ifndef defines_h
@@ -24,15 +25,16 @@
       || defined(ARDUINO_SAMD_MKRGSM1400) || defined(ARDUINO_SAMD_MKRNB1500) || defined(ARDUINO_SAMD_MKRVIDOR4000) || defined(__SAMD21G18A__) \
       || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
       || defined(__SAMD51G19A__) || defined(__SAMD21G18A__) )
-#if defined(WEBSOCKETS_USE_SAMD)
-#undef WEBSOCKETS_USE_SAMD
+#if defined(WEBSOCKETS_WIFININA_USE_SAMD)
+#undef WEBSOCKETS_WIFININA_USE_SAMD
 #endif
-#define WEBSOCKETS_USE_SAMD      true
+#define WEBSOCKETS_USE_WIFININA             true
+#define WEBSOCKETS_WIFININA_USE_SAMD        true
 #else
 #error This code is intended to run only on the SAMD boards ! Please check your Tools->Board setting.
 #endif
 
-#if defined(WEBSOCKETS_USE_SAMD)
+#if defined(WEBSOCKETS_WIFININA_USE_SAMD)
 
 #if defined(ARDUINO_SAMD_ZERO)
 #define BOARD_TYPE      "SAMD Zero"
@@ -78,9 +80,11 @@
 
 #endif
 
+#include <WiFiNINA_Generic.h>
+
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     2
+#define _WEBSOCKETS_LOGLEVEL_     3
 
 const char* ssid      = "ssid";       //Enter SSID
 const char* password  = "password";   //Enter Password

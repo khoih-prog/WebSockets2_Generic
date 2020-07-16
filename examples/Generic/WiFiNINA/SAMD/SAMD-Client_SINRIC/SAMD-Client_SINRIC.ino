@@ -9,11 +9,12 @@
 
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.0
+  Version: 1.0.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
   SAMD21/SAMD51 Websockets SINRIC Client
@@ -33,7 +34,6 @@
 #define DEBUG_LOCAL   2
 
 #include <WebSockets2_Generic.h>
-#include <WiFiNINA_Generic.h>
 #include <ArduinoJson.h>          // https://arduinojson.org/ or install via Arduino library manager
 
 using namespace websockets2_generic;
