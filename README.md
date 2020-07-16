@@ -20,7 +20,7 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
 
 1. Add support to ***SAM DUE*** boards.
 2. Add support to ***Ethernet W5x00, using either Ethernet, EthernetLarge or Ethernet2 library.***
-3. Restructure code to provide flexibility to support many more WiFi/Ethernet modules/shields in the future.
+3. Restructure code to provide flexibility to support many more WiFi/Ethernet modules/shields in the future. Please delete the *.cpp files, replaced by *.hpp files, in the src directory, if *.cpp files still exist after installing new version.
 
 #### New in v1.0.0
 
@@ -124,6 +124,8 @@ Whenever a new version is installed, remember to copy this file into the new ver
 This file must be copied into the directory:
 
 - `packages/arduino/hardware/sam/x.yy.zz/platform.txt`
+
+4. From v1.0.1, code is restructured to provide flexibility to support many more WiFi/Ethernet modules/shields in the future. Please delete the *.cpp files, replaced by *.hpp files, in the src directory, if *.cpp files still exist after installing new version.
 
 ---
 
@@ -840,7 +842,7 @@ Debug is enabled by default on Serial. To disable, change the _WEBSOCKETS_LOGLEV
 
 1. Add support to ***SAM DUE*** boards.
 2. Add support to ***Ethernet W5x00, using either Ethernet, EthernetLarge or Ethernet2 library.***
-3. Restructure code to provide flexibility to support many more WiFi/Ethernet modules/shields in the future.
+3. Restructure code to provide flexibility to support many more WiFi/Ethernet modules/shields in the future. Please delete the *.cpp files, replaced by *.hpp files, in the src directory, if *.cpp files still exist after installing new version.
 
 #### New in v1.0.0
 
