@@ -9,12 +9,13 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.1
+  Version: 1.0.2
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
-  1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support 
-  1.0.1   K Hoang      16/07/2020 Add support to SAM DUE. Add support to Ethernet W5x00 to nRF52, SAMD, SAM DUE boards.          
+  1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENV28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards           
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
   SAM DUE Websockets Client
@@ -64,10 +65,16 @@ void onEventsCallback(WebsocketsEvent event, String data)
 
 void setup() 
 {
+#if !(USE_UIP_ETHERNET)  
+  pinMode(SDCARD_CS, OUTPUT);
+  digitalWrite(SDCARD_CS, HIGH); // Deselect the SD card
+#endif
+  
   Serial.begin(115200);
   while (!Serial);
 
   Serial.println("\nStarting WebSockets2_Generic SAMDUE-Ethernet-Client on " + String(BOARD_TYPE));
+  Serial.println("Ethernet using " + String(ETHERNET_TYPE));
   
   // start the ethernet connection and the server:
   // Use Static IP
