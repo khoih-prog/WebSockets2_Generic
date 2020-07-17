@@ -12,9 +12,19 @@
 
 Many Web services require WebSockets library, which is so far written only for ESP8266/ESP32 boards. The ESP boards so far rely on the [Markus Sattler's WebSockets Library](https://github.com/Links2004/arduinoWebSockets) to connect to Alexa via Sinric or SinricPro skills.
 
-This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Generic) is based on and modified from [Gil Maimon's ArduinoWebSockets Library](https://github.com/gilmaimon/ArduinoWebsockets) to provide support to many more boards, such as ***Arduino SAMD21, Adafruit SAMD21/SAMD51, nRF52, STM32, Teensy, SAM DUE, etc.*** and enable those boards to use WebSockets services, including voice-control Alexa along with Blynk. Those supported boards can also run ***WebSockets Server.*** The WebSockets can be used with ***ESP’s WiFi, ESP8266/ESP32-AT, WiFiNINA, W5x00, ENC28J60 or LAN8742A Ethernet.***
+This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Generic) is based on and modified from [Gil Maimon's ArduinoWebSockets Library](https://github.com/gilmaimon/ArduinoWebsockets) to provide support to many more boards, such as ***Arduino SAMD21, Adafruit SAMD21/SAMD51, nRF52, STM32, Teensy, SAM DUE, etc.*** and enable those boards to use WebSockets services, including voice-control Alexa along with Blynk. Those supported boards can also run ***WebSockets Server.*** The WebSockets can be used with ***ESP’s WiFi, WiFiNINA, W5x00/ENC28J60/LAN8742A Ethernet, ESP8266/ESP32-AT modules/shields.***
 
 ---
+
+#### New in v1.0.2
+
+1. Add support to ***Ethernet ENC28J60, using UIPEthernet library.*** for nRF52, SAMD21/SAMD51 and SAM DUE boards.
+
+#### New in v1.0.1
+
+1. Add support to ***SAM DUE*** boards.
+2. Add support to ***Ethernet W5x00, using either Ethernet, EthernetLarge or Ethernet2 library.***
+3. Restructure code to provide flexibility to support many more WiFi/Ethernet modules/shields in the future. Please delete the *.cpp files, replaced by *.hpp files, in the src directory, if *.cpp files still exist after installing new version.
 
 #### New in v1.0.0
 
@@ -24,7 +34,8 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
 4. Add Alexa / SINRIC examples and supports to those boards as well as ESP8266/ESP32
 
 
-##### Supported features of RFC6455 #####
+#### Supported features of RFC6455 #####
+
  - text frame
  - binary frame
  - connection close
@@ -36,23 +47,23 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
  
 ## Prerequisite
  1. [`Arduino IDE 1.8.12 or later` for Arduino](https://www.arduino.cc/en/Main/Software)
- 2. [`ESP32 core 1.0.4 or later`](https://github.com/espressif/arduino-esp32/releases) for ESP32 boards. ***Ready*** in v1.0.0.
- 3. [`ESP8266 core 2.7.2 or later` for Arduino](https://github.com/esp8266/Arduino#installing-with-boards-manager) for ESP8266 boards.
- 4. `Arduino AVR core 1.8.2 or later` for Arduino (Use Arduino Board Manager). ***Ready*** in v1.0.0.
- 5. [`Teensy core 1.53 or later`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. ***Not ready*** in v1.0.0.
- 6. [`Arduino SAM DUE core 1.6.12 or later`](https://www.arduino.cc/en/Guide/ArduinoDue) for SAM DUE ARM Cortex-M3 boards. ***Not ready*** in v1.0.0.
- 7. [`Arduino SAMD core 1.8.6 or later`](https://www.arduino.cc/en/Guide/ArduinoM0) for SAMD ARM Cortex-M0+ boards. ***Ready*** in v1.0.0.
- 8. [`Adafruit SAMD core 1.5.14 or later`](https://www.adafruit.com/) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). ***Ready*** in v1.0.0.
- 9. [`Adafruit nRF52 v0.20.5 or later`](https://www.adafruit.com/) for nRF52 boards such as AdaFruit Feather nRF52840 Express, NINA_B302_ublox, NINA_B112_ubloxetc. ***Ready*** in v1.0.0.
-10. [`Arduino Core for STM32 v1.9.0 or later`](https://github.com/khoih-prog/Arduino_Core_STM32) for STM32 boards. To install go to Arduino IDE, select Boards Manager, search for ***`STM32`***. ***Not ready*** in v1.0.0.
-11. [`WiFiNINA_Generic library v1.5.3 or later`](https://github.com/khoih-prog/WiFiNINA_Generic) if necessary to use WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic). ***Ready*** in v1.0.0.
-12. Depending on which Ethernet card you're using (***Not ready*** in v1.0.0):
-   - [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) for W5200 and W5500
-   - [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2) for W5500 (Deprecated, use Arduino Ethernet library)
-   - [`Ethernet3 library`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip.
-   - [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500.
-   - [`UIPEthernet library`](https://github.com/khoih-prog/UIPEthernet) for ENC28J60
-13. [`ESP_AT_Lib library v1.0.0 or later`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). ***Not ready*** in v1.0.0.
+ 2. [`ESP32 core 1.0.4 or later`](https://github.com/espressif/arduino-esp32/releases) for ESP32 boards. ***Ready*** from v1.0.1.
+ 3. [`ESP8266 core 2.7.2 or later` for Arduino](https://github.com/esp8266/Arduino#installing-with-boards-manager) for ESP8266 boards. ***Ready*** from v1.0.1.
+ 4. `Arduino AVR core 1.8.2 or later` for Arduino (Use Arduino Board Manager). ***Ready*** in v1.0.1.
+ 5. [`Teensy core 1.53 or later`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. ***Not ready*** in v1.0.2.
+ 6. [`Arduino SAM DUE core 1.6.12 or later`](https://www.arduino.cc/en/Guide/ArduinoDue) for SAM DUE ARM Cortex-M3 boards. ***Ready*** from v1.0.1.
+ 7. [`Arduino SAMD core 1.8.6 or later`](https://www.arduino.cc/en/Guide/ArduinoM0) for SAMD ARM Cortex-M0+ boards. ***Ready*** from v1.0.0.
+ 8. [`Adafruit SAMD core 1.5.14 or later`](https://www.adafruit.com/) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). ***Ready*** from v1.0.0.
+ 9. [`Adafruit nRF52 v0.20.5 or later`](https://www.adafruit.com/) for nRF52 boards such as AdaFruit Feather nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc. ***Ready*** from v1.0.0.
+10. [`Arduino Core for STM32 v1.9.0 or later`](https://github.com/khoih-prog/Arduino_Core_STM32) for STM32 boards. To install go to Arduino IDE, select Boards Manager, search for ***`STM32`***. ***Not ready*** in v1.0.2.
+11. [`WiFiNINA_Generic library v1.5.3 or later`](https://github.com/khoih-prog/WiFiNINA_Generic) if necessary to use WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic). ***Ready*** from v1.0.0.
+12. Depending on which Ethernet card you're using :
+   - [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) for W5200 and W5500. ***Ready*** from v1.0.1.
+   - [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2) for W5500 (Deprecated, use Arduino Ethernet library). ***Ready*** from v1.0.1.
+   - [`Ethernet3 library`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. ***Not ready*** in v1.0.2.
+   - [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500. ***Ready*** in v1.0.1.
+   - [`UIPEthernet library v2.0.8 or later`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. ***Ready*** from v1.0.2.
+13. [`ESP_AT_Lib library v1.0.0 or later`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). ***Not ready*** in v1.0.2.
 
 ## Installation
 
@@ -77,25 +88,31 @@ Another way to install is to:
 
 [![arduino-library-badge](https://www.ardu-badge.com/badge/WebSockets2_Generic.svg?)](https://www.ardu-badge.com/WebSockets2_Generic)
 
+---
+
 ### Important notes
 
-1. To be able to compile and run on nRF52840 boards, you have to copy the whole [nRF52 0.20.5](https://github.com/khoih-prog/WebSockets2_Generic/tree/master/Packages_Patches/adafruit/hardware/nrf52/0.20.5) directory into Adafruit nRF52 directory (./packages/adafruit/hardware/nrf52/0.20.5). 
+1. ***To be able to compile and run on nRF52840 boards***, you have to copy the whole [nRF52 0.20.5](https://github.com/khoih-prog/WebSockets2_Generic/tree/master/Packages_Patches/adafruit/hardware/nrf52/0.20.5) directory into Adafruit nRF52 directory (./packages/adafruit/hardware/nrf52/0.20.5). 
 
 Supposing the Adafruit nRF52 version is 0.20.5. These files must be copied into the directory:
 - `packages/adafruit/hardware/nrf52/0.20.5/platform.txt`
 - `packages/adafruit/hardware/nrf52/0.20.5/boards.txt`
-- `packages/adafruit/hardware/nrf52/0.20.5/variants/variant.h`
-- `packages/adafruit/hardware/nrf52/0.20.5/variants/variant.cpp`
+- `packages/adafruit/hardware/nrf52/0.20.5/variants/NINA_B302_ublox/variant.h`
+- `packages/adafruit/hardware/nrf52/0.20.5/variants/NINA_B302_ublox/variant.cpp`
+- `packages/adafruit/hardware/nrf52/0.20.5/variants/NINA_B112_ublox/variant.h`
+- `packages/adafruit/hardware/nrf52/0.20.5/variants/NINA_B112_ublox/variant.cpp`
 
 Whenever a new version is installed, remember to copy these files into the new version directory. For example, new version is x.yy.z
 These files must be copied into the directory:
 
 - `packages/adafruit/hardware/nrf52/x.yy.z/platform.txt`
 - `packages/adafruit/hardware/nrf52/x.yy.z/boards.txt`
-- `packages/adafruit/hardware/nrf52/x.yy.z/variants/variant.h`
-- `packages/adafruit/hardware/nrf52/x.yy.z/variants/variant.cpp`
+- `packages/adafruit/hardware/nrf52/x.yy.z/variants/NINA_B302_ublox/variant.h`
+- `packages/adafruit/hardware/nrf52/x.yy.z/variants/NINA_B302_ublox/variant.cpp`
+- `packages/adafruit/hardware/nrf52/x.yy.z/variants/NINA_B112_ublox/variant.h`
+- `packages/adafruit/hardware/nrf52/x.yy.z/variants/NINA_B112_ublox/variant.cpp`
 
-2. To be able to compile and run on Teensy boards, you have to copy the file [Teensy boards.txt](https://github.com/khoih-prog/WebSockets2_Generic/blob/master/Packages_Patches/hardware/teensy/avr/boards.txt) into Teensy hardware directory (./arduino-1.8.12/hardware/teensy/avr/boards.txt). 
+2. ***To be able to compile and run on Teensy boards***, you have to copy the file [Teensy boards.txt](https://github.com/khoih-prog/WebSockets2_Generic/blob/master/Packages_Patches/hardware/teensy/avr/boards.txt) into Teensy hardware directory (./arduino-1.8.12/hardware/teensy/avr/boards.txt). 
 
 Supposing the Arduino version is 1.8.12. This file must be copied into the directory:
 
@@ -106,9 +123,9 @@ This file must be copied into the directory:
 
 - `./arduino-x.yy.zz/hardware/teensy/avr/boards.txt`
 
-3. To be able to compile and run on SAM DUE boards, you have to copy the whole [SAM DUE](https://github.com/khoih-prog/WebSockets2_Generic/tree/master/Packages_Patches/arduino/hardware/sam/1.6.12) directory into Arduino sam directory (./packages/arduino/hardware/sam/1.6.12). 
+3. ***To be able to compile and run on SAM DUE boards***, you have to copy the whole [SAM DUE](https://github.com/khoih-prog/WebSockets2_Generic/tree/master/Packages_Patches/arduino/hardware/sam/1.6.12) directory into Arduino sam directory (./packages/arduino/hardware/sam/1.6.12). 
 
-Supposing the Arduino sam version is 1.6.12. This file must be copied into the directory:
+Supposing the Arduino SAM core version is 1.6.12. This file must be copied into the directory:
 
 - `packages/arduino/hardware/sam/1.6.12/platform.txt`
 
@@ -117,6 +134,39 @@ This file must be copied into the directory:
 
 - `packages/arduino/hardware/sam/x.yy.zz/platform.txt`
 
+4. ***To be able to compile and run on nRF52 boards with ENC28J60 using UIPEthernet library***, you have to copy these following files into the UIPEthernet `utility` directory to overwrite the old files:
+
+[Enc28J60Network.h](LibraryPatches/UIPEthernet/utility/Enc28J60Network.h)
+[Enc28J60Network.cpp](LibraryPatches/UIPEthernet/utility/Enc28J60Network.cpp)
+
+5. From v1.0.1, code is restructured to provide flexibility to make it easy to support many more WiFi/Ethernet modules/shields in the future. Please delete the *.cpp files, replaced by *.hpp files, in the src directory, if *.cpp files still exist after installing new version.
+
+6. For ***Adafruit nRF52***, use the SPI's  pin as follows:
+
+  - SS/CS     = 10
+  - SPI_MOSI  = MO(SI)
+  - SPI_MISO  = MI(SO)
+  - SPI_SCK   = SCK
+
+7. For ***Adafruit SAMD21/SAMD51***, use the SPI's CS/SS pin as follows:
+
+  - Itsy-Bitsy M0/M4, Feather M0 (Express), Hallowing M0 Express, Zero, Metro M0 => use CS = 16 = pin A2
+  - Feather M4 (SAMD51)   => use SS/CS = 9
+  - Grand Central M4      => use SS/CS = 53
+  - Hallowing M4          => use SS/CS = 10
+  - Metro M4 AirLift      => use SS/CS = 36
+
+To know the default CS/SS pins of not listed boards, check the related `variant.h` files in 
+
+`packages/adafruit/hardware/samd/1.x.xx/variants/board_name/variant.h`
+
+8. For ***Arduino SAM DUE***, use the SPI's  pin as follows:
+
+  - SS/CS     = 10
+  - SPI_MOSI  = 75 (@ ICSP connector)
+  - SPI_MISO  = 74 (@ ICSP connector)
+  - SPI_SCK   = 76 (@ ICSP connector)
+  
 ---
 
 ## Basic Usage
@@ -124,17 +174,20 @@ This file must be copied into the directory:
 ### Client
 
 Creating a client and connecting to a server:
+
 ```c++
 WebsocketsClient client;
 client.connect("ws://your-server-ip:port/uri");
 ```
 
 Sending a message:
+
 ```c++
 client.send("Hello Server!");
 ```
 
 Waiting for messages:
+
 ```c++
 // run callback when messages are received
 client.onMessage([&](WebsocketsMessage message) 
@@ -155,12 +208,14 @@ void loop()
 ### Server
 
 Creating a server and listening for connections:
+
 ```c++
 WebsocketsServer server;
 server.listen(8080);
 ```
 
 Accepting connections:
+
 ```c++
 WebsocketsClient client = server.accept();
 
@@ -172,6 +227,98 @@ client.onMessage([&](WebsocketsMessage message)
   Serial.println(message.data());
 });
 ```
+
+### To use WiFiNINA module/shield with WiFiNINA_Generic library
+
+```cpp
+#define WEBSOCKETS_USE_WIFININA           true
+```
+
+### To use Ethernet W5x00 module/shield with Ethernetx library
+
+1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+#define USE_UIP_ETHERNET                  false
+```
+
+ - To use `W5x00` module/shield with `Ethernet` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+#define USE_ETHERNET_LIB                  true
+#define USE_ETHERNET2_LIB                 false
+#define USE_ETHERNET_LARGE_LIB            false
+#define USE_UIP_ETHERNET                  false
+```
+
+ - To use `W5x00` module/shield with `Ethernet2` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+#define USE_ETHERNET_LIB                  false
+#define USE_ETHERNET2_LIB                 true
+#define USE_ETHERNET_LARGE_LIB            false
+#define USE_UIP_ETHERNET                  false
+```
+ - To use` W5x00` module/shield with `EthernetLarge` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+#define USE_ETHERNET_LIB                  false
+#define USE_ETHERNET2_LIB                 false
+#define USE_ETHERNET_LARGE_LIB            true
+#define USE_UIP_ETHERNET                  false
+```
+
+2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+#define USE_UIP_ETHERNET                  true
+#define USE_ETHERNET_LIB                  false
+#define USE_ETHERNET2_LIB                 false
+#define USE_ETHERNET_LARGE_LIB            false
+```
+
+3. It's much easier just add to the sketch
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+
+// Just select one to be true. If all is false, default is Ethernet. 
+// If more than one are true, the priority is USE_ETHERNET_LIB, USE_ETHERNET2_LIB, USE_ETHERNET_LARGE_LIB, USE_UIP_ETHERNET
+#define USE_ETHERNET_LIB              false
+#define USE_ETHERNET2_LIB             false
+#define USE_ETHERNET_LARGE_LIB        false
+
+#define USE_UIP_ETHERNET              true
+
+#if USE_ETHERNET_LIB
+  // Also default to Ethernet library
+  #include <Ethernet.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+#elif USE_ETHERNET2_LIB
+  #include <Ethernet2.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet2 Library"
+#elif USE_ETHERNET_LARGE_LIB
+  #include <EthernetLarge.h>
+  #define ETHERNET_TYPE               "W5x00 and EthernetLarge Library"
+#elif USE_UIP_ETHERNET
+  #include <UIPEthernet.h>
+  #include <utility/logging.h> 
+  #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
+#else
+  // Default to Ethernet library
+  #include <Ethernet.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+#endif
+```
+
+### To use ESP8266/ESP32 native WiFi
+
+Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything special.
 
 ---
 
@@ -198,15 +345,36 @@ client.onMessage([&](WebsocketsMessage message)
 
 1. [nRF52-Client](examples/Generic/WiFiNINA/nRF52/nRF52-Client)
 2. [nRF52-Minimal-Client](examples/Generic/WiFiNINA/nRF52/nRF52-Minimal-Client)
-4. [nRF52-Client_SINRIC](examples/Generic/WiFiNINA/nRF52/nRF52-Client_SINRIC)
-5. [nRF52-Server](examples/Generic/WiFiNINA/nRF52/nRF52-Server)
+3. [nRF52-Client_SINRIC](examples/Generic/WiFiNINA/nRF52/nRF52-Client_SINRIC)
+4. [nRF52-Server](examples/Generic/WiFiNINA/nRF52/nRF52-Server)
 
 ##### For SAMD21/SAMD51 boards using WiFiNINA
 
 1. [SAMD-Client](examples/Generic/WiFiNINA/SAMD/SAMD-Client)
 2. [SAMD-Minimal-Client](examples/Generic/WiFiNINA/SAMD/SAMD-Minimal-Client)
-4. [SAMD-Client_SINRIC](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC)
-5. [SAMD-Server](examples/Generic/WiFiNINA/SAMD/SAMD-Server)
+3. [SAMD-Client_SINRIC](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC)
+4. [SAMD-Server](examples/Generic/WiFiNINA/SAMD/SAMD-Server)
+
+##### For nRF52 boards using Ethernet (W5x00 or ENC28J60)
+
+1. [nRF52-Ethernet-Client](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Client)
+2. [nRF52-Ethernet-Minimal-Client](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Minimal-Client)
+3. [nRF52-Ethernet-Client_SINRIC](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Client_SINRIC)
+4. [nRF52-Ethernet-Server](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Server)
+
+##### For SAMD21/SAMD51 boards using Ethernet (W5x00 or ENC28J60)
+
+1. [SAMD-Ethernet-Client](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Client)
+2. [SAMD-Ethernet-Minimal-Client](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Minimal-Client)
+3. [SAMD-Ethernet-Client_SINRIC](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Client_SINRIC)
+4. [SAMD-Ethernet-Server](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Server)
+
+##### For SAM-DUE boards using Ethernet (W5x00 or ENC28J60)
+
+1. [SAMDUE-Ethernet-Client](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Client)
+2. [SAMDUE-Ethernet-Minimal-Client](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Minimal-Client)
+3. [SAMDUE-Ethernet-Client_SINRIC](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Client_SINRIC)
+4. [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server)
 
 ---
 
@@ -222,7 +390,6 @@ Please take a look at other examples, as well.
 #define DEBUG_LOCAL   2
 
 #include <WebSockets2_Generic.h>
-#include <WiFiNINA_Generic.h>
 #include <ArduinoJson.h>          // https://arduinojson.org/ or install via Arduino library manager
 
 using namespace websockets2_generic;
@@ -372,7 +539,7 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting WebSockets2_Generic SAMD-Client_SINRIC on " + String(BOARD_TYPE));
+  Serial.println("\nStarting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on " + String(BOARD_TYPE));
 
   // Connect to wifi
   WiFi.begin(ssid, password);
@@ -443,15 +610,16 @@ void loop()
       || defined(ARDUINO_SAMD_MKRGSM1400) || defined(ARDUINO_SAMD_MKRNB1500) || defined(ARDUINO_SAMD_MKRVIDOR4000) || defined(__SAMD21G18A__) \
       || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
       || defined(__SAMD51G19A__) || defined(__SAMD21G18A__) )
-#if defined(WEBSOCKETS_USE_SAMD)
-#undef WEBSOCKETS_USE_SAMD
+#if defined(WEBSOCKETS_WIFININA_USE_SAMD)
+#undef WEBSOCKETS_WIFININA_USE_SAMD
 #endif
-#define WEBSOCKETS_USE_SAMD      true
+#define WEBSOCKETS_USE_WIFININA             true
+#define WEBSOCKETS_WIFININA_USE_SAMD        true
 #else
 #error This code is intended to run only on the SAMD boards ! Please check your Tools->Board setting.
 #endif
 
-#if defined(WEBSOCKETS_USE_SAMD)
+#if defined(WEBSOCKETS_WIFININA_USE_SAMD)
 
 #if defined(ARDUINO_SAMD_ZERO)
 #define BOARD_TYPE      "SAMD Zero"
@@ -497,6 +665,12 @@ void loop()
 
 #endif
 
+#include <WiFiNINA_Generic.h>
+
+#define DEBUG_WEBSOCKETS_PORT     Serial
+// Debug Level from 0 to 4
+#define _WEBSOCKETS_LOGLEVEL_     3
+
 const char* ssid      = "ssid";       //Enter SSID
 const char* password  = "password";   //Enter Password
 
@@ -523,7 +697,7 @@ const uint16_t websockets_server_port = SINRIC_WEBSERVER_PORT; // Enter server p
 This is the terminal output when running [SAMD-Client_SINRIC](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC) example on ***Nano-33 IoT***:
 
 ```
-Starting WebSockets2_Generic SAMD-Client_SINRIC on SAMD NANO_33_IOT
+Starting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on SAMD NANO_33_IOT
 WiFi-begin: return1 = 3
 WiFi-begin: return2 = 3
 Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
@@ -577,7 +751,7 @@ The next sections describe board-specific code for using WSS with the library.
 
 ### ESP8266
 
-With the esp8266 there are 2 ways for using WSS. By default, `WebSockets2_Generic` does not validate the certificate chain. This can be set explicitly using:
+With the ESP8266 there are 2 ways for using WSS. By default, `WebSockets2_Generic` does not validate the certificate chain. This can be set explicitly using:
 
 ```c++
 client.setInsecure();
@@ -596,7 +770,7 @@ client.setFingerprint(ssl_fingerprint);
 
 ### ESP32
 
-With the esp32 you could either provide the full certificate, or provide no certificate. An example for setting CA Certificate:
+With the ESP32 you could either provide the full certificate, or provide no certificate. An example for setting CA Certificate:
 
 ```c++
 const char ssl_ca_cert[] PROGMEM = \
@@ -632,43 +806,132 @@ client.setCACert(ssl_ca_cert);
 ```
 ---
 
-This is terminal debug output when running SAMD-Client_SINRIC.ino on SAMD21 Nano-33-IoT with WiFiNINA
+### Debug Termimal Output Samples
+
+1. This is terminal debug output when running [SAMD-Ethernet-Client_SINRIC](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Client_SINRIC) on SAMD51 ***Adafruit Itsy-Bitsy M4 Express using ENC28J60 Ethernet module.***
 
 ```
-Starting WebSockets2_Generic SAMD-Client_SINRIC on SAMD NANO_33_IOT
-..Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
-WebsocketsClient::generateHandshake: base64Authorization = ****
-WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
+Starting WebSockets2_Generic SAMD-Ethernet-Client_SINRIC on SAMD ADAFRUIT_ITSYBITSY_M4_EXPRESS
+Ethernet using ENC28J60 and UIPEthernet Library
+[SETUP] BOOT WAIT 4
+[SETUP] BOOT WAIT 3
+[SETUP] BOOT WAIT 2
+[SETUP] BOOT WAIT 1
+ENC28J60_CONTROL_CS =16
+SS =16
+SPI_MOSI =25
+SPI_MISO =23
+SPI_SCK =24
+WebSockets Client IP address: 192.168.2.137
+Connecting to WebSockets Server @iot.sinric.com
+[WS] WebsocketsClient::generateHandshake: base64Authorization = ********
+[WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
 Host: iot.sinric.com
-Sec-WebSocket-Key: ****
+Sec-WebSocket-Key: ********
 apikey: 11111111-2222-3333-4444-555555555555
 Upgrade: websocket
 Connection: Upgrade
 Sec-WebSocket-Version: 13
 User-Agent: TinyWebsockets Client
-Authorization: Basic ****
-WebsocketsClient::connect: base64Authorization = ****
-WebsocketsClient::doestStartsWith: str = HTTP/1.1 101 Switching Protocols
-WebsocketsClient::doestStartsWith: prefix = HTTP/1.1 101
-WebsocketsClient::parseHandshakeResponse: key = Server
-WebsocketsClient::parseHandshakeResponse: value = nginx/1.10.3 (Ubuntu)
-WebsocketsClient::parseHandshakeResponse: key = Date
-WebsocketsClient::parseHandshakeResponse: value = Mon, 13 Jul 2020 18:54:28 GMT
-WebsocketsClient::parseHandshakeResponse: key = Connection
-WebsocketsClient::parseHandshakeResponse: value = upgrade
-WebsocketsClient::parseHandshakeResponse: key = Upgrade
-WebsocketsClient::parseHandshakeResponse: value = websocket
-WebsocketsClient::parseHandshakeResponse: key = Sec-WebSocket-Accept
-WebsocketsClient::parseHandshakeResponse: value = ****
+Authorization: Basic ********
+Origin: https://github.com/khoih-prog/Websockets2_Generic
+
+[WS] WebsocketsClient::connect: base64Authorization = ********
+[WS] WebsocketsClient::doestStartsWith: str = HTTP/1.1 101 Switching Protocols
+
+[WS] WebsocketsClient::doestStartsWith: prefix = HTTP/1.1 101
+[WS] WebsocketsClient::generateHandshake: key = Server
+[WS] WebsocketsClient::generateHandshake: value = nginx/1.10.3 (Ubuntu)
+[WS] WebsocketsClient::generateHandshake: key = Date
+[WS] WebsocketsClient::generateHandshake: value = Fri, 17 Jul 2020 00:04:17 GMT
+[WS] WebsocketsClient::generateHandshake: key = Connection
+[WS] WebsocketsClient::generateHandshake: value = upgrade
+[WS] WebsocketsClient::generateHandshake: key = Upgrade
+[WS] WebsocketsClient::generateHandshake: value = websocket
+[WS] WebsocketsClient::generateHandshake: key = Sec-WebSocket-Accept
+[WS] WebsocketsClient::generateHandshake: value = ********
 Connected!
 Got Message: {"deviceId":"012345678901234567890123","action":"setPowerState","value":"ON"}
 Turn on device id: 012345678901234567890123
 Got Message: {"deviceId":"012345678901234567890123","action":"setPowerState","value":"OFF"}
 Turn off Device ID: 012345678901234567890123
 ```
+
+2. This is terminal debug output when running [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server) on ***SAM DUE board with Ethernet W5100 shield using EthernetLarge library***, and receiving WebSockets connection from an ESP8266 board.
+
+```
+Starting WebSockets2_Generic SAMDUE-Ethernet-Server on SAM DUE
+Ethernet using W5x00 and EthernetLarge Library
+[SETUP] BOOT WAIT 4
+[SETUP] BOOT WAIT 3
+[SETUP] BOOT WAIT 2
+[SETUP] BOOT WAIT 1
+
+W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
+W5100::init: W5100, SSIZE =4096
+WebSockets Server Running and Ready on SAM DUE
+IP address: 192.168.2.153, Port: 8080
+H[WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.153
+[WS] WebsocketsServer::recvHandshakeRequest: value = ********
+[WS] WebsocketsServer::recvHandshakeRequest: value = websocket
+[WS] WebsocketsServer::recvHandshakeRequest: value = Upgrade
+[WS] WebsocketsServer::recvHandshakeRequest: value = 13
+[WS] WebsocketsServer::recvHandshakeRequest: value = TinyWebsockets Client
+[WS] WebsocketsServer::recvHandshakeRequest: value = Basic 
+[WS] WebsocketsServer::recvHandshakeRequest: value = https://github.com/khoih-prog/Websockets2_Generic
+Got Message: Hello to Server from ESP8266
+[WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.153
+[WS] WebsocketsServer::recvHandshakeRequest: value = ********
+[WS] WebsocketsServer::recvHandshakeRequest: value = websocket
+[WS] WebsocketsServer::recvHandshakeRequest: value = Upgrade
+[WS] WebsocketsServer::recvHandshakeRequest: value = 13
+[WS] WebsocketsServer::recvHandshakeRequest: value = TinyWebsockets Client
+[WS] WebsocketsServer::recvHandshakeRequest: value = Basic 
+[WS] WebsocketsServer::recvHandshakeRequest: value = https://github.com/khoih-prog/Websockets2_Generic
+Got Message: Hello to Server from ESP8266
+HHHHHHHHH
+```
+
+3. This is terminal debug output when running [nRF52-Ethernet-Server](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Server) on ***Adafruit nRF52840 Itsy-Bitsy Express board with Ethernet ENC28J60 shield using UIPEthernet library***, and receiving WebSockets connection from an ESP8266 board.
+
+```
+Starting WebSockets2_Generic nRF52-Ethernet-Server on NRF52840_ITSYBITSY_EXPRESS
+Ethernet using ENC28J60 and UIPEthernet Library
+[SETUP] BOOT WAIT 4
+[SETUP] BOOT WAIT 3
+[SETUP] BOOT WAIT 2
+[SETUP] BOOT WAIT 1
+ENC28J60_CONTROL_CS =10
+SS =5
+SPI_MOSI =24
+SPI_MISO =23
+SPI_SCK =25
+WebSockets Server Running and Ready on NRF52840_ITSYBITSY_EXPRESS
+IP address: 192.168.2.95, Port: 8080
+H[WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.95
+[WS] WebsocketsServer::recvHandshakeRequest: value = ********
+[WS] WebsocketsServer::recvHandshakeRequest: value = websocket
+[WS] WebsocketsServer::recvHandshakeRequest: value = Upgrade
+[WS] WebsocketsServer::recvHandshakeRequest: value = 13
+[WS] WebsocketsServer::recvHandshakeRequest: value = TinyWebsockets Client
+[WS] WebsocketsServer::recvHandshakeRequest: value = Basic 
+[WS] WebsocketsServer::recvHandshakeRequest: value = https://github.com/khoih-prog/Websockets2_Generic
+Got Message: Hello to Server from ESP8266
+[WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.95
+[WS] WebsocketsServer::recvHandshakeRequest: value = ********
+[WS] WebsocketsServer::recvHandshakeRequest: value = websocket
+[WS] WebsocketsServer::recvHandshakeRequest: value = Upgrade
+[WS] WebsocketsServer::recvHandshakeRequest: value = 13
+[WS] WebsocketsServer::recvHandshakeRequest: value = TinyWebsockets Client
+[WS] WebsocketsServer::recvHandshakeRequest: value = Basic 
+[WS] WebsocketsServer::recvHandshakeRequest: value = https://github.com/khoih-prog/Websockets2_Generic
+Got Message: Hello to Server from ESP8266
+HHHHHHHHH
+```
+
 ---
 
-#### Debug
+### Debug
 
 Debug is enabled by default on Serial. To disable, change the _WEBSOCKETS_LOGLEVEL_ to 0
 
@@ -678,17 +941,17 @@ Debug is enabled by default on Serial. To disable, change the _WEBSOCKETS_LOGLEV
 // Use this to disable all output debug msgs
 //#define DEBUG_WEBSOCKETS_PORT
 // Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     2
+#define _WEBSOCKETS_LOGLEVEL_     3
 ```
 
 ---
 
 ### TO DO
 
- 1. Support more boards (SAM DUE, STM32F, Teensy, AVR, etc.)
- 2. Support Ethernet shields (W5x00, ENC28J60, LAN8742A, LAN8720, etc.)
+ 1. Support more boards (STM32F, Teensy, AVR, etc.)
+ 2. Support Ethernet shields (LAN8742A, LAN8720, etc.)
  3. Support ESP8266/ESP32-AT shields.
- 4. Add SSL support to SAMD and nRF52 using WiFiNINA
+ 4. Add SSL support to SAMD and nRF52 using WiFiNINA.
 
 ### DONE
 
@@ -697,8 +960,21 @@ Debug is enabled by default on Serial. To disable, change the _WEBSOCKETS_LOGLEV
  3. Add support to WiFiNINA.
  4. Add support to SINRIC.
  5. Split each example into several manageable files.
+ 6. Add support to SAM DUE.
+ 7. Add support to Ethernet W5x00, using either Ethernet, Ethernet2 or EthernetLarge library
+ 8. Add support to Ethernet ENC28J60, using UIPEthernet library
  
 ---
+
+#### New in v1.0.2
+
+1. Add support to ***Ethernet ENC28J60, using UIPEthernet library.*** for nRF52, SAMD21/SAMD51 and SAM DUE boards.
+
+#### New in v1.0.1
+
+1. Add support to ***SAM DUE*** boards.
+2. Add support to ***Ethernet W5x00, using either Ethernet, EthernetLarge or Ethernet2 library.***
+3. Restructure code to provide flexibility to support many more WiFi/Ethernet modules/shields in the future. Please delete the *.cpp files, replaced by *.hpp files, in the src directory, if *.cpp files still exist after installing new version.
 
 #### New in v1.0.0
 
@@ -708,6 +984,7 @@ Debug is enabled by default on Serial. To disable, change the _WEBSOCKETS_LOGLEV
 4. Add Alexa / SINRIC examples and supports to those boards as well as ESP8266/ESP32
 5. Add support to WiFiNINA.
 
+---
 
 ### Issues ###
 
@@ -716,6 +993,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 ### Contributions and thanks
 
 1. Based on and modified from [Gil Maimon's ArduinoWebsockets](https://github.com/gilmaimon/ArduinoWebsockets)
+2. Thanks to good work of [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) for initiating, inspriring, working with, developing, debugging and testing. Without that, support to nRF52, especially ***U-Blox B302 running as nRF52840 and U-Blox B112 running as nRF52832***, has never been started and finished. See [u-blox nina b](https://github.com/khoih-prog/WiFiNINA_Generic/issues/1)
 
 ## Contributing
 
@@ -728,10 +1006,15 @@ If you want to contribute to this project:
 
 ### License and credits ###
 
-- All credits go to original author [Gil Maimon](https://github.com/gilmaimon) as well as contributors in original library [ArduinoWebsockets Contributors](https://github.com/gilmaimon/ArduinoWebsockets#contributors)
+- Most of the credits go to original author [Gil Maimon](https://github.com/gilmaimon) as well as contributors in original library [ArduinoWebsockets Contributors](https://github.com/gilmaimon/ArduinoWebsockets#contributors)
 
 - The library is licensed under [GPLv3.0](https://github.com/gilmaimon/ArduinoWebsockets/blob/master/LICENSE) and [MIT](https://github.com/khoih-prog/WebSockets2_Generic/blob/master/LICENSE)
 
 - `base64` written by René Nyffenegger.
+
+### Copyright
+
+1. Copyright (c) 2019- Gil Maimon
+2. Copyright (c) 2020- Khoi Hoang
 
 
