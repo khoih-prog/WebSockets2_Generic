@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  nRF52_WiFiNINA_tcp.hpp
-  For nRF52 boards with WiFiNINA module/shield.
+  SAMD_UIPEthernet_tcp.hpp
+  For SAMD boards with UIPEthernet ENC28J60 module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
@@ -15,14 +15,16 @@
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENV28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards      
+  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENV28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards     
  *****************************************************************************************************************************/
  
 #pragma once
 
-#if ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
-      defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
-      defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
+#if    ( defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000) || defined(ARDUINO_SAMD_MKRWIFI1010) \
+      || defined(ARDUINO_SAMD_NANO_33_IOT) || defined(ARDUINO_SAMD_MKRFox1200) || defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310) \
+      || defined(ARDUINO_SAMD_MKRGSM1400) || defined(ARDUINO_SAMD_MKRNB1500) || defined(ARDUINO_SAMD_MKRVIDOR4000) || defined(__SAMD21G18A__) \
+      || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
+      || defined(__SAMD51G19A__) || defined(__SAMD21G18A__) )
       
 
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
@@ -30,15 +32,28 @@
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-#include <WiFiNINA_Generic.h>
+// KH, from v1.0.2
+#if USE_UIP_ETHERNET
+  #warning Using UIPEthernet Lib in SAMD_UIPEthernet_tcp.hpp
+  #include <UIPEthernet.h>
+  #include <utility/logging.h> 
+#else
+  // Default to UIPEthernet library
+  #warning default UIPEthernet Lib in SAMD_UIPEthernet_tcp.hpp
+  #include <UIPEthernet.h>
+  #include <utility/logging.h> 
+#endif
+//////
 
 namespace websockets2_generic
 {
   namespace network2_generic
   {
-    typedef GenericEspTcpClient<WiFiClient> WiFiNINATcpClient;
+    typedef GenericEspTcpClient<EthernetClient> EthernetTcpClient;
 
-    class SecuredWiFiNINATcpClient : public GenericEspTcpClient<WiFiSSLClient> 
+#if 0
+    // KH, no SSL support for Ethernet
+    class SecuredEthernetTcpClient : public GenericEspTcpClient<EthernetSSLClient> 
     {
       public:
         void setInsecure() 
@@ -52,7 +67,7 @@ namespace websockets2_generic
           // KH, to fix, for testing only
           //this->client.setFingerprint(fingerprint);
         }
-#if 0    
+
         void setClientRSACert(const X509List *cert, const PrivateKey *sk) 
         {
           // KH, to fix, for v1.0.0 only
@@ -63,10 +78,9 @@ namespace websockets2_generic
         {
           // KH, to fix, for v1.0.0 only
           //this->client.setTrustAnchors(ta);
-        }
-#endif    
+        }  
     };
-
+#endif
     
     #ifndef WEBSOCKETS_PORT
       #define DUMMY_PORT    8080
@@ -74,13 +88,13 @@ namespace websockets2_generic
       #define DUMMY_PORT    WEBSOCKETS_PORT
     #endif
     
-    // KH, quick fix for WiFiNINA port
+    // KH, quick fix for Ethernet port
     #define CLOSED     0
     
-    class WiFiNINATcpServer : public TcpServer 
+    class EthernetTcpServer : public TcpServer 
     {
       public:
-        WiFiNINATcpServer() : server(DUMMY_PORT) {}
+        EthernetTcpServer() : server(DUMMY_PORT) {}
         
         bool poll() override 
         {
@@ -95,8 +109,9 @@ namespace websockets2_generic
         bool listen(const uint16_t port) override 
         {
           yield();
-          // KH, to fix WiFiNINA_Generic => v1.5.3
-          server.begin(port);
+          // KH, already use WEBSOCKETS_PORT
+          //server.begin(port);
+          server.begin();
           //////
           return available();
         }
@@ -109,15 +124,20 @@ namespace websockets2_generic
             auto client = server.available();
             
             if (client) 
-              return new WiFiNINATcpClient{client};
+              return new EthernetTcpClient{client};
           }
-          return new WiFiNINATcpClient;
+          return new EthernetTcpClient;
         }
     
         bool available() override 
         {
           yield();
-          return server.status() != CLOSED;
+          
+          // KH
+          //return server.status() != CLOSED;
+          // Use EthernetServer::operator bool()
+          //return (server);
+          return true;
         }
     
         void close() override 
@@ -129,7 +149,7 @@ namespace websockets2_generic
           //////
         }
     
-        virtual ~WiFiNINATcpServer() 
+        virtual ~EthernetTcpServer() 
         {
           if (available()) close();
         }
@@ -141,7 +161,7 @@ namespace websockets2_generic
         }
     
       private:
-        WiFiServer server;
+        EthernetServer server;
     };
   }   // namespace network2_generic
 }     // namespace websockets2_generic
