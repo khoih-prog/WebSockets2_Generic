@@ -24,16 +24,16 @@
 #if ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
       defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
       defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
-#if defined(WEBSOCKETS_ETHERNET_USE_SAMD)
-#undef WEBSOCKETS_ETHERNET_USE_SAMD
+#if defined(WEBSOCKETS_ETHERNET_USE_NRF52)
+#undef WEBSOCKETS_ETHERNET_USE_NRF52
 #endif
 #define WEBSOCKETS_USE_ETHERNET           true
-#define WEBSOCKETS_ETHERNET_USE_SAMD      true
+#define WEBSOCKETS_ETHERNET_USE_NRF52     true
 #else
-#error This code is intended to run only on the SAMD boards ! Please check your Tools->Board setting.
+#error This code is intended to run only on the nRF52 boards ! Please check your Tools->Board setting.
 #endif
 
-#if defined(WEBSOCKETS_ETHERNET_USE_SAMD)
+#if defined(WEBSOCKETS_ETHERNET_USE_NRF52)
 
 #if defined(NRF52840_FEATHER)
 #define BOARD_TYPE      "NRF52840_FEATHER_EXPRESS"
