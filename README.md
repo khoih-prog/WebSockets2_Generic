@@ -49,7 +49,7 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
  1. [`Arduino IDE 1.8.12 or later` for Arduino](https://www.arduino.cc/en/Main/Software)
  2. [`ESP32 core 1.0.4 or later`](https://github.com/espressif/arduino-esp32/releases) for ESP32 boards. ***Ready*** from v1.0.1.
  3. [`ESP8266 core 2.7.2 or later` for Arduino](https://github.com/esp8266/Arduino#installing-with-boards-manager) for ESP8266 boards. ***Ready*** from v1.0.1.
- 4. `Arduino AVR core 1.8.2 or later` for Arduino (Use Arduino Board Manager). ***Ready*** in v1.0.1.
+ 4. `Arduino AVR core 1.8.2 or later` for Arduino (Use Arduino Board Manager).
  5. [`Teensy core 1.53 or later`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. ***Not ready*** in v1.0.2.
  6. [`Arduino SAM DUE core 1.6.12 or later`](https://www.arduino.cc/en/Guide/ArduinoDue) for SAM DUE ARM Cortex-M3 boards. ***Ready*** from v1.0.1.
  7. [`Arduino SAMD core 1.8.6 or later`](https://www.arduino.cc/en/Guide/ArduinoM0) for SAMD ARM Cortex-M0+ boards. ***Ready*** from v1.0.0.
@@ -61,7 +61,7 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
    - [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) for W5200 and W5500. ***Ready*** from v1.0.1.
    - [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2) for W5500 (Deprecated, use Arduino Ethernet library). ***Ready*** from v1.0.1.
    - [`Ethernet3 library`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. ***Not ready*** in v1.0.2.
-   - [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500. ***Ready*** in v1.0.1.
+   - [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500. ***Ready*** from v1.0.1.
    - [`UIPEthernet library v2.0.8 or later`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. ***Ready*** from v1.0.2.
 13. [`ESP_AT_Lib library v1.0.0 or later`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). ***Not ready*** in v1.0.2.
 
@@ -136,8 +136,8 @@ This file must be copied into the directory:
 
 4. ***To be able to compile and run on nRF52 boards with ENC28J60 using UIPEthernet library***, you have to copy these following files into the UIPEthernet `utility` directory to overwrite the old files:
 
-[Enc28J60Network.h](LibraryPatches/UIPEthernet/utility/Enc28J60Network.h)
-[Enc28J60Network.cpp](LibraryPatches/UIPEthernet/utility/Enc28J60Network.cpp)
+  - [Enc28J60Network.h](LibraryPatches/UIPEthernet/utility/Enc28J60Network.h)
+  - [Enc28J60Network.cpp](LibraryPatches/UIPEthernet/utility/Enc28J60Network.cpp)
 
 5. From v1.0.1, code is restructured to provide flexibility to make it easy to support many more WiFi/Ethernet modules/shields in the future. Please delete the *.cpp files, replaced by *.hpp files, in the src directory, if *.cpp files still exist after installing new version.
 
@@ -158,14 +158,14 @@ This file must be copied into the directory:
 
 To know the default CS/SS pins of not listed boards, check the related `variant.h` files in 
 
-`packages/adafruit/hardware/samd/1.x.xx/variants/board_name/variant.h`
+`packages/adafruit/hardware/samd/x.y.zz/variants/board_name/variant.h`
 
 8. For ***Arduino SAM DUE***, use the SPI's  pin as follows:
 
   - SS/CS     = 10
-  - SPI_MOSI  = 75 (@ ICSP connector)
-  - SPI_MISO  = 74 (@ ICSP connector)
-  - SPI_SCK   = 76 (@ ICSP connector)
+  - SPI_MOSI  = 75 ( pin 4 @ [ICSP connector](pics/ICSP_connector.jpg) )
+  - SPI_MISO  = 74 ( pin 1 @ [ICSP connector](pics/ICSP_connector.jpg) )
+  - SPI_SCK   = 76 ( pin 3 @ [ICSP connector](pics/ICSP_connector.jpg) )
   
 ---
 
