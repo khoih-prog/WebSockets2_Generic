@@ -167,6 +167,10 @@ To know the default CS/SS pins of not listed boards, check the related `variant.
   - SPI_MISO  = 74 ( pin 1 @ [ICSP connector](pics/ICSP_connector.jpg) )
   - SPI_SCK   = 76 ( pin 3 @ [ICSP connector](pics/ICSP_connector.jpg) )
   
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/ICSP_connector.jpg">
+</p>
+  
 ---
 
 ## Basic Usage
@@ -236,6 +240,18 @@ client.onMessage([&](WebsocketsMessage message)
 
 ### To use Ethernet W5x00 module/shield with Ethernetx library
 
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/W5500.jpg">
+</p>
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/W5500_1.jpg">
+</p>
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/W5100.jpg">
+</p>
+
 1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
 
 ```cpp
@@ -273,6 +289,10 @@ client.onMessage([&](WebsocketsMessage message)
 ```
 
 2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/ENC28J60.jpg">
+</p>
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
