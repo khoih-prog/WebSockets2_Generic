@@ -9,13 +9,14 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.2
+  Version: 1.0.3
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENV28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards       
+  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A    
  *****************************************************************************************************************************/
 
 #ifndef _MESSAGE_HPP_
@@ -23,26 +24,30 @@
 
 #pragma once
 
+#include <Tiny_Websockets_Generic/internals/data_frame.hpp>
+
 // KH, from v1.0.1
 #if WEBSOCKETS_USE_ETHERNET
   #if USE_UIP_ETHERNET
     // KH, from v1.0.2
-    #warning WEBSOCKETS_USE_ETHERNET and USE_UIP_ETHERNET in client.hpp
+    #warning WEBSOCKETS_USE_ETHERNET and USE_UIP_ETHERNET in message.hpp
     #include <Tiny_Websockets_Generic/internals/ws_common_UIPEthernet.hpp>
+  #elif USE_LAN8742A_ETHERNET
+    // KH, from v1.0.3
+    #warning WEBSOCKETS_USE_ETHERNET and USE_LAN8742A_ETHERNET in message.hpp
+    #include <Tiny_Websockets_Generic/internals/ws_common_LAN8742AEthernet.hpp>
   #else
-    #warning WEBSOCKETS_USE_ETHERNET in client.hpp
+    #warning WEBSOCKETS_USE_ETHERNET in message.hpp
     #include <Tiny_Websockets_Generic/internals/ws_common_Ethernet_W5x00.hpp>
   #endif
 #elif WEBSOCKETS_USE_WIFININA
-  #warning WEBSOCKETS_USE_WIFININA in client.hpp
+  #warning WEBSOCKETS_USE_WIFININA in message.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common_WiFiNINA.hpp>
 #else
-  #warning WEBSOCKETS_USE_ESP_WIFI in client.hpp
+  #warning WEBSOCKETS_USE_ESP_WIFI in message.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common.hpp>  
 #endif
 //////
-
-#include <Tiny_Websockets_Generic/internals/data_frame.hpp>
 
 namespace websockets2_generic
 {

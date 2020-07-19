@@ -9,13 +9,14 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.2
+  Version: 1.0.3
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENV28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards      
+  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A
  *****************************************************************************************************************************/
  
 #pragma once
@@ -96,5 +97,23 @@ namespace websockets2_generic
     // OpenSSL Dependent
     #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
     #endif //_WS_CONFIG_NO_SSL    
+ 
+ #elif ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) )
+    // From v1.0.3
+  
+    // Using Ethernet W5x00
+    #warning Using Ethernet for STM32 in ws_common_Ethernet_W5x00.hpp
     
+    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+    #define _WS_CONFIG_NO_SSL   true
+    
+    #include <Tiny_Websockets_Generic/network/STM32_Ethernet_W5x00/STM32_Ethernet_W5x00_tcp.hpp>
+    #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+    #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+    
+    #ifndef _WS_CONFIG_NO_SSL
+    // OpenSSL Dependent
+    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+    #endif //_WS_CONFIG_NO_SSL   
+       
   #endif  
