@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  SAMDUE-Ethernet-Client_SINRIC.ino
-  For SAM DUE with Ethernet module/shield, using SINRIC (https://sinric.com/)
+  STM32-Ethernet-Client_SINRIC.ino
+  For STM32 with Ethernet module/shield, using SINRIC (https://sinric.com/)
 
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
@@ -16,10 +16,10 @@
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
-  SAM DUE Websockets SINRIC Client
+  STM32 Websockets SINRIC Client
 
   This sketch:
         1. Connects to a WiFi network
@@ -40,7 +40,7 @@
 
 using namespace websockets2_generic;
 
-WebsocketsClient client;
+WebsocketsClient* client;
 
 #define HEARTBEAT_INTERVAL      300000 // 5 Minutes 
 
@@ -179,7 +179,7 @@ void onMessagesCallback(WebsocketsMessage message)
 
 void setup()
 {
-#if (USE_ETHERNET_LIB || USE_ETHERNET2_LIB || USE_ETHERNET_LARGE_LIB)
+#if (USE_ETHERNET_LIB || USE_ETHERNET2_LIB || USE_ETHERNET_LARGE_LIB)  
   pinMode(SDCARD_CS, OUTPUT);
   digitalWrite(SDCARD_CS, HIGH); // Deselect the SD card
 #endif
@@ -188,16 +188,16 @@ void setup()
   digitalWrite(LED_PIN, LOW);
   
   Serial.begin(115200);
-  while (!Serial);
+  //while (!Serial);
 
-  Serial.println("\nStarting WebSockets2_Generic SAMDUE-Ethernet-Client_SINRIC on " + String(BOARD_NAME));
+  Serial.println("\nStarting WebSockets2_Generic STM32-Ethernet-Client_SINRIC on " + String(BOARD_NAME));
   Serial.println("Ethernet using " + String(ETHERNET_TYPE));
 
-  for (uint8_t t = 2; t > 0; t--)
+  for (uint8_t t = 4; t > 0; t--)
   {
     Serial.println("[SETUP] BOOT WAIT " + String(t));
     Serial.flush();
-    delay(500);
+    delay(1000);
   }
 
   // start the ethernet connection and the server:
@@ -212,14 +212,16 @@ void setup()
   Serial.print("Connecting to WebSockets Server @");
   Serial.println(websockets_server_host);
 
+  client = new WebsocketsClient;
+
   // run callback when events are occuring
-  client.onMessage(onMessagesCallback);
+  client->onMessage(onMessagesCallback);
 
   // try to connect to Websockets server
-  client.addHeader("apikey", SINRIC_API_KEY);
-  client.setAuthorization("apikey", SINRIC_API_KEY);
+  client->addHeader("apikey", SINRIC_API_KEY);
+  client->setAuthorization("apikey", SINRIC_API_KEY);
 
-  bool connected = client.connect(websockets_server_host, websockets_server_port, "/");
+  bool connected = client->connect(websockets_server_host, websockets_server_port, "/");
 
   if (connected)
   {
@@ -234,9 +236,9 @@ void setup()
 void loop()
 {
   // let the websockets client check for incoming messages
-  if (client.available())
+  if (client->available())
   {
-    client.poll();
+    client->poll();
 
     now = millis();
 
@@ -244,7 +246,7 @@ void loop()
     if ((now - heartbeatTimestamp) > HEARTBEAT_INTERVAL)
     {
       heartbeatTimestamp = now;
-      client.send("H");
+      client->send("H");
     }
   }
 }

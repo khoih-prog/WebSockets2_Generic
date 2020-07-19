@@ -9,12 +9,14 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.1
+  Version: 1.0.3
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
-  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards      
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
  *****************************************************************************************************************************/
 
 #ifndef defines_h
@@ -80,6 +82,10 @@
 
 #endif
 
+#ifndef BOARD_NAME
+  #define BOARD_NAME    BOARD_TYPE
+#endif
+
 #include <WiFiNINA_Generic.h>
 
 #define DEBUG_WEBSOCKETS_PORT     Serial
@@ -88,6 +94,10 @@
 
 const char* ssid = "ssid"; //Enter SSID
 const char* password = "password"; //Enter Password
+
+// Select the IP address according to your local network
+IPAddress serverIP(192, 168, 2, 95);
+
 
 #define WEBSOCKETS_PORT     8080
 

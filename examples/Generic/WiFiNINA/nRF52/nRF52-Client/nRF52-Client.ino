@@ -9,12 +9,14 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.1
+  Version: 1.0.3
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
-  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52 and SAMD21/SAMD51 boards                 
+  1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A                
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
 	nRF52 Websockets Client
@@ -67,27 +69,47 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting WebSockets2_Generic nRF52-Client on " + String(BOARD_TYPE));
+  Serial.println("\nStarting WebSockets2_Generic nRF52-Client with WiFiNINA on " + String(BOARD_NAME));
   
+  // check for the WiFi module:
+  if (WiFi.status() == WL_NO_MODULE) 
+  {
+    Serial.println("Communication with WiFi module failed!");
+    // don't continue
+    return;
+  }
+
+  String fv = WiFi.firmwareVersion();
+  if (fv < WIFI_FIRMWARE_LATEST_VERSION) 
+  {
+    Serial.println("Please upgrade the firmware");
+  }
+
+  Serial.print("Attempting to connect to SSID: ");
+  Serial.println(ssid);
+
   // Connect to wifi
   WiFi.begin(ssid, password);
 
   // Wait some time to connect to wifi
-  for (int i = 0; i < 10 && WiFi.status() != WL_CONNECTED; i++) 
+  for (int i = 0; i < 15 && WiFi.status() != WL_CONNECTED; i++)
   {
     Serial.print(".");
     delay(1000);
   }
 
-  // Check if connected to wifi
-  if (WiFi.status() != WL_CONNECTED) 
+  if (WiFi.status() == WL_CONNECTED)
   {
-    Serial.println("No Wifi!");
+    Serial.print("Connected to Wifi, IP address: ");
+    Serial.println(WiFi.localIP());
+    Serial.print("Connecting to WebSockets Server @");
+    Serial.println(websockets_server_host);
+  }
+  else
+  {
+    Serial.println("\nNo WiFi");
     return;
   }
-
-  Serial.print("Connected to Wifi, Connecting to WebSockets Server @");
-  Serial.println(websockets_server_host);
 
   // run callback when messages are received
   client.onMessage([&](WebsocketsMessage message) 
@@ -106,7 +128,7 @@ void setup()
   {
     Serial.println("Connected!");
     
-    String WS_msg = String("Hello to Server from ") + BOARD_TYPE;
+    String WS_msg = String("Hello to Server from ") + BOARD_NAME;
     client.send(WS_msg);
   } 
   else 

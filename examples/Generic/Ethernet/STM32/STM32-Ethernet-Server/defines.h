@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  defines.h for SAMDDUE-Ethernet-Client.ino
-  For SAM DUE with Ethernet module/shield.
+  defines.h for STM32-Ethernet-Server.ino
+  For STM32 with Ethernet module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
@@ -22,27 +22,36 @@
 #ifndef defines_h
 #define defines_h
 
-#if ( defined(ARDUINO_SAM_DUE) || defined(__SAM3X8E__) )
-  #if defined(WEBSOCKETS_ETHERNET_USE_SAMDUE)
-    #undef WEBSOCKETS_ETHERNET_USE_SAMDUE
+#if ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) )
+  #if defined(WEBSOCKETS_ETHERNET_USE_STM32)
+    #undef WEBSOCKETS_ETHERNET_USE_STM32
   #endif
   #define WEBSOCKETS_USE_ETHERNET             true
-  #define WEBSOCKETS_ETHERNET_USE_SAMDUE      true
+  #define WEBSOCKETS_ETHERNET_USE_STM32      true
 #else
-  #error This code is intended to run only on the SAM DUE boards ! Please check your Tools->Board setting.
+  #error This code is intended to run only on the STM32F boards ! Please check your Tools->Board setting.
 #endif
 
-#if defined(WEBSOCKETS_ETHERNET_USE_SAMDUE)
-
-// For SAM DUE
-#if defined(ARDUINO_SAM_DUE)
-#define BOARD_TYPE      "SAM DUE"
-#elif defined(__SAM3X8E__)
-#define BOARD_TYPE      "SAM SAM3X8E"
-#else
-#define BOARD_TYPE      "SAM Unknown"
-#endif
-
+#if defined(WEBSOCKETS_ETHERNET_USE_STM32)
+  // For STM32
+  #if defined(STM32F0)
+    #define BOARD_TYPE  "STM32F0"
+    #error Board STM32F0 not supported
+  #elif defined(STM32L4)
+    #define BOARD_TYPE  "STM32L4"
+    #error Board STM32L4 not supported
+  #elif defined(STM32F2)
+    #define BOARD_TYPE  "STM32F2"
+  #elif defined(STM32F3)
+    #define BOARD_TYPE  "STM32F3"
+  #elif defined(STM32F4)
+    #define BOARD_TYPE  "STM32F4"
+  #elif defined(STM32F7)
+    #define BOARD_TYPE  "STM32F7"
+  #else
+    #warning STM32 unknown board selected
+    #define BOARD_TYPE  "STM32 Unknown"
+  #endif
 #endif
 
 #ifndef BOARD_NAME
@@ -50,12 +59,14 @@
 #endif
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET_LIB, USE_ETHERNET2_LIB, USE_ETHERNET_LARGE_LIB, USE_UIP_ETHERNET
+// If more than one are true, the priority is USE_ETHERNET_LIB, USE_ETHERNET2_LIB, USE_ETHERNET_LARGE_LIB, USE_UIP_ETHERNET, USE_BUILTIN_ETHERNET
+
 #define USE_ETHERNET_LIB              false
 #define USE_ETHERNET2_LIB             false
-#define USE_ETHERNET_LARGE_LIB        false
+#define USE_ETHERNET_LARGE_LIB        true
 
-#define USE_UIP_ETHERNET              true
+#define USE_UIP_ETHERNET              false
+#define USE_LAN8742A_ETHERNET         false
 
 #if USE_ETHERNET_LIB
   // Also default to Ethernet library
@@ -71,6 +82,10 @@
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
+#elif USE_LAN8742A_ETHERNET
+  #include <LwIP.h>
+  #include <STM32Ethernet.h>
+  #define ETHERNET_TYPE               "LAN8742A and STM32Ethernet Library"  
 #else
   // Default to Ethernet library
   #include <Ethernet.h>
@@ -81,16 +96,11 @@
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-const char* websockets_server_host = "192.168.2.95";   //Enter server address
-//const char* websockets_server_host = "serverip_or_name"; //Enter server address
-
-const uint16_t websockets_server_port = 8080; // Enter server port
-
-uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x01 };
+uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0x32, 0x04 };
 
 // Select the IP address according to your local network
-IPAddress clientIP(192, 168, 2, 225);
+IPAddress serverIP(192, 168, 2, 95);
 
-#define SDCARD_CS       4
+#define SDCARD_CS       3
 
 #endif      //defines_h

@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  defines.h for SAMDDUE-Ethernet-Client.ino
-  For SAM DUE with Ethernet module/shield.
+  defines.h for STM32-Ethernet-Client_SINRIC.ino
+  For STM32 with Ethernet module/shield, using SINRIC (https://sinric.com/)
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
@@ -16,33 +16,41 @@
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
  *****************************************************************************************************************************/
 
 #ifndef defines_h
 #define defines_h
 
-#if ( defined(ARDUINO_SAM_DUE) || defined(__SAM3X8E__) )
-  #if defined(WEBSOCKETS_ETHERNET_USE_SAMDUE)
-    #undef WEBSOCKETS_ETHERNET_USE_SAMDUE
+#if ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) )
+  #if defined(WEBSOCKETS_ETHERNET_USE_STM32)
+    #undef WEBSOCKETS_ETHERNET_USE_STM32
   #endif
   #define WEBSOCKETS_USE_ETHERNET             true
-  #define WEBSOCKETS_ETHERNET_USE_SAMDUE      true
+  #define WEBSOCKETS_ETHERNET_USE_STM32      true
 #else
-  #error This code is intended to run only on the SAM DUE boards ! Please check your Tools->Board setting.
+  #error This code is intended to run only on the STM32 boards ! Please check your Tools->Board setting.
 #endif
 
-#if defined(WEBSOCKETS_ETHERNET_USE_SAMDUE)
-
-// For SAM DUE
-#if defined(ARDUINO_SAM_DUE)
-#define BOARD_TYPE      "SAM DUE"
-#elif defined(__SAM3X8E__)
-#define BOARD_TYPE      "SAM SAM3X8E"
-#else
-#define BOARD_TYPE      "SAM Unknown"
-#endif
-
+#if defined(WEBSOCKETS_ETHERNET_USE_STM32)
+  // For STM32
+  #if defined(STM32F0)
+    #define BOARD_TYPE  "STM32F0"
+    #error Board STM32F0 not supported
+  #elif defined(STM32F1)
+    #define BOARD_TYPE  "STM32F1"
+  #elif defined(STM32F2)
+    #define BOARD_TYPE  "STM32F2"
+  #elif defined(STM32F3)
+    #define BOARD_TYPE  "STM32F3"
+  #elif defined(STM32F4)
+    #define BOARD_TYPE  "STM32F4"
+  #elif defined(STM32F7)
+    #define BOARD_TYPE  "STM32F7"
+  #else
+    #warning STM32 unknown board selected
+    #define BOARD_TYPE  "STM32 Unknown"
+  #endif
 #endif
 
 #ifndef BOARD_NAME
@@ -50,12 +58,14 @@
 #endif
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET_LIB, USE_ETHERNET2_LIB, USE_ETHERNET_LARGE_LIB, USE_UIP_ETHERNET
+// If more than one are true, the priority is USE_ETHERNET_LIB, USE_ETHERNET2_LIB, USE_ETHERNET_LARGE_LIB, USE_UIP_ETHERNET, USE_BUILTIN_ETHERNET
+
 #define USE_ETHERNET_LIB              false
 #define USE_ETHERNET2_LIB             false
-#define USE_ETHERNET_LARGE_LIB        false
+#define USE_ETHERNET_LARGE_LIB        true
 
-#define USE_UIP_ETHERNET              true
+#define USE_UIP_ETHERNET              false
+#define USE_LAN8742A_ETHERNET         false
 
 #if USE_ETHERNET_LIB
   // Also default to Ethernet library
@@ -71,6 +81,10 @@
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
+#elif USE_LAN8742A_ETHERNET
+  #include <LwIP.h>
+  #include <STM32Ethernet.h>
+  #define ETHERNET_TYPE               "LAN8742A and STM32Ethernet Library"  
 #else
   // Default to Ethernet library
   #include <Ethernet.h>
@@ -81,12 +95,22 @@
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-const char* websockets_server_host = "192.168.2.95";   //Enter server address
-//const char* websockets_server_host = "serverip_or_name"; //Enter server address
+#define SINRIC_WEBSERVER          "iot.sinric.com"
+#define SINRIC_WEBSERVER_PORT     80
+#define SINRIC_API_KEY            "11111111-2222-3333-4444-555555555555"
 
-const uint16_t websockets_server_port = 8080; // Enter server port
+#define SINRIC_Device_ID_1        "012345678901234567890123"   // Device ID, got from Sinric
 
-uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x01 };
+const char* websockets_server_host    = SINRIC_WEBSERVER; //Enter server address
+const uint16_t websockets_server_port = SINRIC_WEBSERVER_PORT; // Enter server port
+
+#ifdef LED_BUILTIN
+#define LED_PIN     LED_BUILTIN
+#else
+#define LED_PIN     13
+#endif
+
+uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x02 };
 
 // Select the IP address according to your local network
 IPAddress clientIP(192, 168, 2, 225);

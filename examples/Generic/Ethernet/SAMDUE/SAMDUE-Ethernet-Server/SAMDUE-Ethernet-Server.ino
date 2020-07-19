@@ -9,13 +9,14 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.2
+  Version: 1.0.3
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENV28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards                  
+  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A                 
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
   SAM DUE Websockets Server : Minimal SAM DUE Websockets Server
@@ -80,7 +81,7 @@ void check_status()
 
 void setup()
 {
-#if !(USE_UIP_ETHERNET)  
+#if (USE_ETHERNET_LIB || USE_ETHERNET2_LIB || USE_ETHERNET_LARGE_LIB)
   pinMode(SDCARD_CS, OUTPUT);
   digitalWrite(SDCARD_CS, HIGH); // Deselect the SD card
 #endif
@@ -88,14 +89,14 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting WebSockets2_Generic SAMDUE-Ethernet-Server on " + String(BOARD_TYPE));
+  Serial.println("\nStarting WebSockets2_Generic SAMDUE-Ethernet-Server on " + String(BOARD_NAME));
   Serial.println("Ethernet using " + String(ETHERNET_TYPE));
 
-  for (uint8_t t = 4; t > 0; t--)
+    for (uint8_t t = 2; t > 0; t--)
   {
     Serial.println("[SETUP] BOOT WAIT " + String(t));
     Serial.flush();
-    delay(1000);
+    delay(500);
   }
 
   // start the ethernet connection and the server:
@@ -105,35 +106,44 @@ void setup()
   //Ethernet.begin(mac);
 
   server.listen(WEBSOCKETS_PORT);
-  
+ 
   Serial.print(server.available() ? "WebSockets Server Running and Ready on " : "Server Not Running on ");
-  Serial.println(BOARD_TYPE);
+  Serial.println(BOARD_NAME);
   Serial.print("IP address: ");
   Serial.print(Ethernet.localIP());
   Serial.print(", Port: ");
   Serial.println(WEBSOCKETS_PORT);    // Websockets Server Port
 }
 
+WebsocketsClient* client = NULL;
+
 void loop()
-{ 
+{
   check_status();
-  
-  WebsocketsClient client = server.accept();
- 
-  if (client.available())
+
+  client = new WebsocketsClient;
+
+  if (client)
   {
-    WebsocketsMessage msg = client.readBlocking();
+    *client = server.accept();
+  
+    if (client->available())
+    {
+      WebsocketsMessage msg = client->readBlocking();
+  
+      // log
+      Serial.print("Got Message: ");
+      Serial.println(msg.data());
+  
+      // return echo
+      client->send("Echo: " + msg.data());
+  
+      // close the connection
+      client->close();
+    }
 
-    // log
-    Serial.print("Got Message: ");
-    Serial.println(msg.data());
-
-    // return echo
-    client.send("Echo: " + msg.data());
-
-    // close the connection
-    client.close();
+    delete client;
   }
 
-  delay(1000);
+  //delay(1000);
 }

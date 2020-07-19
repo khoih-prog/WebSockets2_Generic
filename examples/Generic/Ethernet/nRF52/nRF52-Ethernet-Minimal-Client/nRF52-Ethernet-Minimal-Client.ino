@@ -9,13 +9,14 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.2
+  Version: 1.0.3
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENV28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards                 
+  1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A              
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
   nRF52-Minimal-Client: Minimal nRF52 Websockets Client
@@ -86,14 +87,14 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting WebSockets2_Generic nRF52-Ethernet-Minimal-Client on " + String(BOARD_TYPE));
+  Serial.println("\nStarting WebSockets2_Generic nRF52-Ethernet-Minimal-Client on " + String(BOARD_NAME));
   Serial.println("Ethernet using " + String(ETHERNET_TYPE));
   
-  for (uint8_t t = 4; t > 0; t--)
+  for (uint8_t t = 2; t > 0; t--)
   {
     Serial.println("[SETUP] BOOT WAIT " + String(t));
     Serial.flush();
-    delay(1000);
+    delay(500);
   }
 
   // start the ethernet connection and the server:
@@ -118,7 +119,7 @@ void setup()
   client.connect(websockets_server_host, websockets_server_port, "/");
 
   // Send a message
-  String WS_msg = String("Hello to Server from ") + BOARD_TYPE;
+  String WS_msg = String("Hello to Server from ") + BOARD_NAME;
   client.send(WS_msg);
 
   // Send a ping
