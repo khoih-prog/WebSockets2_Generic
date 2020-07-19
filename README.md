@@ -95,7 +95,7 @@ Another way to install is to:
 ### VS Code & PlatformIO:
 1. Install [VS Code](https://code.visualstudio.com/)
 2. Install [PlatformIO](https://platformio.org/platformio-ide)
-3. Install **WebSockets2_Generic** library by using [Library Manager](https://docs.platformio.org/en/latest/librarymanager/). Search for WebSockets2_Generic in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:"Khoi Hoang")
+3. Install **WebSockets2_Generic** library by using [Library Manager](https://docs.platformio.org/en/latest/librarymanager/). Search for WebSockets2_Generic in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
 4. Use included [platformio.ini](examples/platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically.
 
 ---
