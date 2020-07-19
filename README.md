@@ -74,7 +74,7 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
    - [`Ethernet3 library`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. ***Not yet ready*** in v1.0.3.
    - [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500. ***Ready*** from v1.0.1.
    - [`UIPEthernet library v2.0.8+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. ***Ready*** from v1.0.2.
-   - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in Ethernet LAN8742A on (Nucleo-144, Discovery). To be used with [STM32duino_LwIP library v2.1.2+](https://github.com/stm32duino/LwIP). ***Ready*** from v1.0.3. 
+   - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in Ethernet LAN8742A on (Nucleo-144, Discovery). To be used with [`STM32duino_LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP). ***Ready*** from v1.0.3. 
 13. [`ESP_AT_Lib library v1.0.0+`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). ***Not ready*** in v1.0.3.
 
 ## Installation
@@ -95,10 +95,8 @@ Another way to install is to:
 ### VS Code & PlatformIO:
 1. Install [VS Code](https://code.visualstudio.com/)
 2. Install [PlatformIO](https://platformio.org/platformio-ide)
-3. Install **WebSockets2_Generic** library by using [Library Manager](https://docs.platformio.org/en/latest/librarymanager/)
-4. Use included [platformio.ini](examples/platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automaticly.
-
-[![arduino-library-badge](https://www.ardu-badge.com/badge/WebSockets2_Generic.svg?)](https://www.ardu-badge.com/WebSockets2_Generic)
+3. Install **WebSockets2_Generic** library by using [Library Manager](https://docs.platformio.org/en/latest/librarymanager/). Search for WebSockets2_Generic in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:"Khoi Hoang")
+4. Use included [platformio.ini](examples/platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically.
 
 ---
 
@@ -250,8 +248,8 @@ void onMessageCallback(WebsocketsMessage message)
 {
   //Doing something with received String message.data() type
   
-  String received_message = message.data();
-  .....
+  Serial.print("Got Message: ");
+  Serial.println(message.data());
 }
 ```
 
@@ -1232,10 +1230,10 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
  4. Add support to [`SINRIC`](https://sinric.com)
  5. Split each example into several manageable files.
  6. Add support to SAM DUE.
- 7. Add support to Ethernet W5x00, using either [Ethernet](https://www.arduino.cc/en/Reference/Ethernet), [Ethernet2](https://github.com/khoih-prog/Ethernet2) or [EthernetLarge](https://github.com/OPEnSLab-OSU/EthernetLarge) library
- 8. Add support to Ethernet ENC28J60, using [UIPEthernet](https://github.com/UIPEthernet/UIPEthernet) library
+ 7. Add support to Ethernet W5x00, using either [`Ethernet`](https://www.arduino.cc/en/Reference/Ethernet), [`Ethernet2`](https://github.com/khoih-prog/Ethernet2) or [`EthernetLarge`](https://github.com/OPEnSLab-OSU/EthernetLarge) library
+ 8. Add support to Ethernet ENC28J60, using [`UIPEthernet`](https://github.com/UIPEthernet/UIPEthernet) library
  9. Add support to STM32F.
- 8. Add support to Ethernet LAN8742A, using [`STM32Ethernet library`](https://github.com/stm32duino/STM32Ethernet)
+ 8. Add support to Ethernet LAN8742A, using [`STM32Ethernet library`](https://github.com/stm32duino/STM32Ethernet) and [`STM32duino_LwIP library`](https://github.com/stm32duino/LwIP).
  
 ---
 
