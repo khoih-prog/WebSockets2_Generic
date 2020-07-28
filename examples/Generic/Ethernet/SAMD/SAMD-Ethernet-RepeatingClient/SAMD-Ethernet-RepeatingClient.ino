@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  SAMD-Ethernet-Client.ino
+  SAMD-Ethernet-RepeeatingClient.ino
   For SAMD21/SAMD51 with Ethernet module/shield.
 
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
@@ -22,13 +22,14 @@
                                   Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.  
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
-  SAMD21/SAMD51 Websockets Client
+  SAMD21/SAMD51 Websockets Repeating Client
 
   This sketch:
         1. Connects to a WiFi network
         2. Connects to a Websockets server
         3. Sends the websockets server a message ("Hello to Server from ......")
         4. Prints all incoming messages while the connection is open
+        5. Repeat 2-4 every REPEAT_INTERVAL (10 seconds)
 
   Hardware:
         For this sketch you only need a SAMD21/SAMD51 board.
@@ -108,27 +109,47 @@ void setup()
 
   // run callback when events are occuring
   client.onEvent(onEventsCallback);
+}
 
-  // try to connect to Websockets server
+void sendMessage(void)
+{
+// try to connect to Websockets server
   bool connected = client.connect(websockets_server_host, websockets_server_port, "/");
-
-  if (connected)
+  
+  if (connected) 
   {
     Serial.println("Connected!");
 
     String WS_msg = String("Hello to Server from ") + BOARD_NAME;
     client.send(WS_msg);
-  }
-  else
+  } 
+  else 
   {
     Serial.println("Not Connected!");
   }
 }
 
-void loop()
+void checkToSendMessage()
 {
+  #define REPEAT_INTERVAL    10000L
+  
+  static unsigned long checkstatus_timeout = 0;
+
+  // Send WebSockets message every REPEAT_INTERVAL (10) seconds.
+  if ((millis() > checkstatus_timeout) || (checkstatus_timeout == 0))
+  {
+    sendMessage();
+    checkstatus_timeout = millis() + REPEAT_INTERVAL;
+  }
+}
+
+void loop() 
+{
+
+  checkToSendMessage();
+  
   // let the websockets client check for incoming messages
-  if (client.available())
+  if (client.available()) 
   {
     client.poll();
   }

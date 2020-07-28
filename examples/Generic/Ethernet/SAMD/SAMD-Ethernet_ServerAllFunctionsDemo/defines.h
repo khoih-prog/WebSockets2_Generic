@@ -1,10 +1,9 @@
 /****************************************************************************************************************************
-  defines.h for SAMD-Ethernet-Client.ino
-  For SAMD21/SAMD51 with Ethernet module/shield.
+  defines.h
+  For SAM DUE with Ethernet module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
-
 
   The library provides simple and easy interface for websockets (Client and Server).
   
@@ -19,7 +18,7 @@
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
-                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
+                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches. 
  *****************************************************************************************************************************/
 
 #ifndef defines_h
@@ -149,7 +148,7 @@
 // If more than one are true, the priority is USE_ETHERNET_LIB, USE_ETHERNET2_LIB, USE_ETHERNET_LARGE_LIB, USE_UIP_ETHERNET
 #define USE_ETHERNET_LIB              false
 #define USE_ETHERNET2_LIB             false
-#define USE_ETHERNET_LARGE_LIB        true
+#define USE_ETHERNET_LARGE_LIB        false
 
 #define USE_UIP_ETHERNET              false
 
@@ -177,15 +176,10 @@
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-const char* websockets_server_host = "192.168.2.95"; //Enter server address
-//const char* websockets_server_host = "serverip_or_name"; //Enter server address
-
-const uint16_t websockets_server_port = 8080; // Enter server port
-
-uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xAD, 0x01 };
+uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x04 };
 
 // Select the IP address according to your local network
-IPAddress clientIP(192, 168, 2, 225);
+IPAddress serverIP(192, 168, 2, 95);
 
 #define SDCARD_CS       4
 
