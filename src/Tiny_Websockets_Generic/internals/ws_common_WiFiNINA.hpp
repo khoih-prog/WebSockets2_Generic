@@ -3,20 +3,23 @@
   For WebSockets2_Generic Library
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
-  to support nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
+  to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
+
 
   The library provides simple and easy interface for websockets (Client and Server).
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.3
+  Version: 1.0.4
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A  
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
+  1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
+                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.  
  *****************************************************************************************************************************/
  
 #pragma once
@@ -48,7 +51,7 @@ namespace websockets2_generic
       || defined(ARDUINO_SAMD_NANO_33_IOT) || defined(ARDUINO_SAMD_MKRFox1200) || defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310) \
       || defined(ARDUINO_SAMD_MKRGSM1400) || defined(ARDUINO_SAMD_MKRNB1500) || defined(ARDUINO_SAMD_MKRVIDOR4000) || defined(__SAMD21G18A__) \
       || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
-      || defined(__SAMD51G19A__) || defined(__SAMD21G18A__) )
+      || defined(__SAMD51G19A__) || defined(__SAMD51P19A__) || defined(__SAMD21G18A__) )
       
  
     // Using WiFiNINA   
@@ -102,5 +105,25 @@ namespace websockets2_generic
     #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredWiFiNINATcpClient
     #endif //_WS_CONFIG_NO_SSL
       
+#elif ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
+        defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
+        defined(STM32WB) || defined(STM32MP1) )
+    // From v1.0.4
+  
+    // Using WiFiNINA
+    #warning Using WiFiNINA for STM32F/L/H/G/WB/MP1 in ws_common_WIFININA.hpp
+    
+    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+    
+    #include <Tiny_Websockets_Generic/network/STM32_WiFiNINA/STM32_WiFiNINA_tcp.hpp>
+    #define WSDefaultTcpClient websockets2_generic::network2_generic::WiFiNINATcpClient
+    #define WSDefaultTcpServer websockets2_generic::network2_generic::WiFiNINATcpServer
+    
+    #ifndef _WS_CONFIG_NO_SSL
+    // OpenSSL Dependent
+    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredWiFiNINATcpClient
+    #endif //_WS_CONFIG_NO_SSL        
+        
+        
         
 #endif
