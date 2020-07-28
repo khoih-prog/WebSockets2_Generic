@@ -1,25 +1,27 @@
 /****************************************************************************************************************************
   STM32-Ethernet-Server.ino
-  For STM32 with Ethernet module/shield.
-
+  For STM32F/L/H/G/WB/MP1 with Ethernet module/shield.
+  
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
-  to support nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
+  to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
 
   The library provides simple and easy interface for websockets (Client and Server).
 
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.3
+  Version: 1.0.4
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
   1.0.0   K Hoang      14/07/2020 Initial coding/porting to support nRF52 and SAMD21/SAMD51 boards. Add SINRIC/Alexa support
   1.0.1   K Hoang      16/07/2020 Add support to Ethernet W5x00 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
-  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A
+  1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
+  1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
+                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
-  SAM DUE Websockets Server : Minimal SAM DUE Websockets Server
+  STM32 Websockets Server : Minimal STM32 Websockets Server
 
   This sketch:
         1. Connects to a WiFi network
@@ -30,7 +32,7 @@
         6. closes the connection and goes back to step 3
 
   Hardware:
-        For this sketch you only need a SAMD21/SAMD51 board.
+        For this sketch you only need an STM32 board.
 
   Originally Created  : 15/02/2019
   Original Author     : By Gil Maimon
