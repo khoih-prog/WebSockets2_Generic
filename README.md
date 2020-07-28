@@ -68,21 +68,22 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
  2. [`ESP32 core v1.0.4+`](https://github.com/espressif/arduino-esp32/releases) for ESP32 boards. ***Ready*** from v1.0.0.
  3. [`ESP8266 core v2.7.2+` for Arduino](https://github.com/esp8266/Arduino#installing-with-boards-manager) for ESP8266 boards. ***Ready*** from v1.0.0.
  4. `Arduino AVR core v1.8.2+` for Arduino (Use Arduino Board Manager).
- 5. [`Teensy core v1.53+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. ***Not ready*** in v1.0.4.
+ 5. [`Teensy core v1.53+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. ***Not yet ready*** in v1.0.4.
  6. [`Arduino SAM DUE core v1.6.12+`](https://www.arduino.cc/en/Guide/ArduinoDue) for SAM DUE ARM Cortex-M3 boards. ***Ready*** from v1.0.1.
  7. [`Arduino SAMD core v1.8.6+`](https://www.arduino.cc/en/Guide/ArduinoM0) for SAMD ARM Cortex-M0+ boards. ***Ready*** from v1.0.0.
  8. [`Adafruit SAMD core v1.6.0+`](https://www.adafruit.com/) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). ***Ready*** from v1.0.0.
- 9. [`Adafruit nRF52 v0.20.5+`](https://www.adafruit.com/) for nRF52 boards such as AdaFruit Feather nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc. ***Ready*** from v1.0.0.
-10. [`Arduino Core for STM32 v1.9.0+`](https://github.com/khoih-prog/Arduino_Core_STM32) for STM32 boards. To install go to Arduino IDE, select Boards Manager, search for ***`STM32`***. ***Ready*** from v1.0.3.
-11. [`WiFiNINA_Generic library v1.6.1+`](https://github.com/khoih-prog/WiFiNINA_Generic) if for WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic). ***Ready*** from v1.0.0.
-12. Depending on which Ethernet module/shield you're using :
-   - [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) for W5100, W5200 and W5500. ***Ready*** from v1.0.1.
-   - [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2) for W5500 (Deprecated, use Arduino Ethernet library). ***Ready*** from v1.0.1.
-   - [`Ethernet3 library`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. ***Not yet ready*** in v1.0.4.
-   - [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500. ***Ready*** from v1.0.1.
+ 9. [`Seeeduino SAMD core 1.7.7+`](https://www.seeedstudio.com/) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). ***Ready*** from v1.0.4.
+10. [`Adafruit nRF52 v0.20.5+`](https://www.adafruit.com/) for nRF52 boards such as AdaFruit Feather nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc. ***Ready*** from v1.0.0.
+11. [`Arduino Core for STM32 v1.9.0+`](https://github.com/khoih-prog/Arduino_Core_STM32) for STM32 boards. To install go to Arduino IDE, select Boards Manager, search for ***`STM32`***. ***Ready*** from v1.0.3.
+12. [`WiFiNINA_Generic library v1.6.1+`](https://github.com/khoih-prog/WiFiNINA_Generic) if for WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic). ***Ready*** from v1.0.0.
+13. Depending on which Ethernet module/shield you're using :
+   - [`Ethernet library v2.0.0+`](https://www.arduino.cc/en/Reference/Ethernet) for W5100, W5200 and W5500. ***Ready*** from v1.0.1.
+   - [`Ethernet2 library v1.0.4+`](https://github.com/khoih-prog/Ethernet2) for W5500 (Deprecated, use Arduino Ethernet library). ***Ready*** from v1.0.1.
+   - [`Ethernet3 library v1.5.3+`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. ***Not yet ready*** in v1.0.4.
+   - [`EthernetLarge library v2.0.0+`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500. ***Ready*** from v1.0.1.
    - [`UIPEthernet library v2.0.8+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. ***Ready*** from v1.0.2.
    - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in Ethernet LAN8742A on (Nucleo-144, Discovery). To be used with [`STM32duino_LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP). ***Ready*** from v1.0.3. 
-13. [`ESP_AT_Lib library v1.0.0+`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). ***Not ready*** in v1.0.4.
+14. [`ESP_AT_Lib library v1.0.0+`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). ***Not yet ready*** in v1.0.4.
 
 ## Installation
 
@@ -615,7 +616,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 3. [nRF52-Client_SINRIC](examples/Generic/WiFiNINA/nRF52/nRF52-Client_SINRIC)
 4. [nRF52-Server](examples/Generic/WiFiNINA/nRF52/nRF52-Server)
 5. [nRF52-RepeatingClient](examples/Generic/WiFiNINA/nRF52/nRF52-RepeatingClient)
-6. [nRF52-ServerAllFunctionsDemo](examples/Generic/WiFiNINA/nRF52/nRF52-ServerAllFunctionsDemo)
+6. [nRF52_ServerAllFunctionsDemo](examples/Generic/WiFiNINA/nRF52/nRF52_ServerAllFunctionsDemo)
 
 #### For SAMD21/SAMD51 boards using WiFiNINA
 
@@ -624,7 +625,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 3. [SAMD-Client_SINRIC](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC)
 4. [SAMD-Server](examples/Generic/WiFiNINA/SAMD/SAMD-Server)
 5. [SAMD-RepeatingClient](examples/Generic/WiFiNINA/SAMD/SAMD-RepeatingClient)
-6. [SAMD-ServerAllFunctionsDemo](examples/Generic/WiFiNINA/SAMD/SAMD-ServerAllFunctionsDemo)
+6. [SAMD_ServerAllFunctionsDemo](examples/Generic/WiFiNINA/SAMD/SAMD_ServerAllFunctionsDemo)
 
 #### For STM32F/L/H/G/WB/MP1 boards using WiFiNINA
 
@@ -633,7 +634,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 3. [STM32-Client_SINRIC](examples/Generic/WiFiNINA/STM32/STM32-Client_SINRIC)
 4. [STM32-Server](examples/Generic/WiFiNINA/STM32/STM32-Server)
 5. [STM32-RepeatingClient](examples/Generic/WiFiNINA/STM32/STM32-RepeatingClient)
-6. [STM32-ServerAllFunctionsDemo](examples/Generic/WiFiNINA/STM32/STM32-ServerAllFunctionsDemo)
+6. [STM32_ServerAllFunctionsDemo](examples/Generic/WiFiNINA/STM32/STM32_ServerAllFunctionsDemo)
 
 #### For nRF52 boards using Ethernet (W5x00 or ENC28J60)
 
@@ -642,7 +643,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 3. [nRF52-Ethernet-Client_SINRIC](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Client_SINRIC)
 4. [nRF52-Ethernet-Server](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Server)
 5. [nRF52-Ethernet-RepeatingClient](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-RepeatingClient)
-6. [nRF52-Ethernet-ServerAllFunctionsDemo](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-ServerAllFunctionsDemo)
+6. [nRF52-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/nRF52/nRF52-Ethernet_ServerAllFunctionsDemo)
 
 #### For SAMD21/SAMD51 boards using Ethernet (W5x00 or ENC28J60)
 
@@ -651,7 +652,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 3. [SAMD-Ethernet-Client_SINRIC](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Client_SINRIC)
 4. [SAMD-Ethernet-Server](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Server)
 5. [SAMD-Ethernet-RepeatingClient](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-RepeatingClient)
-6. [SAMD-Ethernet-ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-ServerAllFunctionsDemo)
+6. [SAMD-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMD/SAMD-Ethernet_ServerAllFunctionsDemo)
 
 #### For SAM-DUE boards using Ethernet (W5x00 or ENC28J60)
 
@@ -660,7 +661,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 3. [SAMDUE-Ethernet-Client_SINRIC](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Client_SINRIC)
 4. [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server)
 5. [SAMDUE-Ethernet-RepeatingClient](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-RepeatingClient)
-6. [SAMDUE-Ethernet-ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-ServerAllFunctionsDemo)
+6. [SAMDUE-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet_ServerAllFunctionsDemo)
 
 #### For STM32F/L/H/G/WB/MP1 boards using Ethernet (W5x00, ENC28J60 or LAN8742A)
 
@@ -669,7 +670,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 3. [STM32-Ethernet-Client_SINRIC](examples/Generic/Ethernet/STM32/STM32-Ethernet-Client_SINRIC)
 4. [STM32-Ethernet-Server](examples/Generic/Ethernet/STM32/STM32-Ethernet-Server)
 5. [STM32-Ethernet-RepeatingClient](examples/Generic/Ethernet/STM32/STM32-Ethernet-RepeatingClient)
-6. [STM32-Ethernet-ServerAllFunctionsDemo](examples/Generic/Ethernet/STM32/STM32-Ethernet-ServerAllFunctionsDemo)
+6. [STM32-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/STM32/STM32-Ethernet_ServerAllFunctionsDemo)
 
 ---
 
@@ -1346,7 +1347,7 @@ Turn on device id: 012345678901234567890123
 Got Message: {"deviceId":"012345678901234567890123","action":"setPowerState","value":"OFF"}
 Turn off Device ID: 012345678901234567890123
 ```
-5. This is the terminal debug output when running [SAMDUE-Ethernet-ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-ServerAllFunctionsDemo) example on ***SAM DUE and W5100 Ethernet***. There are 3 WebSockets Clients connecting to the WebSockets Server:
+5. This is the terminal debug output when running [SAMDUE-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet_ServerAllFunctionsDemo) example on ***SAM DUE and W5100 Ethernet***. There are 3 WebSockets Clients connecting to the WebSockets Server:
 
   - ESP32 running [Esp32-RepeatingClient](examples/ESP32/Esp32-RepeatingClient)
   - ESP8266 running [Esp8266-RepeatingClient](examples/ESP8266/Esp8266-RepeatingClient)
@@ -1502,7 +1503,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 ### Contributions and thanks
 
 1. Based on and modified from [Gil Maimon's ArduinoWebsockets](https://github.com/gilmaimon/ArduinoWebsockets)
-2. Thanks to good work of [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) for initiating, inspriring, working with, developing, debugging and testing. Without that, support to nRF52, especially ***U-Blox B302 running as nRF52840 and U-Blox B112 running as nRF52832***, has never been started and finished. See [u-blox nina b](https://github.com/khoih-prog/WiFiNINA_Generic/issues/1)
+2. Thanks to good work of [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) for initiating, inspriring, working with, developing, debugging and testing. Without that, support to nRF52, especially ***NINA_B302_ublox running as nRF52840 and NINA_B112_ublox running as nRF52832***, has never been started and finished. See [u-blox nina b](https://github.com/khoih-prog/WiFiNINA_Generic/issues/1)
 
 <table>
   <tr>
