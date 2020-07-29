@@ -25,6 +25,10 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
 
 ---
 
+#### New in v1.0.5
+
+1. Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug. See [Secured-Two-Way: Client certificate is not sent if used along with setTrustAnchors](https://github.com/gilmaimon/ArduinoWebsockets/issues/84)
+
 #### New in v1.0.4
 
 1. Add support to all ***STM32F/L/H/G/WB/MP1 (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.)***
@@ -1109,17 +1113,16 @@ Turn off Device ID: 012345678901234567890123
 ```
 ---
 
-### Binary Data
+## Binary Data
 
 For binary data it is recommended to use `msg.rawData()` which returns a `std::string`, or `msg.c_str()` which returns a `const char*`. 
 The reason is that `msg.data()` returns an Arduino `String`, which is great for Serial printing and very basic memory handling but bad for most binary usages.
 
 See [issue #32](https://github.com/gilmaimon/ArduinoWebsockets/issues/32) for further information.
 
-### SSL and WSS Support
+## SSL and WSS Support
 
 No matter what board you are using, in order to use WSS (websockets over SSL) you need to use
-
 ```c++
 client.connect("wss://your-secured-server-ip:port/uri");
 ```
@@ -1127,23 +1130,32 @@ client.connect("wss://your-secured-server-ip:port/uri");
 The next sections describe board-specific code for using WSS with the library.
 
 ### ESP8266
-
-With the ESP8266 there are 2 ways for using WSS. By default, `WebSockets2_Generic` does not validate the certificate chain. This can be set explicitly using:
-
+With the esp8266 there are multiple ways for using WSS. By default, `ArduinoWebsockets` does not validate the certificate chain. This can be set explicitly using:
 ```c++
 client.setInsecure();
 ```
 
-You can also use an `SSL Fingerprint` to validate the SSL connection, for example:
-
+You can also use a `SSL Fingerprint` to validate the SSL connection, for example:
 ```c++
-// To update SHA1 fingerprint, use Google Chrome to connect to https://www.websocket.org/echo.html 
-// Then "View Site Information" => "Certificate Viewer" => Copy SHA1 fingerprint
-// This latest SHA1 fingerprint was updated 13.07.2020
-const char ssl_fingerprint[] PROGMEM = "F0 DC 2E 40 A6 6D 29 B5 73 8F E1 E8 A9 EA 2A 9B 50 68 80 E3";
+const char ssl_fingerprint[] PROGMEM = "D5 07 4D 79 B2 D2 53 D7 74 E6 1B 46 C5 86 4E FE AD 00 F1 98";
 
 client.setFingerprint(ssl_fingerprint);
 ```
+
+or you could use the `setKnownKey()` method to specify the public key of a certificate in order to validate the server you are connecting to.
+```
+PublicKey *publicKey = new PublicKey(public_key);
+client.setKnownKey(publicKey);
+```
+or you can specify the Certificate Authority (CA) using `setTrustAnchors` method, as follows:
+
+```
+X509List *serverTrustedCA = new X509List(ca_cert);
+client.setTrustAnchors(serverTrustedCA);
+```
+
+For client-side certificate validation, you can use RSA or EC certificates, using the method `setClientRSACert` or `setClientECCert` .
+
 
 ### ESP32
 
@@ -1454,6 +1466,10 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 13. Add support to ***Seeeduino SAMD21/SAMD51: LoRaWAN, Zero, Femto M0, XIAO M0, Wio GPS Board, Wio Terminal, Grove UI Wireless, etc.***
  
 ---
+
+#### New in v1.0.5
+
+1. Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug. See [Secured-Two-Way: Client certificate is not sent if used along with setTrustAnchors](https://github.com/gilmaimon/ArduinoWebsockets/issues/84)
 
 #### New in v1.0.4
 

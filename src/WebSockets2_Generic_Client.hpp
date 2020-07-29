@@ -10,7 +10,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.4
+  Version: 1.0.5
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -19,7 +19,8 @@
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
-                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.    
+                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
+  1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.   
  *****************************************************************************************************************************/
 
 #ifndef _WEBSOCKETS2_GENERIC_CLIENT_H
@@ -376,57 +377,74 @@ namespace websockets2_generic
     return true;
   }
   
+  // KH, New in v1.0.5 (sync with v0.4.18)
   void WebsocketsClient::upgradeToSecuredConnection()
   {
   #ifndef _WS_CONFIG_NO_SSL
     auto client = new WSDefaultSecuredTcpClient;
-  
+
   #ifdef ESP8266
-    if (this->_optional_ssl_fingerprint || (this->_optional_ssl_cert && this->_optional_ssl_private_key) || this->_optional_ssl_trust_anchors)
+
+    if    (this->_optional_ssl_fingerprint
+           ||  (this->_optional_ssl_rsa_cert && this->_optional_ssl_rsa_private_key)
+           ||  (this->_optional_ssl_ec_cert && this->_optional_ssl_ec_private_key)
+           ||  this->_optional_ssl_trust_anchors
+           ||  this->_optional_ssl_known_key)
     {
-      if (this->_optional_ssl_fingerprint)
+      if (this->_optional_ssl_fingerprint) 
       {
         client->setFingerprint(this->_optional_ssl_fingerprint);
       }
-  
-      if (this->_optional_ssl_cert && this->_optional_ssl_private_key)
-      {
-        client->setClientRSACert(this->_optional_ssl_cert, this->_optional_ssl_private_key);
-      }
-  
-      if (this->_optional_ssl_trust_anchors)
+      
+      if (this->_optional_ssl_trust_anchors) 
       {
         client->setTrustAnchors(this->_optional_ssl_trust_anchors);
       }
-    }
-    else
+      
+      if (this->_optional_ssl_known_key) 
+      {
+        client->setKnownKey(this->_optional_ssl_known_key);
+      }
+      
+      if (this->_optional_ssl_rsa_cert && this->_optional_ssl_rsa_private_key) 
+      {
+        client->setClientRSACert(this->_optional_ssl_rsa_cert, this->_optional_ssl_rsa_private_key);
+      }
+      
+      if (this->_optional_ssl_ec_cert && this->_optional_ssl_ec_private_key) 
+      {
+        client->setClientECCert(this->_optional_ssl_ec_cert, this->_optional_ssl_ec_private_key);
+      }
+    } 
+    else 
     {
       client->setInsecure();
     }
-  
+    
   #elif defined(ESP32)
-  
-    if (this->_optional_ssl_ca_cert)
+
+    if (this->_optional_ssl_ca_cert) 
     {
       client->setCACert(this->_optional_ssl_ca_cert);
     }
-  
-    if (this->_optional_ssl_client_ca)
+    
+    if (this->_optional_ssl_client_ca) 
     {
       client->setCertificate(this->_optional_ssl_client_ca);
     }
-  
-    if (this->_optional_ssl_private_key)
+    
+    if (this->_optional_ssl_private_key) 
     {
       client->setPrivateKey(this->_optional_ssl_private_key);
     }
+    
   #endif
-  
+
     this->_client = std::shared_ptr<WSDefaultSecuredTcpClient>(client);
     this->_endpoint.setInternalSocket(this->_client);
-  
   #endif //_WS_CONFIG_NO_SSL
   }
+  //////
   
   void WebsocketsClient::addHeader(const WSInterfaceString key, const WSInterfaceString value)
   {
@@ -911,24 +929,40 @@ namespace websockets2_generic
     this->_optional_ssl_fingerprint = fingerprint;
   }
   
-  void WebsocketsClient::setInsecure()
+  // KH, New in v1.0.5 (sync with v0.4.18)
+  void WebsocketsClient::setInsecure() 
   {
     this->_optional_ssl_fingerprint = nullptr;
-    this->_optional_ssl_cert = nullptr;
-    this->_optional_ssl_private_key = nullptr;
+    this->_optional_ssl_rsa_cert = nullptr;
+    this->_optional_ssl_rsa_private_key = nullptr;
+    this->_optional_ssl_ec_cert = nullptr;
+    this->_optional_ssl_ec_private_key = nullptr;
     this->_optional_ssl_trust_anchors = nullptr;
+    this->_optional_ssl_known_key = nullptr;
   }
-  
-  void WebsocketsClient::setClientRSACert(const X509List *cert, const PrivateKey *sk)
+
+  void WebsocketsClient::setClientRSACert(const X509List *cert, const PrivateKey *sk) 
   {
-    this->_optional_ssl_cert = cert;
-    this->_optional_ssl_private_key = sk;
+    this->_optional_ssl_rsa_cert = cert;
+    this->_optional_ssl_rsa_private_key = sk;
   }
-  
-  void WebsocketsClient::setTrustAnchors(const X509List *ta)
+
+  void WebsocketsClient::setClientECCert(const X509List *cert, const PrivateKey *sk) 
+  {
+    this->_optional_ssl_ec_cert = cert;
+    this->_optional_ssl_ec_private_key = sk;
+  }
+
+  void WebsocketsClient::setTrustAnchors(const X509List *ta) 
   {
     this->_optional_ssl_trust_anchors = ta;
   }
+
+  void WebsocketsClient::setKnownKey(const PublicKey *pk) 
+  {
+    this->_optional_ssl_known_key = pk;
+  }
+  //////
   
   #elif defined(ESP32)
   void WebsocketsClient::setCACert(const char* ca_cert)

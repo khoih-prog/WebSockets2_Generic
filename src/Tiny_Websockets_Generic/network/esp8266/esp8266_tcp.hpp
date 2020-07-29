@@ -10,7 +10,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.4
+  Version: 1.0.5
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -19,7 +19,8 @@
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
-                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.  
+                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
+  1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.
  *****************************************************************************************************************************/
  
 #pragma once
@@ -51,16 +52,29 @@ namespace websockets2_generic
         {
           this->client.setFingerprint(fingerprint);
         }
+        
+        // KH, New in v1.0.5 (sync with v0.4.18)
     
+        void setKnownKey(const PublicKey *pk) 
+        {
+          this->client.setKnownKey(pk);
+        }
+
+        void setTrustAnchors(const X509List *ta)
+        {
+          this->client.setTrustAnchors(ta);
+        }
+
         void setClientRSACert(const X509List *cert, const PrivateKey *sk) 
         {
           this->client.setClientRSACert(cert, sk);
         }
-    
-        void setTrustAnchors(const X509List *ta) 
+
+        void setClientECCert(const X509List *cert, const PrivateKey *sk) 
         {
-          this->client.setTrustAnchors(ta);
+          this->client.setClientECCert(cert, sk, 0xFFFF, 0);
         }
+        //////
     
     };
     

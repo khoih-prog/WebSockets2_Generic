@@ -10,7 +10,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.4
+  Version: 1.0.5
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -19,7 +19,8 @@
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
-                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.  
+                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
+  1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.
  *****************************************************************************************************************************/
 
 #ifndef _CLIENT_HPP_
@@ -135,7 +136,11 @@ namespace websockets2_generic
   #ifdef ESP8266
       void setFingerprint(const char* fingerprint);
       void setClientRSACert(const X509List *cert, const PrivateKey *sk);
+      // KH, New in v1.0.5 (sync with v0.4.18)
+      void setClientECCert(const X509List *cert, const PrivateKey *sk);
       void setTrustAnchors(const X509List *ta);
+      void setKnownKey(const PublicKey *pk);
+      //////
   #elif defined(ESP32)
       void setCACert(const char* ca_cert);
       void setCertificate(const char* client_ca);
@@ -170,8 +175,14 @@ namespace websockets2_generic
   #ifdef ESP8266
       const char* _optional_ssl_fingerprint = nullptr;
       const X509List* _optional_ssl_trust_anchors = nullptr;
-      const X509List* _optional_ssl_cert = nullptr;
-      const PrivateKey* _optional_ssl_private_key = nullptr;
+      
+      // KH, New in v1.0.5 (sync with v0.4.18)
+      const PublicKey* _optional_ssl_known_key = nullptr;
+      const X509List* _optional_ssl_rsa_cert = nullptr;
+      const PrivateKey* _optional_ssl_rsa_private_key = nullptr;
+      const X509List* _optional_ssl_ec_cert = nullptr;
+      const PrivateKey* _optional_ssl_ec_private_key = nullptr; 
+      //////
   #elif defined(ESP32)
       const char* _optional_ssl_ca_cert = nullptr;
       const char* _optional_ssl_client_ca = nullptr;
