@@ -1,16 +1,16 @@
 /****************************************************************************************************************************
   SecuredTwoWay-ESP8266-Client.ino
   For ESP8266.
-  
+
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
 
 
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.4
+  Version: 1.0.5
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -19,7 +19,8 @@
   1.0.2   K Hoang      18/07/2020 Add support to Ethernet ENC28J60 to nRF52, SAMD21/SAMD51 and SAM DUE boards
   1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
-                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.         
+                                  Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
+  1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.
  *****************************************************************************************************************************/
 /*
   Secured Esp8266 Websockets Client
@@ -52,6 +53,7 @@
 
 using namespace websockets2_generic;
 
+time_t now;
 
 // Need to update certs. Otherwise, can't connect to server using invalid certs.
 // The hardcoded certificate authority for this example.
@@ -166,9 +168,11 @@ void setup()
   while (!Serial);
   
   Serial.println("\nStarting WebSockets SecuredTwoWay-ESP8266-Client on " + String(BOARD_NAME));
-  
+
   // Connect to wifi
   WiFi.begin(ssid, password);
+
+  Serial.print("Connecting to WiFi :");
   
   // Wait some time to connect to wifi
   for (int i = 0; i < 10 && WiFi.status() != WL_CONNECTED; i++) 
@@ -180,11 +184,31 @@ void setup()
   // Check if connected to wifi
   if (WiFi.status() != WL_CONNECTED) 
   {
-    Serial.println("No Wifi!");
+    Serial.println("\nNo Wifi!");
     return;
   }
+
+  Serial.print("\nConnected to WiFi, setting time :");
+
+  // We configure ESP8266's time, as we need it to validate the certificates
+  configTime(0, 0, ntp1, ntp2);
   
-  Serial.print("Connected to Wifi, Connecting to WebSockets Server @");
+  int i = 0;
+  
+  while ( (i++ < 60) && (now < 100000) ) 
+  {
+    Serial.print(".");
+    delay(1000);
+    now = time(nullptr);
+  }
+
+  struct tm timeinfo;
+  gmtime_r(&now, &timeinfo);
+  String ntpTime = asctime(&timeinfo);
+  ntpTime.trim();
+  Serial.println("\nNTP time: " + ntpTime);
+  
+  Serial.print("Time set, connecting to WebSockets Server @");
   Serial.println(websockets_connection_string);
   
   // run callback when messages are received
