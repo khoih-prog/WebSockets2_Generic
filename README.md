@@ -27,7 +27,7 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
 
 #### New in v1.0.5
 
-1. Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug. See [Secured-Two-Way: Client certificate is not sent if used along with setTrustAnchors](https://github.com/gilmaimon/ArduinoWebsockets/issues/84)
+1. Sync with [ArduinoWebsockets v0.4.18](https://github.com/gilmaimon/ArduinoWebsockets/releases/tag/0.4.18) to fix ESP8266 SSL bug. See [Secured-Two-Way: Client certificate is not sent if used along with setTrustAnchors](https://github.com/gilmaimon/ArduinoWebsockets/issues/84)
 
 #### New in v1.0.4
 
@@ -1469,7 +1469,7 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 
 #### New in v1.0.5
 
-1. Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug. See [Secured-Two-Way: Client certificate is not sent if used along with setTrustAnchors](https://github.com/gilmaimon/ArduinoWebsockets/issues/84)
+1. Sync with [ArduinoWebsockets v0.4.18](https://github.com/gilmaimon/ArduinoWebsockets/releases/tag/0.4.18) to fix ESP8266 SSL bug. See [Secured-Two-Way: Client certificate is not sent if used along with setTrustAnchors](https://github.com/gilmaimon/ArduinoWebsockets/issues/84)
 
 #### New in v1.0.4
 
