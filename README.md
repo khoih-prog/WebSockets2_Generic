@@ -423,7 +423,7 @@ as ***client.readNonBlocking() is a new function in v1.0.6+.***
 
 ##### For ESP32/ESP8266
 
-1. [Esp32-AdvancedWebServer](examples/ESP32/Esp32-Esp32-AdvancedWebServer) using ESP32
+1. [Esp32-AdvancedWebServer](examples/ESP32/Esp32-AdvancedWebServer) using ESP32
 2. [Esp8266-AdvancedWebServer](examples/ESP8266/Esp8266-AdvancedWebServer) using ESP8266
 
 ##### For WiFiNINA
@@ -699,7 +699,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [ESP32-Client_SINRIC](examples/ESP32/ESP32-Client_SINRIC)
 5. [Esp32-Server](examples/ESP32/Esp32-Server)
 6. [Esp32-RepeatingClient](examples/ESP32/Esp32-RepeatingClient)
-7. [Esp32-AdvancedWebServer](examples/ESP32/Esp32-Esp32-AdvancedWebServer). New in v1.0.6+
+7. [Esp32-AdvancedWebServer](examples/ESP32/Esp32-AdvancedWebServer). New in v1.0.6+
 
 #### For ESP8266 boards
 
@@ -1544,13 +1544,13 @@ Got Message: Hello to Server from ESP32
 
 ### Screenshots
 
-1. This is the screenshot when running [STM32-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/STM32/STM32-Ethernet_AdvancedWebServer) example on ***STM32F7 Nucleo-144 F767ZI and built-in LAN8742A Ethernet*** to demonstrate the new non-blocking feature of WebSockets Server enabling WbServer and WebSockets Server to run concurrently.
+1. This is the screenshot when running [STM32-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/STM32/STM32-Ethernet_AdvancedWebServer) example on ***STM32F7 Nucleo-144 F767ZI and built-in LAN8742A Ethernet*** to demonstrate the new non-blocking feature of WebSockets Server enabling WebServer and WebSockets Server to run concurrently.
 
 <p align="center">
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_STM32.png">
 </p>
 
-2. This is the screenshot when running [SAMD-AdvancedWebServer](examples/Generic/WiFiNINA/SAMD/SAMD-AdvancedWebServer) example on ***Arduino SAMD21 Nano-33-IoT and built-in WiFiNINA*** to demonstrate the new non-blocking feature of WebSockets Server enabling WbServer and WebSockets Server to run concurrently.
+2. This is the screenshot when running [SAMD-AdvancedWebServer](examples/Generic/WiFiNINA/SAMD/SAMD-AdvancedWebServer) example on ***Arduino SAMD21 Nano-33-IoT and built-in WiFiNINA*** to demonstrate the new non-blocking feature of WebSockets Server enabling WebServer and WebSockets Server to run concurrently.
 
 <p align="center">
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_Nano_33_IoT.png">
@@ -1660,6 +1660,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 
 1. Based on and modified from [Gil Maimon's ArduinoWebsockets](https://github.com/gilmaimon/ArduinoWebsockets)
 2. Thanks to good work of [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) for initiating, inspriring, working with, developing, debugging and testing. Without that, support to nRF52, especially ***NINA_B302_ublox running as nRF52840 and NINA_B112_ublox running as nRF52832***, has never been started and finished. See [u-blox nina b](https://github.com/khoih-prog/WiFiNINA_Generic/issues/1)
+3. Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311) to help identify and add ***non-blocking WebSockets Server*** feature to v1.0.6 to enable WS Server and WebServer running ***concurently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). 
 
 <table>
   <tr>
@@ -1676,6 +1677,8 @@ If you want to contribute to this project:
 - Ask for enhancements
 - Create issues and pull requests
 - Tell other people about this library
+
+---
 
 ### License and credits ###
 
