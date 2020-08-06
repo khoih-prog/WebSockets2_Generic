@@ -5,12 +5,11 @@
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
 
-
   The library provides simple and easy interface for websockets (Client and Server).
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.5
+  Version: 1.0.6
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -21,6 +20,7 @@
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
                                   Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
   1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.
+  1.0.6   K Hoang      06/08/2020 Add non-blocking WebSocketsServer feature and non-blocking examples.
  *****************************************************************************************************************************/
 
 #ifndef defines_h
@@ -82,7 +82,7 @@
 #define USE_ETHERNET2_LIB             false
 #define USE_ETHERNET_LARGE_LIB        false
 
-#define USE_UIP_ETHERNET              true
+#define USE_UIP_ETHERNET              false
 
 #if USE_ETHERNET_LIB
   // Also default to Ethernet library
@@ -104,20 +104,22 @@
   #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
 #endif
 
+#ifndef USE_THIS_SS_PIN
+  #define USE_THIS_SS_PIN   10    // For other boards
+#endif
+
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-//const char* websockets_server_host = "192.168.2.99"; //Enter server address
-const char* websockets_server_host = "192.168.2.152"; //Enter server address
+uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x52 };
+
+const char* websockets_server_host = "192.168.2.93"; //Enter server address
 //const char* websockets_server_host = "serverip_or_name"; //Enter server address
 
-const uint16_t websockets_server_port = 8080; // Enter server port
+#define WEBSOCKETS_PORT   8080
 
-uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0x52, 0x29 };
-
-// Select the IP address according to your local network
-IPAddress clientIP(192, 168, 2, 225);
+const uint16_t websockets_server_port = WEBSOCKETS_PORT; // Enter server port
 
 #define SDCARD_CS       4
 

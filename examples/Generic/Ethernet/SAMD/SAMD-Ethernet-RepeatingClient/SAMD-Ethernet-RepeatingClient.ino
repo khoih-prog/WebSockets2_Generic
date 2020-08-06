@@ -10,7 +10,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.5
+  Version: 1.0.6
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -21,6 +21,7 @@
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
                                   Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
   1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.
+  1.0.6   K Hoang      06/08/2020 Add non-blocking WebSocketsServer feature and non-blocking examples. 
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
   SAMD21/SAMD51 Websockets Repeating Client
@@ -79,7 +80,7 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting WebSockets2_Generic SAMD-Ethernet-Client on " + String(BOARD_NAME));
+  Serial.println("\nStarting WebSockets2_Generic SAMD-Ethernet-RepeatingClient on " + String(BOARD_NAME));
   Serial.println("Ethernet using " + String(ETHERNET_TYPE));
 
   for (uint8_t t = 2; t > 0; t--)
@@ -88,6 +89,12 @@ void setup()
     Serial.flush();
     delay(500);
   }
+
+#if ( USE_ETHERNET_LIB || USE_ETHERNET_LARGE_LIB || USE_ETHERNET2_LIB )  
+  // Must use library patch for Ethernet, EthernetLarge libraries
+  //Ethernet.setCsPin (USE_THIS_SS_PIN);
+  Ethernet.init (USE_THIS_SS_PIN);
+#endif  // ( USE_ETHERNET_LIB || USE_ETHERNET_LARGE_LIB || USE_ETHERNET2_LIB )
 
   // start the ethernet connection and the server:
   // Use Static IP

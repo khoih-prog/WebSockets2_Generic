@@ -1,16 +1,15 @@
 /****************************************************************************************************************************
   defines.h
-  For nRF52 with WiFiNINA module/shield.
+  For nRF52 with Ethernet module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
-
 
   The library provides simple and easy interface for websockets (Client and Server).
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.5
+  Version: 1.0.6
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -20,7 +19,8 @@
   1.0.3   K Hoang      18/07/2020 Add support to STM32F boards using Ethernet W5x00, ENC28J60 and LAN8742A 
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
                                   Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
-  1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.  
+  1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.
+  1.0.6   K Hoang      06/08/2020 Add non-blocking WebSocketsServer feature and non-blocking examples.  
  *****************************************************************************************************************************/
 
 #ifndef defines_h
@@ -77,11 +77,10 @@
 #endif
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET_LIB, USE_ETHERNET2_LIB, USE_ETHERNET_LARGE_LIB, USE_UIP_ETHERNET, USE_BUILTIN_ETHERNET
-
+// If more than one are true, the priority is USE_ETHERNET_LIB, USE_ETHERNET2_LIB, USE_ETHERNET_LARGE_LIB, USE_UIP_ETHERNET
 #define USE_ETHERNET_LIB              false
 #define USE_ETHERNET2_LIB             false
-#define USE_ETHERNET_LARGE_LIB        true
+#define USE_ETHERNET_LARGE_LIB        false
 
 #define USE_UIP_ETHERNET              false
 
@@ -105,14 +104,18 @@
   #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
 #endif
 
+#ifndef USE_THIS_SS_PIN
+  #define USE_THIS_SS_PIN   10    // For other boards
+#endif
+
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     4
+#define _WEBSOCKETS_LOGLEVEL_     3
 
-uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0x52, 0xA9 };
+uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x52 };
 
 // Select the IP address according to your local network
-IPAddress serverIP(192, 168, 2, 152);
+IPAddress serverIP(192, 168, 2, 93);
 
 #define SDCARD_CS       4
 
