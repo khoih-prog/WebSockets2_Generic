@@ -10,7 +10,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.5
+  Version: 1.0.6
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -21,14 +21,13 @@
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
                                   Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
   1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.
- *****************************************************************************************************************************/
+  1.0.6   K Hoang      06/08/2020 Add non-blocking WebSocketsServer feature and non-blocking examples. *****************************************************************************************************************************/
  
 #pragma once
 
 #if ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
       defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
       defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
-      
 
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
@@ -124,15 +123,24 @@ namespace websockets2_generic
         }
     
         TcpClient* accept() override 
-        {
+        {   
           while (available()) 
           {
             yield();
             auto client = server.available();
             
-            if (client) 
+            if (client)
+            {         
               return new EthernetTcpClient{client};
+            }
+            // KH, from v1.0.6, add to enable non-blocking when no WS Client
+            else
+            {
+              // Return NULL Client. Remember to test for NULL and process correctly
+              return NULL;
+            }            
           }
+                   
           return new EthernetTcpClient;
         }
     

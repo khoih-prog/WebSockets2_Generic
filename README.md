@@ -25,6 +25,13 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
 
 ---
 
+### New in v1.0.6
+
+1. Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311).
+2. Add non-blocking WebSockets Server and WebServer examples. 
+3. Add Ethernet Library Patches
+4. Add Arduino SAMD Packages_Patches to fix compiler errors when using [Standard Template Library STL](https://en.wikipedia.org/wiki/Standard_Template_Library)
+
 #### New in v1.0.5
 
 1. Sync with [ArduinoWebsockets v0.4.18](https://github.com/gilmaimon/ArduinoWebsockets/releases/tag/0.4.18) to fix ESP8266 SSL bug. See [Secured-Two-Way: Client certificate is not sent if used along with setTrustAnchors](https://github.com/gilmaimon/ArduinoWebsockets/issues/84)
@@ -72,22 +79,24 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
  2. [`ESP32 core v1.0.4+`](https://github.com/espressif/arduino-esp32/releases) for ESP32 boards. ***Ready*** from v1.0.0.
  3. [`ESP8266 core v2.7.3+` for Arduino](https://github.com/esp8266/Arduino#installing-with-boards-manager) for ESP8266 boards. ***Ready*** from v1.0.0.
  4. `Arduino AVR core v1.8.2+` for Arduino (Use Arduino Board Manager).
- 5. [`Teensy core v1.53+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. ***Not yet ready*** in v1.0.4.
+ 5. [`Teensy core v1.53+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. ***Not yet ready*** in v1.0.6.
  6. [`Arduino SAM DUE core v1.6.12+`](https://www.arduino.cc/en/Guide/ArduinoDue) for SAM DUE ARM Cortex-M3 boards. ***Ready*** from v1.0.1.
  7. [`Arduino SAMD core v1.8.7+`](https://www.arduino.cc/en/Guide/ArduinoM0) for SAMD ARM Cortex-M0+ boards. ***Ready*** from v1.0.0.
  8. [`Adafruit SAMD core v1.6.0+`](https://www.adafruit.com/) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). ***Ready*** from v1.0.0.
  9. [`Seeeduino SAMD core 1.7.7+`](https://www.seeedstudio.com/) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). ***Ready*** from v1.0.4.
 10. [`Adafruit nRF52 v0.20.5+`](https://www.adafruit.com/) for nRF52 boards such as AdaFruit Feather nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc. ***Ready*** from v1.0.0.
-11. [`Arduino Core for STM32 v1.9.0+`](https://github.com/khoih-prog/Arduino_Core_STM32) for STM32 boards. To install go to Arduino IDE, select Boards Manager, search for ***`STM32`***. ***Ready*** from v1.0.3.
+11. [`Arduino Core for STM32 v1.9.0+`](https://github.com/khoih-prog/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. To install go to Arduino IDE, select Boards Manager, search for ***`STM32`***. ***Ready*** from v1.0.3.
 12. [`WiFiNINA_Generic library v1.6.2+`](https://github.com/khoih-prog/WiFiNINA_Generic) if for WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic). ***Ready*** from v1.0.0.
 13. Depending on which Ethernet module/shield you're using :
    - [`Ethernet library v2.0.0+`](https://www.arduino.cc/en/Reference/Ethernet) for W5100, W5200 and W5500. ***Ready*** from v1.0.1.
    - [`Ethernet2 library v1.0.4+`](https://github.com/khoih-prog/Ethernet2) for W5500 (Deprecated, use Arduino Ethernet library). ***Ready*** from v1.0.1.
-   - [`Ethernet3 library v1.5.3+`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. ***Not yet ready*** in v1.0.4.
+   - [`Ethernet3 library v1.5.3+`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. ***Not yet ready*** in v1.0.6.
    - [`EthernetLarge library v2.0.0+`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500. ***Ready*** from v1.0.1.
    - [`UIPEthernet library v2.0.8+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. ***Ready*** from v1.0.2.
    - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in Ethernet LAN8742A on (Nucleo-144, Discovery). To be used with [`STM32duino_LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP). ***Ready*** from v1.0.3. 
-14. [`ESP_AT_Lib library v1.0.0+`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). ***Not yet ready*** in v1.0.4.
+14. [`ESP_AT_Lib library v1.0.0+`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). ***Not yet ready*** in v1.0.6.
+
+---
 
 ## Installation
 
@@ -370,9 +379,71 @@ client.onMessage([&](WebsocketsMessage message)
   Serial.println(message.data());
 });
 ```
+
+#### Reading WebSockets Client messages using non-blocking mode (new from v1.0.6):
+
+Using this new feature to enable doing other tasks in the loop(), such as WebServer, control tasks, etc.
+Server, using library version before v1.0.6, can only read Client messages in blocking mode. Therefore, the WebSocket Server can't hang, waiting for Client, and block all other tasks from running.
+
+```c++
+
+  // You can do some other tasks here, such as WebServer, controlling tasks, etc.
+  
+  WebsocketsClient client = SocketsServer.accept();
+
+  if (client.available())
+  {
+    WebsocketsMessage msg = client.readNonBlocking();
+
+    // log
+    Serial.print("Got Message: ");
+    Serial.println(msg.data());
+
+    // return echo
+    client.send("Echo: " + msg.data());
+
+    // close the connection
+    client.close();
+  }
+```
+
+Please test using one of these following new examples with v1.0.6 and v1.0.5- to see the blocking effects. Please remember to change in loop() from
+
+```
+WebsocketsMessage msg = client.readNonBlocking();
+```
+
+to
+
+```
+WebsocketsMessage msg = client.readBlocking();
+```
+
+as ***client.readNonBlocking() is a new function in v1.0.6+.***
+
+##### For ESP32/ESP8266
+
+1. [Esp32-AdvancedWebServer](examples/ESP32/Esp32-Esp32-AdvancedWebServer) using ESP32
+2. [Esp8266-AdvancedWebServer](examples/ESP8266/Esp8266-AdvancedWebServer) using ESP8266
+
+##### For WiFiNINA
+
+3. [SAMD-AdvancedWebServer](examples/Generic/WiFiNINA/SAMD/SAMD-AdvancedWebServer) using Nano-33-IoT
+4. [nRF52-AdvancedWebServer](examples/Generic/WiFiNINA/nRF52/nRF52-AdvancedWebServer) using Adafruit nRF52 NRF52840_FEATHER_EXPRESS, NINA_B302_ublox and WiFiNINA W102 module.
+5. [STM32-AdvancedWebServer](examples/Generic/WiFiNINA/STM32/STM32-AdvancedWebServer) using STM32 Nucleo-64 L053R8, STM32F4 and WiFiNINA W102 module.
+
+
+##### For W5x00, ENC28J60 or LAN8742A Ethernet
+
+6. [SAMDUE-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet_AdvancedWebServer) using SAM DUE and W5100 Ethernet
+7. [STM32-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/STM32/STM32-Ethernet_AdvancedWebServer) using STM32F7 Nucleo-144 F676ZI and built-in LAN8742A Ethernet.
+8. [SAMD-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/SAMD/SAMD-Ethernet_AdvancedWebServer) using Adafruit SAMD51 Itsy_Bitsy_M4, Seeeduino SAMD21 XIAO_M0 and W5500 Ethernet.
+9. [nRF52-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/nRF52/nRF52-Ethernet_AdvancedWebServer) using Adafruit nRF52 NRF52840_FEATHER_EXPRESS, NINA_B302_ublox and W5500 Ethernet.
+
+
 ---
 
-### To use WiFiNINA module/shield with WiFiNINA_Generic library
+### HOWTO use WiFiNINA module/shield with WiFiNINA_Generic library
 
 ```cpp
 #define WEBSOCKETS_USE_WIFININA           true
@@ -396,7 +467,7 @@ client.onMessage([&](WebsocketsMessage message)
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/W5100.jpg">
 </p>
 
-1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
+#### 1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
@@ -437,7 +508,7 @@ client.onMessage([&](WebsocketsMessage message)
 #define USE_UIP_ETHERNET                  false
 ```
 
-2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
+#### 2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
 
 <p align="center">
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/ENC28J60.jpg">
@@ -453,7 +524,7 @@ client.onMessage([&](WebsocketsMessage message)
 #define USE_ETHERNET_LARGE_LIB            false
 ```
 
-3. It's much easier just add to the sketch
+#### 3. It's much easier just add to the sketch
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
@@ -464,7 +535,7 @@ client.onMessage([&](WebsocketsMessage message)
 #define USE_ETHERNET2_LIB             false
 #define USE_ETHERNET_LARGE_LIB        false
 
-#define USE_UIP_ETHERNET              true
+#define USE_UIP_ETHERNET              false
 
 #if USE_ETHERNET_LIB
   // Also default to Ethernet library
@@ -484,15 +555,21 @@ client.onMessage([&](WebsocketsMessage message)
   // Default to Ethernet library
   #include <Ethernet.h>
   #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+  #define USE_ETHERNET_LIB            true
+#endif
+
+#ifndef USE_THIS_SS_PIN
+#define USE_THIS_SS_PIN   10    // For other boards
 #endif
 ```
+
 ---
 
 ###  For STM32F/L/H/G/WB/MP1  using Ethernet W5x0, ENC28J60 or LAN8742A
 
 #### To use Ethernet W5x00 module/shield with Ethernetx library
 
-1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
+#### 1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
@@ -538,7 +615,7 @@ client.onMessage([&](WebsocketsMessage message)
 #define USE_LAN8742A_ETHERNET             false
 ```
 
-2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
+#### 2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
@@ -551,7 +628,7 @@ client.onMessage([&](WebsocketsMessage message)
 #define USE_ETHERNET_LARGE_LIB            false
 ```
 
-3. To use Ethernet `LAN8742A` built-in module/shield with `STM32Ethernet` library
+#### 3. To use Ethernet `LAN8742A` built-in module/shield with `STM32Ethernet` library
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
@@ -564,7 +641,7 @@ client.onMessage([&](WebsocketsMessage message)
 #define USE_ETHERNET_LARGE_LIB            false
 ```
 
-4. It's much easier just add to the sketch
+#### 4. It's much easier just add to the sketch
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
@@ -594,9 +671,10 @@ client.onMessage([&](WebsocketsMessage message)
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
 #elif USE_LAN8742A_ETHERNET
+  #define USE_BUILTIN_ETHERNET        true
   #include <LwIP.h>
   #include <STM32Ethernet.h>
-  #define ETHERNET_TYPE               "LAN8742A and STM32Ethernet Library"
+  #define ETHERNET_TYPE               "LAN8742A and STM32Ethernet Library"  
 #else
   // Default to Ethernet library
   #include <Ethernet.h>
@@ -621,6 +699,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [ESP32-Client_SINRIC](examples/ESP32/ESP32-Client_SINRIC)
 5. [Esp32-Server](examples/ESP32/Esp32-Server)
 6. [Esp32-RepeatingClient](examples/ESP32/Esp32-RepeatingClient)
+7. [Esp32-AdvancedWebServer](examples/ESP32/Esp32-Esp32-AdvancedWebServer). New in v1.0.6+
 
 #### For ESP8266 boards
 
@@ -631,6 +710,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 5. [ESP8266-Client_SINRIC](examples/ESP8266/ESP8266-Client_SINRIC)
 6. [Esp8266-Server](examples/ESP8266/Esp8266-Server)
 7. [Esp8266-RepeatingClient](examples/ESP8266/Esp8266-RepeatingClient)
+8. [Esp8266-AdvancedWebServer](examples/ESP8266/Esp8266-AdvancedWebServer). New in v1.0.6+
 
 #### For nRF52 boards using WiFiNINA
 
@@ -640,6 +720,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [nRF52-Server](examples/Generic/WiFiNINA/nRF52/nRF52-Server)
 5. [nRF52-RepeatingClient](examples/Generic/WiFiNINA/nRF52/nRF52-RepeatingClient)
 6. [nRF52_ServerAllFunctionsDemo](examples/Generic/WiFiNINA/nRF52/nRF52_ServerAllFunctionsDemo)
+7. [nRF52-AdvancedWebServer](examples/Generic/WiFiNINA/nRF52/nRF52-AdvancedWebServer). New in v1.0.6+
 
 #### For SAMD21/SAMD51 boards using WiFiNINA
 
@@ -649,6 +730,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [SAMD-Server](examples/Generic/WiFiNINA/SAMD/SAMD-Server)
 5. [SAMD-RepeatingClient](examples/Generic/WiFiNINA/SAMD/SAMD-RepeatingClient)
 6. [SAMD_ServerAllFunctionsDemo](examples/Generic/WiFiNINA/SAMD/SAMD_ServerAllFunctionsDemo)
+7. [SAMD-AdvancedWebServer](examples/Generic/WiFiNINA/SAMD/SAMD-AdvancedWebServer). New in v1.0.6+
 
 #### For STM32F/L/H/G/WB/MP1 boards using WiFiNINA
 
@@ -658,6 +740,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [STM32-Server](examples/Generic/WiFiNINA/STM32/STM32-Server)
 5. [STM32-RepeatingClient](examples/Generic/WiFiNINA/STM32/STM32-RepeatingClient)
 6. [STM32_ServerAllFunctionsDemo](examples/Generic/WiFiNINA/STM32/STM32_ServerAllFunctionsDemo)
+7. [STM32-AdvancedWebServer](examples/Generic/WiFiNINA/STM32/STM32-AdvancedWebServer). New in v1.0.6+
 
 #### For nRF52 boards using Ethernet (W5x00 or ENC28J60)
 
@@ -667,6 +750,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [nRF52-Ethernet-Server](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Server)
 5. [nRF52-Ethernet-RepeatingClient](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-RepeatingClient)
 6. [nRF52-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/nRF52/nRF52-Ethernet_ServerAllFunctionsDemo)
+7. [nRF52-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/nRF52/nRF52-Ethernet_AdvancedWebServer). New in v1.0.6+
 
 #### For SAMD21/SAMD51 boards using Ethernet (W5x00 or ENC28J60)
 
@@ -676,6 +760,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [SAMD-Ethernet-Server](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Server)
 5. [SAMD-Ethernet-RepeatingClient](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-RepeatingClient)
 6. [SAMD-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMD/SAMD-Ethernet_ServerAllFunctionsDemo)
+7. [SAMD-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/SAMD/SAMD-Ethernet_AdvancedWebServer). New in v1.0.6+
 
 #### For SAM-DUE boards using Ethernet (W5x00 or ENC28J60)
 
@@ -685,6 +770,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server)
 5. [SAMDUE-Ethernet-RepeatingClient](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-RepeatingClient)
 6. [SAMDUE-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet_ServerAllFunctionsDemo)
+7. [SAMDUE-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet_AdvancedWebServer). New in v1.0.6+
 
 #### For STM32F/L/H/G/WB/MP1 boards using Ethernet (W5x00, ENC28J60 or LAN8742A)
 
@@ -694,6 +780,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [STM32-Ethernet-Server](examples/Generic/Ethernet/STM32/STM32-Ethernet-Server)
 5. [STM32-Ethernet-RepeatingClient](examples/Generic/Ethernet/STM32/STM32-Ethernet-RepeatingClient)
 6. [STM32-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/STM32/STM32-Ethernet_ServerAllFunctionsDemo)
+7. [STM32-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/STM32/STM32-Ethernet_AdvancedWebServer). New in v1.0.6+
 
 ---
 
@@ -701,7 +788,7 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 
 Please take a look at other examples, as well.
 
-1. File [SAMD-Client_SINRIC.ino](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino)
+#### 1. File [SAMD-Client_SINRIC.ino](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino)
 
 ```cpp
 #include "defines.h"
@@ -938,7 +1025,7 @@ void loop()
 }
 ```
 
-2. File [defines.h](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h)
+#### 2. File [defines.h](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h)
 
 ```cpp
 #ifndef defines_h
@@ -1132,14 +1219,14 @@ Turn off Device ID: 012345678901234567890123
 ```
 ---
 
-## Binary Data
+### Binary Data
 
 For binary data it is recommended to use `msg.rawData()` which returns a `std::string`, or `msg.c_str()` which returns a `const char*`. 
 The reason is that `msg.data()` returns an Arduino `String`, which is great for Serial printing and very basic memory handling but bad for most binary usages.
 
 See [issue #32](https://github.com/gilmaimon/ArduinoWebsockets/issues/32) for further information.
 
-## SSL and WSS Support
+### SSL and WSS Support
 
 No matter what board you are using, in order to use WSS (websockets over SSL) you need to use
 ```c++
@@ -1212,6 +1299,7 @@ const char ssl_ca_cert[] PROGMEM = \
 
 client.setCACert(ssl_ca_cert);
 ```
+
 ---
 
 ### Debug Termimal Output Samples
@@ -1264,6 +1352,8 @@ Got Message: {"deviceId":"012345678901234567890123","action":"setPowerState","va
 Turn off Device ID: 012345678901234567890123
 ```
 
+---
+
 2. This is terminal debug output when running [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server) on ***SAM DUE board with Ethernet W5100 shield using EthernetLarge library***, and receiving WebSockets connection from an ESP8266 board.
 
 ```
@@ -1298,6 +1388,8 @@ Got Message: Hello to Server from ESP8266
 Got Message: Hello to Server from ESP8266
 HHHHHHHHH
 ```
+
+---
 
 3. This is terminal debug output when running [nRF52-Ethernet-Server](examples/Generic/Ethernet/nRF52/nRF52-Ethernet-Server) on ***Adafruit nRF52840 Itsy-Bitsy Express board with Ethernet ENC28J60 shield using UIPEthernet library***, and receiving WebSockets connection from an ESP8266 board.
 
@@ -1335,6 +1427,8 @@ Got Message: Hello to Server from ESP8266
 Got Message: Hello to Server from ESP8266
 HHHHHHHHH
 ```
+
+---
 
 4. This is terminal debug output when running [STM32-Ethernet-Client_SINRIC](examples/Generic/Ethernet/STM32/STM32-Ethernet-Client_SINRIC) on ***Nucleo-144 NUCLEO_F767ZI board with built-in Ethernet LAN8742A using STMEthernet library***.
 
@@ -1378,6 +1472,8 @@ Turn on device id: 012345678901234567890123
 Got Message: {"deviceId":"012345678901234567890123","action":"setPowerState","value":"OFF"}
 Turn off Device ID: 012345678901234567890123
 ```
+---
+
 5. This is the terminal debug output when running [SAMDUE-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet_ServerAllFunctionsDemo) example on ***SAM DUE and W5100 Ethernet***. There are 3 WebSockets Clients connecting to the WebSockets Server:
 
   - ESP32 running [Esp32-RepeatingClient](examples/ESP32/Esp32-RepeatingClient)
@@ -1443,6 +1539,23 @@ Got Message: Hello to Server from NUCLEO_F767ZI
 Got Message: Hello to Server from ESP32
 ...
 ```
+
+---
+
+### Screenshots
+
+1. This is the screenshot when running [STM32-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/STM32/STM32-Ethernet_AdvancedWebServer) example on ***STM32F7 Nucleo-144 F767ZI and built-in LAN8742A Ethernet*** to demonstrate the new non-blocking feature of WebSockets Server enabling WbServer and WebSockets Server to run concurrently.
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_STM32.png">
+</p>
+
+2. This is the screenshot when running [SAMD-AdvancedWebServer](examples/Generic/WiFiNINA/SAMD/SAMD-AdvancedWebServer) example on ***Arduino SAMD21 Nano-33-IoT and built-in WiFiNINA*** to demonstrate the new non-blocking feature of WebSockets Server enabling WbServer and WebSockets Server to run concurrently.
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_Nano_33_IoT.png">
+</p>
+
 ---
 
 ### Debug
@@ -1464,7 +1577,7 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 
  1. Support more boards (Teensy, etc.)
  2. Support ESP8266/ESP32-AT shields.
- 3. Add SSL support to SAMD and nRF52 using WiFiNINA.
+ 3. Add SSL support to SAMD21/SAMD51 and nRF52 using WiFiNINA.
  4. Support more non-compatible Ethernet Libraries such as Ethernet_Shield_W5200, EtherCard, EtherSia
  5. Add mDNS features.
 
@@ -1483,8 +1596,16 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 11. Add support to ***STM32F/L/H/G/WB/MP1.***
 12. Add support to ***Ethernet LAN8742A***, using [`STM32Ethernet library`](https://github.com/stm32duino/STM32Ethernet) and [`STM32duino_LwIP library`](https://github.com/stm32duino/LwIP).
 13. Add support to ***Seeeduino SAMD21/SAMD51: LoRaWAN, Zero, Femto M0, XIAO M0, Wio GPS Board, Wio Terminal, Grove UI Wireless, etc.***
+14.  Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurently***
  
 ---
+
+### New in v1.0.6
+
+1. Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311).
+2. Add non-blocking WebSockets Server and WebServer examples. 
+3. Add Ethernet Library Patches
+4. Add Arduino SAMD Packages_Patches to fix compiler errors when using [Standard Template Library STL](https://en.wikipedia.org/wiki/Standard_Template_Library)
 
 #### New in v1.0.5
 
@@ -1544,6 +1665,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
   <tr>
     <td align="center"><a href="https://github.com/gilmaimon"><img src="https://github.com/gilmaimon.png" width="100px;" alt="gilmaimon"/><br /><sub><b>⭐️⭐️ gilmaimon</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/tcpipchip"><img src="https://github.com/tcpipchip.png" width="100px;" alt="tcpipchip"/><br /><sub><b>⭐️ tcpipchip</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/jakespeed1311"><img src="https://github.com/jakespeed1311.png" width="100px;" alt="jakespeed1311"/><br /><sub><b>jakespeed1311</b></sub></a><br /></td>
   </tr> 
 </table>
 

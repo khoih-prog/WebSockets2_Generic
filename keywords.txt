@@ -60,6 +60,7 @@ streamBinary  KEYWORD2
 end KEYWORD2
 setFragmentsPolicy	KEYWORD2
 getFragmentsPolicy	KEYWORD2
+readNonBlocking	KEYWORD2
 readBlocking	KEYWORD2
 ping	KEYWORD2
 pong	KEYWORD2
