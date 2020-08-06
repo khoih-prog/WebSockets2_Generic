@@ -27,7 +27,7 @@ This [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Gen
 
 ### New in v1.0.6
 
-1. Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311).
+1. Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurrently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311).
 2. Add non-blocking WebSockets Server and WebServer examples. 
 3. Add Ethernet Library Patches
 4. Add Arduino SAMD Packages_Patches to fix compiler errors when using [Standard Template Library STL](https://en.wikipedia.org/wiki/Standard_Template_Library)
@@ -1596,13 +1596,15 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 11. Add support to ***STM32F/L/H/G/WB/MP1.***
 12. Add support to ***Ethernet LAN8742A***, using [`STM32Ethernet library`](https://github.com/stm32duino/STM32Ethernet) and [`STM32duino_LwIP library`](https://github.com/stm32duino/LwIP).
 13. Add support to ***Seeeduino SAMD21/SAMD51: LoRaWAN, Zero, Femto M0, XIAO M0, Wio GPS Board, Wio Terminal, Grove UI Wireless, etc.***
-14.  Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurently***
+14.  Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurrently***
  
 ---
 
 ### New in v1.0.6
 
-1. Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311).
+### New in v1.0.6
+
+1. Add ***non-blocking WebSockets Server*** feature to enable WS Server and WebServer running ***concurrently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311).
 2. Add non-blocking WebSockets Server and WebServer examples. 
 3. Add Ethernet Library Patches
 4. Add Arduino SAMD Packages_Patches to fix compiler errors when using [Standard Template Library STL](https://en.wikipedia.org/wiki/Standard_Template_Library)
@@ -1660,7 +1662,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 
 1. Based on and modified from [Gil Maimon's ArduinoWebsockets](https://github.com/gilmaimon/ArduinoWebsockets)
 2. Thanks to good work of [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) for initiating, inspriring, working with, developing, debugging and testing. Without that, support to nRF52, especially ***NINA_B302_ublox running as nRF52840 and NINA_B112_ublox running as nRF52832***, has never been started and finished. See [u-blox nina b](https://github.com/khoih-prog/WiFiNINA_Generic/issues/1)
-3. Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311) to help identify and add ***non-blocking WebSockets Server*** feature to v1.0.6 to enable WS Server and WebServer running ***concurently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). 
+3. Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311) to help identify and add ***non-blocking WebSockets Server*** feature to v1.0.6 to enable WS Server and WebServer running ***concurrently***. See [***Support as Http server and the Websockets server on Arduino DUE***](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [***Running Http and Websocket Servers concurrently***](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). 
 
 <table>
   <tr>
