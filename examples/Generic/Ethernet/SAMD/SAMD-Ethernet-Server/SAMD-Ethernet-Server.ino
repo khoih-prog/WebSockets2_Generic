@@ -10,7 +10,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.0.6
+  Version: 1.0.7
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -21,7 +21,8 @@
   1.0.4   K Hoang      27/07/2020 Add support to STM32F/L/H/G/WB/MP1 and Seeeduino SAMD21/SAMD51 using 
                                   Ethernet W5x00, ENC28J60, LAN8742A and WiFiNINA. Add examples and Packages' Patches.
   1.0.5   K Hoang      29/07/2020 Sync with ArduinoWebsockets v0.4.18 to fix ESP8266 SSL bug.
-  1.0.6   K Hoang      06/08/2020 Add non-blocking WebSocketsServer feature and non-blocking examples.                 
+  1.0.6   K Hoang      06/08/2020 Add non-blocking WebSocketsServer feature and non-blocking examples.       
+  1.0.7   K Hoang      03/10/2020 Add support to Ethernet ENC28J60 using EthernetENC and UIPEthernet v2.0.9            
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
   SAMD Websockets Server : Minimal SAMD21/SAMD51 Websockets Server
@@ -86,7 +87,7 @@ void check_status()
 
 void setup()
 {
-#if (USE_ETHERNET_LIB || USE_ETHERNET2_LIB || USE_ETHERNET_LARGE_LIB)
+#if (USE_ETHERNET || USE_ETHERNET2 || USE_ETHERNET_LARGE)
   pinMode(SDCARD_CS, OUTPUT);
   digitalWrite(SDCARD_CS, HIGH); // Deselect the SD card
 #endif
@@ -97,11 +98,11 @@ void setup()
   Serial.println("\nStarting WebSockets2_Generic SAMD-Ethernet-Server on " + String(BOARD_NAME));
   Serial.println("Ethernet using " + String(ETHERNET_TYPE));
 
-#if ( USE_ETHERNET_LIB || USE_ETHERNET_LARGE_LIB || USE_ETHERNET2_LIB )  
+#if ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET2 || USE_ETHERNET_ENC )
   // Must use library patch for Ethernet, EthernetLarge libraries
   //Ethernet.setCsPin (USE_THIS_SS_PIN);
   Ethernet.init (USE_THIS_SS_PIN);
-#endif  // ( USE_ETHERNET_LIB || USE_ETHERNET_LARGE_LIB || USE_ETHERNET2_LIB )
+#endif  // ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET2 || USE_ETHERNET_ENC )
 
   // start the ethernet connection and the server:
   // Use Static IP
