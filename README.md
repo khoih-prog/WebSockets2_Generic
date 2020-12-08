@@ -25,6 +25,13 @@ This [**WebSockets2_Generic library**](https://github.com/khoih-prog/WebSockets2
  - continuation frame
 
 ---
+---
+
+### Major Release v1.1.0
+
+1. Add support to **Teensy using Ethernet libraries** such as **Ethernet, Ethernet2, Ethernet3, EthernetLarge, EthernetENC, UIPEthernet**.
+2. Add support to **Teensy 4.1 using NativeEthernet library**. Thanks to [**arnoson**](https://github.com/arnoson) code posted in [ArduinoWebsockets release 0.5.0](https://github.com/gilmaimon/ArduinoWebsockets/releases/tag/0.5.0)
+3. Add Version String
 
 ### New in v1.0.7
 
@@ -82,7 +89,7 @@ This [**WebSockets2_Generic library**](https://github.com/khoih-prog/WebSockets2
 ---
 ---
  
-## Prerequisite
+## Prerequisites
 
  1. [`Arduino IDE v1.8.13+`](https://www.arduino.cc/en/Main/Software)
  2. [`ESP32 core v1.0.4+`](https://github.com/espressif/arduino-esp32/releases) for ESP32 boards.
@@ -96,7 +103,7 @@ This [**WebSockets2_Generic library**](https://github.com/khoih-prog/WebSockets2
 10. [`Adafruit nRF52 v0.21.0+`](https://www.adafruit.com/) for nRF52 boards such as AdaFruit Feather nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc.
 11. [`Arduino Core for STM32 v1.9.0+`](https://github.com/khoih-prog/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. To install go to Arduino IDE, select Boards Manager, search for **`STM32`**.
 12. [`WiFiNINA_Generic library v1.8.0+`](https://github.com/khoih-prog/WiFiNINA_Generic) if for WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
-13. [`EthernetWebServer library v1.1.0+`](https://github.com/khoih-prog/EthernetWebServer) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer.svg?)](https://www.ardu-badge.com/EthernetWebServer)
+13. [`EthernetWebServer library v1.2.0+`](https://github.com/khoih-prog/EthernetWebServer) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer.svg?)](https://www.ardu-badge.com/EthernetWebServer)
 14. Depending on which Ethernet module/shield you're using :
    - [`Ethernet library v2.0.0+`](https://www.arduino.cc/en/Reference/Ethernet) for W5100, W5200 and W5500.
    - [`Ethernet2 library v1.0.4+`](https://github.com/khoih-prog/Ethernet2) for W5500 (Deprecated, use Arduino Ethernet library).
@@ -105,6 +112,7 @@ This [**WebSockets2_Generic library**](https://github.com/khoih-prog/WebSockets2
    - [`EthernetENC library v2.0.0+`](https://github.com/jandrassy/EthernetENC) for ENC28J60. **Ready** from v1.0.7.
    - [`UIPEthernet library v2.0.9+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60.
    - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in Ethernet LAN8742A on (Nucleo-144, Discovery). To be used with [`STM32duino_LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP).
+   - [`NativeEthernet Library version stable111+`](https://github.com/vjmuzik/NativeEthernet) for Teensy 4.1 built-in NativeEthernet
 15. [`ESP_AT_Lib library v1.0.0+`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). **Not yet ready**.
 16. [`WiFiWebServer library v1.1.0+`](https://github.com/khoih-prog/WiFiWebServer) if necessary to use certain WiFi/WiFiNINA features. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiWebServer.svg?)](https://www.ardu-badge.com/WiFiWebServer)
 17. [`FlashStorage_SAMD library v1.0.0+`](https://github.com/khoih-prog/FlashStorage_SAMD) for SAMD21 and SAMD51 boards (ZERO, MKR, **NANO_33_IOT**, M0, M0 Pro, **AdaFruit Itsy-Bitsy M4**, etc.) if necessary to use certain features.
@@ -163,16 +171,18 @@ These files must be copied into the directory:
 - `~/.arduino15/packages/adafruit/hardware/nrf52/x.yy.z/variants/NINA_B112_ublox/variant.cpp`
 - **`~/.arduino15/packages/adafruit/hardware/nrf52/x.yy.z/cores/nRF5/Udp.h`**
 
- 2. **To be able to compile and run on Teensy boards**, you have to copy the file [Teensy boards.txt](Packages_Patches/hardware/teensy/avr/boards.txt) into Teensy hardware directory (./arduino-1.8.12/hardware/teensy/avr/boards.txt). 
+ 2. **To be able to compile and run on Teensy boards**, you have to copy the file [Teensy boards.txt](Packages_Patches/hardware/teensy/avr/boards.txt) into Teensy hardware directory (./arduino-1.8.13/hardware/teensy/avr/boards.txt). 
 
-Supposing the Arduino version is 1.8.12. This file must be copied into the directory:
+Supposing the Arduino version is 1.8.13. These files must be copied into the directory:
 
-- `./arduino-1.8.12/hardware/teensy/avr/boards.txt`
+- `./arduino-1.8.13/hardware/teensy/avr/boards.txt`
+- ***`./arduino-1.8.13/hardware/teensy/avr/cores/teensy4/Stream.h`***
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
-This file must be copied into the directory:
+These files must be copied into the directory:
 
 - `./arduino-x.yy.zz/hardware/teensy/avr/boards.txt`
+- ***`./arduino-x.yy.zz/hardware/teensy/avr/cores/teensy4/Stream.h`***
 
  3. **To be able to compile and run on SAM DUE boards**, you have to copy the whole [SAM DUE](Packages_Patches/arduino/hardware/sam/1.6.12) directory into Arduino sam directory (~/.arduino15/packages/arduino/hardware/sam/1.6.12). 
 
@@ -513,11 +523,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 
 ##### For W5x00, ENC28J60 or LAN8742A Ethernet
 
-6. [SAMDUE-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet_AdvancedWebServer) using SAM DUE and W5100 Ethernet
-7. [STM32-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/STM32/STM32-Ethernet_AdvancedWebServer) using STM32F7 Nucleo-144 F676ZI and built-in LAN8742A Ethernet.
-8. [SAMD-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/SAMD/SAMD-Ethernet_AdvancedWebServer) using Adafruit SAMD51 Itsy_Bitsy_M4, Seeeduino SAMD21 XIAO_M0 and W5500 Ethernet.
-9. [nRF52-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/nRF52/nRF52-Ethernet_AdvancedWebServer) using Adafruit nRF52 NRF52840_FEATHER_EXPRESS, NINA_B302_ublox and W5500 Ethernet.
-
+ 6. [SAMDUE-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet_AdvancedWebServer) using SAM DUE and W5100 Ethernet
+ 7. [STM32-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/STM32/STM32-Ethernet_AdvancedWebServer) using STM32F7 Nucleo-144 F676ZI and built-in LAN8742A Ethernet.
+ 8. [SAMD-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/SAMD/SAMD-Ethernet_AdvancedWebServer) using Adafruit SAMD51 Itsy_Bitsy_M4, Seeeduino SAMD21 XIAO_M0 and W5500 Ethernet.
+ 9. [nRF52-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/nRF52/nRF52-Ethernet_AdvancedWebServer) using Adafruit nRF52 NRF52840_FEATHER_EXPRESS, NINA_B302_ublox and W5500 Ethernet.
+10. [Teensy-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/Teensy/Teensy-Ethernet_AdvancedWebServer) using Teensy and W5500 Ethernet.
 
 ---
 ---
@@ -812,6 +822,164 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
   #define USE_THIS_SS_PIN   10    // For other boards
 #endif
 ```
+
+---
+
+###  For Teensy 4.1, 4.0, 3.x using Ethernet W5x0, ENC28J60 or LAN8742A
+
+#### To use Ethernet W5x00 module/shield with Ethernetx library
+
+#### 1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+#define USE_UIP_ETHERNET                  false
+```
+
+ - To use `W5x00` module/shield with `Ethernet` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+
+#define USE_ETHERNET                      true
+#define USE_ETHERNET2                     false
+#define USE_ETHERNET_LARGE                false
+#define USE_ETHERNET_ENC                  false
+#define USE_NATIVE_ETHERNET               false
+
+#define USE_UIP_ETHERNET                  false
+```
+
+ - To use `W5x00` module/shield with `Ethernet2` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+
+#define USE_ETHERNET                      false
+#define USE_ETHERNET2                     true
+#define USE_ETHERNET_LARGE                false
+#define USE_ETHERNET_ENC                  false
+#define USE_NATIVE_ETHERNET               false
+
+#define USE_UIP_ETHERNET                  false
+```
+ - To use` W5x00` module/shield with `EthernetLarge` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+
+#define USE_ETHERNET                      false
+#define USE_ETHERNET2                     false
+#define USE_ETHERNET_LARGE                true
+#define USE_ETHERNET_ENC                  false
+#define USE_NATIVE_ETHERNET               false
+
+#define USE_UIP_ETHERNET                  false
+```
+
+#### 2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+
+#define USE_ETHERNET                      false
+#define USE_ETHERNET2                     false
+#define USE_ETHERNET_LARGE                false
+#define USE_ETHERNET_ENC                  false
+#define USE_NATIVE_ETHERNET               false
+
+#define USE_UIP_ETHERNET                  true
+```
+
+#### 3. To use Ethernet `ENC28J60` module/shield with new `EthernetENC` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+
+#define USE_ETHERNET                      false
+#define USE_ETHERNET2                     false
+#define USE_ETHERNET_LARGE                false
+#define USE_ETHERNET_ENC                  true
+#define USE_NATIVE_ETHERNET               false
+
+#define USE_UIP_ETHERNET                  false
+```
+
+#### 4. To use Teensy 4.1 NativeEthernet built-in module/shield with `NativeEthernet` library
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+
+#define USE_ETHERNET                      false
+#define USE_ETHERNET2                     false
+#define USE_ETHERNET_LARGE                false
+#define USE_ETHERNET_ENC                  true
+
+#define USE_UIP_ETHERNET                  false
+```
+
+#### 5. It's much easier just add to the sketch
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET           true
+
+// Just select one to be true. If all is false, default is Ethernet. 
+// If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
+#define USE_ETHERNET                  false
+#define USE_ETHERNET2                 true
+#define USE_ETHERNET_LARGE            false
+#define USE_ETHERNET_ENC              false
+#define USE_NATIVE_ETHERNET           false
+
+#define USE_UIP_ETHERNET              false
+
+#if ( defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_NATIVE_ETHERNET )
+  // Also default to Ethernet library
+  #include <NativeEthernet.h>
+  #define ETHERNET_TYPE               "Teensy 4.1 NativeEthernet Library"
+#elif USE_ETHERNET
+  // Also default to Ethernet library
+  #include <Ethernet.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+#elif USE_ETHERNET2
+  #include <Ethernet2.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet2 Library"
+#elif USE_ETHERNET_LARGE
+  #include <EthernetLarge.h>
+  #define ETHERNET_TYPE               "W5x00 and EthernetLarge Library"
+#elif USE_ETHERNET_ENC
+  #include <EthernetENC.h>
+  #define ETHERNET_TYPE               "ENC28J60 and EthernetENC Library"  
+#elif USE_UIP_ETHERNET
+  #include <UIPEthernet.h>
+  #include <utility/logging.h> 
+  #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
+#else
+  // Default to Ethernet library
+  #include <Ethernet.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+#endif
+
+#ifndef USE_THIS_SS_PIN
+  #define USE_THIS_SS_PIN   10    // For other boards
+#endif
+```
+
+---
+
+---
+
+###  For Teensy 4.1 using NativeEthernet
+
+Just as simple as:
+
+
+```cpp
+#define WEBSOCKETS_USE_ETHERNET     true
+#define USE_NATIVE_ETHERNET         true
+```
+
+
 ---
 
 ### To use ESP8266/ESP32 native WiFi
@@ -913,6 +1081,23 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 5. [STM32-Ethernet-RepeatingClient](examples/Generic/Ethernet/STM32/STM32-Ethernet-RepeatingClient)
 6. [STM32-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/STM32/STM32-Ethernet_ServerAllFunctionsDemo)
 7. [STM32-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/STM32/STM32-Ethernet_AdvancedWebServer). New in v1.0.6+
+
+#### For Teensy boards using Ethernet (W5x00, ENC28J60 or LAN8742A). New in v1.1.0
+
+1. [Teensy-Ethernet-Client](examples/Generic/Ethernet/Teensy/Teensy-Ethernet-Client)
+2. [Teensy-Ethernet-Minimal-Client](examples/Generic/Ethernet/Teensy/Teensy-Ethernet-Minimal-Client)
+3. [Teensy-Ethernet-Client_SINRIC](examples/Generic/Ethernet/Teensy/Teensy-Ethernet-Client_SINRIC)
+4. [Teensy-Ethernet-Server](examples/Generic/Ethernet/Teensy/Teensy-Ethernet-Server)
+5. [Teensy-Ethernet-RepeatingClient](examples/Generic/Ethernet/Teensy/Teensy-Ethernet-RepeatingClient)
+6. [Teensy-Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/Teensy/Teensy-Ethernet_ServerAllFunctionsDemo)
+7. [Teensy-Ethernet_AdvancedWebServer](examples/Generic/Ethernet/Teensy/Teensy-Ethernet_AdvancedWebServer).
+
+#### For Teensy 4.1 boards using NativeEthernet (KSZ8081MNX/KSZ8081RNB). New in v1.1.0
+
+1. [MultipleClients_Teensy41_Server](examples/Generic/Teensy41_NativeEthernet/MultipleClients_Teensy41_Server)
+2. [SocketAndHttp_Teensy41_Server](examples/Generic/Teensy41_NativeEthernet/SocketAndHttp_Teensy41_Server)
+3. [Teensy41_Client](examples/Generic/Teensy41_NativeEthernet/Teensy41_Client)
+4. [Teensy41_Server](examples/Generic/Teensy41_NativeEthernet/Teensy41_Server)
 
 ---
 ---
@@ -1078,7 +1263,8 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on " + String(BOARD_NAME));
+  Serial.println("\nStarting SAMD-Client_SINRIC with WiFiNINA on " + String(BOARD_NAME));
+  Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   // check for the WiFi module:
   if (WiFi.status() == WL_NO_MODULE)
@@ -1319,6 +1505,7 @@ This is the terminal output when running [SAMD-Client_SINRIC](examples/Generic/W
 
 ```
 Starting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on SAMD NANO_33_IOT
+WebSockets2_Generic v1.1.0
 WiFi-begin: return1 = 3
 WiFi-begin: return2 = 3
 Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
@@ -1443,6 +1630,7 @@ client.setCACert(ssl_ca_cert);
 ```
 Starting WebSockets2_Generic SAMD-Ethernet-Client_SINRIC on SAMD ADAFRUIT_ITSYBITSY_M4_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
+WebSockets2_Generic v1.1.0
 ENC28J60_CONTROL_CS =16
 SS =16
 SPI_MOSI =25
@@ -1489,6 +1677,7 @@ Turn off Device ID: 012345678901234567890123
 ```
 Starting WebSockets2_Generic SAMDUE-Ethernet-Server on SAM DUE
 Ethernet using W5x00 and EthernetLarge Library
+WebSockets2_Generic v1.1.0
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
 W5100::init: W5100, SSIZE =4096
 WebSockets Server Running and Ready on SAM DUE
@@ -1521,6 +1710,7 @@ HHHHHHHHH
 ```
 Starting WebSockets2_Generic nRF52-Ethernet-Server on NRF52840_ITSYBITSY_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
+WebSockets2_Generic v1.1.0
 ENC28J60_CONTROL_CS =10
 SS =5
 SPI_MOSI =24
@@ -1556,6 +1746,7 @@ HHHHHHHHH
 ```
 Starting WebSockets2_Generic STM32-Ethernet-Client_SINRIC on NUCLEO_F767ZI
 Ethernet using LAN8742A and STM32Ethernet Library
+WebSockets2_Generic v1.1.0
 WebSockets Client IP address: 192.168.2.135
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = ********
@@ -1599,6 +1790,7 @@ Turn off Device ID: 012345678901234567890123
 
 ```
 Start Generic_WebSocketServerAllFunctionsDemo_W5500
+WebSockets2_Generic v1.1.0
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
 W5100::init: W5100, SSIZE =4096
 WebSockets Server IP address: 192.168.2.95
@@ -1711,11 +1903,19 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 13. Add support to **Seeeduino SAMD21/SAMD51: LoRaWAN, Zero, Femto M0, XIAO M0, Wio GPS Board, Wio Terminal, Grove UI Wireless, etc.**
 14. Add **non-blocking WebSockets Server** feature to enable WS Server and WebServer running **concurrently**
 15. Add support to **Ethernet ENC28J60**, using [`EthernetENC`](https://github.com/jandrassy/EthernetENC) library.
+16. Add support to Teensy using Ethernet libraries such as **Ethernet, Ethernet2, Ethernet3, EthernetLarge, EthernetENC, UIPEthernet**.
+17. Add support to Teensy 4.1 using NativeEthernet libraries.
 
 ---
 ---
 
 ## Releases
+
+### Major Release v1.1.0
+
+1. Add support to Teensy using Ethernet libraries such as **Ethernet, Ethernet2, Ethernet3, EthernetLarge, EthernetENC, UIPEthernet**.
+2. Add support to Teensy 4.1 using NativeEthernet libraries. Thanks to [arnoson](https://github.com/arnoson) code posted in [ArduinoWebsockets release 0.5.0](https://github.com/gilmaimon/ArduinoWebsockets/releases/tag/0.5.0)
+3. Add Version String
 
 ### Releases v1.0.7
 
@@ -1779,17 +1979,19 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 
 ---
 
-### Contributions and thanks
+### Contributions and Thanks
 
 1. Based on and modified from [Gil Maimon's ArduinoWebsockets](https://github.com/gilmaimon/ArduinoWebsockets)
 2. Thanks to good work of [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) for initiating, inspriring, working with, developing, debugging and testing. Without that, support to nRF52, especially **NINA_B302_ublox running as nRF52840 and NINA_B112_ublox running as nRF52832**, has never been started and finished. See [u-blox nina b](https://github.com/khoih-prog/WiFiNINA_Generic/issues/1)
 3. Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311) to help identify and add **non-blocking WebSockets Server** feature to v1.0.6 to enable WS Server and WebServer running **concurrently**. See [**Support as Http server and the Websockets server on Arduino DUE**](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [**Running Http and Websocket Servers concurrently**](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). 
+4. Thanks to [arnoson](https://github.com/arnoson) code posted in [ArduinoWebsockets release 0.5.0](https://github.com/gilmaimon/ArduinoWebsockets/releases/tag/0.5.0) to provide support to Teensy 4.1 using NativeEthernet.
 
 <table>
   <tr>
     <td align="center"><a href="https://github.com/gilmaimon"><img src="https://github.com/gilmaimon.png" width="100px;" alt="gilmaimon"/><br /><sub><b>⭐️⭐️ Gil Maimon</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/tcpipchip"><img src="https://github.com/tcpipchip.png" width="100px;" alt="tcpipchip"/><br /><sub><b>⭐️ Miguel Wisintainer</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/jakespeed1311"><img src="https://github.com/jakespeed1311.png" width="100px;" alt="jakespeed1311"/><br /><sub><b>Jake</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/arnoson"><img src="https://github.com/arnoson.png" width="100px;" alt="arnoson"/><br /><sub><b>arnoson</b></sub></a><br /></td>
   </tr> 
 </table>
 

@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  ws_common.hpp
+  ws_common_NativeEthernet.hpp
   For WebSockets2_Generic Library
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
@@ -27,9 +27,6 @@
  
 #pragma once
 
-// KH
-#include <WebSockets2_Generic.h>
-
 #include <Tiny_Websockets_Generic/ws_config_defs.hpp>
 #include <string>
 #include <Arduino.h>
@@ -48,39 +45,25 @@ namespace websockets2_generic
   }   // namespace internals2_generic 
 }     // namespace websockets 2_generic
 
-#ifdef ESP8266
-
-  // Using ESP8266 WiFi
-  #warning Using ESP8266 WiFi for ESP8266 in ws_common.hpp
-    
-  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-  
-  #include <Tiny_Websockets_Generic/network/esp8266/esp8266_tcp.hpp>
-  #define WSDefaultTcpClient websockets2_generic::network2_generic::Esp8266TcpClient
-  #define WSDefaultTcpServer websockets2_generic::network2_generic::Esp8266TcpServer
-  
-  #ifndef _WS_CONFIG_NO_SSL
-  // OpenSSL Dependent
-  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEsp8266TcpClient
-  #endif //_WS_CONFIG_NO_SSL
-
-#elif defined(ESP32)
-
-  // Using ESP32 WiFi
-  #warning Using ESP32 WiFi for ESP32 in ws_common.hpp
-
-  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-  
-  #include <Tiny_Websockets_Generic/network/esp32/esp32_tcp.hpp>
-  #define WSDefaultTcpClient websockets2_generic::network2_generic::Esp32TcpClient
-  #define WSDefaultTcpServer websockets2_generic::network2_generic::Esp32TcpServer
-  
-  #ifndef _WS_CONFIG_NO_SSL
-  // OpenSSL Dependent
-  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEsp32TcpClient
-  #endif //_WS_CONFIG_NO_SSL
+  #if (defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_NATIVE_ETHERNET)
+        
+      // From v1.1.0  
+      // Using Teensy 4.1 NativeEthernet
+      #warning Using NativeEthernet for Teensy 4.1  in ws_common_NativeEthernet.hpp
       
-#endif    // ESP8266
+      #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+      #define _WS_CONFIG_NO_SSL   true
+      
+      #include <Tiny_Websockets_Generic/network/Teensy41_NativeEthernet/Teensy41_NativeEthernet_tcp.hpp>
 
-
-
+      #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+      #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+      
+      #ifndef _WS_CONFIG_NO_SSL
+      // OpenSSL Dependent
+      #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+      #endif //_WS_CONFIG_NO_SSL
+      
+  #else
+      #error This is designed only for Teensy 4.1. Please check your Tools-> Boards          
+  #endif  

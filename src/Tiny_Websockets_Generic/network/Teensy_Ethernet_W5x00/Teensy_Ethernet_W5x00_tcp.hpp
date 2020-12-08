@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  nRF52_Ethernet_tcp.hpp
-  For nRF52 boards with Ethernet W5x00 module/shield.
+  Teensy_Ethernet_W5x00_tcp.hpp
+  For Teensy boards with Ethernet W5x00 module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy boards besides ESP8266 and ESP32
@@ -26,31 +26,34 @@
  
 #pragma once
 
-#if ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
-      defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
-      defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
+#if ( defined(CORE_TEENSY) || defined(__IMXRT1062__) || defined(ARDUINO_TEENSY41) || defined(ARDUINO_TEENSY40) || \
+      defined(__MK66FX1M0__) || defined(__MK64FX512__) || defined(__MKL26Z64__) || defined(__MK20DX256__) || \
+      defined(__MK20DX128__) )
 
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-// KH, from v1.0.7
-#if (USE_ETHERNET_LIB || USE_ETHERNET)
-  #warning Using Ethernet Lib in nRF52_Ethernet_tcp.hpp
+// KH, from v1.1.0
+#if ( defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_NATIVE_ETHERNET )
+  // Also default to Ethernet library
+  #include <NativeEthernet.h>
+#elif (USE_ETHERNET_LIB || USE_ETHERNET)
+  #warning Using Ethernet Lib in Teensy_Ethernet_W5x00_tcp.hpp
   #include <Ethernet.h>
 #elif (USE_ETHERNET2_LIB || USE_ETHERNET2)
-  #warning Using Ethernet2 Lib in nRF52_Ethernet_tcp.hpp
+  #warning Using Ethernet2 Lib in Teensy_Ethernet_W5x00_tcp.hpp
   #include <Ethernet2.h>
 #elif (USE_ETHERNET_LARGE_LIB || USE_ETHERNET_LARGE)
-  #warning Using EthernetLarge Lib in nRF52_Ethernet_tcp.hpp
+  #warning Using EthernetLarge Lib in Teensy_Ethernet_W5x00_tcp.hpp
   #include <EthernetLarge.h>
 #elif (USE_ETHERNET_ENC_LIB || USE_ETHERNET_ENC)
-  #warning Using EthernetENC Lib in nRF52_Ethernet_tcp.hpp
+  #warning Using EthernetENC Lib in Teensy_Ethernet_W5x00_tcp.hpp
   #include <EthernetENC.h>  
 #else
   // Default to Ethernet library
-  #warning Using default Ethernet Lib in nRF52_Ethernet_tcp.hpp
+  #warning Using default Ethernet Lib in Teensy_Ethernet_W5x00_tcp.hpp
   #include <Ethernet.h>
 #endif
 //////
@@ -184,4 +187,4 @@ namespace websockets2_generic
     };
   }   // namespace network2_generic
 }     // namespace websockets2_generic
-#endif // #ifdef nRF52
+#endif // #ifdef Teensy
