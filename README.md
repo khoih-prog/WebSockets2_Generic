@@ -9,6 +9,43 @@
 ---
 ---
 
+## Table of Contents
+* [Why do we need this WebSockets2_Generic library](#why-do-we-need-this-websockets2_generic-library)
+* [Changes](#changes)
+* [Prerequisites](#prerequisites)
+* [Installation](#installation)
+  * [Packages' Patches](#packages-patches)
+  * [Libraries' Patches](#libraries-patches)
+* [HOWTO Use analogRead() with ESP32 running WiFi and/or BlueTooth (BT/BLE)](#howto-use-analogread-with-esp32-running-wifi-andor-bluetooth-btble)
+* [Important Notes](#important-notes)
+* [Basic Usage](#basic-usage)
+  * [Client](#client)
+  * [Server](#server)
+* [HOWTO use WiFiNINA module/shield with WiFiNINA_Generic library](#howto-use-wifinina-moduleshield-with-wifinina_generic-library)
+* [For SAMD21/SAMD51, nRF52, SAM DUE using Ethernet W5x0 or ENC28J60](#for-samd21samd51-nrf52-sam-due-using-ethernet-w5x0-or-enc28j60)
+* [For STM32F/L/H/G/WB/MP1 using Ethernet W5x0, ENC28J60 or LAN8742A](#for-stm32flhgwbmp1--using-ethernet-w5x0-enc28j60-or-lan8742a)
+* [For Teensy 4.1, 4.0, 3.x using Ethernet W5x0, ENC28J60 or LAN8742A](#for-teensy-41-40-3x-using-ethernet-w5x0-enc28j60-or-lan8742a)
+* [For Teensy 4.1 using NativeEthernet](#for-teensy-41-using-nativeethernet)
+* [To use ESP8266/ESP32 native WiFi](#to-use-esp8266esp32-native-wifi)
+* [Examples](#examples)
+  * (many boards)
+* [Example SAMD-Client_SINRIC](#example-samd-client_sinric)
+* [Binary Data](#binary-data)
+* [SSL and WSS Support](#ssl-and-wss-support)
+  * [ESP8266](#esp8266)
+  * [ESP32](#esp32)
+* [Debug Terminal Output Samples](#debug-terminal-output-samples)
+* [Screenshots](#screenshots)
+* [Debug](#debug)
+* [TO DO](#to-do)
+* [DONE](#done)
+* [Releases](#releases)
+* [Contributions and Thanks](#contributions-and-thanks)
+* [Contributing](#contributing)
+* [License and credits](#license-and-credits)
+* [Copyright](#copyright)
+
+
 ### Why do we need this [WebSockets2_Generic library](https://github.com/khoih-prog/WebSockets2_Generic)
 
 Many Web services require WebSockets library, which is so far written only for ESP8266/ESP32 boards. The ESP boards so far rely on the [**Markus Sattler's WebSockets Library**](https://github.com/Links2004/arduinoWebSockets) to connect to Alexa via Sinric or SinricPro skills.
@@ -26,6 +63,8 @@ This [**WebSockets2_Generic library**](https://github.com/khoih-prog/WebSockets2
 
 ---
 ---
+
+## Changes
 
 ### Major Release v1.1.0
 
@@ -1623,7 +1662,7 @@ client.setCACert(ssl_ca_cert);
 
 ---
 
-### Debug Termimal Output Samples
+### Debug Terminal Output Samples
 
 1. This is terminal debug output when running [SAMD-Ethernet-Client_SINRIC](examples/Generic/Ethernet/SAMD/SAMD-Ethernet-Client_SINRIC) on SAMD51 **ADAFRUIT_ITSYBITSY_M4_EXPRESS using ENC28J60 Ethernet module.**
 
