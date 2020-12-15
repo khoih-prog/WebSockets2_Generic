@@ -52,6 +52,8 @@ Many Web services require WebSockets library, which is so far written only for E
 
 This [**WebSockets2_Generic library**](https://github.com/khoih-prog/WebSockets2_Generic) is based on and modified from [**Gil Maimon's ArduinoWebSockets Library**](https://github.com/gilmaimon/ArduinoWebsockets) to provide support to many more boards, such as **Arduino SAMD21, Adafruit SAMD21/SAMD51, Seeeduino SAMD21/SAMD51, nRF52, STM32F/L/H/G/WB/MP1, Teensy, SAM DUE, etc.** and enable those boards to use WebSockets services, including voice-controlled Alexa along with Blynk. Those supported boards can also run **WebSockets Server.** The WebSockets can be used with **ESP’s WiFi, WiFiNINA, W5x00/ENC28J60/LAN8742A Ethernet, ESP8266/ESP32-AT modules/shields.**
 
+Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets/wiki) for roughly-accurate information about the API not covered here.
+
 #### Supported features of RFC6455 #####
 
  - text frame
