@@ -14,8 +14,24 @@
 * [Changes](#changes)
 * [Prerequisites](#prerequisites)
 * [Installation](#installation)
-  * [Packages' Patches](#packages-patches)
-  * [Libraries' Patches](#libraries-patches)
+* [Packages' Patches](#packages-patches)
+  * [1. For Adafruit nRF52840 and nRF52832 boards](#1-for-adafruit-nRF52840-and-nRF52832-boards)
+  * [2. For Teensy boards](#2-for-teensy-boards)
+  * [3. For Arduino SAM DUE boards](#3-for-arduino-sam-due-boards)
+  * [4. For Arduino SAMD boards](#4-for-arduino-samd-boards)
+      * [For core version v1.8.10+](#for-core-version-v1810)
+      * [For core version v1.8.9-](#for-core-version-v189-)
+  * [5. For Adafruit SAMD boards](#5-for-adafruit-samd-boards)
+  * [6. For Seeeduino SAMD boards](#6-for-seeeduino-samd-boards)
+  * [7. For STM32 boards](#7-for-stm32-boards) 
+* [Libraries' Patches](#libraries-patches)
+  * [1. For application requiring 2K+ HTML page](#1-for-application-requiring-2k-html-page)
+  * [2. For Ethernet library](#2-for-ethernet-library)
+  * [3. For EthernetLarge library](#3-for-ethernetlarge-library)
+  * [4. For Etherne2 library](#4-for-ethernet2-library)
+  * [5. For Ethernet3 library](#5-for-ethernet3-library)
+  * [6. For UIPEthernet library](#6-for-uipethernet-library)
+  * [7. For fixing ESP32 compile error](#7-for-fixing-esp32-compile-error) 
 * [HOWTO Use analogRead() with ESP32 running WiFi and/or BlueTooth (BT/BLE)](#howto-use-analogread-with-esp32-running-wifi-andor-bluetooth-btble)
 * [Important Notes](#important-notes)
 * [Basic Usage](#basic-usage)
@@ -156,7 +172,7 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
    - [`NativeEthernet Library version stable111+`](https://github.com/vjmuzik/NativeEthernet) for Teensy 4.1 built-in NativeEthernet
 15. [`ESP_AT_Lib library v1.0.0+`](https://github.com/khoih-prog/ESP_AT_Lib) if necessary to use ESP8288/ESP32-AT shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/ESP_AT_Lib.svg?)](https://www.ardu-badge.com/ESP_AT_Lib). **Not yet ready**.
 16. [`WiFiWebServer library v1.1.1+`](https://github.com/khoih-prog/WiFiWebServer) if necessary to use certain WiFi/WiFiNINA features. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiWebServer.svg?)](https://www.ardu-badge.com/WiFiWebServer)
-17. - [`FlashStorage_SAMD library v1.1.0+`](https://github.com/khoih-prog/FlashStorage_SAMD) for SAMD21 and SAMD51 boards (ZERO, MKR, NANO_33_IOT, M0, M0 Pro, AdaFruit Itsy-Bitsy M4, etc.). [![GitHub release](https://img.shields.io/github/release/khoih-prog/FlashStorage_SAMD.svg)](https://github.com/khoih-prog/FlashStorage_SAMD/releases/latest) if necessary to use certain features.
+17. [`FlashStorage_SAMD library v1.1.0+`](https://github.com/khoih-prog/FlashStorage_SAMD) for SAMD21 and SAMD51 boards (ZERO, MKR, NANO_33_IOT, M0, M0 Pro, AdaFruit Itsy-Bitsy M4, etc.). [![GitHub release](https://img.shields.io/github/release/khoih-prog/FlashStorage_SAMD.svg)](https://github.com/khoih-prog/FlashStorage_SAMD/releases/latest) if necessary to use certain features.
 18. [`DueFlashStorage library v1.0.0+`](https://github.com/sebnil/DueFlashStorage) for SAM DUE. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/DueFlashStorage.svg?)](https://www.ardu-badge.com/DueFlashStorage) if necessary to use certain features.
 19. [`Adafruit's LittleFS/InternalFS`](https://www.adafruit.com) for nRF52. Already included if you already installed Adafruit **nRF52 board package** from Boards Manager.
 20. [`DoubleResetDetector_Generic v1.0.3+`](https://github.com/khoih-prog/DoubleResetDetector_Generic) if necessary to use some examples. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/DoubleResetDetector_Generic.svg?)](https://www.ardu-badge.com/DoubleResetDetector_Generic) if necessary to use certain features.
@@ -186,6 +202,7 @@ Another way to install is to:
 3. Install [**WebSockets2_Generic** library](https://platformio.org/lib/show/11239/WebSockets2_Generic) by using [Library Manager](https://platformio.org/lib/show/11239/WebSockets2_Generic/installation). Search for **WebSockets2_Generic** in [Platform.io Author's Libraries](https://platformio.org/lib/search?query=author:%22Khoi%20Hoang%22)
 4. Use included [platformio.ini](platformio/platformio.ini) file from examples to ensure that all dependent libraries will installed automatically. Please visit documentation for the other options and examples at [Project Configuration File](https://docs.platformio.org/page/projectconf.html)
 
+---
 ---
 
 ### Packages' Patches
@@ -250,7 +267,7 @@ This file must be copied into the directory:
  
  ***To be able to compile without error and automatically detect and display BOARD_NAME on Arduino SAMD (Nano-33-IoT, etc) boards***, you have to copy the whole [Arduino SAMD cores 1.8.10](Packages_Patches/arduino/hardware/samd/1.8.10) directory into Arduino SAMD directory (~/.arduino15/packages/arduino/hardware/samd/1.8.10).
  
-#### For core version v1.8.11+
+#### For core version v1.8.10+
 
 Supposing the Arduino SAMD version is 1.8.11. Now only one file must be copied into the directory:
 
@@ -330,54 +347,59 @@ theses files must be copied into the corresponding directory:
 
 ### Libraries' Patches
 
-1. If your application requires 2K+ HTML page, the current [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) must be modified if you are using W5200/W5500 Ethernet shields. W5100 is not supported for 2K+ buffer. If you use boards requiring different CS/SS pin for W5x00 Ethernet shield, for example ESP32, ESP8266, nRF52, etc., you also have to modify the following libraries to be able to specify the CS/SS pin correctly.
+#### 1. For application requiring 2K+ HTML page
 
-2. To fix [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet), just copy these following files into the [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) directory to overwrite the old files:
+If your application requires 2K+ HTML page, the current [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) must be modified if you are using W5200/W5500 Ethernet shields. W5100 is not supported for 2K+ buffer. If you use boards requiring different CS/SS pin for W5x00 Ethernet shield, for example ESP32, ESP8266, nRF52, etc., you also have to modify the following libraries to be able to specify the CS/SS pin correctly.
+
+#### 2. For Ethernet library
+
+To fix [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet), just copy these following files into the [`Ethernet library`](https://www.arduino.cc/en/Reference/Ethernet) directory to overwrite the old files:
 - [Ethernet.h](LibraryPatches/Ethernet/src/Ethernet.h)
 - [Ethernet.cpp](LibraryPatches/Ethernet/src/Ethernet.cpp)
 - [EthernetServer.cpp](LibraryPatches/Ethernet/src/EthernetServer.cpp)
 - [w5100.h](LibraryPatches/Ethernet/src/utility/w5100.h)
 - [w5100.cpp](LibraryPatches/Ethernet/src/utility/w5100.cpp)
 
-3. To fix [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge), just copy these following files into the [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) directory to overwrite the old files:
+#### 3. For EthernetLarge library
+
+To fix [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge), just copy these following files into the [`EthernetLarge library`](https://github.com/OPEnSLab-OSU/EthernetLarge) directory to overwrite the old files:
 - [EthernetLarge.h](LibraryPatches/EthernetLarge/src/EthernetLarge.h)
 - [EthernetLarge.cpp](LibraryPatches/EthernetLarge/src/EthernetLarge.cpp)
 - [EthernetServer.cpp](LibraryPatches/EthernetLarge/src/EthernetServer.cpp)
 - [w5100.h](LibraryPatches/EthernetLarge/src/utility/w5100.h)
 - [w5100.cpp](LibraryPatches/EthernetLarge/src/utility/w5100.cpp)
 
-4. To fix [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2), just copy these following files into the [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2) directory to overwrite the old files:
+
+#### 4. For Ethernet2 library
+
+To fix [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2), just copy these following files into the [`Ethernet2 library`](https://github.com/khoih-prog/Ethernet2) directory to overwrite the old files:
 
 - [Ethernet2.h](LibraryPatches/Ethernet2/src/Ethernet2.h)
 - [Ethernet2.cpp](LibraryPatches/Ethernet2/src/Ethernet2.cpp)
 
-To add UDP Multicast support, necessary for this [**MDNS_Generic library**](https://github.com/khoih-prog/MDNS_Generic):
+To add UDP Multicast support, necessary for the [**UPnP_Generic library**](https://github.com/khoih-prog/UPnP_Generic):
 
 - [EthernetUdp2.h](LibraryPatches/Ethernet2/src/EthernetUdp2.h)
 - [EthernetUdp2.cpp](LibraryPatches/Ethernet2/src/EthernetUdp2.cpp)
+
+#### 5. For Ethernet3 library
 
 5. To fix [`Ethernet3 library`](https://github.com/sstaub/Ethernet3), just copy these following files into the [`Ethernet3 library`](https://github.com/sstaub/Ethernet3) directory to overwrite the old files:
 - [Ethernet3.h](LibraryPatches/Ethernet3/src/Ethernet3.h)
 - [Ethernet3.cpp](LibraryPatches/Ethernet3/src/Ethernet3.cpp)
 
-6. **To be able to compile and run on nRF52 boards with ENC28J60 using UIPEthernet library**, you have to copy these following files into the UIPEthernet `utility` directory to overwrite the old files:
+#### 6. For UIPEthernet library
 
-- For [UIPEthernet v2.0.8](https://github.com/UIPEthernet/UIPEthernet)
+***To be able to compile and run on nRF52 boards with ENC28J60 using UIPEthernet library***, you have to copy these following files into the UIPEthernet `utility` directory to overwrite the old files:
 
-  - [UIPEthernet.h](LibraryPatches/UIPEthernet/UIPEthernet.h)
-  - [UIPEthernet.cpp](LibraryPatches/UIPEthernet/UIPEthernet.cpp)
-  - [Enc28J60Network.h](LibraryPatches/UIPEthernet/utility/Enc28J60Network.h)
-  - [Enc28J60Network.cpp](LibraryPatches/UIPEthernet/utility/Enc28J60Network.cpp)
+- [UIPEthernet.h](LibraryPatches/UIPEthernet/UIPEthernet.h)
+- [UIPEthernet.cpp](LibraryPatches/UIPEthernet/UIPEthernet.cpp)
+- [Enc28J60Network.h](LibraryPatches/UIPEthernet/utility/Enc28J60Network.h)
+- [Enc28J60Network.cpp](LibraryPatches/UIPEthernet/utility/Enc28J60Network.cpp)
 
-- For [UIPEthernet v2.0.9](https://github.com/UIPEthernet/UIPEthernet)
+#### 7. For fixing ESP32 compile error
 
-  - [UIPEthernet.h](LibraryPatches/UIPEthernet-2.0.9/UIPEthernet.h)
-  - [UIPEthernet.cpp](LibraryPatches/UIPEthernet-2.0.9/UIPEthernet.cpp)
-  - [Enc28J60Network.h](LibraryPatches/UIPEthernet-2.0.9/utility/Enc28J60Network.h)
-  - [Enc28J60Network.cpp](LibraryPatches/UIPEthernet-2.0.9/utility/Enc28J60Network.cpp)
-
-7. To fix [`ESP32 compile error`](https://github.com/espressif/arduino-esp32), just copy the following file into the [`ESP32`](https://github.com/espressif/arduino-esp32) cores/esp32 directory (e.g. ./arduino-1.8.12/hardware/espressif/cores/esp32) to overwrite the old file:
-
+To fix [`ESP32 compile error`](https://github.com/espressif/arduino-esp32), just copy the following file into the [`ESP32`](https://github.com/espressif/arduino-esp32) cores/esp32 directory (e.g. ./arduino-1.8.12/hardware/espressif/cores/esp32) to overwrite the old file:
 - [Server.h](LibraryPatches/esp32/cores/esp32/Server.h)
 
 ---
