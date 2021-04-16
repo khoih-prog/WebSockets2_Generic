@@ -107,14 +107,22 @@ void setup()
   client.onEvent(onEventsCallback);
 
   // Connect to server
-  client.connect(websockets_server_host, websockets_server_port, "/");
+  bool connected = client.connect(websockets_server_host, websockets_server_port, "/");
 
-  // Send a message
-  String WS_msg = String("Hello to Server from ") + BOARD_NAME;
-  client.send(WS_msg);
+  if (connected) 
+  {
+    Serial.println("Connected!");
 
-  // Send a ping
-  client.ping();
+    String WS_msg = String("Hello to Server from ") + ARDUINO_BOARD;
+    client.send(WS_msg);
+
+    // Send a ping
+    client.ping();
+  } 
+  else 
+  {
+    Serial.println("Not Connected!");
+  }
 }
 
 void loop() 

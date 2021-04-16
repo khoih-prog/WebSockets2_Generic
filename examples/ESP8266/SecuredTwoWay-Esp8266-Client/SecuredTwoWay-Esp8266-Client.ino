@@ -46,6 +46,7 @@ using namespace websockets2_generic;
 // Need to update certs. Otherwise, can't connect to server using invalid certs.
 // The hardcoded certificate authority for this example.
 // Don't use it on your own apps!!!!!
+
 const char ca_cert[] PROGMEM = R"EOF(
 -----BEGIN CERTIFICATE-----
 MIIC1TCCAb2gAwIBAgIJAMPt1Ms37+hLMA0GCSqGSIb3DQEBCwUAMCExCzAJBgNV
@@ -66,6 +67,7 @@ X8yKI14mFOGxuvcygG8L2xxysW7Zq+9g+O7gW0Pm6RDYnUQmIwY83h1KFCtYCJdS
 2PgozwkkUNyP
 -----END CERTIFICATE-----
 )EOF";
+
 
 // The client's private key which must be kept secret
 const char client_private_key[] PROGMEM = R"EOF(

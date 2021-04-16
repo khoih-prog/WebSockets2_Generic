@@ -95,7 +95,7 @@ void setup()
     return;
   }
 
-  Serial.print("Connected to Wifi, Connecting to WebSockets Server @");
+  Serial.print("\nConnected to Wifi, Connecting to WebSockets Server @");
   Serial.println(websockets_connection_string);
 
   // run callback when messages are received

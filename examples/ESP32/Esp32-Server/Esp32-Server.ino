@@ -84,6 +84,10 @@ void setup()
   Serial.println("\nStarting ESP32-Server on " + String(ARDUINO_BOARD));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
+  //WiFi.mode(WIFI_STA);
+  
+  WiFi.config(serverIP, static_GW, static_SN); 
+
   // Connect to wifi
   WiFi.begin(ssid, password);
 
@@ -120,6 +124,7 @@ void loop()
  
   if (client.available())
   {
+    //WebsocketsMessage msg = client.readNonBlocking();
     WebsocketsMessage msg = client.readBlocking();
 
     // log

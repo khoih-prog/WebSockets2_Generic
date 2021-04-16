@@ -28,10 +28,13 @@
 #ifndef defines_h
 #define defines_h
 
-#if (ESP32)
-  #define BOARD_TYPE      "ESP32"
+#if !( defined(ESP8266) ||  defined(ESP32) )
+  #error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.
+#elif ( ARDUINO_ESP32S2_DEV || ARDUINO_FEATHERS2 || ARDUINO_PROS2 || ARDUINO_MICROS2 )
+  #warning This code now supports ES32-S2. Enjoy
+  #define BOARD_TYPE      "ESP32-S2"
 #else
-  #error This code is intended to run only on the ESP32 boards ! Please check your Tools->Board setting.
+  #define BOARD_TYPE      "ESP32"
 #endif
 
 #ifndef BOARD_NAME

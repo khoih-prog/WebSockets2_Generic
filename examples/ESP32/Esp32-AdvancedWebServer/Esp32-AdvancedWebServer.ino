@@ -175,6 +175,7 @@ void loop()
   if (client.available())
   {
     WebsocketsMessage msg = client.readNonBlocking();
+    //WebsocketsMessage msg = client.readBlocking();
 
     // log
     Serial.print("Got Message: ");
@@ -186,4 +187,8 @@ void loop()
     // close the connection
     client.close();
   }
+
+#if ( ARDUINO_ESP32S2_DEV || ARDUINO_FEATHERS2 || ARDUINO_PROS2 || ARDUINO_MICROS2 )
+  delay(1000);
+#endif  
 }
