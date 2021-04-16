@@ -17,7 +17,7 @@
 #if !( defined(ESP8266) ||  defined(ESP32) )
   #error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.
 #elif ( ARDUINO_ESP32S2_DEV || ARDUINO_FEATHERS2 || ARDUINO_PROS2 || ARDUINO_MICROS2 )
-  #error This code doesn't support ESP32_S2 yet.
+  #warning This code now supports ES32-S2. Enjoy
   #define BOARD_TYPE      "ESP32-S2"
 #else
   #define BOARD_TYPE      "ESP32"
