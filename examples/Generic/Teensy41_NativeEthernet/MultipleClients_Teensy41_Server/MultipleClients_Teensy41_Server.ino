@@ -62,7 +62,7 @@ using namespace websockets2_generic;
 byte mac[6];
 
 // Enter websockets server port.
-const uint16_t port = 80;
+const uint16_t port = 81;
 
 // Define how many clients we accpet simultaneously.
 const byte maxClients = 4;
