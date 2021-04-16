@@ -108,7 +108,7 @@
   * [For Teensy 4.1 boards using NativeEthernet (KSZ8081MNX/KSZ8081RNB). New in v1.1.0](#for-teensy-41-boards-using-nativeethernet-ksz8081mnxksz8081rnb-new-in-v110)
 * [Example SAMD-Client_SINRIC](#example-samd-client_sinric)
   * [1. File SAMD-Client_SINRIC.ino](#1-file-samd-client_sinricino)
-  * [2. File [defines.h](#2-file-definesh)
+  * [2. File defines.h](#2-file-definesh)
 * [Using SINRIC Service](#using-sinric-service)
 * [Binary Data](#binary-data)
 * [SSL and WSS Support](#ssl-and-wss-support)
