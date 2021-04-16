@@ -2414,7 +2414,7 @@ Turn off Device ID: 012345678901234567890123
 
 ---
 
-8. This is terminal debug output when running [Secured-ESP32-Client](examples/ESP32/Secured-ESP32-Client) on **ESP32S2_DEV** using modified [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6) . Check [HOWTO Install esp32-s2 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
+8. This is terminal debug output when running [Secured-ESP32-Client](examples/ESP32/Secured-Esp32-Client) on **ESP32S2_DEV** using modified [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6) . Check [HOWTO Install esp32-s2 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
 
 ```
 Starting WebSockets Secured-ESP32-Client on ESP32S2_DEV
