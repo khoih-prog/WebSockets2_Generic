@@ -1,8 +1,8 @@
 {
   "name": "WebSockets2_Generic",
-  "version": "1.1.0",
-  "description": "WebSocket Server and Client for Arduino based on RFC6455, originally designed for ESP8266/ESP32, now modified and ported to run on nRF52, SAMD21, SAMD51, SAM DUE, STM32F/L/H/G/WB/MP1, Teensy, etc. boards, with WiFiNINA, Teensy 4.1 NativeEthernet, Ethernet W5x00/ENC28J60/LAN8742A, ESP8266/ESP32-AT modules/shields, as well as SINRIC / Alexa / Google Home",
-  "keywords": "wifi, http, web, server, client, websocket, ethernet, Sinric, Alexa",
+  "version": "1.2.0",
+  "description": "WebSocket Server and Client for Arduino based on RFC6455, originally designed for ESP8266/ESP32, now modified and ported to run on nRF52, SAMD21, SAMD51, SAM DUE, STM32F/L/H/G/WB/MP1, Teensy, etc. boards, with WiFiNINA, Teensy 4.1 NativeEthernet, Ethernet W5x00/ENC28J60/LAN8742A/LAN8720, ESP8266/ESP32-AT modules/shields, as well as SINRIC / Alexa / Google Home",
+  "keywords": "communication, wifi, http, wss, ssl, websocket, webserver, client, server, Sinric, Alexa, ethernet, lan8742a, lan8720, esp32, esp8266, stm32, samd, sam due, nrf52",
   "authors": [
     {
       "name":  "Gil Maimon",
@@ -34,19 +34,19 @@
     {
       "owner": "khoih.prog",
       "name": "WiFiNINA_Generic",
-      "version": "^1.8.0",
+      "version": "^1.8.5",
       "platforms": ["*"]
     },
     {
-      "owner": "khoih-prog",
+      "owner": "khoih.prog",
       "name": "DoubleResetDetector_Generic",
-      "version": "^1.0.2",
+      "version": "^1.0.3",
       "platforms": ["*"]
     },
     {
       "owner": "khoih.prog",
       "name": "FlashStorage_SAMD",
-      "version": "^1.0.0",
+      "version": "^1.1.0",
       "platforms": ["*"]
     },
     {
@@ -56,21 +56,21 @@
       "platforms": ["*"]
     },
     {
-      "owner": "khoih-prog",
+      "owner": "khoih.prog",
       "name": "WiFiWebServer",
-      "version": "^1.1.0",
+      "version": "^1.1.1",
       "platforms": ["*"]
     },
     {
-      "owner": "khoih-prog",
+      "owner": "khoih.prog",
       "name": "EthernetWebServer",
-      "version": "^1.1.0",
+      "version": "^1.3.0",
       "platforms": ["*"]
     },
     {
-      "owner": "khoih-prog",
+      "owner": "khoih.prog",
       "name": "EthernetWebServer_STM32",
-      "version": "^1.1.0",
+      "version": "^1.2.0",
       "platforms": ["*"]
     },
     {
@@ -112,7 +112,7 @@
     {
       "owner": "sstaub",
       "name": "Ethernet3",
-      "version": "^1.5.3",
+      "version": "^1.5.5",
       "platforms": ["*"]
     },
     {
