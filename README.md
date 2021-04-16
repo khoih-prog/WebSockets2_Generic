@@ -15,7 +15,7 @@
   * [Features](#features)
   * [Supported features of RFC6455](#supported-features-of-rfc6455)
 * [Changelog](#changelog)
-  * [Release v1.2.0](#release-v120)
+  * [Major Release v1.2.0](#major-release-v120)
   * [Major Release v1.1.0](#major-release-v110)
   * [Release v1.0.7](#release-v107)
   * [Release v1.0.6](#release-v106)
@@ -152,14 +152,15 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 
 ## Changelog
 
-### Release v1.2.0
+### Major Release v1.2.0
 
 1. Add limited (client-only) support to **LAN8720** Ethernet for **STM32F4 (F407xx, NUCLEO_F429ZI) and STM32F7** (DISCO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG) boards.
 2. Add LAN8720 examples
 3. Add Packages' Patches for STM32 to use LAN8720 with STM32Ethernet and LwIP libraries
 4. Update `echo.websocket.org` **fingerprint add CA Certificate** for ESP8266 and ESP32. Check [Secured-Esp32-Client Example not works on NodeMcu32s (Esp32s) #16](https://github.com/khoih-prog/WebSockets2_Generic/issues/16)
 5. Add limited (client-only) support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
-6. Update [HOWTO Install esp32-s2/s3 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide) to accomodate [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6)
+6. Update [HOWTO Install esp32-s2 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide) to accomodate [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6)
+7. Update README to reflect [`LittleFS_esp32 library`](https://github.com/lorol/LITTLEFS) has been included in [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6) and many steps are not necessary anymore
 
 ### Major Release v1.1.0
 
@@ -227,7 +228,7 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 
  1. [`Arduino IDE v1.8.13+`](https://www.arduino.cc/en/Main/Software)
  2. [`ESP32 Core 1.0.6+`](https://github.com/espressif/arduino-esp32) for ESP32-based boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
- 3. [`ESP32S2 Core 1.0.4+`](https://github.com/espressif/arduino-esp32/tree/esp32s2) for ESP32S2-based boards.
+ 3. [`ESP32S2 Core 1.0.6+`](https://github.com/espressif/arduino-esp32/tree/esp32s2) for ESP32S2-based boards. Must follow [HOWTO Install esp32-s2 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) boards into Arduino IDE)](#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
  4. [`ESP8266 Core 2.7.4+`](https://github.com/esp8266/Arduino) for ESP8266-based boards. [![Latest release](https://img.shields.io/github/release/esp8266/Arduino.svg)](https://github.com/esp8266/Arduino/releases/latest/). To use ESP8266 core 2.7.1+ for LittleFS. 
  5. [`Arduino AVR core 1.8.3+`](https://github.com/arduino/ArduinoCore-avr) for Arduino (Use Arduino Board Manager) for AVR boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-avr.svg)](https://github.com/arduino/ArduinoCore-avr/releases/latest)
  6. [`Teensy core v1.53+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. **Ready** from v1.0.0.
@@ -622,6 +623,8 @@ Copy whole `esptool` directory into `/home/your_account/.arduino15/packages/esp3
 
 ### 5. esp32-s2 WebServer Library Patch
 
+#### Necessary only for esp32 core v1.0.6-
+
 If you haven't installed a new version with [WebServer.handleClient delay PR #4350](https://github.com/espressif/arduino-esp32/pull/4350) or haven't applied the above mentioned PR, you have to use the following patch.
 
 
@@ -642,7 +645,11 @@ That's it. You're now ready to compile and test for ESP32-S2 now
 
 ### Note for Platform IO using ESP32 LittleFS
 
-In Platform IO, to fix the error when using [`LittleFS_esp32 v1.0`](https://github.com/lorol/LITTLEFS) for ESP32-based boards with ESP32 core v1.0.4- (ESP-IDF v3.2-), uncomment the following line
+#### Necessary only for esp32 core v1.0.6-
+
+From esp32 core v1.0.6+, [`LittleFS_esp32 v1.0.6`](https://github.com/lorol/LITTLEFS) has been included and this step is not necessary anymore.
+
+In Platform IO, to fix the error when using [`LittleFS_esp32 v1.0.6`](https://github.com/lorol/LITTLEFS) for ESP32-based boards with ESP32 core v1.0.4- (ESP-IDF v3.2-), uncomment the following line
 
 from
 
@@ -665,6 +672,10 @@ Thanks to [Roshan](https://github.com/solroshan) to report the issue in [Error e
 ---
 
 ### Note for Platform IO using ESP32 LittleFS
+
+#### Necessary only for esp32 core v1.0.6-
+
+From esp32 core v1.0.6+, [`LittleFS_esp32 v1.0.6`](https://github.com/lorol/LITTLEFS) has been included and this step is not necessary anymore.
 
 In Platform IO, to fix the error when using [`LittleFS_esp32 v1.0`](https://github.com/lorol/LITTLEFS) for ESP32-based boards with ESP32 core v1.0.4- (ESP-IDF v3.2-), uncomment the following line
 
@@ -781,10 +792,6 @@ Connect FDTI (USB to Serial) as follows:
 |RX|<--->|TX=PA_9|
 |TX|<--->|RX=PA_10|
 |GND|<--->|GND|
-
-
----
----
 
 ---
 ---
@@ -2098,6 +2105,7 @@ client.setCACert(echo_org_ssl_ca_cert);
 ```
 
 ---
+---
 
 ### Debug Terminal Output Samples
 
@@ -2320,6 +2328,8 @@ Got Message: Hello to Server from ESP32
 ...
 ```
 
+---
+
 6. This is terminal debug output when running [STM32-Ethernet-Client_SINRIC_LAN8720](examples/Generic/Ethernet/STM32/LAN8720/STM32-Ethernet-Client_SINRIC_LAN8720) on **BLACK_F407VE using LAN8720 and STM32Ethernet Library**.
 
 ```
@@ -2360,10 +2370,9 @@ Got Message: {"deviceId":"012345678901234567890123","action":"setPowerState","va
 Turn off Device ID: 012345678901234567890123
 ```
 
-
 ---
 
-7. This is terminal debug output when running [SP32-Client_SINRIC](examples/ESP32/ESP32-Client_SINRIC) on **ESP32S2_DEV**.
+7. This is terminal debug output when running [ESP32-Client_SINRIC](examples/ESP32/ESP32-Client_SINRIC) on **ESP32S2_DEV** using modified [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6) . Check [HOWTO Install esp32-s2 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
 
 ```
 Starting ESP32-Client_SINRIC on ESP32S2_DEV
@@ -2403,6 +2412,64 @@ Got Message: {"deviceId":"012345678901234567890123","action":"setPowerState","va
 Turn off Device ID: 012345678901234567890123
 ```
 
+---
+
+8. This is terminal debug output when running [WebSockets Secured-ESP32-Client](examples/ESP32/WebSockets Secured-ESP32-Client) on **ESP32S2_DEV** using modified [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6) . Check [HOWTO Install esp32-s2 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
+
+```
+Starting WebSockets Secured-ESP32-Client on ESP32S2_DEV
+WebSockets2_Generic v1.2.0
+....
+Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
+[WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
+[WS] WebsocketsClient::doestStartsWith: prefix = wss://
+[WS] WebsocketsClient::generateHandshake: base64Authorization = 
+[WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
+Host: echo.websocket.org
+Sec-WebSocket-Key: MDEyMzQ1Njc4OWFiY2RlZg==
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Version: 13
+User-Agent: TinyWebsockets Client
+Authorization: Basic 
+Origin: https://github.com/khoih-prog/Websockets2_Generic
+
+
+[WS] WebsocketsClient::connect: base64Authorization = 
+[WS] WebsocketsClient::doestStartsWith: str = HTTP/1.1 101 Web Socket Protocol Handshake
+
+[WS] WebsocketsClient::doestStartsWith: prefix = HTTP/1.1 101
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Credentials
+[WS] WebsocketsClient::generateHandshake: value = true
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = content-type
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = authorization
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = x-websocket-extensions
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = x-websocket-version
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = x-websocket-protocol
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Origin
+[WS] WebsocketsClient::generateHandshake: value = https://github.com/khoih-prog/Websockets2_Generic
+[WS] WebsocketsClient::generateHandshake: key = Connection
+[WS] WebsocketsClient::generateHandshake: value = Upgrade
+[WS] WebsocketsClient::generateHandshake: key = Date
+[WS] WebsocketsClient::generateHandshake: value = Fri, 16 Apr 2021 19:34:42 GMT
+[WS] WebsocketsClient::generateHandshake: key = Sec-WebSocket-Accept
+[WS] WebsocketsClient::generateHandshake: value = BACScCJPNqyz+UBoqMH89VmURoA=
+[WS] WebsocketsClient::generateHandshake: key = Server
+[WS] WebsocketsClient::generateHandshake: value = Kaazing Gateway
+[WS] WebsocketsClient::generateHandshake: key = Upgrade
+[WS] WebsocketsClient::generateHandshake: value = websocket
+Connnection Opened
+Connected!
+Got Message: Hello to Server from ESP32S2_DEV
+Got a Pong!
+```
+
+---
 ---
 
 ### Screenshots
@@ -2446,14 +2513,15 @@ If you get compilation errors, more often than not, you may need to install a ne
 
 ## Releases
 
-### Release v1.2.0
+### Major Release v1.2.0
 
 1. Add limited (client-only) support to **LAN8720** Ethernet for **STM32F4 (F407xx, NUCLEO_F429ZI) and STM32F7** (DISCO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG) boards.
 2. Add LAN8720 examples
 3. Add Packages' Patches for STM32 to use LAN8720 with STM32Ethernet and LwIP libraries
 4. Update `echo.websocket.org` **fingerprint add CA Certificate** for ESP8266 and ESP32. Check [Secured-Esp32-Client Example not works on NodeMcu32s (Esp32s) #16](https://github.com/khoih-prog/WebSockets2_Generic/issues/16)
 5. Add limited (client-only) support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
-6. Update [HOWTO Install esp32-s2/s3 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide) to accomodate [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6)
+6. Update [HOWTO Install esp32-s2 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide) to accomodate [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6)
+7. Update README to reflect [`LittleFS_esp32 library`](https://github.com/lorol/LITTLEFS) has been included in [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6) and many steps are not necessary anymore
 
 ### Major Release v1.1.0
 
@@ -2553,6 +2621,9 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 15. Add support to **Ethernet ENC28J60**, using [`EthernetENC`](https://github.com/jandrassy/EthernetENC) library.
 16. Add support to Teensy using Ethernet libraries such as **Ethernet, Ethernet2, Ethernet3, EthernetLarge, EthernetENC, UIPEthernet**.
 17. Add support to Teensy 4.1 using NativeEthernet libraries.
+18. Add support to **Ethernet LAN8720** using [STM32Ethernet library](https://github.com/stm32duino/STM32Ethernet), for boards such as **Nucleo-144 (F429ZI, NUCLEO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG), Discovery (DISCO_F746NG)** and **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
+19. Add support to **ESP32-S2**
+20. Update to use [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6).
 
 ---
 ---
