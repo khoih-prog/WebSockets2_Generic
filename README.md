@@ -16,7 +16,7 @@
   * [Supported features of RFC6455](#supported-features-of-rfc6455)
 * [Changelog](#changelog)
   * [Release v1.2.0](#release-v120)
-  * [Release v1.2.0](#release-v110)
+  * [Major Release v1.1.0](#major-release-v110)
   * [Release v1.0.7](#release-v107)
   * [Release v1.0.6](#release-v106)
   * [Release v1.0.5](#release-v105)
@@ -49,7 +49,7 @@
   * [4. For Etherne2 library](#4-for-ethernet2-library)
   * [5. For Ethernet3 library](#5-for-ethernet3-library)
   * [6. For UIPEthernet library](#6-for-uipethernet-library)
-    * [Optional UIPthernet patch](#optional-uipethernet-patch)
+    * [Optional UIPEthernet patch](#optional-uipethernet-patch)
   * [7. For fixing ESP32 compile error](#7-for-fixing-esp32-compile-error)
   * [8. For fixing ESP8266 compile error](#8-for-fixing-esp8266-compile-error)
 * [HOWTO Install esp32-s2 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) boards into Arduino IDE)](#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
@@ -158,6 +158,7 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 3. Add Packages' Patches for STM32 to use LAN8720 with STM32Ethernet and LwIP libraries
 4. Update `echo.websocket.org` **fingerprint add CA Certificate** for ESP8266 and ESP32. Check [Secured-Esp32-Client Example not works on NodeMcu32s (Esp32s) #16](https://github.com/khoih-prog/WebSockets2_Generic/issues/16)
 5. Add limited (client-only) support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
+6. Update [HOWTO Install esp32-s2/s3 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide) to accomodate [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6)
 
 ### Major Release v1.1.0
 
@@ -500,7 +501,7 @@ To fix [`Ethernet3 library`](https://github.com/sstaub/Ethernet3), just copy the
 - [Enc28J60Network.h](LibraryPatches/UIPEthernet/utility/Enc28J60Network.h)
 - [Enc28J60Network.cpp](LibraryPatches/UIPEthernet/utility/Enc28J60Network.cpp)
 
-##### Optional UIPthernet patch
+##### Optional UIPEthernet patch
 
 Check if you need to install the UIPthernet patch [new STM32 core F3/F4 compatibility](https://github.com/UIPEthernet/UIPEthernet/commit/c6d6519a260166b722b9cee5dd1f0fb2682e6782) to avoid errors `#include HardwareSPI.h` on some STM32 boards (Nucleo-32 F303K8, etc.)
 
@@ -526,9 +527,6 @@ just rename the following file in ./arduino-1.8.13/hardware/esp8266com/esp8266/l
 ---
 ---
 
----
----
-
 ## HOWTO Install esp32-s2 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) boards into Arduino IDE
 
 
@@ -547,23 +545,28 @@ First, copy the whole original esp32 core to another safe place. Then delete all
 
 ---
 
-### 2. Download esp32-s2 core
 
-#### 2.1 Download zip
+### 2. Install esp32 core v1.0.6
 
-Download [**esp32-s2 core**](https://github.com/espressif/arduino-esp32/tree/esp32s2) in the `zip` format: 
+#### 2.1 Install esp32 core
 
-`arduino-esp32-esp32s2.zip`
+Just use Arduino IDE Board Manager to install [ESP32 Arduino Release 1.0.6 based on ESP-IDF v3.3.5](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6). This official v1.06 core doesn't have esp32-s2/s3 support. You have to download and use the latest master branch.
 
-#### 2.2 Unzip
+
+#### 2.2 Download latest zip with esp32-s2 support
+
+As of **April 16th 2021**, the **esp32-s2/s3** board support has been included in master branch of esp32 core. Download [**esp32 core, master branch**](https://github.com/espressif/arduino-esp32) in the zip format.
+
+#### 2.3 Unzip
 
 <p align="center">
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/esp32_s2_Core_Unzipped.png">
 </p>
 
-#### 2.3 Update esp32-s2 core directories
+#### 2.4 Update esp32 core directories
 
-Copy all subdirectories of esp32-s2 core into `/home/your_account/.arduino15/packages/esp32/hardware/esp32/1.0.4`
+Copy all subdirectories of esp32 core into `/home/your_account/.arduino15/packages/esp32/hardware/esp32/1.0.6`
+
 
 ---
 
@@ -600,7 +603,7 @@ Download [esptool](https://github.com/espressif/esptool/releases) int the `zip` 
 
 #### 4.1 Update Toolchain
 
-Copy whole `xtensa-esp32s2-elf` directory into `/home/your_account/.arduino15/packages/esp32/hardware/esp32/1.0.4/tools`
+Copy whole `xtensa-esp32s2-elf` directory into `/home/your_account/.arduino15/packages/esp32/hardware/esp32/1.0.6/tools`
 
 
 #### 4.2 Update esptool
@@ -608,7 +611,7 @@ Copy whole `xtensa-esp32s2-elf` directory into `/home/your_account/.arduino15/pa
 Rename `esptool-3.0` directory to `esptool`
 
 
-Copy whole `esptool` directory into `/home/your_account/.arduino15/packages/esp32/hardware/esp32/1.0.4/tools`
+Copy whole `esptool` directory into `/home/your_account/.arduino15/packages/esp32/hardware/esp32/1.0.6/tools`
 
 
 <p align="center">
@@ -2449,6 +2452,7 @@ If you get compilation errors, more often than not, you may need to install a ne
 3. Add Packages' Patches for STM32 to use LAN8720 with STM32Ethernet and LwIP libraries
 4. Update `echo.websocket.org` **fingerprint add CA Certificate** for ESP8266 and ESP32. Check [Secured-Esp32-Client Example not works on NodeMcu32s (Esp32s) #16](https://github.com/khoih-prog/WebSockets2_Generic/issues/16)
 5. Add limited (client-only) support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
+6. Update [HOWTO Install esp32-s2/s3 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide) to accomodate [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6)
 
 ### Major Release v1.1.0
 
