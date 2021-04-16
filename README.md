@@ -54,7 +54,7 @@
   * [8. For fixing ESP8266 compile error](#8-for-fixing-esp8266-compile-error)
 * [HOWTO Install esp32-s2 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) boards into Arduino IDE)](#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
   * [1. Save the original esp32 core](#1-save-the-original-esp32-core)
-  * [2. Download esp32-s2 core](#2-install-esp32-core-v106)
+  * [2. Install esp32 core v1.0.6](#2-install-esp32-core-v106)
     * [2.1 Install esp32 core](#21-install-esp32-core)
     * [2.2 Download latest zip with esp32-s2 support](#22-download-latest-zip-with-esp32-s2-support)
     * [2.3 Unzip](#23-unzip)
