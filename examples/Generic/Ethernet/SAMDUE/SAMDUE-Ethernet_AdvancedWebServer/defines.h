@@ -88,7 +88,7 @@
 uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x04 };
 
 // Select the IP address according to your local network
-IPAddress serverIP(192, 168, 2, 93);
+IPAddress serverIP(192, 168, 2, 95);
 
 #define SDCARD_CS       4
 

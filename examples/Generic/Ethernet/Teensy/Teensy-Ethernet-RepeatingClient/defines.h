@@ -64,10 +64,10 @@
 // Just select one to be true. If all is false, default is Ethernet. 
 // If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
 #define USE_ETHERNET                  false
-#define USE_ETHERNET2                 true
+#define USE_ETHERNET2                 false
 #define USE_ETHERNET_LARGE            false
 #define USE_ETHERNET_ENC              false
-#define USE_NATIVE_ETHERNET           false
+#define USE_NATIVE_ETHERNET           true
 
 #define USE_UIP_ETHERNET              false
 
@@ -109,12 +109,12 @@
 uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x52 };
 
 // Select the IP address according to your local network
-IPAddress serverIP(192, 168, 2, 93);
+IPAddress serverIP(192, 168, 2, 83);
 
-const char* websockets_server_host = "192.168.2.93"; //Enter server address
+const char* websockets_server_host = "192.168.2.89"; //Enter server address
 //const char* websockets_server_host = "serverip_or_name"; //Enter server address
 
-#define WEBSOCKETS_PORT   8080
+#define WEBSOCKETS_PORT   81    //8080
 
 const uint16_t websockets_server_port = WEBSOCKETS_PORT; // Enter server port
 

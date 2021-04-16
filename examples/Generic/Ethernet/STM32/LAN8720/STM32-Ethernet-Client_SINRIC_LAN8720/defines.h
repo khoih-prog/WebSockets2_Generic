@@ -14,9 +14,9 @@
 #ifndef defines_h
 #define defines_h
 
-#if  ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
-       defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
-       defined(STM32WB) || defined(STM32MP1) )
+#if  ( defined(ARDUINO_BLACK_F407VE) || defined(ARDUINO_BLACK_F407VG) || defined(ARDUINO_BLACK_F407ZE) || defined(ARDUINO_BLACK_F407ZG)     || \
+       defined(ARDUINO_BLUE_F407VE_Mini) || defined(ARDUINO_DIYMORE_F407VGT) || defined(ARDUINO_FK407M1) || defined(ARDUINO_NUCLEO_F429ZI)  || \
+       defined(ARDUINO_DISCO_F746NG) || defined(ARDUINO_NUCLEO_F746ZG) || defined(ARDUINO_NUCLEO_F756ZG) || defined(ARDUINO_NUCLEO_H743ZI) )
        
   #if defined(WEBSOCKETS_ETHERNET_USE_STM32)
     #undef WEBSOCKETS_ETHERNET_USE_STM32
@@ -76,11 +76,12 @@
 // If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
 #define USE_ETHERNET                  false
 #define USE_ETHERNET2                 false
-#define USE_ETHERNET_LARGE            true
+#define USE_ETHERNET_LARGE            false
 #define USE_ETHERNET_ENC              false
 
 #define USE_UIP_ETHERNET              false
-#define USE_LAN8742A_ETHERNET         false
+#define USING_LAN8720                 true
+#define USE_LAN8742A_ETHERNET         true
 
 #if USE_ETHERNET
   // Also default to Ethernet library
@@ -99,11 +100,15 @@
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
-#elif USE_LAN8742A_ETHERNET
+#elif ( USE_LAN8742A_ETHERNET  || USING_LAN8720 )
   #define USE_BUILTIN_ETHERNET        true
   #include <LwIP.h>
   #include <STM32Ethernet.h>
-  #define ETHERNET_TYPE               "LAN8742A and STM32Ethernet Library"  
+  #if USING_LAN8720
+    #define ETHERNET_TYPE             "LAN8720 and STM32Ethernet Library"
+  #else
+    #define ETHERNET_TYPE             "LAN8742A and STM32Ethernet Library"
+  #endif
 #else
   // Default to Ethernet library
   #include <Ethernet.h>
@@ -118,10 +123,25 @@
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0x32, 0x04 };
+#define SINRIC_WEBSERVER          "iot.sinric.com"
+#define SINRIC_WEBSERVER_PORT     80
+#define SINRIC_API_KEY            "11111111-2222-3333-4444-555555555555"
+
+#define SINRIC_Device_ID_1        "012345678901234567890123"   // Device ID, got from Sinric
+
+const char* websockets_server_host    = SINRIC_WEBSERVER; //Enter server address
+const uint16_t websockets_server_port = SINRIC_WEBSERVER_PORT; // Enter server port
+
+#ifdef LED_BUILTIN
+#define LED_PIN     LED_BUILTIN
+#else
+#define LED_PIN     13
+#endif
+
+uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0x52, 0xA9 };
 
 // Select the IP address according to your local network
-IPAddress serverIP(192, 168, 2, 96);
+IPAddress clientIP(192, 168, 2, 225);
 
 #define SDCARD_CS       4
 

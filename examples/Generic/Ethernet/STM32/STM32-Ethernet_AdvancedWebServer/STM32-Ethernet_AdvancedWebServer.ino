@@ -115,6 +115,8 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
+  delay(2000);
+
   Serial.println("\nStarting STM32-Ethernet_AdvancedWebServer on " + String(BOARD_NAME));
   Serial.println("Ethernet using " + String(ETHERNET_TYPE));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);

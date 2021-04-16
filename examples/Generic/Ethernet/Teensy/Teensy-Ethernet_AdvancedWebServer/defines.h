@@ -64,10 +64,10 @@
 // Just select one to be true. If all is false, default is Ethernet. 
 // If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
 #define USE_ETHERNET                  false
-#define USE_ETHERNET2                 true
+#define USE_ETHERNET2                 false
 #define USE_ETHERNET_LARGE            false
 #define USE_ETHERNET_ENC              false
-#define USE_NATIVE_ETHERNET           false
+#define USE_NATIVE_ETHERNET           true
 
 #define USE_UIP_ETHERNET              false
 
@@ -104,7 +104,7 @@
 
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     4
+#define _WEBSOCKETS_LOGLEVEL_     3
 
 uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x52 };
 
