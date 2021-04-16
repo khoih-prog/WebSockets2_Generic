@@ -15,6 +15,7 @@
   * [Features](#features)
   * [Supported features of RFC6455](#supported-features-of-rfc6455)
 * [Changelog](#changelog)
+  * [Release v1.2.1](#release-v121)
   * [Major Release v1.2.0](#major-release-v120)
   * [Major Release v1.1.0](#major-release-v110)
   * [Release v1.0.7](#release-v107)
@@ -152,15 +153,9 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 
 ## Changelog
 
-### Major Release v1.2.0
+### Release v1.2.1
 
-1. Add limited (client-only) support to **LAN8720** Ethernet for **STM32F4 (F407xx, NUCLEO_F429ZI) and STM32F7** (DISCO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG) boards.
-2. Add LAN8720 examples
-3. Add Packages' Patches for STM32 to use LAN8720 with STM32Ethernet and LwIP libraries
-4. Update `echo.websocket.org` **fingerprint add CA Certificate** for ESP8266 and ESP32. Check [Secured-Esp32-Client Example not works on NodeMcu32s (Esp32s) #16](https://github.com/khoih-prog/WebSockets2_Generic/issues/16)
-5. Add limited (client-only) support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
-6. Update [HOWTO Install esp32-s2 core for ESP32-S2](https://github.com/khoih-prog/WebSockets2_Generic#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide) to accomodate [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6)
-7. Update README to reflect [`LittleFS_esp32 library`](https://github.com/lorol/LITTLEFS) has been included in [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6) and many steps are not necessary anymore
+1. Add HTTP and WebSockets Server support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
 
 ### Major Release v1.1.0
 
@@ -2486,6 +2481,12 @@ Got a Pong!
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_Nano_33_IoT.png">
 </p>
 
+3. This is the screenshot when running [Esp32-AdvancedWebServer](examples/ESP32/Esp32-AdvancedWebServer) example on **ESP32-S2** to demonstrate the new non-blocking feature of WebSockets Server enabling WebServer and WebSockets Server to run concurrently.
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_ESP32-S2.png">
+</p>
+
 ---
 ---
 
@@ -2512,6 +2513,10 @@ If you get compilation errors, more often than not, you may need to install a ne
 ---
 
 ## Releases
+
+### Release v1.2.1
+
+1. Add HTTP and WebSockets Server support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
 
 ### Major Release v1.2.0
 
