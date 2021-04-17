@@ -21,6 +21,9 @@
         ARDUINO_METRO_ESP32S2 || ARDUINO_MAGTAG29_ESP32S2 || ARDUINO_FUNHOUSE_ESP32S2 || \
         ARDUINO_ADAFRUIT_FEATHER_ESP32S2_NOPSRAM )
   #define BOARD_TYPE      "ESP32-S2"
+#elif ( ARDUINO_ESP32C3_DEV )
+  #warning Using ESP32-C3 boards
+  #define BOARD_TYPE      "ESP32-C3"
 #else
   #define BOARD_TYPE      "ESP32"
 #endif
