@@ -155,7 +155,8 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 
 ### Release v1.2.1
 
-1. Add HTTP and WebSockets Server support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
+1. Add support to new ESP32-S2 boards (**SparkFun ESP32-S2 Thing Plus; Adafruit Metro ESP32-S2, MagTag 2.9, FunHouse, Feather ESP32-S2 (no PSRAM)**). Drop support to **UM ProS2**
+2. Add HTTP and WebSockets Server support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
 
 ### Major Release v1.1.0
 
@@ -2516,7 +2517,8 @@ If you get compilation errors, more often than not, you may need to install a ne
 
 ### Release v1.2.1
 
-1. Add HTTP and WebSockets Server support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
+1. Add support to new ESP32-S2 boards (**SparkFun ESP32-S2 Thing Plus; Adafruit Metro ESP32-S2, MagTag 2.9, FunHouse, Feather ESP32-S2 (no PSRAM)**). Drop support to **UM ProS2**
+2. Add HTTP and WebSockets Server support to **ESP32-S2** (ESP32-S2 Saola, AI-Thinker ESP-12K, etc.)
 
 ### Major Release v1.2.0
 
