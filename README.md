@@ -15,6 +15,7 @@
   * [Features](#features)
   * [Supported features of RFC6455](#supported-features-of-rfc6455)
 * [Changelog](#changelog)
+  * [Release v1.2.2](#release-v122)
   * [Release v1.2.1](#release-v121)
   * [Major Release v1.2.0](#major-release-v120)
   * [Major Release v1.1.0](#major-release-v110)
@@ -53,21 +54,22 @@
     * [Optional UIPEthernet patch](#optional-uipethernet-patch)
   * [7. For fixing ESP32 compile error](#7-for-fixing-esp32-compile-error)
   * [8. For fixing ESP8266 compile error](#8-for-fixing-esp8266-compile-error)
-* [HOWTO Install esp32-s2 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) boards into Arduino IDE)](#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
+* [HOWTO Install esp32 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) and ESP32-C3 boards into Arduino IDE](#howto-install-esp32-core-for-esp32-s2-saola-ai-thinker-esp-12k-and-esp32-c3-boards-into-arduino-ide)
   * [1. Save the original esp32 core](#1-save-the-original-esp32-core)
   * [2. Install esp32 core v1.0.6](#2-install-esp32-core-v106)
     * [2.1 Install esp32 core](#21-install-esp32-core)
     * [2.2 Download latest zip with esp32-s2 support](#22-download-latest-zip-with-esp32-s2-support)
     * [2.3 Unzip](#23-unzip)
     * [2.3 Update esp32 core directories](#24-update-esp32-core-directories)
-  * [3. Download tools](#3-download-tools) 
+  * [3. Download tools for ESP32-S2](#3-download-tools-for-esp32-s2) 
     * [3.1 Download Toolchain for Xtensa (ESP32-S2) based on GCC](#31-download-toolchain-for-xtensa-esp32-s2-based-on-gcc)
     * [3.2 Download esptool](#32-download-esptool)
     * [3.3 Unzip](#33-unzip)
   * [4. Update tools](#4-update-tools)
     * [4.1 Update Toolchain](#41-update-toolchain)
     * [4.2 Update esptool](#42-update-esptool)
-  * [5. esp32-s2 WebServer Library Patch](#5-esp32-s2-webserver-library-patch)
+  * [5. Download tools for ESP32-C3](#5-download-tools-for-esp32-c3)
+  * [6. esp32-s2 WebServer Library Patch](#6-esp32-s2-webserver-library-patch)
 * [Note for Platform IO using ESP32 LittleFS](#note-for-platform-io-using-esp32-littlefs) 
 * [HOWTO Use analogRead() with ESP32 running WiFi and/or BlueTooth (BT/BLE)](#howto-use-analogread-with-esp32-running-wifi-andor-bluetooth-btble)
   * [1. ESP32 has 2 ADCs, named ADC1 and ADC2](#1--esp32-has-2-adcs-named-adc1-and-adc2)
@@ -153,6 +155,11 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 
 ## Changelog
 
+### Release v1.2.2
+
+1. Add support to new **ESP32-C3** boards (**Arduino ESP32C3_DEV**). Check [HOWTO Install esp32 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) and ESP32-C3 boards into Arduino IDE](#howto-install-esp32-core-for-esp32-s2-saola-ai-thinker-esp-12k-and-esp32-c3-boards-into-arduino-ide).
+
+
 ### Release v1.2.1
 
 1. Add support to new ESP32-S2 boards (**SparkFun ESP32-S2 Thing Plus; Adafruit Metro ESP32-S2, MagTag 2.9, FunHouse, Feather ESP32-S2 (no PSRAM)**). Drop support to **UM ProS2**
@@ -224,7 +231,7 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 
  1. [`Arduino IDE v1.8.13+`](https://www.arduino.cc/en/Main/Software)
  2. [`ESP32 Core 1.0.6+`](https://github.com/espressif/arduino-esp32) for ESP32-based boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
- 3. [`ESP32S2 Core 1.0.6+`](https://github.com/espressif/arduino-esp32/tree/esp32s2) for ESP32S2-based boards. Must follow [HOWTO Install esp32-s2 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) boards into Arduino IDE)](#howto-install-esp32-s2-core-for-esp32-s2-saola-ai-thinker-esp-12k-boards-into-arduino-ide)
+ 3. [`ESP32-S2/C3 Core 1.0.6+`](https://github.com/espressif/arduino-esp32) for ESP32-S2/C3-based boards. Must follow [HOWTO Install esp32 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) and ESP32-C3 boards into Arduino IDE](#howto-install-esp32-core-for-esp32-s2-saola-ai-thinker-esp-12k-and-esp32-c3-boards-into-arduino-ide).
  4. [`ESP8266 Core 2.7.4+`](https://github.com/esp8266/Arduino) for ESP8266-based boards. [![Latest release](https://img.shields.io/github/release/esp8266/Arduino.svg)](https://github.com/esp8266/Arduino/releases/latest/). To use ESP8266 core 2.7.1+ for LittleFS. 
  5. [`Arduino AVR core 1.8.3+`](https://github.com/arduino/ArduinoCore-avr) for Arduino (Use Arduino Board Manager) for AVR boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-avr.svg)](https://github.com/arduino/ArduinoCore-avr/releases/latest)
  6. [`Teensy core v1.53+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards. **Ready** from v1.0.0.
@@ -525,7 +532,7 @@ just rename the following file in ./arduino-1.8.13/hardware/esp8266com/esp8266/l
 ---
 ---
 
-## HOWTO Install esp32-s2 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) boards into Arduino IDE
+## HOWTO Install esp32 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) and ESP32-C3 boards into Arduino IDE
 
 
 These are instructions demonstrating the steps to install esp32-s2 core on Ubuntu machines. For Windows or other OS'es, just follow the the similar principles and steps.
@@ -553,7 +560,7 @@ Just use Arduino IDE Board Manager to install [ESP32 Arduino Release 1.0.6 based
 
 #### 2.2 Download latest zip with esp32-s2 support
 
-As of **April 16th 2021**, the **esp32-s2/s3** board support has been included in master branch of esp32 core. Download [**esp32 core, master branch**](https://github.com/espressif/arduino-esp32) in the zip format.
+As of **April 16th 2021**, the **esp32-s2/c3** board support has been included in master branch of esp32 core. Download [**esp32 core, master branch**](https://github.com/espressif/arduino-esp32) in the zip format.
 
 #### 2.3 Unzip
 
@@ -568,7 +575,7 @@ Copy all subdirectories of esp32 core into `/home/your_account/.arduino15/packag
 
 ---
 
-### 3 Download tools
+### 3 Download tools for ESP32-S2
 
 
 #### 3.1 Download Toolchain for Xtensa (ESP32-S2) based on GCC
@@ -617,7 +624,30 @@ Copy whole `esptool` directory into `/home/your_account/.arduino15/packages/esp3
 </p>
 
 
-### 5. esp32-s2 WebServer Library Patch
+### 5 Download tools for ESP32-C3
+
+Download [**esp32-c3 Toolchain**](https://docs.espressif.com/projects/esp-idf/en/latest/esp32s2/api-guides/tools/idf-tools.html#riscv32-esp-elf) corresponding to your environment (linux-amd64, win64, etc.).
+
+For example`riscv32-esp-elf-gcc8_4_0-crosstool-ng-1.24.0-123-g64eb9ff-linux-amd64.tar.gz`, then un-archive.
+
+Then using the similar steps as in
+
+* [3. Download tools for ESP32-S2](#3-download-tools-for-esp32-s2) 
+  * [3.1 Download Toolchain for Xtensa (ESP32-S2) based on GCC](#31-download-toolchain-for-xtensa-esp32-s2-based-on-gcc)
+  * [3.2 Download esptool](#32-download-esptool)
+  * [3.3 Unzip](#33-unzip)
+* [4. Update tools](#4-update-tools)
+  * [4.1 Update Toolchain](#41-update-toolchain)
+  * [4.2 Update esptool](#42-update-esptool)
+
+then copy whole `riscv32-esp-elf` directory into `/home/your_account/.arduino15/packages/esp32/hardware/esp32/1.0.6/tools`
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/ESP32_C3_Support.png">
+</p>
+
+
+### 6. esp32-s2 WebServer Library Patch
 
 #### Necessary only for esp32 core v1.0.6-
 
@@ -2515,6 +2545,10 @@ If you get compilation errors, more often than not, you may need to install a ne
 
 ## Releases
 
+### Release v1.2.2
+
+1. Add support to new **ESP32-C3** boards (**Arduino ESP32C3_DEV**). Check [HOWTO Install esp32 core for ESP32-S2 (Saola, AI-Thinker ESP-12K) and ESP32-C3 boards into Arduino IDE](#howto-install-esp32-core-for-esp32-s2-saola-ai-thinker-esp-12k-and-esp32-c3-boards-into-arduino-ide).
+
 ### Release v1.2.1
 
 1. Add support to new ESP32-S2 boards (**SparkFun ESP32-S2 Thing Plus; Adafruit Metro ESP32-S2, MagTag 2.9, FunHouse, Feather ESP32-S2 (no PSRAM)**). Drop support to **UM ProS2**
@@ -2631,6 +2665,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 18. Add support to **Ethernet LAN8720** using [STM32Ethernet library](https://github.com/stm32duino/STM32Ethernet), for boards such as **Nucleo-144 (F429ZI, NUCLEO_F746NG, NUCLEO_F746ZG, NUCLEO_F756ZG), Discovery (DISCO_F746NG)** and **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
 19. Add support to **ESP32-S2**
 20. Update to use [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6).
+21. Add support to **ESP32-C3**
 
 ---
 ---
