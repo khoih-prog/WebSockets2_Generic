@@ -34,10 +34,20 @@ const char* password = "password"; //Enter Password
 
 const char* websockets_connection_string = "wss://echo.websocket.org/"; //Enter server adress
 
-// To update SHA1 fingerprint, use Google Chrome to connect to https://www.websocket.org/echo.html 
-// Then "View Site Information" => "Certificate Viewer" => Copy SHA1 fingerprint
-// KH, This SHA1 fingerprint was updated 15.04.2021, 
-// Issued on Mar 15th 2021, expired on June 13th 2021
-const char echo_org_ssl_fingerprint[] PROGMEM   = "34 A2 66 08 A1 4D 1E 83 1A 0E 49 3C 4A 84 45 9E 4A 0D 08 FE";
+/* NTP Time Servers */
+const char *ntp1 = "time.windows.com";
+const char *ntp2 = "pool.ntp.org";
+
+// True to use setTrustAnchors, false to use Fingerprint
+#define USING_SET_TRUST_ANCHORS       true
+
+
+#if !USING_SET_TRUST_ANCHORS
+  // To update SHA1 fingerprint, use Google Chrome to connect to https://www.websocket.org/echo.html 
+  // Then "View Site Information" => "Certificate Viewer" => Copy SHA1 fingerprint
+  // KH, This SHA1 fingerprint was updated 15.04.2021, 
+  // Issued on Mar 15th 2021, expired on June 13th 2021
+  const char echo_org_ssl_fingerprint[] PROGMEM   = "34 A2 66 08 A1 4D 1E 83 1A 0E 49 3C 4A 84 45 9E 4A 0D 08 FE";
+#endif
 
 #endif      //defines_h
