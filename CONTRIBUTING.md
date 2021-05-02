@@ -27,9 +27,9 @@ Please ensure to specify the following:
 
 ```
 Arduino IDE version: 1.8.13
-Arduino SAMD Core Version 1.8.9
+Arduino SAMD Core Version 1.8.11
 OS: Ubuntu 20.04 LTS
-Linux xy-Inspiron-3593 5.4.0-71-generic #79-Ubuntu SMP Wed Mar 24 10:56:57 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
+Linux xy-Inspiron-3593 5.4.0-72-generic #80-Ubuntu SMP Mon Apr 12 17:35:00 UTC 2021 x86_64 x86_64 x86_64 GNU/Linux
 
 Context:
 I encountered an endless loop while trying to connect to Local WiFi.

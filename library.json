@@ -1,6 +1,6 @@
 {
   "name": "WebSockets2_Generic",
-  "version": "1.2.2",
+  "version": "1.2.3",
   "description": "WebSocket Server and Client for Arduino based on RFC6455, originally designed for ESP8266/ESP32 (including ESP32-C3; ESP32-S2 Saola, AI-Thinker ESP-12K, etc.), now modified and ported to run on nRF52, SAMD21, SAMD51, SAM DUE, STM32F/L/H/G/WB/MP1, Teensy, etc. boards, with WiFiNINA, Teensy 4.1 NativeEthernet, Ethernet W5x00/ENC28J60/LAN8742A/LAN8720, ESP8266/ESP32-AT modules/shields, as well as SINRIC / Alexa / Google Home",
   "keywords": "communication, wifi, wifinina, wss, ssl, websocket, webserver, Sinric, Alexa, ethernet, lan8742a, lan8720, esp32, esp32-s2, esp32-c3, esp8266, stm32, samd, sam due, nrf52",
   "authors": [
