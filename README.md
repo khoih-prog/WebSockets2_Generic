@@ -15,7 +15,7 @@
   * [Features](#features)
   * [Supported features of RFC6455](#supported-features-of-rfc6455)
 * [Changelog](#changelog)
-  * [Release v1.2.2](#release-v123)
+  * [Release v1.2.3](#release-v123)
   * [Release v1.2.2](#release-v122)
   * [Release v1.2.1](#release-v121)
   * [Major Release v1.2.0](#major-release-v120)
