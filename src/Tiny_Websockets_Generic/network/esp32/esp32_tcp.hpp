@@ -64,6 +64,11 @@ namespace websockets2_generic
         {
           this->client.setPrivateKey(private_key);
         }
+
+        void setInsecure()
+        {
+            this->client.setInsecure();
+        }
     };
     
     
