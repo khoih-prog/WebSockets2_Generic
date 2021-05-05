@@ -205,7 +205,6 @@ namespace websockets2_generic
       const char* _optional_ssl_ca_cert = nullptr;
       const char* _optional_ssl_client_ca = nullptr;
       const char* _optional_ssl_private_key = nullptr;
-      bool _use_insecure;
   #endif
   
       void _handlePing(WebsocketsMessage);

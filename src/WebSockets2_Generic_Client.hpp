@@ -429,7 +429,7 @@ namespace websockets2_generic
     
   #elif defined(ESP32)
 
-    if (!this->_use_insecure)
+    if (this->_optional_ssl_ca_cert || this->_optional_ssl_client_ca || this->_optional_ssl_private_key)
     {
         if (this->_optional_ssl_ca_cert)
         {
@@ -1028,7 +1028,6 @@ namespace websockets2_generic
     this->_optional_ssl_ca_cert = nullptr;
     this->_optional_ssl_client_ca = nullptr;
     this->_optional_ssl_private_key = nullptr;
-    this->_use_insecure = true;
   }
   #endif
   
