@@ -429,19 +429,26 @@ namespace websockets2_generic
     
   #elif defined(ESP32)
 
-    if (this->_optional_ssl_ca_cert) 
+    if (this->_optional_ssl_ca_cert || this->_optional_ssl_client_ca || this->_optional_ssl_private_key)
     {
-      client->setCACert(this->_optional_ssl_ca_cert);
+        if (this->_optional_ssl_ca_cert)
+        {
+            client->setCACert(this->_optional_ssl_ca_cert);
+        }
+
+        if (this->_optional_ssl_client_ca)
+        {
+            client->setCertificate(this->_optional_ssl_client_ca);
+        }
+
+        if (this->_optional_ssl_private_key)
+        {
+            client->setPrivateKey(this->_optional_ssl_private_key);
+        }
     }
-    
-    if (this->_optional_ssl_client_ca) 
+    else
     {
-      client->setCertificate(this->_optional_ssl_client_ca);
-    }
-    
-    if (this->_optional_ssl_private_key) 
-    {
-      client->setPrivateKey(this->_optional_ssl_private_key);
+        client->setInsecure();
     }
     
   #endif
