@@ -15,6 +15,7 @@
   * [Features](#features)
   * [Supported features of RFC6455](#supported-features-of-rfc6455)
 * [Changelog](#changelog)
+  * [Release v1.2.4](#release-v124)
   * [Release v1.2.3](#release-v123)
   * [Release v1.2.2](#release-v122)
   * [Release v1.2.1](#release-v121)
@@ -156,6 +157,11 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 
 ## Changelog
 
+### Release v1.2.4
+
+1. Add InSecure mode for ESP32. For more info, check [**Add setInsecure for esp32** #18](https://github.com/khoih-prog/WebSockets2_Generic/pull/18)
+2. Add InSecude-mode examples for ESP32/ESP8266
+
 ### Release v1.2.3
 
 1. Update `websocket.org` `letsenrypt.org` CA Certs and Fingerprint for EP32 and ESP8266 secured exampled.
@@ -273,7 +279,7 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
 19. [`FlashStorage_STM32 library v1.1.0+`](https://github.com/khoih-prog/FlashStorage_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/khoih-prog/FlashStorage_STM32.svg)](https://github.com/khoih-prog/FlashStorage_STM32/releases/latest) if necessary to use certain features.
 20. [`DueFlashStorage library v1.0.0+`](https://github.com/sebnil/DueFlashStorage) for SAM DUE. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/DueFlashStorage.svg?)](https://www.ardu-badge.com/DueFlashStorage) if necessary to use certain features.
 21. [`Adafruit's LittleFS/InternalFS`](https://www.adafruit.com) for nRF52. Already included if you already installed Adafruit **nRF52 board package** from Boards Manager.
-22. [`DoubleResetDetector_Generic v1.0.3+`](https://github.com/khoih-prog/DoubleResetDetector_Generic) if necessary to use some examples. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/DoubleResetDetector_Generic.svg?)](https://www.ardu-badge.com/DoubleResetDetector_Generic) if necessary to use certain features.
+22. [`DoubleResetDetector_Generic v1.1.0+`](https://github.com/khoih-prog/DoubleResetDetector_Generic) if necessary to use some examples. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/DoubleResetDetector_Generic.svg?)](https://www.ardu-badge.com/DoubleResetDetector_Generic) if necessary to use certain features.
 
 ---
 
@@ -1481,7 +1487,8 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 4. [ESP32-Client_SINRIC](examples/ESP32/ESP32-Client_SINRIC)
 5. [Esp32-Server](examples/ESP32/Esp32-Server)
 6. [Esp32-RepeatingClient](examples/ESP32/Esp32-RepeatingClient)
-7. [Esp32-AdvancedWebServer](examples/ESP32/Esp32-AdvancedWebServer).
+7. [Esp32-AdvancedWebServer](examples/ESP32/Esp32-AdvancedWebServer)
+8. [InSecured-Esp32-Client](examples/ESP32/InSecured-Esp32-Client). **New**
 
 #### For ESP8266 boards
 
@@ -1492,7 +1499,8 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 5. [ESP8266-Client_SINRIC](examples/ESP8266/ESP8266-Client_SINRIC)
 6. [Esp8266-Server](examples/ESP8266/Esp8266-Server)
 7. [Esp8266-RepeatingClient](examples/ESP8266/Esp8266-RepeatingClient)
-8. [Esp8266-AdvancedWebServer](examples/ESP8266/Esp8266-AdvancedWebServer).
+8. [Esp8266-AdvancedWebServer](examples/ESP8266/Esp8266-AdvancedWebServer)
+9. [InSecured-Esp8266-Client](examples/ESP8266/InSecured-Esp8266-Client). **New**
 
 #### For nRF52 boards using WiFiNINA
 
@@ -1994,7 +2002,7 @@ This is the terminal output when running [SAMD-Client_SINRIC](examples/Generic/W
 
 ```
 Starting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on SAMD NANO_33_IOT
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 WiFi-begin: return1 = 3
 WiFi-begin: return2 = 3
 Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
@@ -2117,6 +2125,11 @@ const char echo_org_ssl_ca_cert[] PROGMEM = \
 client.setCACert(echo_org_ssl_ca_cert);
 ```
 
+From v1.2.4, you can use InSecured mode which does not validate the certificate chain. This can be set explicitly using:
+
+```c++
+client.setInsecure();
+```
 ---
 ---
 
@@ -2127,7 +2140,7 @@ client.setCACert(echo_org_ssl_ca_cert);
 ```
 Starting WebSockets2_Generic SAMD-Ethernet-Client_SINRIC on SAMD ADAFRUIT_ITSYBITSY_M4_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 ENC28J60_CONTROL_CS =16
 SS =16
 SPI_MOSI =25
@@ -2174,7 +2187,7 @@ Turn off Device ID: 012345678901234567890123
 ```
 Starting WebSockets2_Generic SAMDUE-Ethernet-Server on SAM DUE
 Ethernet using W5x00 and EthernetLarge Library
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
 W5100::init: W5100, SSIZE =4096
 WebSockets Server Running and Ready on SAM DUE
@@ -2207,7 +2220,7 @@ HHHHHHHHH
 ```
 Starting WebSockets2_Generic nRF52-Ethernet-Server on NRF52840_ITSYBITSY_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 ENC28J60_CONTROL_CS =10
 SS =5
 SPI_MOSI =24
@@ -2243,7 +2256,7 @@ HHHHHHHHH
 ```
 Starting WebSockets2_Generic STM32-Ethernet-Client_SINRIC on NUCLEO_F767ZI
 Ethernet using LAN8742A and STM32Ethernet Library
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 WebSockets Client IP address: 192.168.2.135
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = ********
@@ -2287,7 +2300,7 @@ Turn off Device ID: 012345678901234567890123
 
 ```
 Start Generic_WebSocketServerAllFunctionsDemo_W5500
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
 W5100::init: W5100, SSIZE =4096
 WebSockets Server IP address: 192.168.2.95
@@ -2348,7 +2361,7 @@ Got Message: Hello to Server from ESP32
 ```
 Starting STM32-Ethernet-Client_SINRIC_LAN8720 on BLACK_F407VE
 Ethernet using LAN8720 and STM32Ethernet Library
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 WebSockets Client IP address: 192.168.2.160
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
@@ -2389,7 +2402,7 @@ Turn off Device ID: 012345678901234567890123
 
 ```
 Starting ESP32-Client_SINRIC on ESP32S2_DEV
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 ....Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2431,7 +2444,7 @@ Turn off Device ID: 012345678901234567890123
 
 ```
 Starting WebSockets Secured-ESP32-Client on ESP32S2_DEV
-WebSockets2_Generic v1.2.3
+WebSockets2_Generic v1.2.4
 ....
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2483,6 +2496,65 @@ Got a Pong!
 ```
 
 ---
+
+9. This is terminal debug output when running [InSecured-ESP32-Client](examples/ESP32/InSecured-Esp32-Client) on **ESP32_DEV** using [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6).
+
+
+```
+Starting WebSockets InSecured-ESP32-Client on ESP32_DEV
+WebSockets2_Generic v1.2.4
+...
+Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
+[WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
+[WS] WebsocketsClient::doestStartsWith: prefix = wss://
+[WS] WebsocketsClient::generateHandshake: base64Authorization = 
+[WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
+Host: echo.websocket.org
+Sec-WebSocket-Key: MDEyMzQ1Njc4OWFiY2RlZg==
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Version: 13
+User-Agent: TinyWebsockets Client
+Authorization: Basic 
+Origin: https://github.com/khoih-prog/Websockets2_Generic
+
+
+[WS] WebsocketsClient::connect: base64Authorization = 
+[WS] WebsocketsClient::doestStartsWith: str = HTTP/1.1 101 Web Socket Protocol Handshake
+
+[WS] WebsocketsClient::doestStartsWith: prefix = HTTP/1.1 101
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Credentials
+[WS] WebsocketsClient::generateHandshake: value = true
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = content-type
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = authorization
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = x-websocket-extensions
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = x-websocket-version
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Headers
+[WS] WebsocketsClient::generateHandshake: value = x-websocket-protocol
+[WS] WebsocketsClient::generateHandshake: key = Access-Control-Allow-Origin
+[WS] WebsocketsClient::generateHandshake: value = https://github.com/khoih-prog/Websockets2_Generic
+[WS] WebsocketsClient::generateHandshake: key = Connection
+[WS] WebsocketsClient::generateHandshake: value = Upgrade
+[WS] WebsocketsClient::generateHandshake: key = Date
+[WS] WebsocketsClient::generateHandshake: value = Wed, 05 May 2021 17:09:23 GMT
+[WS] WebsocketsClient::generateHandshake: key = Sec-WebSocket-Accept
+[WS] WebsocketsClient::generateHandshake: value = BACScCJPNqyz+UBoqMH89VmURoA=
+[WS] WebsocketsClient::generateHandshake: key = Server
+[WS] WebsocketsClient::generateHandshake: value = Kaazing Gateway
+[WS] WebsocketsClient::generateHandshake: key = Upgrade
+[WS] WebsocketsClient::generateHandshake: value = websocket
+Connnection Opened
+Connected!
+Got Message: Hello to Server from ESP32_DEV
+Got a Pong!
+
+```
+
+---
 ---
 
 ### Screenshots
@@ -2531,6 +2603,11 @@ If you get compilation errors, more often than not, you may need to install a ne
 ---
 
 ## Releases
+
+### Release v1.2.4
+
+1. Add InSecure mode for ESP32. For more info, check [**Add setInsecure for esp32** #18](https://github.com/khoih-prog/WebSockets2_Generic/pull/18)
+2. Add InSecude-mode examples for ESP32/ESP8266
 
 ### Release v1.2.3
 
@@ -2657,6 +2734,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 19. Add support to **ESP32-S2**
 20. Update to use [Latest esp32 core v1.0.6](https://github.com/espressif/arduino-esp32/releases/tag/1.0.6).
 21. Add support to **ESP32-C3**
+21. Add InSecure mode for **ESP32**
 
 ---
 ---
@@ -2667,6 +2745,8 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 2. Thanks to good work of [Miguel Alexandre Wisintainer](https://github.com/tcpipchip) for initiating, inspriring, working with, developing, debugging and testing. Without that, support to nRF52, especially **NINA_B302_ublox running as nRF52840 and NINA_B112_ublox running as nRF52832**, has never been started and finished. See [u-blox nina b](https://github.com/khoih-prog/WiFiNINA_Generic/issues/1)
 3. Thanks to bug report and persistence of [Jake](https://github.com/jakespeed1311) to help identify and add **non-blocking WebSockets Server** feature to v1.0.6 to enable WS Server and WebServer running **concurrently**. See [**Support as Http server and the Websockets server on Arduino DUE**](https://github.com/khoih-prog/WebSockets_Generic/issues/1) and [**Running Http and Websocket Servers concurrently**](https://github.com/khoih-prog/WebSockets2_Generic/issues/1). 
 4. Thanks to [arnoson](https://github.com/arnoson) code posted in [ArduinoWebsockets release 0.5.0](https://github.com/gilmaimon/ArduinoWebsockets/releases/tag/0.5.0) to provide support to Teensy 4.1 using NativeEthernet.
+5. Thanks [Lionel REICHERT](https://github.com/apwwn) for PR [**Add setInsecure for esp32** #18](https://github.com/khoih-prog/WebSockets2_Generic/pull/18) leading to v1.2.4.
+
 
 <table>
   <tr>
@@ -2674,6 +2754,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
     <td align="center"><a href="https://github.com/tcpipchip"><img src="https://github.com/tcpipchip.png" width="100px;" alt="tcpipchip"/><br /><sub><b>⭐️ Miguel Wisintainer</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/jakespeed1311"><img src="https://github.com/jakespeed1311.png" width="100px;" alt="jakespeed1311"/><br /><sub><b>Jake</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/arnoson"><img src="https://github.com/arnoson.png" width="100px;" alt="arnoson"/><br /><sub><b>arnoson</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/apwwn"><img src="https://github.com/apwwn.png" width="100px;" alt="apwwn"/><br /><sub><b>Lionel REICHERT</b></sub></a><br /></td>
   </tr> 
 </table>
 
