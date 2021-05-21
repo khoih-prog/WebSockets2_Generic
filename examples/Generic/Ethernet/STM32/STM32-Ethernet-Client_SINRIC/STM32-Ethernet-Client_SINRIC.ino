@@ -84,6 +84,8 @@ void turnOff(String deviceId)
 
 void onEventsCallback(WebsocketsEvent event, String data)
 {
+  (void) data;
+  
   if (event == WebsocketsEvent::ConnectionOpened)
   {
     if (!isConnected)
