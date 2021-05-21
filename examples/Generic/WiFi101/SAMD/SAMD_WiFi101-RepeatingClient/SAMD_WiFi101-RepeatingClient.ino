@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  SAMD-Minimal-Client.ino
-  For SAMD21/SAMD51 with WiFiNINA module/shield.
+  SAMD_WiFi101-RepeeatingClient.ino
+  For SAMD21/SAMD51 with WiFi101 module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
@@ -11,23 +11,17 @@
   Original Author: Markus Sattler
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
-  Licensed under MIT license    
+  Licensed under MIT license 
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
-  SAMD-Minimal-Client: Minimal SAMD21/SAMD51 Websockets Client
+  SAMD21/SAMD51 Websockets Repeating Client
 
   This sketch:
         1. Connects to a WiFi network
         2. Connects to a Websockets server
         3. Sends the websockets server a message ("Hello to Server from ......")
-        4. Sends the websocket server a "ping"
-        5. Prints all incoming messages while the connection is open
-
-    NOTE:
-    The sketch dosen't check or indicate about errors while connecting to
-    WiFi or to the websockets server. For full example you might want
-    to try the example named "SAMD-Client".
-
+        4. Prints all incoming messages while the connection is open
+        5. Repeat 2-4 every REPEAT_INTERVAL (10 seconds)
 
   Hardware:
         For this sketch you only need a SAMD21/SAMD51 board.
@@ -44,11 +38,7 @@
 
 using namespace websockets2_generic;
 
-void onMessageCallback(WebsocketsMessage message) 
-{
-  Serial.print("Got Message: ");
-  Serial.println(message.data());
-}
+WebsocketsClient client;
 
 void onEventsCallback(WebsocketsEvent event, String data) 
 {
@@ -70,18 +60,16 @@ void onEventsCallback(WebsocketsEvent event, String data)
   }
 }
 
-WebsocketsClient client;
-
 void setup() 
 {
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting SAMD-Minimal-Client with WiFiNINA on " + String(BOARD_NAME));
+  Serial.println("\nStarting SAMD_WiFi101-RepeatingClient with WiFi101 on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
-
+  
   // check for the WiFi module:
-  if (WiFi.status() == WL_NO_MODULE) 
+  if (WiFi.status() == WL_NO_SHIELD) 
   {
     Serial.println("Communication with WiFi module failed!");
     // don't continue
@@ -89,22 +77,38 @@ void setup()
   }
 
   String fv = WiFi.firmwareVersion();
-  
-  if (fv < WIFI_FIRMWARE_LATEST_VERSION) 
+  Serial.print("Firmware version installed: ");
+  Serial.println(fv);
+
+  String latestFv;
+    
+  if (REV(GET_CHIPID()) >= REV_3A0) 
   {
-    Serial.println("Please upgrade the firmware");
+    // model B
+    latestFv = WIFI_FIRMWARE_LATEST_MODEL_B;
+  } 
+  else 
+  {
+    // model A
+    latestFv = WIFI_FIRMWARE_LATEST_MODEL_A;
   }
   
+  if (fv < latestFv) 
+  {
+    Serial.println("Please upgrade the firmware");
+    // Print required firmware version
+    Serial.print("Latest firmware version available : ");
+    Serial.println(latestFv);
+  }
+
   Serial.print("Attempting to connect to SSID: ");
   Serial.println(ssid);
 
   // Connect to wifi
-  // Static IP
-  WiFi.config(clientIP);
   WiFi.begin(ssid, password);
 
   // Wait some time to connect to wifi
-  for (int i = 0; i < 10 && WiFi.status() != WL_CONNECTED; i++) 
+  for (int i = 0; i < 15 && WiFi.status() != WL_CONNECTED; i++)
   {
     Serial.print(".");
     delay(1000);
@@ -122,25 +126,58 @@ void setup()
     Serial.println("\nNo WiFi");
     return;
   }
- 
+
   // run callback when messages are received
-  client.onMessage(onMessageCallback);
+  client.onMessage([&](WebsocketsMessage message) 
+  {
+    Serial.print("Got Message: ");
+    Serial.println(message.data());
+  });
 
   // run callback when events are occuring
   client.onEvent(onEventsCallback);
+}
 
-  // Connect to server
-  client.connect(websockets_server_host, websockets_server_port, "/");
+void sendMessage(void)
+{
+// try to connect to Websockets server
+  bool connected = client.connect(websockets_server_host, websockets_server_port, "/");
+  
+  if (connected) 
+  {
+    Serial.println("Connected!");
 
-  // Send a message
-  String WS_msg = String("Hello to Server from ") + BOARD_NAME;
-  client.send(WS_msg);
+    String WS_msg = String("Hello to Server from ") + BOARD_NAME;
+    client.send(WS_msg);
+  } 
+  else 
+  {
+    Serial.println("Not Connected!");
+  }
+}
 
-  // Send a ping
-  client.ping();
+void checkToSendMessage()
+{
+  #define REPEAT_INTERVAL    10000L
+  
+  static unsigned long checkstatus_timeout = 0;
+
+  // Send WebSockets message every REPEAT_INTERVAL (10) seconds.
+  if ((millis() > checkstatus_timeout) || (checkstatus_timeout == 0))
+  {
+    sendMessage();
+    checkstatus_timeout = millis() + REPEAT_INTERVAL;
+  }
 }
 
 void loop() 
 {
-  client.poll();
+
+  checkToSendMessage();
+  
+  // let the websockets client check for incoming messages
+  if (client.available()) 
+  {
+    client.poll();
+  }
 }

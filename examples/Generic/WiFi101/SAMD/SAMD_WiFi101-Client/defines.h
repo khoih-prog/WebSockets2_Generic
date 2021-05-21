@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  defines.h for SAMD-Client_SINRIC.ino
-  For SAMD21/SAMD51 with WiFiNINA module/shield.
+  defines.h for SAMD_WiFi101-Client.ino
+  For SAMD21/SAMD51 with WiFi101 module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
@@ -22,16 +22,17 @@
       || defined(ARDUINO_SAMD_MKRGSM1400) || defined(ARDUINO_SAMD_MKRNB1500) || defined(ARDUINO_SAMD_MKRVIDOR4000) || defined(__SAMD21G18A__) \
       || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
       || defined(__SAMD51G19A__) || defined(__SAMD51P19A__) || defined(__SAMD21G18A__) )
-#if defined(WEBSOCKETS_WIFININA_USE_SAMD)
-#undef WEBSOCKETS_WIFININA_USE_SAMD
-#endif
-#define WEBSOCKETS_USE_WIFININA           true
-#define WEBSOCKETS_WIFININA_USE_SAMD      true
+  #if defined(WEBSOCKETS_WIFI101_USE_SAMD)
+    #undef WEBSOCKETS_WIFI101_USE_SAMD
+  #endif
+  #define WEBSOCKETS_USE_WIFI101           true
+  #define WEBSOCKETS_WIFI101_USE_SAMD      true
+  #warning Using WiFi101 Library for MKR1000 and MKRWIFI1010
 #else
-#error This code is intended to run only on the SAMD boards ! Please check your Tools->Board setting.
+  #error This code is intended to run only on the SAMD boards using WiFi101! Please check your Tools->Board setting.
 #endif
 
-#if defined(WEBSOCKETS_WIFININA_USE_SAMD)
+#if defined(WEBSOCKETS_WIFI101_USE_SAMD)
 
 #if defined(ARDUINO_SAMD_ZERO)
 #define BOARD_TYPE      "SAMD Zero"
@@ -137,7 +138,11 @@
   #define BOARD_NAME    BOARD_TYPE
 #endif
 
-#include <WiFiNINA_Generic.h>
+#define USE_WIFI101       true
+
+#include <SPI.h>
+#include <WiFi101.h>
+#include <driver/source/nmasic.h>
 
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
@@ -146,19 +151,12 @@
 const char* ssid = "ssid"; //Enter SSID
 const char* password = "password"; //Enter Password
 
-#define SINRIC_WEBSERVER          "iot.sinric.com"
-#define SINRIC_WEBSERVER_PORT     80
-#define SINRIC_API_KEY            "11111111-2222-3333-4444-555555555555"
+const char* websockets_server_host = "192.168.2.95"; //Enter server address
+//const char* websockets_server_host = "serverip_or_name"; //Enter server address
 
-#define SINRIC_Device_ID_1        "012345678901234567890123"   // Device ID, got from Sinric
+const uint16_t websockets_server_port = 8080; // Enter server port
 
-const char* websockets_server_host    = SINRIC_WEBSERVER; //Enter server address
-const uint16_t websockets_server_port = SINRIC_WEBSERVER_PORT; // Enter server port
-
-#ifdef LED_BUILTIN
-  #define LED_PIN     LED_BUILTIN
-#else
-  #define LED_PIN     13
-#endif            
+// Select the static IP address according to your local network
+IPAddress clientIP(192, 168, 2, 223);
 
 #endif      //defines_h

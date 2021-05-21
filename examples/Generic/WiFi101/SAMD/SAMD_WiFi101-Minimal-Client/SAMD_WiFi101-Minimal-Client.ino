@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  SAMD-Minimal-Client.ino
-  For SAMD21/SAMD51 with WiFiNINA module/shield.
+  SAMD_WiFi101-Minimal-Client.ino
+  For SAMD21/SAMD51 with WiFi101 module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
@@ -77,11 +77,11 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting SAMD-Minimal-Client with WiFiNINA on " + String(BOARD_NAME));
+  Serial.println("\nStarting SAMD_WiFi101-Minimal-Client with WiFi101 on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   // check for the WiFi module:
-  if (WiFi.status() == WL_NO_MODULE) 
+  if (WiFi.status() == WL_NO_SHIELD) 
   {
     Serial.println("Communication with WiFi module failed!");
     // don't continue
@@ -89,12 +89,30 @@ void setup()
   }
 
   String fv = WiFi.firmwareVersion();
-  
-  if (fv < WIFI_FIRMWARE_LATEST_VERSION) 
+  Serial.print("Firmware version installed: ");
+  Serial.println(fv);
+
+  String latestFv;
+    
+  if (REV(GET_CHIPID()) >= REV_3A0) 
   {
-    Serial.println("Please upgrade the firmware");
+    // model B
+    latestFv = WIFI_FIRMWARE_LATEST_MODEL_B;
+  } 
+  else 
+  {
+    // model A
+    latestFv = WIFI_FIRMWARE_LATEST_MODEL_A;
   }
   
+  if (fv < latestFv) 
+  {
+    Serial.println("Please upgrade the firmware");
+    // Print required firmware version
+    Serial.print("Latest firmware version available : ");
+    Serial.println(latestFv);
+  }
+
   Serial.print("Attempting to connect to SSID: ");
   Serial.println(ssid);
 
