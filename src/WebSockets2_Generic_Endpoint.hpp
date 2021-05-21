@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.2.4
+  Version: 1.3.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -28,6 +28,7 @@
   1.2.2   K Hoang      16/04/2021 Add support to ESP32-C3
   1.2.3   K Hoang      02/05/2021 Update CA Certs and Fingerprint for EP32 and ESP8266 secured exampled.
   1.2.4   K Hoang      05/05/2021 Add InSecure mode for ESP32 and examples for ESP32/ESP8266
+  1.3.0   K Hoang      20/05/2021 Add support to WiFi101
  *****************************************************************************************************************************/
 
 #ifndef _WEBSOCKETS2_GENERIC_ENDPOINT_H
@@ -150,6 +151,7 @@ namespace websockets2_generic
     
       return *this;
     }
+    
     WebsocketsEndpoint& WebsocketsEndpoint::operator=(const WebsocketsEndpoint&& other) 
     {
       this->_client = other._client;
@@ -249,7 +251,8 @@ namespace websockets2_generic
         done_reading += numReceived;
       }
       
-      return std::move(data);
+      // KH, Don't need return std::move(data);
+      return data;
     }
     
     void remaskData(WSString& data, const uint8_t* const maskingKey, uint64_t payloadLength) 
@@ -315,16 +318,21 @@ namespace websockets2_generic
       frame.opcode = header.opcode;
       frame.payload_length = payloadLength;
     
-      return std::move(frame);
+      // KH, Don't need return std::move(frame);
+      return frame;
     }
     
     WebsocketsMessage WebsocketsEndpoint::handleFrameInStreamingMode(WebsocketsFrame& frame) 
     {
       
-      if (frame.isControlFrame()) {
+      if (frame.isControlFrame()) 
+      {
         auto msg = WebsocketsMessage::CreateFromFrame(std::move(frame));
         this->handleMessageInternally(msg);
-        return std::move(msg);
+        
+        // KH, Don't need return std::move(msg);
+        return msg;
+        
       }
       else if (frame.isBeginningOfFragmentsStream()) 
       {
@@ -398,7 +406,9 @@ namespace websockets2_generic
       {
         auto msg = WebsocketsMessage::CreateFromFrame(std::move(frame));
         this->handleMessageInternally(msg);
-        return std::move(msg);
+        
+        // KH, Don't need return std::move(msg);
+        return msg;
       }
       else if (frame.isBeginningOfFragmentsStream()) 
       {
