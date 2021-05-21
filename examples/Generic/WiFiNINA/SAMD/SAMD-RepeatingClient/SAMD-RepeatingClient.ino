@@ -42,6 +42,8 @@ WebsocketsClient client;
 
 void onEventsCallback(WebsocketsEvent event, String data) 
 {
+  (void) data;
+  
   if (event == WebsocketsEvent::ConnectionOpened) 
   {
     Serial.println("Connnection Opened");
