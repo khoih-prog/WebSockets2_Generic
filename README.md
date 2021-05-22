@@ -2840,7 +2840,7 @@ If you want to contribute to this project:
 
 - Most of the credits go to original author [**Gil Maimon**](https://github.com/gilmaimon) as well as contributors in original library [ArduinoWebsockets Contributors](https://github.com/gilmaimon/ArduinoWebsockets#contributors)
 
-- The library is licensed under [GPLv3.0](https://github.com/gilmaimon/ArduinoWebsockets/blob/master/LICENSE) and [MIT](https://github.com/khoih-prog/WebSockets2_Generic/blob/master/LICENSE)
+- The library is licensed under [GPLv3.0](https://github.com/khoih-prog/WebSockets2_Generic/blob/master/LICENSE)
 
 - `base64` written by René Nyffenegger.
 
