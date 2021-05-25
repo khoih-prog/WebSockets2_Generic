@@ -29,8 +29,10 @@
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-const char* ssid = "ssid"; //Enter SSID
-const char* password = "password"; //Enter Password
+const char* ssid = "HueNet1"; //Enter SSID
+const char* password = "jenniqqs"; //Enter Password
+//const char* ssid = "ssid"; //Enter SSID
+//const char* password = "password"; //Enter Password
 
 #define WEBSOCKETS_PORT     8080
 
