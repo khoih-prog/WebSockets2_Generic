@@ -3,13 +3,13 @@
   For WebSockets2_Generic Library
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
-  to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy boards besides ESP8266 and ESP32
+  to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy, RP2040 boards besides ESP8266 and ESP32
 
   The library provides simple and easy interface for websockets (Client and Server).
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.3.0
+  Version: 1.4.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -29,6 +29,7 @@
   1.2.3   K Hoang      02/05/2021 Update CA Certs and Fingerprint for EP32 and ESP8266 secured exampled.
   1.2.4   K Hoang      05/05/2021 Add InSecure mode for ESP32 and examples for ESP32/ESP8266
   1.3.0   K Hoang      20/05/2021 Add support to WiFi101
+  1.4.0   K Hoang      25/05/2021 Add support to RP2040-based boards using Arduino-pico and Arduino mbed_rp2040 core 
  *****************************************************************************************************************************/
  
 #pragma once
@@ -128,6 +129,23 @@ namespace websockets2_generic
     #ifndef _WS_CONFIG_NO_SSL
     // OpenSSL Dependent
     #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
-    #endif //_WS_CONFIG_NO_SSL     
+    #endif //_WS_CONFIG_NO_SSL   
+    
+  #elif ( defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || \
+      defined(ARDUINO_GENERIC_RP2040) )    
+    // Using Ethernet ENC28J60
+    #warning Using UIPEthernet for RP2040 in ws_common_UIPEthernet.hpp
+    
+    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+    #define _WS_CONFIG_NO_SSL   true
+    
+    #include <Tiny_Websockets_Generic/network/RP2040_UIPEthernet/RP2040_UIPEthernet_tcp.hpp>
+    #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+    #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+    
+    #ifndef _WS_CONFIG_NO_SSL
+    // OpenSSL Dependent
+    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+    #endif //_WS_CONFIG_NO_SSL 
     
   #endif  

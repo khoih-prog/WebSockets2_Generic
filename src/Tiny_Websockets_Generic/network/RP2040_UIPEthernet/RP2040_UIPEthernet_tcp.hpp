@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  Teensy_Ethernet_W5x00_tcp.hpp
-  For Teensy boards with Ethernet W5x00 module/shield.
+  RP2040_UIPEthernet_tcp.hpp
+  For RP2040 boards with UIPEthernet ENC28J60 module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy, RP2040 boards besides ESP8266 and ESP32
@@ -29,39 +29,30 @@
   1.2.3   K Hoang      02/05/2021 Update CA Certs and Fingerprint for EP32 and ESP8266 secured exampled.
   1.2.4   K Hoang      05/05/2021 Add InSecure mode for ESP32 and examples for ESP32/ESP8266
   1.3.0   K Hoang      20/05/2021 Add support to WiFi101
-  1.4.0   K Hoang      25/05/2021 Add support to RP2040-based boards using Arduino-pico and Arduino mbed_rp2040 core  *****************************************************************************************************************************/
+  1.4.0   K Hoang      25/05/2021 Add support to RP2040-based boards using Arduino-pico and Arduino mbed_rp2040 core 
+ *****************************************************************************************************************************/
  
 #pragma once
 
-#if ( defined(CORE_TEENSY) || defined(__IMXRT1062__) || defined(ARDUINO_TEENSY41) || defined(ARDUINO_TEENSY40) || \
-      defined(__MK66FX1M0__) || defined(__MK64FX512__) || defined(__MKL26Z64__) || defined(__MK20DX256__) || \
-      defined(__MK20DX128__) )
+#if ( defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || \
+      defined(ARDUINO_GENERIC_RP2040) )
+      
 
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-// KH, from v1.1.0
-#if ( defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_NATIVE_ETHERNET )
-  // Also default to Ethernet library
-  #include <NativeEthernet.h>
-#elif (USE_ETHERNET_LIB || USE_ETHERNET)
-  #warning Using Ethernet Lib in Teensy_Ethernet_W5x00_tcp.hpp
-  #include <Ethernet.h>
-#elif (USE_ETHERNET2_LIB || USE_ETHERNET2)
-  #warning Using Ethernet2 Lib in Teensy_Ethernet_W5x00_tcp.hpp
-  #include <Ethernet2.h>
-#elif (USE_ETHERNET_LARGE_LIB || USE_ETHERNET_LARGE)
-  #warning Using EthernetLarge Lib in Teensy_Ethernet_W5x00_tcp.hpp
-  #include <EthernetLarge.h>
-#elif (USE_ETHERNET_ENC_LIB || USE_ETHERNET_ENC)
-  #warning Using EthernetENC Lib in Teensy_Ethernet_W5x00_tcp.hpp
-  #include <EthernetENC.h>  
+// KH, from v1.0.2
+#if USE_UIP_ETHERNET
+  #warning Using UIPEthernet Lib in RP2040_UIPEthernet_tcp.hpp
+  #include <UIPEthernet.h>
+  #include <utility/logging.h> 
 #else
-  // Default to Ethernet library
-  #warning Using default Ethernet Lib in Teensy_Ethernet_W5x00_tcp.hpp
-  #include <Ethernet.h>
+  // Default to UIPEthernet library
+  #warning default UIPEthernet Lib in RP2040_UIPEthernet_tcp.hpp
+  #include <UIPEthernet.h>
+  #include <utility/logging.h> 
 #endif
 //////
 
@@ -196,4 +187,4 @@ namespace websockets2_generic
     };
   }   // namespace network2_generic
 }     // namespace websockets2_generic
-#endif // #ifdef Teensy
+#endif // #ifdef RP2040
