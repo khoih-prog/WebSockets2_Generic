@@ -164,9 +164,9 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
  
  ---
  
- #### Currently supported Boards
+#### Currently supported Boards
 
-This [**WebSockets_Generic** library](https://github.com/khoih-prog/WebSockets_Generic) currently supports these following boards:
+This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2_Generic) currently supports these following boards:
 
  1. **nRF52 boards**, such as **AdaFruit Feather nRF52832, nRF52840 Express, BlueFruit Sense, Itsy-Bitsy nRF52840 Express, Metro nRF52840 Express, NINA_B302_ublox, NINA_B112_ublox, etc.**
  
