@@ -1,13 +1,13 @@
 /****************************************************************************************************************************
-  defines.h
-  For ESP32
+  defines.h for ESP32-Client.ino
+  For WT32_ETH01 (ESP32 + LAN8720)
 
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
 
 
   The library provides simple and easy interface for websockets (Client and Server).
-
+  
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
  *****************************************************************************************************************************/
@@ -15,38 +15,38 @@
 #ifndef defines_h
 #define defines_h
 
-#if !( defined(ESP8266) ||  defined(ESP32) )
-#error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.
-#elif ( ARDUINO_ESP32S2_DEV || ARDUINO_FEATHERS2 || ARDUINO_ESP32S2_THING_PLUS || ARDUINO_MICROS2 || \
+#if ( ARDUINO_ESP32S2_DEV || ARDUINO_FEATHERS2 || ARDUINO_ESP32S2_THING_PLUS || ARDUINO_MICROS2 || \
         ARDUINO_METRO_ESP32S2 || ARDUINO_MAGTAG29_ESP32S2 || ARDUINO_FUNHOUSE_ESP32S2 || \
         ARDUINO_ADAFRUIT_FEATHER_ESP32S2_NOPSRAM )
-#define BOARD_TYPE      "ESP32-S2"
+  #define BOARD_TYPE      "ESP32-S2"
 #elif ( ARDUINO_ESP32C3_DEV )
-#warning Using ESP32-C3 boards
-#define BOARD_TYPE      "ESP32-C3"
+  #warning Using ESP32-C3 boards
+  #define BOARD_TYPE      "ESP32-C3"
+#elif ESP32
+  #define BOARD_TYPE      "ESP32"
 #else
-#define BOARD_TYPE      "ESP32"
+  #error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.  
 #endif
 
-#ifndef BOARD_NAME
-#define BOARD_NAME    BOARD_TYPE
-#endif
+#include <WebServer_WT32_ETH01.h>     // https://github.com/khoih-prog/WebServer_WT32_ETH01
 
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-const char* ssid = "ssid"; //Enter SSID
-const char* password = "password"; //Enter Password
+const char* websockets_server_host = "192.168.2.95"; //Enter server address
+//const char* websockets_server_host = "serverip_or_name"; //Enter server address
 
 #define WEBSOCKETS_PORT     8080
 
 const uint16_t websockets_server_port = WEBSOCKETS_PORT; // Enter server port
 
 // Select the IP address according to your local network
-IPAddress serverIP(192, 168, 2, 95);
+IPAddress myIP(192, 168, 2, 232);
+IPAddress myGW(192, 168, 2, 1);
+IPAddress mySN(255, 255, 255, 0);
 
-IPAddress static_GW(192, 168, 2, 1);
-IPAddress static_SN(255, 255, 255, 0);
+// Google DNS Server IP
+IPAddress myDNS(8, 8, 8, 8);
 
 #endif      //defines_h
