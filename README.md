@@ -2174,7 +2174,7 @@ This is the terminal output when running [SAMD-Client_SINRIC](examples/Generic/W
 
 ```
 Starting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on SAMD NANO_33_IOT
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 WiFi-begin: return1 = 3
 WiFi-begin: return2 = 3
 Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
@@ -2312,7 +2312,7 @@ client.setInsecure();
 ```
 Starting WebSockets2_Generic SAMD-Ethernet-Client_SINRIC on SAMD ADAFRUIT_ITSYBITSY_M4_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 ENC28J60_CONTROL_CS =16
 SS =16
 SPI_MOSI =25
@@ -2359,7 +2359,7 @@ Turn off Device ID: 012345678901234567890123
 ```
 Starting WebSockets2_Generic SAMDUE-Ethernet-Server on SAM DUE
 Ethernet using W5x00 and EthernetLarge Library
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
 W5100::init: W5100, SSIZE =4096
 WebSockets Server Running and Ready on SAM DUE
@@ -2392,7 +2392,7 @@ HHHHHHHHH
 ```
 Starting WebSockets2_Generic nRF52-Ethernet-Server on NRF52840_ITSYBITSY_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 ENC28J60_CONTROL_CS =10
 SS =5
 SPI_MOSI =24
@@ -2428,7 +2428,7 @@ HHHHHHHHH
 ```
 Starting WebSockets2_Generic STM32-Ethernet-Client_SINRIC on NUCLEO_F767ZI
 Ethernet using LAN8742A and STM32Ethernet Library
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 WebSockets Client IP address: 192.168.2.135
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = ********
@@ -2472,7 +2472,7 @@ Turn off Device ID: 012345678901234567890123
 
 ```
 Start Generic_WebSocketServerAllFunctionsDemo_W5500
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
 W5100::init: W5100, SSIZE =4096
 WebSockets Server IP address: 192.168.2.95
@@ -2533,7 +2533,7 @@ Got Message: Hello to Server from ESP32
 ```
 Starting STM32-Ethernet-Client_SINRIC_LAN8720 on BLACK_F407VE
 Ethernet using LAN8720 and STM32Ethernet Library
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 WebSockets Client IP address: 192.168.2.160
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
@@ -2574,7 +2574,7 @@ Turn off Device ID: 012345678901234567890123
 
 ```
 Starting ESP32-Client_SINRIC on ESP32S2_DEV
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 ....Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2616,7 +2616,7 @@ Turn off Device ID: 012345678901234567890123
 
 ```
 Starting WebSockets Secured-ESP32-Client on ESP32S2_DEV
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 ....
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2674,7 +2674,7 @@ Got a Pong!
 
 ```
 Starting WebSockets InSecured-ESP32-Client on ESP32_DEV
-WebSockets2_Generic v1.2.4
+WebSockets2_Generic v1.5.0
 ...
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2733,7 +2733,7 @@ Got a Pong!
 
 ```
 Starting ESP8266-Client_SINRIC on ESP8266_NODEMCU_ESP12E
-WebSockets2_Generic v1.3.0
+WebSockets2_Generic v1.5.0
 ......Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
