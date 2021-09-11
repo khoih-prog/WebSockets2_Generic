@@ -32,6 +32,7 @@
 const char* ssid = "ssid"; //Enter SSID
 const char* password = "password"; //Enter Password
 
+
 #define WEBSOCKETS_PORT     8080
 
 const uint16_t websockets_server_port = WEBSOCKETS_PORT; // Enter server port
