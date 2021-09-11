@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  Teensy_UIPEthernet_tcp.hpp
-  For Teensy boards with UIPEthernet ENC28J60 module/shield.
+  Teensy41_Ethernet_tcp.hpp
+  For Teensy 4.1 boards with QNEthernet.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy, RP2040 boards besides ESP8266 and ESP32
@@ -36,158 +36,188 @@
  
 #pragma once
 
-#if ( defined(CORE_TEENSY) || defined(__IMXRT1062__) || defined(ARDUINO_TEENSY41) || defined(ARDUINO_TEENSY40) || \
-      defined(__MK66FX1M0__) || defined(__MK64FX512__) || defined(__MKL26Z64__) || defined(__MK20DX256__) || \
-      defined(__MK20DX128__) )
-      
+#if (defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_QN_ETHERNET)
 
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
-#include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-// KH, from v1.0.2
-#if USE_UIP_ETHERNET
-  #warning Using UIPEthernet Lib in nRF52_UIPEthernet_tcp.hpp
-  #include <UIPEthernet.h>
-  #include <utility/logging.h> 
-#else
-  // Default to UIPEthernet library
-  #warning default UIPEthernet Lib in nRF52_UIPEthernet_tcp.hpp
-  #include <UIPEthernet.h>
-  #include <utility/logging.h> 
-#endif
-//////
+#include <QNEthernet.h>
+#include <QNEthernetClient.h>
+#include <QNEthernetServer.h>
+
+using namespace qindesign::network;
 
 namespace websockets2_generic
 {
   namespace network2_generic
   {
-    typedef GenericEspTcpClient<EthernetClient> EthernetTcpClient;
-
-#if 0
-    // KH, no SSL support for Ethernet
-    class SecuredEthernetTcpClient : public GenericEspTcpClient<EthernetSSLClient> 
+    class EthernetTcpClient : public TcpClient
     {
       public:
-        void setInsecure() 
+        EthernetTcpClient(EthernetClient c) : client(c) {}
+    
+        EthernetTcpClient() {}
+    
+        bool connect(const WSString& host, const int port)
         {
-          // KH, to fix, for v1.0.0 only
-          //this->client.setInsecure();
+          yield();
+          const char* hostStr = host.c_str();
+          // Teensy's NativeEthernet library doesn't accept a char buffer
+          // as an IP (it will try to resolve it). So we have to convert
+          // it if necessary.
+          IPAddress ip;
+          return (ip.fromString(hostStr)
+                  ? client.connect(ip, port)
+                  : client.connect(hostStr, port)
+                 );
         }
     
-        void setFingerprint(const char* fingerprint) 
+        bool poll()
         {
-          // KH, to fix, for testing only
-          //this->client.setFingerprint(fingerprint);
-        }
-
-        void setClientRSACert(const X509List *cert, const PrivateKey *sk) 
-        {
-          // KH, to fix, for v1.0.0 only
-          //this->client.setClientRSACert(cert, sk);
+          yield();
+          return client.available();
         }
     
-        void setTrustAnchors(const X509List *ta) 
+        bool available() override
         {
-          // KH, to fix, for v1.0.0 only
-          //this->client.setTrustAnchors(ta);
-        }  
+          return client.connected();
+        }
+    
+        void send(const WSString& data) override
+        {
+          yield();
+          client.write(reinterpret_cast<uint8_t*>(const_cast<char*>(data.c_str())), data.size());
+          yield();
+        }
+    
+        void send(const WSString&& data) override
+        {
+          yield();
+          client.write(reinterpret_cast<uint8_t*>(const_cast<char*>(data.c_str())), data.size());
+          yield();
+        }
+    
+        void send(const uint8_t* data, const uint32_t len) override
+        {
+          yield();
+          client.write(data, len);
+          yield();
+        }
+    
+        WSString readLine() override
+        {
+          WSString line = "";
+    
+          int ch = -1;
+    
+          while ( ch != '\n' && available())
+          {
+            // It is important to call `client.available()`. Otherwise no data can be read.
+            if (client.available())
+            {
+              ch = client.read();
+    
+              if (ch >= 0)
+              {
+                line += (char) ch;
+              }
+            }
+          }
+    
+          return line;
+        }
+    
+        uint32_t read(uint8_t* buffer, const uint32_t len) override
+        {
+          yield();
+          return client.read(buffer, len);
+        }
+    
+        void close() override
+        {
+          yield();
+          client.stop();
+        }
+    
+        virtual ~EthernetTcpClient()
+        {
+          client.stop();
+        }
+    
+      protected:
+        EthernetClient client;
+    
+        int getSocket() const override
+        {
+          return -1;
+        }
     };
-#endif
     
+    ///////////////////////////////////////////////////////////////////
     #ifndef WEBSOCKETS_PORT
       #define DUMMY_PORT    8080
     #else
       #define DUMMY_PORT    WEBSOCKETS_PORT
     #endif
-    
-    // KH, quick fix for Ethernet port
-    #define CLOSED     0
+    ///////////////////////////////////////////////////////////////////
     
     class EthernetTcpServer : public TcpServer 
     {
       public:
+        //EthernetTcpServer() {}
         EthernetTcpServer() : server(DUMMY_PORT) {}
-        
+    
         bool poll() override 
         {
           yield();
           
-          // KH, to fix, for testing only
-          //return server.hasClient();
-          return true;
-          //////
+          return server.available();
         }
     
         bool listen(const uint16_t port) override 
         {
-          (void) port;
-          
           yield();
-          // KH, already use WEBSOCKETS_PORT
+          server = EthernetServer(port);
           //server.begin(port);
           server.begin();
-          //////
           return available();
         }
     
         TcpClient* accept() override 
-        {   
-          while (available()) 
-          {
-            yield();
-            auto client = server.available();
-            
-            if (client)
-            {         
-              return new EthernetTcpClient{client};
-            }
-            // KH, from v1.0.6, add to enable non-blocking when no WS Client
-            else
-            {
-              // Return NULL Client. Remember to test for NULL and process correctly
-              return NULL;
-            }            
-          }
-                   
-          return new EthernetTcpClient;
+        {
+          auto client = server.accept();
+          return new EthernetTcpClient(client);
         }
     
         bool available() override 
         {
           yield();
-          
-          // KH
-          //return server.status() != CLOSED;
-          // Use EthernetServer::operator bool()
-          //return (server);
-          return true;
+          return static_cast<bool>(server);
         }
     
         void close() override 
         {
-          yield();
-          
-          // KH, to fix, for testing only
-          //server.close();
-          //////
+          // Not Implemented
         }
     
         virtual ~EthernetTcpServer() 
         {
-          if (available()) close();
+          // Not Implemented
         }
     
       protected:
         int getSocket() const override 
         {
-          return -1;
+          return -1; // Not Implemented
         }
     
       private:
         EthernetServer server;
     };
-  }   // namespace network2_generic
-}     // namespace websockets2_generic
-#endif // #ifdef Teensy
+  }
+} // websockets2_generic::network2_generic
+
+#else
+  #error This is designed only for Teensy 4.1. Please check your Tools-> Boards  
+#endif // #if (defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_QN_ETHERNET)

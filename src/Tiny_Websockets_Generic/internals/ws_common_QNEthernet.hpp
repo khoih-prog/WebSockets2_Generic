@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  generic_esp_clients.hpp
+  ws_common_QNEthernet.hpp
   For WebSockets2_Generic Library
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
@@ -36,116 +36,43 @@
  
 #pragma once
 
-#include <Tiny_Websockets_Generic/internals/ws_common.hpp>
-#include <Tiny_Websockets_Generic/network/tcp_client.hpp>
+#include <Tiny_Websockets_Generic/ws_config_defs.hpp>
+#include <string>
+#include <Arduino.h>
 
 namespace websockets2_generic
 {
-  namespace network2_generic
+  typedef std::string WSString;
+  typedef String WSInterfaceString;
+  
+  namespace internals2_generic
   {
-    template <class WifiClientImpl>
-    class GenericEspTcpClient : public TcpClient 
-    {
-      public:
-        GenericEspTcpClient(WifiClientImpl c) : client(c) 
-        {
+    WSString fromInterfaceString(const WSInterfaceString& str);
+    WSString fromInterfaceString(const WSInterfaceString&& str);
+    WSInterfaceString fromInternalString(const WSString& str);
+    WSInterfaceString fromInternalString(const WSString&& str);
+  }   // namespace internals2_generic 
+}     // namespace websockets 2_generic
+
+  #if (defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_QN_ETHERNET)
         
-#if ( defined(ESP32)  || defined(ESP8266) )   
-          client.setNoDelay(true);
-#endif          
-        }
-    
-        GenericEspTcpClient() {}
-    
-        bool connect(const WSString& host, const int port) 
-        {
-          yield();
-          auto didConnect = client.connect(host.c_str(), port);
-          
-#if ( defined(ESP32)  || defined(ESP8266) )           
-          client.setNoDelay(true);
-#endif
-          
-          return didConnect;
-        }
-    
-        bool poll() 
-        {
-          yield();
-          return client.available();
-        }
-    
-        bool available() override 
-        {
-          return client.connected();
-        }
-    
-        void send(const WSString& data) override 
-        {
-          yield();
-          client.write(reinterpret_cast<uint8_t*>(const_cast<char*>(data.c_str())), data.size());
-          yield();
-        }
-    
-        void send(const WSString&& data) override 
-        {
-          yield();
-          client.write(reinterpret_cast<uint8_t*>(const_cast<char*>(data.c_str())), data.size());
-          yield();
-        }
-    
-        void send(const uint8_t* data, const uint32_t len) override 
-        {
-          yield();
-          client.write(data, len);
-          yield();
-        }
-    
-        WSString readLine() override 
-        {
-          WSString line = "";
-    
-          int ch = -1;
-          
-          while ( ch != '\n' && available()) 
-          {
-            ch = client.read();
-            
-            if (ch < 0) 
-              continue;
-              
-            line += (char) ch;
-          }
-    
-          return line;
-        }
-    
-        uint32_t read(uint8_t* buffer, const uint32_t len) override 
-        {
-          yield();
-          
-          return 
-            client.read(buffer, len);
-        }
-    
-        void close() override 
-        {
-          yield();
-          client.stop();
-        }
-    
-        virtual ~GenericEspTcpClient() 
-        {
-          client.stop();
-        }
-    
-      protected:
-        WifiClientImpl client;
-    
-        int getSocket() const override 
-        {
-          return -1;
-        }
-    };
-  }   // namespace network2_generic
-}     // namespace websockets2_generic
+      // From v1.1.0  
+      // Using Teensy 4.1 QNEthernet
+      #warning Using QNEthernet for Teensy 4.1  in ws_common_QNEthernet.hpp
+      
+      #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+      #define _WS_CONFIG_NO_SSL   true
+      
+      #include <Tiny_Websockets_Generic/network/Teensy41_QNEthernet/Teensy41_QNEthernet_tcp.hpp>
+
+      #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+      #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+      
+      #ifndef _WS_CONFIG_NO_SSL
+      // OpenSSL Dependent
+      #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+      #endif //_WS_CONFIG_NO_SSL
+      
+  #else
+      #error This is designed only for Teensy 4.1 using QNEthernet. Please check your Tools-> Boards          
+  #endif  

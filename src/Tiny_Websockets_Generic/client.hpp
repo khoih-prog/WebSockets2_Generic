@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.5.0
+  Version: 1.6.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -31,6 +31,7 @@
   1.3.0   K Hoang      20/05/2021 Add support to WiFi101
   1.4.0   K Hoang      25/05/2021 Add support to RP2040-based boards using Arduino-pico and Arduino mbed_rp2040 core
   1.5.0   K Hoang      08/07/2021 Add support to WT32_ETH01 (ESP32 + LAN8720) boards
+  1.6.0   K Hoang      06/09/2021 Add support to QNEthernet Library for Teensy 4.1
  *****************************************************************************************************************************/
 
 #ifndef _CLIENT_HPP_
@@ -63,7 +64,11 @@
   #elif USE_NATIVE_ETHERNET
     // KH, from v1.1.0
     #warning WEBSOCKETS_USE_ETHERNET and USE_NATIVE_ETHERNET in client.hpp
-    #include <Tiny_Websockets_Generic/internals/ws_common_NativeEthernet.hpp>  
+    #include <Tiny_Websockets_Generic/internals/ws_common_NativeEthernet.hpp>
+  #elif USE_QN_ETHERNET
+    // KH, from v1.6.0
+    #warning WEBSOCKETS_USE_ETHERNET and USE_QN_ETHERNET in client.hpp
+    #include <Tiny_Websockets_Generic/internals/ws_common_QNEthernet.hpp>       
   #else
     #warning WEBSOCKETS_USE_ETHERNET in client.hpp
     #include <Tiny_Websockets_Generic/internals/ws_common_Ethernet_W5x00.hpp>
