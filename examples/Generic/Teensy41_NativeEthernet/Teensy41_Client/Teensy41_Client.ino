@@ -57,7 +57,9 @@ byte mac[6];
 
 // Enter websockets url.
 // Note: wss:// currently not working.
-const char* url  = "ws://echo.websocket.org";
+// ws://echo.websocket.org is no longer working. Please create your own WS Local Server to test
+//const char* url  = "ws://echo.websocket.org";
+const char* url  = "ws://192.168.2.30:8080";
 
 void setup() {
   // Set the MAC address.
