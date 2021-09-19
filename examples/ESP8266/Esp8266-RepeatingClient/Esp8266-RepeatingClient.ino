@@ -39,6 +39,11 @@ using namespace websockets2_generic;
 
 WebsocketsClient client;
 
+#define HEARTBEAT_INTERVAL      300000 // 5 Minutes
+
+uint64_t heartbeatTimestamp     = 0;
+uint64_t now                    = 0;
+
 void onEventsCallback(WebsocketsEvent event, String data) 
 {
   (void) data;
@@ -100,12 +105,9 @@ void setup()
   client.onEvent(onEventsCallback);
 }
 
-void sendMessage(void)
-{
-// try to connect to Websockets server
-  bool connected = client.connect(websockets_server_host, websockets_server_port, "/");
-  
-  if (connected) 
+void sendMessage()
+{ 
+  if ( client.connect(websockets_server_host, websockets_server_port, "/") ) 
   {
     Serial.println("Connected!");
 
@@ -138,8 +140,17 @@ void loop()
   checkToSendMessage();
   
   // let the websockets client check for incoming messages
-  if (client.available()) 
+  if (client.available())
   {
     client.poll();
+
+    now = millis();
+
+    // Send heartbeat in order to avoid disconnections during ISP resetting IPs over night. Thanks @MacSass
+    if ((now - heartbeatTimestamp) > HEARTBEAT_INTERVAL)
+    {
+      heartbeatTimestamp = now;
+      client.send("H");
+    }
   }
 }
