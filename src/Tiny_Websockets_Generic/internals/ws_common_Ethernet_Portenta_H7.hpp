@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  WebSockets2_Generic_Debug.h
+  ws_common_Ethernet_Portenta_H7.hpp
   For WebSockets2_Generic Library
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
@@ -34,48 +34,74 @@
   1.6.0   K Hoang      06/09/2021 Add support to QNEthernet Library for Teensy 4.1
   1.7.0   K Hoang      18/09/2021 Add support to Portenta_H7, using either WiFi or Vision-shield Ethernet
  *****************************************************************************************************************************/
-
-#ifndef WebSockets2_Generic_Debug_h
-#define WebSockets2_Generic_Debug_h
-
+ 
 #pragma once
 
-#include <stdio.h>
+#include <Tiny_Websockets_Generic/ws_config_defs.hpp>
+#include <string>
+#include <Arduino.h>
 
-#ifdef DEBUG_WEBSOCKETS_PORT
-  #define DBG_PORT      DEBUG_WEBSOCKETS_PORT
+namespace websockets2_generic
+{
+  typedef std::string WSString;
+  typedef String WSInterfaceString;
+  
+  namespace internals2_generic
+  {
+    WSString fromInterfaceString(const WSInterfaceString& str);
+    WSString fromInterfaceString(const WSInterfaceString&& str);
+    WSInterfaceString fromInternalString(const WSString& str);
+    WSInterfaceString fromInternalString(const WSString&& str);
+  }   // namespace internals2_generic 
+}     // namespace websockets 2_generic
+
+// From v1.7.0
+#if WEBSOCKETS_USE_PORTENTA_H7_ETHERNET
+  #warning Using PORTENTA_H7 Ethernet in ws_common_Ethernet_Portenta_H7.hpp
+#endif
+
+// From v1.7.0
+#if ( ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) ) && defined(ARDUINO_ARCH_MBED) )
+
+  #if defined(BOARD_NAME)
+    #undef BOARD_NAME
+  #endif
+
+  #if defined(CORE_CM7)
+    #warning Using Portenta H7 M7 core
+    #define BOARD_NAME            "PORTENTA_H7_M7"
+  #else
+    #warning Using Portenta H7 M4 core
+    #define BOARD_NAME            "PORTENTA_H7_M4"
+  #endif
+
+  #define SHIELD_TYPE           "Ethernet using Portenta_Ethernet Library"
+
+  #define ETHERNET_USE_PORTENTA_H7  true
+  #define USE_ETHERNET_PORTENTA_H7  true
+
 #else
-  #define DBG_PORT      Serial
+
+  #error For Portenta_H7 only
+  
 #endif
+       
+// From v1.7.0
+// Using PORTENTA_H7 Vision-shield Ethernet
+#warning Using Ethernet for PORTENTA_H7 in ws_common_Ethernet_Portenta_H7.hpp
 
-// Change _WEBSOCKETS_LOGLEVEL_ to set tracing and logging verbosity
-// 0: DISABLED: no logging
-// 1: ERROR: errors
-// 2: WARN: errors and warnings
-// 3: INFO: errors, warnings and informational (default)
-// 4: DEBUG: errors, warnings, informational and debug
+#define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
 
-#ifndef _WEBSOCKETS_LOGLEVEL_
-  #define _WEBSOCKETS_LOGLEVEL_       2
-#endif
+#define _WS_CONFIG_NO_SSL   true
 
+#include <Tiny_Websockets_Generic/network/Portenta_H7_Ethernet/Portenta_H7_Ethernet_tcp.hpp>
 
-#define LOGERROR(x)     if(_WEBSOCKETS_LOGLEVEL_>0) { DBG_PORT.print("[WS] "); DBG_PORT.println(x); }
-#define LOGERROR1(x,y)  if(_WEBSOCKETS_LOGLEVEL_>0) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.println(y); }
+#define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+#define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
 
-#define LOGWARN(x)      if(_WEBSOCKETS_LOGLEVEL_>1) { DBG_PORT.print("[WS] "); DBG_PORT.println(x); }
-#define LOGWARN1(x,y)   if(_WEBSOCKETS_LOGLEVEL_>1) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.println(y); }
-
-#define LOGINFO(x)      if(_WEBSOCKETS_LOGLEVEL_>2) { DBG_PORT.print("[WS] "); DBG_PORT.println(x); }
-#define LOGINFO1(x,y)   if(_WEBSOCKETS_LOGLEVEL_>2) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.println(y); }
-#define LOGINFO2(x,y,z) if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.print(y); DBG_PORT.print(" "); DBG_PORT.println(z); }
-#define LOGINFO3(x,y,z,w) if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.print(y); DBG_PORT.print(" "); DBG_PORT.print(z); DBG_PORT.print(" "); DBG_PORT.println(w); }
-
-#define LOGDEBUG(x)      if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.println(x); }
-#define LOGDEBUG0(x)     if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); }
-#define LOGDEBUG1(x,y)   if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.println(y); }
-#define LOGDEBUG2(x,y,z) if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.print(y); DBG_PORT.print(" "); DBG_PORT.println(z); }
-#define LOGDEBUG3(x,y,z,w) if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.print(y); DBG_PORT.print(" "); DBG_PORT.print(z); DBG_PORT.print(" "); DBG_PORT.println(w); }
-
-
-#endif    //WebSockets2_Generic_Debug_h
+#ifndef _WS_CONFIG_NO_SSL
+  // OpenSSL Dependent
+  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+#endif //_WS_CONFIG_NO_SSL
+      
+ 

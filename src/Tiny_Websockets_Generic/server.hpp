@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.6.0
+  Version: 1.7.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -32,6 +32,7 @@
   1.4.0   K Hoang      25/05/2021 Add support to RP2040-based boards using Arduino-pico and Arduino mbed_rp2040 core
   1.5.0   K Hoang      08/07/2021 Add support to WT32_ETH01 (ESP32 + LAN8720) boards
   1.6.0   K Hoang      06/09/2021 Add support to QNEthernet Library for Teensy 4.1
+  1.7.0   K Hoang      18/09/2021 Add support to Portenta_H7, using either WiFi or Vision-shield Ethernet
  *****************************************************************************************************************************/
 
 #ifndef _SERVER_HPP_
@@ -43,7 +44,7 @@
 #include <functional>
 
 // KH, from v1.0.1
-#if WEBSOCKETS_USE_ETHERNET
+#if (WEBSOCKETS_USE_ETHERNET || WEBSOCKETS_USE_PORTENTA_H7_ETHERNET)
   #if USE_UIP_ETHERNET
     // KH, from v1.0.2
     #warning WEBSOCKETS_USE_ETHERNET and USE_UIP_ETHERNET in server.hpp
@@ -63,7 +64,11 @@
   #elif USE_QN_ETHERNET
     // KH, from v1.6.0
     #warning WEBSOCKETS_USE_ETHERNET and USE_QN_ETHERNET in server.hpp
-    #include <Tiny_Websockets_Generic/internals/ws_common_QNEthernet.hpp>    
+    #include <Tiny_Websockets_Generic/internals/ws_common_QNEthernet.hpp>
+  #elif (USE_ETHERNET_PORTENTA_H7 || WEBSOCKETS_USE_PORTENTA_H7_ETHERNET)
+    // KH, from v1.7.0
+    #warning WEBSOCKETS_USE_ETHERNET and USE_ETHERNET_PORTENTA_H7 in client.hpp
+    #include <Tiny_Websockets_Generic/internals/ws_common_Ethernet_Portenta_H7.hpp>  
   #else
     #warning WEBSOCKETS_USE_ETHERNET in server.hpp
     #include <Tiny_Websockets_Generic/internals/ws_common_Ethernet_W5x00.hpp>
@@ -73,7 +78,10 @@
   #include <Tiny_Websockets_Generic/internals/ws_common_WiFiNINA.hpp>
 #elif WEBSOCKETS_USE_WIFI101
   #warning WEBSOCKETS_USE_WIFI101 in server.hpp
-  #include <Tiny_Websockets_Generic/internals/ws_common_WiFi101.hpp>  
+  #include <Tiny_Websockets_Generic/internals/ws_common_WiFi101.hpp>
+#elif WEBSOCKETS_USE_PORTENTA_H7_WIFI
+  #warning WEBSOCKETS_USE_PORTENTA_H7_WIFI in client.hpp
+  #include <Tiny_Websockets_Generic/internals/ws_common_WiFi_Portenta_H7.hpp>   
 #else
   #warning WEBSOCKETS_USE_ESP_WIFI in server.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common.hpp>  

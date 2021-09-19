@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  nRF52_WiFiNINA_tcp.hpp
-  For nRF52 boards with WiFiNINA module/shield.
+  Portenta_H7_WiFi_tcp.hpp
+  For Portenta_H7 boards with Murata WiFi module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy, RP2040 boards besides ESP8266 and ESP32
@@ -37,30 +37,30 @@
  
 #pragma once
 
-#if ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
-      defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
-      defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
-      
+#if ( ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) ) && defined(ARDUINO_ARCH_MBED) ) && USE_WIFI_PORTENTA_H7
 
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-#include <WiFiNINA_Generic.h>
+#include <WiFi.h>
+#include <WiFiSSLClient.h>
+#include <WiFiServer.h>
 
 namespace websockets2_generic
 {
   namespace network2_generic
   {
-    typedef GenericEspTcpClient<WiFiClient> WiFiNINATcpClient;
+    typedef GenericEspTcpClient<WiFiClient> WiFiTcpClient;
 
-    class SecuredWiFiNINATcpClient : public GenericEspTcpClient<WiFiSSLClient> 
+    class SecuredWiFiTcpClient : public GenericEspTcpClient<WiFiSSLClient> 
     {
       public:
+                    
         void setInsecure() 
         {
-          // KH, to fix, for v1.0.0 only
+          // KH, to fix, for testing only
           //this->client.setInsecure();
         }
     
@@ -68,7 +68,7 @@ namespace websockets2_generic
         {
           (void) fingerprint;
           
-          // KH, to fix, for testing only
+          // KH, to fix, for v1.0.0 only
           //this->client.setFingerprint(fingerprint);
         }
 #if 0    
@@ -96,10 +96,10 @@ namespace websockets2_generic
     // KH, quick fix for WiFiNINA port
     #define CLOSED     0
     
-    class WiFiNINATcpServer : public TcpServer 
+    class WiFiTcpServer : public TcpServer 
     {
       public:
-        WiFiNINATcpServer() : server(DUMMY_PORT) {}
+        WiFiTcpServer() : server(DUMMY_PORT) {}
         
         bool poll() override 
         {
@@ -112,14 +112,15 @@ namespace websockets2_generic
         }
     
         bool listen(const uint16_t port) override 
-        {
+        {         
           yield();
-          // KH, to fix WiFiNINA_Generic => v1.5.3
-          server.begin(port);
+          // KH, Portenta_H7 has only begin()
+          //server.begin(port);
+          server.begin();
           //////
           return available();
         }
-    
+        
         TcpClient* accept() override 
         {   
           while (available()) 
@@ -129,7 +130,7 @@ namespace websockets2_generic
             
             if (client)
             {         
-              return new WiFiNINATcpClient{client};
+              return new WiFiTcpClient{client};
             }
             // KH, from v1.0.6, add to enable non-blocking when no WS Client
             else
@@ -139,13 +140,24 @@ namespace websockets2_generic
             }            
           }
                    
-          return new WiFiNINATcpClient;
+          return new WiFiTcpClient;
         }
-    
+       
         bool available() override 
         {
           yield();
-          return server.status() != CLOSED;
+          
+          // Bug in libraries/SocketWrapper/src/MbedServer.cpp 
+          // uint8_t arduino::MbedServer::status() always returns 0 !!!
+          // MbedServer::available(uint8_t* status) not implemented yet
+          
+          //bool result = ( server.status() != CLOSED );
+          bool result = true;
+
+          //LOGDEBUG1("WiFiTcpServer::available =", result ? "TRUE" : "FALSE" );
+          
+          //return server.status() != CLOSED;
+          return result;
         }
     
         void close() override 
@@ -157,7 +169,7 @@ namespace websockets2_generic
           //////
         }
     
-        virtual ~WiFiNINATcpServer() 
+        virtual ~WiFiTcpServer() 
         {
           if (available()) close();
         }
@@ -173,4 +185,4 @@ namespace websockets2_generic
     };
   }   // namespace network2_generic
 }     // namespace websockets2_generic
-#endif // #ifdef nRF52
+#endif // #if ( ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) ) && defined(ARDUINO_ARCH_MBED) ) && USE_WIFI_PORTENTA_H7

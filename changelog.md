@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Major Release v1.7.0](#major-release-v170)
   * [Major Release v1.6.0](#major-release-v160)
   * [Major Release v1.5.0](#major-release-v150)
   * [Major Release v1.4.0](#major-release-v140)
@@ -35,6 +36,11 @@
 ---
 
 ## Changelog
+
+### Major Release v1.7.0
+
+1. Add support to **Portenta_H7**, using either WiFi or Vision-shield Ethernet
+2. Add examples with new features
 
 ### Major Release v1.6.0
 

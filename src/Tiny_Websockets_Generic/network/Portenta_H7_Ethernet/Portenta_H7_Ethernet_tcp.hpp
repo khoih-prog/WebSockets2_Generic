@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  nRF52_WiFiNINA_tcp.hpp
-  For nRF52 boards with WiFiNINA module/shield.
+  Portenta_H7_Ethernet_tcp.hpp
+  For Portenta_H7 boards with Vision-shield Ethernet.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy, RP2040 boards besides ESP8266 and ESP32
@@ -37,86 +37,149 @@
  
 #pragma once
 
-#if ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
-      defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
-      defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
-      
+#if ( ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) ) && defined(ARDUINO_ARCH_MBED) ) && USE_ETHERNET_PORTENTA_H7
 
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
-#include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-#include <WiFiNINA_Generic.h>
+#include <PortentaEthernet.h>
+#include <EthernetClient.h>
+#include <EthernetServer.h>
 
 namespace websockets2_generic
 {
   namespace network2_generic
   {
-    typedef GenericEspTcpClient<WiFiClient> WiFiNINATcpClient;
-
-    class SecuredWiFiNINATcpClient : public GenericEspTcpClient<WiFiSSLClient> 
+    class EthernetTcpClient : public TcpClient
     {
       public:
-        void setInsecure() 
+        EthernetTcpClient(EthernetClient c) : client(c) {}
+    
+        EthernetTcpClient() {}
+    
+        bool connect(const WSString& host, const int port)
         {
-          // KH, to fix, for v1.0.0 only
-          //this->client.setInsecure();
+          yield();
+          const char* hostStr = host.c_str();
+          // Teensy's NativeEthernet library doesn't accept a char buffer
+          // as an IP (it will try to resolve it). So we have to convert
+          // it if necessary.
+          IPAddress ip;
+          return (ip.fromString(hostStr)
+                  ? client.connect(ip, port)
+                  : client.connect(hostStr, port)
+                 );
         }
     
-        void setFingerprint(const char* fingerprint) 
+        bool poll()
         {
-          (void) fingerprint;
-          
-          // KH, to fix, for testing only
-          //this->client.setFingerprint(fingerprint);
-        }
-#if 0    
-        void setClientRSACert(const X509List *cert, const PrivateKey *sk) 
-        {
-          // KH, to fix, for v1.0.0 only
-          //this->client.setClientRSACert(cert, sk);
+          yield();
+          return client.available();
         }
     
-        void setTrustAnchors(const X509List *ta) 
+        bool available() override
         {
-          // KH, to fix, for v1.0.0 only
-          //this->client.setTrustAnchors(ta);
+          return client.connected();
         }
-#endif    
+    
+        void send(const WSString& data) override
+        {
+          yield();
+          client.write(reinterpret_cast<uint8_t*>(const_cast<char*>(data.c_str())), data.size());
+          yield();
+        }
+    
+        void send(const WSString&& data) override
+        {
+          yield();
+          client.write(reinterpret_cast<uint8_t*>(const_cast<char*>(data.c_str())), data.size());
+          yield();
+        }
+    
+        void send(const uint8_t* data, const uint32_t len) override
+        {
+          yield();
+          client.write(data, len);
+          yield();
+        }
+    
+        WSString readLine() override
+        {
+          WSString line = "";
+    
+          int ch = -1;
+    
+          while ( ch != '\n' && available())
+          {
+            // It is important to call `client.available()`. Otherwise no data can be read.
+            if (client.available())
+            {
+              ch = client.read();
+    
+              if (ch >= 0)
+              {
+                line += (char) ch;
+              }
+            }
+          }
+    
+          return line;
+        }
+    
+        uint32_t read(uint8_t* buffer, const uint32_t len) override
+        {
+          yield();
+          return client.read(buffer, len);
+        }
+    
+        void close() override
+        {
+          yield();
+          client.stop();
+        }
+    
+        virtual ~EthernetTcpClient()
+        {
+          client.stop();
+        }
+    
+      protected:
+        EthernetClient client;
+    
+        int getSocket() const override
+        {
+          return -1;
+        }
     };
-
     
+    ///////////////////////////////////////////////////////////////////
     #ifndef WEBSOCKETS_PORT
       #define DUMMY_PORT    8080
     #else
       #define DUMMY_PORT    WEBSOCKETS_PORT
     #endif
+    ///////////////////////////////////////////////////////////////////
     
-    // KH, quick fix for WiFiNINA port
-    #define CLOSED     0
-    
-    class WiFiNINATcpServer : public TcpServer 
+    class EthernetTcpServer : public TcpServer 
     {
       public:
-        WiFiNINATcpServer() : server(DUMMY_PORT) {}
-        
+        //EthernetTcpServer() {}
+        EthernetTcpServer() : server(DUMMY_PORT) {}
+    
         bool poll() override 
         {
           yield();
           
-          // KH, to fix, for testing only
-          //return server.hasClient();
-          return true;
-          //////
+          return server.available();
         }
     
         bool listen(const uint16_t port) override 
         {
           yield();
-          // KH, to fix WiFiNINA_Generic => v1.5.3
-          server.begin(port);
-          //////
+          server = EthernetServer(port);
+          //server.begin(port);
+          server.begin();
           return available();
         }
     
@@ -129,7 +192,7 @@ namespace websockets2_generic
             
             if (client)
             {         
-              return new WiFiNINATcpClient{client};
+              return new EthernetTcpClient{client};
             }
             // KH, from v1.0.6, add to enable non-blocking when no WS Client
             else
@@ -139,38 +202,42 @@ namespace websockets2_generic
             }            
           }
                    
-          return new WiFiNINATcpClient;
+          return new EthernetTcpClient;
         }
     
         bool available() override 
         {
           yield();
-          return server.status() != CLOSED;
+          
+          // KH
+          //return server.status() != CLOSED;
+          // Use EthernetServer::operator bool()
+          //return (server);
+          return true;
         }
     
         void close() override 
         {
-          yield();
-          
-          // KH, to fix, for testing only
-          //server.close();
-          //////
+          // Not Implemented
         }
     
-        virtual ~WiFiNINATcpServer() 
+        virtual ~EthernetTcpServer() 
         {
-          if (available()) close();
+          // Not Implemented
         }
     
       protected:
         int getSocket() const override 
         {
-          return -1;
+          return -1; // Not Implemented
         }
     
       private:
-        WiFiServer server;
+        EthernetServer server;
     };
-  }   // namespace network2_generic
-}     // namespace websockets2_generic
-#endif // #ifdef nRF52
+  }
+} // websockets2_generic::network2_generic
+
+#else
+  #error This is designed only for Portenta_H7. Please check your Tools-> Boards  
+#endif // #if ( ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) ) && defined(ARDUINO_ARCH_MBED) ) && USE_ETHERNET_PORTENTA_H7
