@@ -92,8 +92,8 @@
   * [For RP2040 boards using Ethernet (W5x00 or ENC28J60)](#for-rp2040-boards-using-ethernet-w5x00-or-enc28j60).
   * [For WT32_ETH01 boards](#for-wt32_eth01-boards). **New**
   * [For Teensy 4.1 boards using QNEthernet (KSZ8081MNX/KSZ8081RNB). New in v1.6.0](#for-teensy-41-boards-using-qnethernet-ksz8081mnxksz8081rnb-new-in-v160) **New**
-  * [For Portenta_H7 boards using Vision-shield Ethernet. New in v1.7.0](#For-Portenta_H7-boards-using-Vision-shield-Ethernet-New-in-v1.7.0) **New**
-  * [For Portenta_H7 boards using Murata WiFi. New in v1.7.0](#For-Portenta_H7-boards-using-Murata-WiFi-New-in-v1.7.0) **New**
+  * [For Portenta_H7 boards using Vision-shield Ethernet. New in v1.7.0](#for-portenta_h7-boards-using-vision-shield-ethernet-new-in-v170) **New**
+  * [For Portenta_H7 boards using Murata WiFi. New in v1.7.0](#for-portenta_h7-boards-using-murata-wifi-new-in-v170) **New**
 * [Example SAMD-Client_SINRIC](#example-samd-client_sinric)
   * [1. File SAMD-Client_SINRIC.ino](#1-file-samd-client_sinricino)
   * [2. File defines.h](#2-file-definesh)
@@ -192,7 +192,7 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
 3. LAN8720 Ethernet used in WT32_ETH01 boards
 4. Teensy 4.1 built-in Ethernet using [`NativeEthernet`](https://github.com/vjmuzik/NativeEthernet) library
 5. Teensy 4.1 built-in Ethernet using [`QNEthernet`](https://github.com/ssilverman/QNEthernet) library
-6. - Portenta_H7 using Ethernet from [Portenta Vision shields](https://store-usa.arduino.cc/products/arduino-portenta-vision-shield-ethernet)
+6. Portenta_H7 using Ethernet from [Portenta Vision shields](https://store-usa.arduino.cc/products/arduino-portenta-vision-shield-ethernet)
   
 <p align="center">
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Portenta_Vision.jpg">
@@ -3078,7 +3078,7 @@ Turn off Device ID: 012345678901234567890123
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_WT32_ETH01.png">
 </p>
 
-5. This is the screenshot when running [AdvancedWebServer](examples/Generic/Portenta_H7/WiFi/Portenta_H7-AdvancedWebServer) on **Portenta_H7** board, using WiFi,to demonstrate the new non-blocking feature of WebSockets Server enabling WebServer and WebSockets Server to run concurrently.
+5. This is the screenshot when running [Portenta_H7-AdvancedWebServer](examples/Generic/Portenta_H7/WiFi/Portenta_H7-AdvancedWebServer) on **Portenta_H7** board, using WiFi,to demonstrate the new non-blocking feature of WebSockets Server enabling WebServer and WebSockets Server to run concurrently.
 
 <p align="center">
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_Portenta_H7.png">
