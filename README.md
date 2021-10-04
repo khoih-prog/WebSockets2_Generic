@@ -122,7 +122,7 @@
 
 Many Web services require WebSockets library, which is so far written only for ESP8266/ESP32 boards. The ESP boards so far rely on the [**Markus Sattler's WebSockets Library**](https://github.com/Links2004/arduinoWebSockets) to connect to Alexa via Sinric or SinricPro skills.
 
-This [**WebSockets2_Generic library**](https://github.com/khoih-prog/WebSockets2_Generic) is based on and modified from [**Gil Maimon's ArduinoWebSockets Library**](https://github.com/gilmaimon/ArduinoWebsockets) to provide support to many more boards, such as **WT32_ETH01 (ESP32 + LAN8720), Arduino SAMD21, Adafruit SAMD21/SAMD51, Seeeduino SAMD21/SAMD51, nRF52, STM32F/L/H/G/WB/MP1, Teensy, SAM DUE, Portenta_H7, etc.** and enable those boards to use WebSockets services, including voice-controlled Alexa along with Blynk. Those supported boards can also run **WebSockets Server.** The WebSockets can be used with **ESP’s WiFi, WiFiNINA, WiFi101, W5x00/ENC28J60/LAN8742A Ethernet, Teensy 4.1 NativeEthernet/QNEthernet, ESP8266/ESP32-AT modules/shields, Portenta_H7 WiFi/Ethernet.**
+This [**WebSockets2_Generic library**](https://github.com/khoih-prog/WebSockets2_Generic) is based on and modified from [**Gil Maimon's ArduinoWebSockets Library**](https://github.com/gilmaimon/ArduinoWebsockets) to provide support to many more boards, such as **WT32_ETH01 (ESP32 + LAN8720), Arduino SAMD21, Adafruit SAMD21/SAMD51, Seeeduino SAMD21/SAMD51, nRF52, STM32F/L/H/G/WB/MP1, Teensy, SAM DUE, Portenta_H7, etc.** and enable those boards to use WebSockets services, including voice-controlled Alexa along with Blynk. Those supported boards can also run **WebSockets Server.** The WebSockets can be used with **ESP’s WiFi, WiFiNINA, WiFi101, W5x00/ENC28J60/LAN8742A Ethernet, Teensy 4.1 NativeEthernet/QNEthernet, ESP8266/ESP32-AT modules/shields, Portenta_H7 WiFi/Ethernet, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040, using WiFiNINA**.
 
 Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets/wiki) for roughly-accurate information about the API not covered here.
 
@@ -172,16 +172,18 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
  7. **ESP32**
  8. **ESP8266**
  
- 9. RP2040-based boards, such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, using [**Arduino-mbed RP2040** v2.1.0+ core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core v1.5.1+](https://github.com/earlephilhower/arduino-pico).
+ 9. RP2040-based boards, such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico).
 
 10. **WT32_ETH01 boards** using ESP32-based boards and LAN8720 Ethernet
 
 11. **Portenta_H7** using either `Murata WiFi` or `Vision-shield Ethernet`
 
+12. **RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040**, using WiFiNINA
+
 #### Currently supported WiFi shields/modules
 
 1. WiFiNINA using [`WiFiNINA_Generic library`](https://github.com/khoih-prog/WiFiNINA_Generic)
-2. WiFi101 using [`WiFi101 library v0.16.1+`](https://github.com/arduino-libraries/WiFi101)
+2. WiFi101 using [`Modified WiFi101 library`](https://github.com/khoih-prog/WiFi101)
 3. U-Blox W101, W102 using [`WiFiNINA_Generic library`](https://github.com/khoih-prog/WiFiNINA_Generic)
 4. ESP32 and ESP8266 WiFi
 5. **Portenta_H7 built-in Murata WiFi**
