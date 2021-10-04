@@ -95,7 +95,7 @@
   * [For Teensy 4.1 boards using QNEthernet (KSZ8081MNX/KSZ8081RNB). New in v1.6.0](#for-teensy-41-boards-using-qnethernet-ksz8081mnxksz8081rnb-new-in-v160) **New**
   * [For Portenta_H7 boards using Vision-shield Ethernet. New in v1.7.0](#for-portenta_h7-boards-using-vision-shield-ethernet-new-in-v170) **New**
   * [For Portenta_H7 boards using Murata WiFi. New in v1.7.0](#for-portenta_h7-boards-using-murata-wifi-new-in-v170) **New**
-  * [For RP2040 boards using WiFiNINA. New in v1.8.0](#for-RP2040-boards-using-WiFiNINA-new-in-v170) **New**
+  * [For RP2040 boards using WiFiNINA. New in v1.8.0](#for-rp2040-boards-using-wifinina-new-in-v180) **New**
 * [Example SAMD-Client_SINRIC](#example-samd-client_sinric)
   * [1. File SAMD-Client_SINRIC.ino](#1-file-samd-client_sinricino)
   * [2. File defines.h](#2-file-definesh)
