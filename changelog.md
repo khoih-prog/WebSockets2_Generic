@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Major Release v1.8.0](#major-release-v180)
   * [Major Release v1.7.0](#major-release-v170)
   * [Major Release v1.6.0](#major-release-v160)
   * [Major Release v1.5.0](#major-release-v150)
@@ -36,6 +37,12 @@
 ---
 
 ## Changelog
+
+### Major Release v1.8.0
+
+1. Add support to **RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040**, using WiFiNINA
+2. Add examples with new features
+3. Update many Packages' Patches
 
 ### Major Release v1.7.0
 

@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.7.0
+  Version: 1.8.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -33,6 +33,7 @@
   1.5.0   K Hoang      08/07/2021 Add support to WT32_ETH01 (ESP32 + LAN8720) boards
   1.6.0   K Hoang      06/09/2021 Add support to QNEthernet Library for Teensy 4.1
   1.7.0   K Hoang      18/09/2021 Add support to Portenta_H7, using either WiFi or Vision-shield Ethernet
+  1.8.0   K Hoang      03/10/2021 Add support to RP2040, using WiFiNINA, sucj as Nano_RP2040_Connect
  *****************************************************************************************************************************/
  
 #pragma once
@@ -137,6 +138,20 @@ namespace websockets2_generic
     #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredWiFiNINATcpClient
     #endif //_WS_CONFIG_NO_SSL        
         
-        
-        
+#elif ( defined(ARDUINO_NANO_RP2040_CONNECT) || defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || \
+      defined(ARDUINO_GENERIC_RP2040) || defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) )      
+
+    // Using WiFiNINA
+    #warning Using WiFiNINA for RP2040 in ws_common_WIFININA.hpp
+    
+    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+    
+    #include <Tiny_Websockets_Generic/network/RP2040_WiFiNINA/RP2040_WiFiNINA_tcp.hpp>
+    #define WSDefaultTcpClient websockets2_generic::network2_generic::WiFiNINATcpClient
+    #define WSDefaultTcpServer websockets2_generic::network2_generic::WiFiNINATcpServer
+    
+    #ifndef _WS_CONFIG_NO_SSL
+    // OpenSSL Dependent
+    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredWiFiNINATcpClient
+    #endif //_WS_CONFIG_NO_SSL           
 #endif
