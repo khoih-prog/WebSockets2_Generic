@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.8.0
+  Version: 1.8.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -33,7 +33,8 @@
   1.5.0   K Hoang      08/07/2021 Add support to WT32_ETH01 (ESP32 + LAN8720) boards
   1.6.0   K Hoang      06/09/2021 Add support to QNEthernet Library for Teensy 4.1
   1.7.0   K Hoang      18/09/2021 Add support to Portenta_H7, using either WiFi or Vision-shield Ethernet
-  1.8.0   K Hoang      03/10/2021 Add support to RP2040, using WiFiNINA, sucj as Nano_RP2040_Connect
+  1.8.0   K Hoang      03/10/2021 Add support to RP2040, using WiFiNINA, such as Nano_RP2040_Connect
+  1.8.1   K Hoang      12/10/2021 Update `platform.ini` and `library.json`
  *****************************************************************************************************************************/
 
 #ifndef _WEBSOCKETS2_GENERIC_MESSAGE_H
