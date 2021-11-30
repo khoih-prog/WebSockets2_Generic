@@ -81,7 +81,7 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting ESP32-Server on " + String(ARDUINO_BOARD));
+  Serial.print("\nStart ESP32-Server on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   WiFi.mode(WIFI_STA);

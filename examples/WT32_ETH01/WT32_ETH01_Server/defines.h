@@ -28,19 +28,20 @@
   #error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.  
 #endif
 
+#define DEBUG_WEBSOCKETS_PORT               Serial
+// Debug Level from 0 to 4
+#define _WEBSOCKETS_LOGLEVEL_               3
+#define _ETHERNET_WEBSERVER_LOGLEVEL_       3
+
 #include <WebServer_WT32_ETH01.h>     // https://github.com/khoih-prog/WebServer_WT32_ETH01
 #include <ESPmDNS.h>
-
-#define DEBUG_WEBSOCKETS_PORT     Serial
-// Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     3
 
 #define WEBSOCKETS_PORT     8080
 
 const uint16_t websockets_server_port = WEBSOCKETS_PORT; // Enter server port
 
 // Select the IP address according to your local network
-IPAddress serverIP(192, 168, 2, 95);
+IPAddress serverIP(192, 168, 2, 96);
 
 IPAddress static_GW(192, 168, 2, 1);
 IPAddress static_SN(255, 255, 255, 0);

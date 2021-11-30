@@ -79,7 +79,7 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting Minimal-ESP32-Client on " + String(ARDUINO_BOARD));
+  Serial.print("\nStart Minimal-ESP32-Client on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
   
   // Connect to wifi

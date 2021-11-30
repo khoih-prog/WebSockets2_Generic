@@ -28,12 +28,14 @@
   #error This code is intended to run on the ESP32 platform! Please check your Tools->Board setting.  
 #endif
 
+#define DEBUG_WEBSOCKETS_PORT               Serial
+// Debug Level from 0 to 4
+#define _WEBSOCKETS_LOGLEVEL_               3
+#define _ETHERNET_WEBSERVER_LOGLEVEL_       3
+
 #include <WebServer_WT32_ETH01.h>     // https://github.com/khoih-prog/WebServer_WT32_ETH01
 
-#define DEBUG_WEBSOCKETS_PORT     Serial
-// Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     3
-
+// Deprecated echo.websocket.org to be replaced or it won't work
 const char* websockets_connection_string = "wss://echo.websocket.org/"; //Enter server adress
 
 #define USING_INSECURE_MODE     true

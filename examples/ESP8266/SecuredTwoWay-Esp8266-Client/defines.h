@@ -32,6 +32,7 @@
 const char* ssid = "ssid"; //Enter SSID
 const char* password = "password"; //Enter Password
 
+// Deprecated echo.websocket.org to be replaced or it won't work
 const char* websockets_connection_string = "wss://echo.websocket.org/"; //Enter server adress
 
 /* NTP Time Servers */

@@ -87,7 +87,7 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting WebSockets InSecured-ESP32-Client on " + String(ARDUINO_BOARD));
+  Serial.print("\nStart InSecured-ESP32-Client on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
   
   // Connect to wifi

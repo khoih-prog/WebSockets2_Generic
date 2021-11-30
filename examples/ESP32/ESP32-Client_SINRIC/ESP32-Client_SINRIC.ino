@@ -181,7 +181,7 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
-  Serial.println("\nStarting ESP32-Client_SINRIC on " + String(ARDUINO_BOARD));
+  Serial.print("\nStart ESP32-Client_SINRIC on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   // Connect to wifi
