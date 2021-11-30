@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Major Release v1.9.0](#major-release-v190)
   * [Release v1.8.1](#release-v181)
   * [Major Release v1.8.0](#major-release-v180)
   * [Major Release v1.7.0](#major-release-v170)
@@ -38,6 +39,12 @@
 ---
 
 ## Changelog
+
+### Major Release v1.9.0
+
+1. Auto detect ESP32 core to use for WT32_ETH01
+2. Fix bug in WT32_ETH01 examples to reduce connection time
+3. Replace deprecated `echo.websocket.org` in examples.
 
 ### Release v1.8.1
 
