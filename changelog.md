@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Release v1.9.1](#release-v191)
   * [Major Release v1.9.0](#major-release-v190)
   * [Release v1.8.1](#release-v181)
   * [Major Release v1.8.0](#major-release-v180)
@@ -39,6 +40,13 @@
 ---
 
 ## Changelog
+
+### Release v1.9.1
+
+1. Fix compile error for `Teensy 4.1` using new [QNEthernet library version](https://github.com/ssilverman/QNEthernet). Check [Fix QNEthernet TCP interface #35](https://github.com/khoih-prog/WebSockets2_Generic/pull/35)
+2. Update `Packages' Patches`
+3. Verify working with new Arduino IDE `v1.8.18`
+4. Update `library.json` and `platform.ini` newly published [QNEthernet library](https://github.com/ssilverman/QNEthernet)
 
 ### Major Release v1.9.0
 

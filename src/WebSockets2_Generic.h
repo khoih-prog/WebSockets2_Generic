@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.9.0
+  Version: 1.9.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -36,6 +36,7 @@
   1.8.0   K Hoang      03/10/2021 Add support to RP2040, using WiFiNINA, such as Nano_RP2040_Connect
   1.8.1   K Hoang      12/10/2021 Update `platform.ini` and `library.json`
   1.9.0   K Hoang      30/11/2021 Auto detect ESP32 core version. Fix bug in examples
+  1.9.1   K Hoang      17/12/2021 Fix QNEthernet TCP interface
  *****************************************************************************************************************************/
 
 #pragma once
@@ -43,13 +44,13 @@
 #ifndef _WEBSOCKETS2_GENERIC_H
 #define _WEBSOCKETS2_GENERIC_H
 
-#define WEBSOCKETS2_GENERIC_VERSION     "WebSockets2_Generic v1.9.0"
+#define WEBSOCKETS2_GENERIC_VERSION     "WebSockets2_Generic v1.9.1"
 
 #define WEBSOCKETS2_GENERIC_VERSION_MAJOR    1
 #define WEBSOCKETS2_GENERIC_VERSION_MINOR    9
-#define WEBSOCKETS2_GENERIC_VERSION_PATCH    0
+#define WEBSOCKETS2_GENERIC_VERSION_PATCH    1
 
-#define WEBSOCKETS2_GENERIC_VERSION_INT      1009000
+#define WEBSOCKETS2_GENERIC_VERSION_INT      1009001
 
 #include "Tiny_Websockets_Generic/message.hpp"
 #include "Tiny_Websockets_Generic/client.hpp"

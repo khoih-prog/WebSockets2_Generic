@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.9.0
+  Version: 1.9.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -36,6 +36,7 @@
   1.8.0   K Hoang      03/10/2021 Add support to RP2040, using WiFiNINA, such as Nano_RP2040_Connect
   1.8.1   K Hoang      12/10/2021 Update `platform.ini` and `library.json`
   1.9.0   K Hoang      30/11/2021 Auto detect ESP32 core version. Fix bug in examples
+  1.9.1   K Hoang      17/12/2021 Fix QNEthernet TCP interface
  *****************************************************************************************************************************/
  
 #pragma once
@@ -166,46 +167,59 @@ namespace websockets2_generic
     
         bool poll() override 
         {
-          if (server == nullptr) {
+          if (server == nullptr) 
+          {
             return false;
           }
+          
           return server->available();
         }
     
         bool listen(const uint16_t port) override 
         {
-          if (server == nullptr || server->port() != port) {
-            if (server != nullptr) {
+          if (server == nullptr || server->port() != port) 
+          {
+            if (server != nullptr) 
+            {
               server->end();
             }
+            
             server = std::make_unique<EthernetServer>(port);
             server->begin();
           }
+          
           return available();
         }
     
         TcpClient* accept() override 
         {
-          if (server == nullptr) {
+          if (server == nullptr) 
+          {
             return nullptr;  // Watch out for this!
           }
+          
           auto client = server->accept();
+          
           return new EthernetTcpClient(client);
         }
     
         bool available() override 
         {
-          if (server == nullptr) {
+          if (server == nullptr) 
+          {
             return false;
           }
+          
           return static_cast<bool>(*server);
         }
     
         void close() override 
         {
-          if (server == nullptr) {
+          if (server == nullptr) 
+          {
             return;
           }
+          
           server->end();
         }
     
