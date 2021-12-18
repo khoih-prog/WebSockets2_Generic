@@ -42,6 +42,9 @@
 
 #if (defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_QN_ETHERNET)
 
+#include <memory>
+#include <utility>
+
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
@@ -59,13 +62,12 @@ namespace websockets2_generic
     class EthernetTcpClient : public TcpClient
     {
       public:
-        EthernetTcpClient(EthernetClient c) : client(c) {}
+        EthernetTcpClient(EthernetClient c) : client(std::move(c)) {}
     
         EthernetTcpClient() {}
     
         bool connect(const WSString& host, const int port)
         {
-          yield();
           const char* hostStr = host.c_str();
           // Teensy's NativeEthernet library doesn't accept a char buffer
           // as an IP (it will try to resolve it). So we have to convert
@@ -79,7 +81,6 @@ namespace websockets2_generic
     
         bool poll()
         {
-          yield();
           return client.available();
         }
     
@@ -90,23 +91,17 @@ namespace websockets2_generic
     
         void send(const WSString& data) override
         {
-          yield();
           client.write(reinterpret_cast<uint8_t*>(const_cast<char*>(data.c_str())), data.size());
-          yield();
         }
     
         void send(const WSString&& data) override
         {
-          yield();
           client.write(reinterpret_cast<uint8_t*>(const_cast<char*>(data.c_str())), data.size());
-          yield();
         }
     
         void send(const uint8_t* data, const uint32_t len) override
         {
-          yield();
           client.write(data, len);
-          yield();
         }
     
         WSString readLine() override
@@ -134,19 +129,17 @@ namespace websockets2_generic
     
         uint32_t read(uint8_t* buffer, const uint32_t len) override
         {
-          yield();
           return client.read(buffer, len);
         }
     
         void close() override
         {
-          yield();
           client.stop();
         }
     
         virtual ~EthernetTcpClient()
         {
-          client.stop();
+          close();
         }
     
       protected:
@@ -169,45 +162,56 @@ namespace websockets2_generic
     class EthernetTcpServer : public TcpServer 
     {
       public:
-        //EthernetTcpServer() {}
-        EthernetTcpServer() : server(DUMMY_PORT) {}
+        EthernetTcpServer() {}
     
         bool poll() override 
         {
-          yield();
-          
-          return server.available();
+          if (server == nullptr) {
+            return false;
+          }
+          return server->available();
         }
     
         bool listen(const uint16_t port) override 
         {
-          yield();
-          server = EthernetServer(port);
-          //server.begin(port);
-          server.begin();
+          if (server == nullptr || server->port() != port) {
+            if (server != nullptr) {
+              server->end();
+            }
+            server = std::make_unique<EthernetServer>(port);
+            server->begin();
+          }
           return available();
         }
     
         TcpClient* accept() override 
         {
-          auto client = server.accept();
+          if (server == nullptr) {
+            return nullptr;  // Watch out for this!
+          }
+          auto client = server->accept();
           return new EthernetTcpClient(client);
         }
     
         bool available() override 
         {
-          yield();
-          return static_cast<bool>(server);
+          if (server == nullptr) {
+            return false;
+          }
+          return static_cast<bool>(*server);
         }
     
         void close() override 
         {
-          // Not Implemented
+          if (server == nullptr) {
+            return;
+          }
+          server->end();
         }
     
         virtual ~EthernetTcpServer() 
         {
-          // Not Implemented
+          close();
         }
     
       protected:
@@ -217,7 +221,7 @@ namespace websockets2_generic
         }
     
       private:
-        EthernetServer server;
+        std::unique_ptr<EthernetServer> server;
     };
   }
 } // websockets2_generic::network2_generic
