@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.9.1
+  Version: 1.10.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -37,6 +37,7 @@
   1.8.1   K Hoang      12/10/2021 Update `platform.ini` and `library.json`
   1.9.0   K Hoang      30/11/2021 Auto detect ESP32 core version. Fix bug in examples
   1.9.1   K Hoang      17/12/2021 Fix QNEthernet TCP interface
+  1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
  *****************************************************************************************************************************/
 
 #ifndef _CLIENT_HPP_
@@ -131,6 +132,7 @@ namespace websockets2_generic
   
       bool connect(const WSInterfaceString url);
       bool connect(const WSInterfaceString host, const int port, const WSInterfaceString path);
+      bool connectSecure(const WSInterfaceString host, const int port, const WSInterfaceString path);
   
       void onMessage(const MessageCallback callback);
       void onMessage(const PartialMessageCallback callback);
@@ -234,7 +236,7 @@ namespace websockets2_generic
       void _handlePing(WebsocketsMessage);
       void _handlePong(WebsocketsMessage);
       void _handleClose(WebsocketsMessage);
-  
+      
       void upgradeToSecuredConnection();
   };
 }   // namespace websockets2_generic 

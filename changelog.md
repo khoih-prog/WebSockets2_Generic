@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Major Release v1.10.0](#major-release-v1100)
   * [Release v1.9.1](#release-v191)
   * [Major Release v1.9.0](#major-release-v190)
   * [Release v1.8.1](#release-v181)
@@ -40,6 +41,15 @@
 ---
 
 ## Changelog
+
+### Major Release v1.10.0
+
+1. Supporting case-insensitive headers, according to RFC2616
+2. Sync with [ArduinoWebsockets releases v0.5.3](https://github.com/gilmaimon/ArduinoWebsockets/releases/tag/0.5.3)
+  - Add `connectSecure` method to support WSS connection with the classic interface (host, port, path)
+  - Add 1 second `connection timeout` for ESP32/ESP8266, Teensy 4.1 NativeEthernet and QNEthernet
+3. Improve debug
+  
 
 ### Release v1.9.1
 

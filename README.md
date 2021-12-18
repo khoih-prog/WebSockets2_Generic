@@ -135,6 +135,10 @@ Please see [the TinyWebsockets wiki](https://github.com/gilmaimon/TinyWebsockets
  - pong
  - continuation frame
  
+#### Supported features of RFC2616
+
+ - Field names are `case-insensitive` as in [**Message Headers**](https://datatracker.ietf.org/doc/html/rfc2616#section-4.2)
+ 
  ---
  
 #### Currently supported Boards
@@ -2007,7 +2011,7 @@ This is the terminal output when running [SAMD-Client_SINRIC](examples/Generic/W
 
 ```
 Starting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on SAMD NANO_33_IOT
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 WiFi-begin: return1 = 3
 WiFi-begin: return2 = 3
 Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
@@ -2147,7 +2151,7 @@ This is terminal debug output when running [SAMD-Ethernet-Client_SINRIC](example
 ```
 Starting WebSockets2_Generic SAMD-Ethernet-Client_SINRIC on SAMD ADAFRUIT_ITSYBITSY_M4_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ENC28J60_CONTROL_CS =16
 SS =16
 SPI_MOSI =25
@@ -2196,7 +2200,7 @@ This is terminal debug output when running [SAMDUE-Ethernet-Server](examples/Gen
 ```
 Starting WebSockets2_Generic SAMDUE-Ethernet-Server on SAM DUE
 Ethernet using W5x00 and EthernetLarge Library
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
 W5100::init: W5100, SSIZE =4096
 WebSockets Server Running and Ready on SAM DUE
@@ -2231,7 +2235,7 @@ This is terminal debug output when running [nRF52-Ethernet-Server](examples/Gene
 ```
 Starting WebSockets2_Generic nRF52-Ethernet-Server on NRF52840_ITSYBITSY_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ENC28J60_CONTROL_CS =10
 SS =5
 SPI_MOSI =24
@@ -2269,7 +2273,7 @@ This is terminal debug output when running [STM32-Ethernet-Client_SINRIC](exampl
 ```
 Starting WebSockets2_Generic STM32-Ethernet-Client_SINRIC on NUCLEO_F767ZI
 Ethernet using LAN8742A and STM32Ethernet Library
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 WebSockets Client IP address: 192.168.2.135
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = ********
@@ -2316,7 +2320,7 @@ This is the terminal debug output when running [SAMDUE-Ethernet_ServerAllFunctio
 
 ```
 Start Generic_WebSocketServerAllFunctionsDemo_W5500
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
 W5100::init: W5100, SSIZE =4096
 WebSockets Server IP address: 192.168.2.95
@@ -2379,7 +2383,7 @@ This is terminal debug output when running [STM32-Ethernet-Client_SINRIC_LAN8720
 ```
 Starting STM32-Ethernet-Client_SINRIC_LAN8720 on BLACK_F407VE
 Ethernet using LAN8720 and STM32Ethernet Library
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 WebSockets Client IP address: 192.168.2.160
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
@@ -2422,7 +2426,7 @@ This is terminal debug output when running [ESP32-Client_SINRIC](examples/ESP32/
 
 ```
 Starting ESP32-Client_SINRIC on ESP32S2_DEV
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ....Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2466,7 +2470,7 @@ This is terminal debug output when running [Secured-ESP32-Client](examples/ESP32
 
 ```
 Starting WebSockets Secured-ESP32-Client on ESP32S2_DEV
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ....
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2526,7 +2530,7 @@ This is terminal debug output when running [InSecured-ESP32-Client](examples/ESP
 
 ```
 Starting WebSockets InSecured-ESP32-Client on ESP32_DEV
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ...
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2587,7 +2591,7 @@ This is terminal debug output when running [ESP8266-Client_SINRIC](examples/ESP3
 
 ```
 Starting ESP8266-Client_SINRIC on ESP8266_NODEMCU_ESP12E
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ......Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2629,7 +2633,7 @@ This is terminal debug output when running [RP2040-Ethernet-Client_SINRIC](examp
 ```
 Starting RP2040-Ethernet-Client_SINRIC on RASPBERRY_PI_PICO
 Ethernet using W5x00 and EthernetLarge Library
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 _pinCS = 0
 W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 17
 W5100::init: W5500, SSIZE =8192
@@ -2687,7 +2691,7 @@ This is terminal debug output when running [RP2040-Ethernet-Client_SINRIC](examp
 ```
 Starting RP2040-Ethernet-Client_SINRIC on RaspberryPi Pico
 Ethernet using W5x00 and EthernetLarge Library
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 _pinCS = 0
 W5100 init, using SS_PIN_DEFAULT = 5, new ss_pin = 10, W5100Class::ss_pin = 5
 W5100::init: W5500, SSIZE =8192
@@ -2745,7 +2749,7 @@ This is terminal debug output when running [WT32_ETH01_Client_SINRIC](examples/W
 ```
 Starting WT32_ETH01_Client_SINRIC on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.232, FULL_DUPLEX, 100Mbps
 Connected. Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
@@ -2791,7 +2795,7 @@ This is terminal debug output when running [WT32_ETH01_SecuredClient](examples/W
 ```
 Starting WT32_ETH01_SecuredClient on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.232, FULL_DUPLEX, 100Mbps
 Connected. Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2850,7 +2854,7 @@ This is terminal debug output when running [WT32_ETH01_AdvancedWebServer](exampl
 ```
 Starting WT32_ETH01_AdvancedWebServer on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.95, FULL_DUPLEX, 100Mbps
 MDNS responder started
 WebSockets Server Running and Ready on WT32-ETH01
@@ -2889,7 +2893,7 @@ This is terminal debug output and screenshot when running [SocketAndHttp_Teensy4
 
 ```
 Start SocketAndHttp_Teensy41_Server on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using DHCP => Connected! IP address:192.168.2.119
 Visit http://192.168.2.119 in the browser to connect.
@@ -2930,7 +2934,7 @@ This is terminal debug output when running [MultiClients_Teensy41_Server](exampl
 
 ```
 Starting MultiClients_Teensy41_Server on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using DHCP => Connected! IP address:192.168.2.119
 Server available at ws://192.168.2.119:81
@@ -2962,7 +2966,7 @@ Got Message: Hello to Server from ESP32
 
 ```
 Starting ESP32-RepeatingClient on ESP32_DEV
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 ....Connected to Wifi, Connecting to WebSockets Server @192.168.2.119
 [WS] WebsocketsClient::generateHandshake: base64Authorization = 
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -3004,7 +3008,7 @@ This is terminal debug output when running [Portenta_H7_Ethernet_Server](example
 
 ```
 Starting Portenta_H7_Ethernet_Server on PORTENTA_H7_M7 Ethernet using Portenta_Ethernet Library
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 WebSockets Client @ IP address: 192.168.2.132
 Server available at ws://192.168.2.132:8080
 [WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.132
@@ -3040,7 +3044,7 @@ This is terminal debug output when running [Portenta_H7-Client_SINRIC](examples/
 
 ```
 Starting Portenta_H7-Client_SINRIC using WiFi on PORTENTA_H7_M7
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 Connecting to SSID: HueNet1
 Connected to Wifi, IP address: 192.168.2.130
 Connecting to WebSockets Server @iot.sinric.com
@@ -3088,7 +3092,7 @@ This is terminal debug output when running [Portenta_H7-Client_SINRIC](examples/
 
 ```
 Starting RP2040-AdvancedWebServer with WiFiNINA on MBED NANO_RP2040_CONNECT
-WebSockets2_Generic v1.9.1
+WebSockets2_Generic v1.10.0
 Attempting to connect to SSID: HueNet1
 Connected to Wifi, IP address: 192.168.2.96
 WebSockets Server Running and Ready on MBED NANO_RP2040_CONNECT

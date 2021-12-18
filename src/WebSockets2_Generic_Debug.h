@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.9.1
+  Version: 1.10.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -37,6 +37,7 @@
   1.8.1   K Hoang      12/10/2021 Update `platform.ini` and `library.json`
   1.9.0   K Hoang      30/11/2021 Auto detect ESP32 core version. Fix bug in examples
   1.9.1   K Hoang      17/12/2021 Fix QNEthernet TCP interface
+  1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
  *****************************************************************************************************************************/
 
 #ifndef WebSockets2_Generic_Debug_h
@@ -47,9 +48,9 @@
 #include <stdio.h>
 
 #ifdef DEBUG_WEBSOCKETS_PORT
-  #define DBG_PORT      DEBUG_WEBSOCKETS_PORT
+  #define WS_DBG_PORT      DEBUG_WEBSOCKETS_PORT
 #else
-  #define DBG_PORT      Serial
+  #define WS_DBG_PORT      Serial
 #endif
 
 // Change _WEBSOCKETS_LOGLEVEL_ to set tracing and logging verbosity
@@ -60,26 +61,52 @@
 // 4: DEBUG: errors, warnings, informational and debug
 
 #ifndef _WEBSOCKETS_LOGLEVEL_
-  #define _WEBSOCKETS_LOGLEVEL_       2
+  #define _WEBSOCKETS_LOGLEVEL_       1
 #endif
 
+///////////////////////////////////////
 
-#define LOGERROR(x)     if(_WEBSOCKETS_LOGLEVEL_>0) { DBG_PORT.print("[WS] "); DBG_PORT.println(x); }
-#define LOGERROR1(x,y)  if(_WEBSOCKETS_LOGLEVEL_>0) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.println(y); }
+const char WS_MARK[]  = "[WS] ";
+const char WS_SPACE[] = " ";
 
-#define LOGWARN(x)      if(_WEBSOCKETS_LOGLEVEL_>1) { DBG_PORT.print("[WS] "); DBG_PORT.println(x); }
-#define LOGWARN1(x,y)   if(_WEBSOCKETS_LOGLEVEL_>1) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.println(y); }
+#define WS_PRINT        WS_DBG_PORT.print
+#define WS_PRINTLN      WS_DBG_PORT.println
 
-#define LOGINFO(x)      if(_WEBSOCKETS_LOGLEVEL_>2) { DBG_PORT.print("[WS] "); DBG_PORT.println(x); }
-#define LOGINFO1(x,y)   if(_WEBSOCKETS_LOGLEVEL_>2) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.println(y); }
-#define LOGINFO2(x,y,z) if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.print(y); DBG_PORT.print(" "); DBG_PORT.println(z); }
-#define LOGINFO3(x,y,z,w) if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.print(y); DBG_PORT.print(" "); DBG_PORT.print(z); DBG_PORT.print(" "); DBG_PORT.println(w); }
+#define WS_PRINT_MARK   WS_PRINT(WS_MARK)
+#define WS_PRINT_SP     WS_PRINT(WS_SPACE)
+#define WS_PRINT_LINE   WS_PRINT(WS_LINE)
 
-#define LOGDEBUG(x)      if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.println(x); }
-#define LOGDEBUG0(x)     if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); }
-#define LOGDEBUG1(x,y)   if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.println(y); }
-#define LOGDEBUG2(x,y,z) if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.print(y); DBG_PORT.print(" "); DBG_PORT.println(z); }
-#define LOGDEBUG3(x,y,z,w) if(_WEBSOCKETS_LOGLEVEL_>3) { DBG_PORT.print("[WS] "); DBG_PORT.print(x); DBG_PORT.print(" "); DBG_PORT.print(y); DBG_PORT.print(" "); DBG_PORT.print(z); DBG_PORT.print(" "); DBG_PORT.println(w); }
+///////////////////////////////////////
 
+
+#define LOGERROR(x)         if(_WEBSOCKETS_LOGLEVEL_>0) { WS_PRINT_MARK; WS_PRINTLN(x); }
+#define LOGERROR0(x)        if(_WEBSOCKETS_LOGLEVEL_>0) { WS_PRINT(x); }
+#define LOGERROR1(x,y)      if(_WEBSOCKETS_LOGLEVEL_>0) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINTLN(y); }
+#define LOGERROR2(x,y,z)    if(_WEBSOCKETS_LOGLEVEL_>0) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINT(y); WS_PRINT_SP; WS_PRINTLN(z); }
+#define LOGERROR3(x,y,z,w)  if(_WEBSOCKETS_LOGLEVEL_>0) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINT(y); WS_PRINT_SP; WS_PRINT(z); WS_PRINT_SP; WS_PRINTLN(w); }
+///////////////////////////////////////
+
+#define LOGWARN(x)        if(_WEBSOCKETS_LOGLEVEL_>1) { WS_PRINT_MARK; WS_PRINTLN(x); }
+#define LOGWARN0(x)       if(_WEBSOCKETS_LOGLEVEL_>1) { WS_PRINT(x); }
+#define LOGWARN1(x,y)     if(_WEBSOCKETS_LOGLEVEL_>1) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINTLN(y); }
+#define LOGWARN2(x,y,z)   if(_WEBSOCKETS_LOGLEVEL_>1) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINT(y); WS_PRINT_SP; WS_PRINTLN(z); }
+#define LOGWARN3(x,y,z,w) if(_WEBSOCKETS_LOGLEVEL_>1) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINT(y); WS_PRINT_SP; WS_PRINT(z); WS_PRINT_SP; WS_PRINTLN(w); }
+///////////////////////////////////////
+
+#define LOGINFO(x)        if(_WEBSOCKETS_LOGLEVEL_>2) { WS_PRINT_MARK; WS_PRINTLN(x); }
+#define LOGINFO0(x)       if(_WEBSOCKETS_LOGLEVEL_>2) { WS_PRINT(x); }
+#define LOGINFO1(x,y)     if(_WEBSOCKETS_LOGLEVEL_>2) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINTLN(y); }
+#define LOGINFO2(x,y,z)   if(_WEBSOCKETS_LOGLEVEL_>2) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINT(y); WS_PRINT_SP; WS_PRINTLN(z); }
+#define LOGINFO3(x,y,z,w) if(_WEBSOCKETS_LOGLEVEL_>2) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINT(y); WS_PRINT_SP; WS_PRINT(z); WS_PRINT_SP; WS_PRINTLN(w); }
+
+///////////////////////////////////////
+
+#define LOGDEBUG(x)         if(_WEBSOCKETS_LOGLEVEL_>3) { WS_PRINT_MARK; WS_PRINTLN(x); }
+#define LOGDEBUG0(x)        if(_WEBSOCKETS_LOGLEVEL_>3) { WS_PRINT(x); }
+#define LOGDEBUG1(x,y)      if(_WEBSOCKETS_LOGLEVEL_>3) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINTLN(y); }
+#define LOGDEBUG2(x,y,z)    if(_WEBSOCKETS_LOGLEVEL_>3) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINT(y); WS_PRINT_SP; WS_PRINTLN(z); }
+#define LOGDEBUG3(x,y,z,w)  if(_WEBSOCKETS_LOGLEVEL_>3) { WS_PRINT_MARK; WS_PRINT(x); WS_PRINT_SP; WS_PRINT(y); WS_PRINT_SP; WS_PRINT(z); WS_PRINT_SP; WS_PRINTLN(w); }
+
+///////////////////////////////////////
 
 #endif    //WebSockets2_Generic_Debug_h

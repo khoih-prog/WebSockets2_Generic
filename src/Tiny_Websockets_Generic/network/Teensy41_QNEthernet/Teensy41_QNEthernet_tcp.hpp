@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.9.1
+  Version: 1.10.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -37,6 +37,7 @@
   1.8.1   K Hoang      12/10/2021 Update `platform.ini` and `library.json`
   1.9.0   K Hoang      30/11/2021 Auto detect ESP32 core version. Fix bug in examples
   1.9.1   K Hoang      17/12/2021 Fix QNEthernet TCP interface
+  1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
  *****************************************************************************************************************************/
  
 #pragma once
@@ -104,15 +105,20 @@ namespace websockets2_generic
         {
           client.write(data, len);
         }
-    
+        
         WSString readLine() override
         {
           WSString line = "";
     
           int ch = -1;
-    
+          
+          const uint64_t millisBeforeReadingHeaders = millis();
+             
           while ( ch != '\n' && available())
           {
+            if (millis() - millisBeforeReadingHeaders > _CONNECTION_TIMEOUT) 
+              return "";
+              
             // It is important to call `client.available()`. Otherwise no data can be read.
             if (client.available())
             {
@@ -127,7 +133,7 @@ namespace websockets2_generic
     
           return line;
         }
-    
+       
         uint32_t read(uint8_t* buffer, const uint32_t len) override
         {
           return client.read(buffer, len);

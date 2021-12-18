@@ -49,6 +49,7 @@ WSString	KEYWORD1
 
 addHeader	KEYWORD2
 connect	KEYWORD2
+connectSecure KEYWORD2
 onMessage	KEYWORD2
 onEvent	KEYWORD2
 poll	KEYWORD2

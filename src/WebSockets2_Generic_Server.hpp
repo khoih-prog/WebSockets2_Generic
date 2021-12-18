@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.9.1
+  Version: 1.10.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -37,6 +37,7 @@
   1.8.1   K Hoang      12/10/2021 Update `platform.ini` and `library.json`
   1.9.0   K Hoang      30/11/2021 Auto detect ESP32 core version. Fix bug in examples
   1.9.1   K Hoang      17/12/2021 Fix QNEthernet TCP interface
+  1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
  *****************************************************************************************************************************/
 
 #ifndef _WEBSOCKETS2_GENERIC_SERVER_H
@@ -53,6 +54,9 @@
 #include <memory>
 #include <map>
 
+// Important for Teensy, or compile error
+#include <algorithm>
+
 namespace websockets2_generic
 {
   WebsocketsServer::WebsocketsServer(network2_generic::TcpServer* server) : _server(server) {}
@@ -62,21 +66,34 @@ namespace websockets2_generic
     return this->_server->available();
   }
   
+  /////////////////////////////////////////////////////////
+  
   void WebsocketsServer::listen(uint16_t port) 
   {
     this->_server->listen(port);
   }
+  
+  /////////////////////////////////////////////////////////
   
   bool WebsocketsServer::poll() 
   {
     return this->_server->poll();
   }
   
+  /////////////////////////////////////////////////////////
+  
   struct ParsedHandshakeParams 
   {
     WSString head;
+    
+    // To store original headers
     std::map<WSString, WSString> headers;
+    
+    // To store lowercased headers
+    std::map<WSString, WSString> lowheaders;
   };
+  
+  /////////////////////////////////////////////////////////
   
   ParsedHandshakeParams recvHandshakeRequest(network2_generic::TcpClient& client) 
   {
@@ -89,6 +106,7 @@ namespace websockets2_generic
     do 
     {
       WSString key = "", value = "";
+      
       size_t idx = 0;
   
       // read key
@@ -109,20 +127,40 @@ namespace websockets2_generic
         value += line[idx];
         idx++;
       }
-  
-      // store header
-      result.headers[key] = value;
       
       // KH
-      LOGWARN1("WebsocketsServer::recvHandshakeRequest: value =", internals2_generic::fromInternalString(value));
+      LOGINFO1("WebsocketsServer::recvHandshakeRequest: key =", internals2_generic::fromInternalString(key));
+      LOGINFO1("WebsocketsServer::recvHandshakeRequest: value =", internals2_generic::fromInternalString(value));
+      //////
+      
+      // store headers before tolower(), so we can search both
+      result.headers[key] = value;
+     
+      // convert to lower case
+      std::transform(key.begin(), key.end(), key.begin(), ::tolower);
+      
+      // Important, don't change these case-sensitive data : `Sec-WebSocket-Key` and `Origin`
+      if ( (key != WS_KEY_LOWER_CASE) && (key != HEADER_ORIGIN_LOWER_CASE) )
+      {    
+        std::transform(value.begin(), value.end(), value.begin(), ::tolower);
+      }
       //////
   
+      // store header after tolower()
+      result.lowheaders[key] = value;
+      
+      // KH
+      LOGDEBUG1("WebsocketsServer::recvHandshakeRequest: lowkey =", internals2_generic::fromInternalString(key));
+      LOGDEBUG1("WebsocketsServer::recvHandshakeRequest: lowvalue =", internals2_generic::fromInternalString(value));
+      //////
+        
       line = client.readLine();
-    } while (client.available() && line != "\r\n");
-    
+    } while (client.available() && line != HEADER_HOST_RN);    
       
     return result;
   }
+  
+  /////////////////////////////////////////////////////////
   
   WebsocketsClient WebsocketsServer::accept() 
   {           
@@ -138,62 +176,62 @@ namespace websockets2_generic
     if (tcpClient->available() == false)
     {
       // KH
-      LOGDEBUG("WebsocketsServer::accept: tcpClient not available");
+      LOGERROR("WebsocketsServer::accept: tcpClient not available");
       //////
       return {};
     }
   
     auto params = recvHandshakeRequest(*tcpClient);
   
-    if (params.headers["Connection"].find("Upgrade") == std::string::npos) 
+    if ( (params.headers[HEADER_CONNECTION_NORMAL].find(HEADER_UPGRADE_NORMAL) == std::string::npos) && 
+         (params.lowheaders[HEADER_CONNECTION_LOWER_CASE].find(HEADER_UPGRADE_LOWER_CASE) == std::string::npos) )     
     {
       // KH
-      LOGWARN("WebsocketsServer::accept: Connection != Upgrade");
+      LOGERROR("WebsocketsServer::accept: Connection != Upgrade");
       //////
       return {};
     }
       
-    if (params.headers["Upgrade"] != "websocket")
+    if ( (params.headers[HEADER_UPGRADE_NORMAL] != HEADER_WEBSOCKET_LOWER_CASE) && 
+         (params.lowheaders[HEADER_UPGRADE_LOWER_CASE] != HEADER_WEBSOCKET_LOWER_CASE) )
     {
       // KH
-      LOGWARN("WebsocketsServer::accept: Upgrade != websocket");
+      LOGERROR("WebsocketsServer::accept: Upgrade != websocket");
       //////
       return {};
     }
       
-    if (params.headers["Sec-WebSocket-Version"] != "13")
+    if ( (params.headers[WS_VERSION_NORMAL] != "13") && (params.lowheaders[WS_VERSION_LOWER_CASE] != "13") )
     { 
       // KH
-      LOGWARN("WebsocketsServer::accept: Version != 13");
+      LOGERROR("WebsocketsServer::accept: Version != 13");
       //////
       return {};
     }
       
-    if (params.headers["Sec-WebSocket-Key"] == "") 
+    if ( (params.headers[WS_KEY_NORMAL] == "") && (params.lowheaders[WS_KEY_LOWER_CASE] == "") )
     {
       // KH
-      LOGWARN("WebsocketsServer::accept: Key == NULL");
+      LOGERROR("WebsocketsServer::accept: Key == NULL");
       //////
       return {};
     }
   
-    auto serverAccept = crypto2_generic::websocketsHandshakeEncodeKey(
-                          params.headers["Sec-WebSocket-Key"]
-                        );
+    auto serverAccept = crypto2_generic::websocketsHandshakeEncodeKey(params.lowheaders[WS_KEY_LOWER_CASE]);
   
     tcpClient->send("HTTP/1.1 101 Switching Protocols\r\n");
-    tcpClient->send("Connection: Upgrade\r\n");
-    tcpClient->send("Upgrade: websocket\r\n");
-    tcpClient->send("Sec-WebSocket-Version: 13\r\n");
-    tcpClient->send("Sec-WebSocket-Accept: " + serverAccept + "\r\n");
-    tcpClient->send("\r\n");
+    tcpClient->send(HEADER_CONNECTION_UPGRADE_NORMAL);
+    tcpClient->send(HEADER_UPGRADE_WS_NORMAL);
+    tcpClient->send(HEADER_WS_VERSION_13_NORMAL);
+    tcpClient->send(HEADER_WS_ACCEPT_NORMAL + serverAccept + HEADER_HOST_RN);
+    tcpClient->send(HEADER_HOST_RN);
   
     WebsocketsClient wsClient(tcpClient);
     // Don't use masking from server to client (according to RFC)
     wsClient.setUseMasking(false);
     return wsClient;
   }
-  
+   
   WebsocketsServer::~WebsocketsServer() 
   {
     this->_server->close();
