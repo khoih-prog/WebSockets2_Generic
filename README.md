@@ -3261,7 +3261,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
     <td align="center"><a href="https://github.com/tcpipchip"><img src="https://github.com/tcpipchip.png" width="100px;" alt="tcpipchip"/><br /><sub><b>⭐️ Miguel Wisintainer</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/jakespeed1311"><img src="https://github.com/jakespeed1311.png" width="100px;" alt="jakespeed1311"/><br /><sub><b>Jake</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/arnoson"><img src="https://github.com/arnoson.png" width="100px;" alt="arnoson"/><br /><sub><b>arnoson</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/apwwn"><img src="https://github.com/apwwn.png" width="100px;" alt="apwwn"/><br /><sub><b>Lionel REICHERT</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/LioRei"><img src="https://github.com/LioRei.png" width="100px;" alt="LioRei"/><br /><sub><b>Lionel REICHERT</b></sub></a><br /></td>
     <td align="center"><a href="https://github.com/Josua2012"><img src="https://github.com/Josua2012.png" width="100px;" alt="Josua2012"/><br /><sub><b>Jose A. Molina</b></sub></a><br /></td>
   </tr> 
   <tr>
