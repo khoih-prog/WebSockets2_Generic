@@ -34,7 +34,7 @@
 
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     3
+#define _WEBSOCKETS_LOGLEVEL_     4
 
 const char* ssid = "ssid"; //Enter SSID
 const char* password = "password"; //Enter Password

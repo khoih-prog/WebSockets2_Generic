@@ -143,5 +143,5 @@ void loop()
     client.poll();
   }
 
-  //delay(500);
+  delay(500);
 }

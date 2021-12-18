@@ -138,5 +138,5 @@ void loop()
     client.close();
   }
 
-  delay(1000);
+  //delay(1000);
 }

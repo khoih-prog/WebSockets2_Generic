@@ -81,6 +81,8 @@ void setup()
   Serial.begin(115200);
   while (!Serial);
 
+  delay(500);
+
   Serial.print("\nStart ESP8266-Server on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
