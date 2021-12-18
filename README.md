@@ -14,6 +14,7 @@
 * [Why do we need this WebSockets2_Generic library](#why-do-we-need-this-websockets2_generic-library)
   * [Features](#features)
   * [Supported features of RFC6455](#supported-features-of-rfc6455)
+  * [Supported features of RFC2616](#supported-features-of-RFC2616)
   * [Currently supported Boards](#currently-supported-boards)
   * [Currently supported WiFi shields/modules](#currently-supported-wifi-shieldsmodules)
   * [Currently supported Ethernet shields/modules](#currently-supported-ethernet-shieldsmodules)
