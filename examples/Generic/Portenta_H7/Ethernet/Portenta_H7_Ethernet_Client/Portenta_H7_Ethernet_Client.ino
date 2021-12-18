@@ -54,6 +54,13 @@
 
 #define WEBSOCKETS_USE_PORTENTA_H7_ETHERNET     true
 
+#define DEBUG_WEBSOCKETS_PORT     Serial
+// Debug Level from 0 to 4
+#define _WEBSOCKETS_LOGLEVEL_     3
+
+// Uncomment to test sending WS headers in lower-case
+//#define WS_HEADERS_NORMAL_CASE    false
+
 #include <WebSockets2_Generic.h>
 
 using namespace websockets2_generic;
