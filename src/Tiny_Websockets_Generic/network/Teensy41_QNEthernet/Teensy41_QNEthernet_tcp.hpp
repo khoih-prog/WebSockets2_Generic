@@ -141,7 +141,7 @@ namespace websockets2_generic
     
         void close() override
         {
-          client.stop();
+          client.close();
         }
     
         virtual ~EthernetTcpClient()
