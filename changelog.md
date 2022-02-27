@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Release v1.10.1](#release-v1101)
   * [Major Release v1.10.0](#major-release-v1100)
   * [Release v1.9.1](#release-v191)
   * [Major Release v1.9.0](#major-release-v190)
@@ -41,6 +42,11 @@
 ---
 
 ## Changelog
+
+### Release v1.10.1
+
+1. Reduce QNEthernet latency. Check [QNEthernet higher latency #38](https://github.com/khoih-prog/WebSockets2_Generic/issues/38)
+2. Update `Packages' Patches`
 
 ### Major Release v1.10.0
 
