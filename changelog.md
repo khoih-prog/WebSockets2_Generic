@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Release v1.10.2](#release-v1102)
   * [Release v1.10.1](#release-v1101)
   * [Major Release v1.10.0](#major-release-v1100)
   * [Release v1.9.1](#release-v191)
@@ -42,6 +43,12 @@
 ---
 
 ## Changelog
+
+### Release v1.10.2
+
+1. Fix bug when using `QNEthernet` staticIP. Check [QNEthernet and NativeEthernet staticIP not working with WS Server #39](https://github.com/khoih-prog/WebSockets2_Generic/issues/39)
+2. Add staticIP option to `NativeEthernet` examples
+2. Update `Packages' Patches`
 
 ### Release v1.10.1
 

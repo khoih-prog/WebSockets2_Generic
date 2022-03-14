@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.10.1
+  Version: 1.10.2
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -19,6 +19,7 @@
   1.9.1   K Hoang      17/12/2021 Fix QNEthernet TCP interface
   1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
   1.10.1  K Hoang      26/02/2022 Reduce QNEthernet latency
+  1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet
  *****************************************************************************************************************************/
 
 #ifndef _WEBSOCKETS2_GENERIC_SERVER_H
@@ -157,7 +158,7 @@ namespace websockets2_generic
     if (tcpClient->available() == false)
     {
       // KH
-      LOGERROR("WebsocketsServer::accept: tcpClient not available");
+      LOGDEBUG("WebsocketsServer::accept: tcpClient not available");
       //////
       return {};
     }
