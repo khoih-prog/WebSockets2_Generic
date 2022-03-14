@@ -59,6 +59,18 @@ byte mac[6];
 // Enter websockets server port.
 const uint16_t port = 80;
 
+//#define USING_DHCP            true
+#define USING_DHCP            false
+
+#if !USING_DHCP
+  // Set the static IP address to use if the DHCP fails to assign
+  IPAddress myIP(192, 168, 2, 222);
+  IPAddress myNetmask(255, 255, 255, 0);
+  IPAddress myGW(192, 168, 2, 1);
+  //IPAddress mydnsServer(192, 168, 2, 1);
+  IPAddress mydnsServer(8, 8, 8, 8);
+#endif
+
 void setup()
 {
   // Set the MAC address.
@@ -72,12 +84,31 @@ void setup()
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   // Connect to ethernet.
-  if (Ethernet.begin(mac))
+#if USING_DHCP  
+  if (Ethernet.begin(mac)) 
   {
-    Serial.println("Ethernet connected");
-  } else {
+    Serial.print("Ethernet connected (");
+    Serial.print(Ethernet.localIP());
+    Serial.println(")");
+  }
+  else 
+  {
     Serial.println("Ethernet failed");
   }
+
+  // give the Ethernet shield minimum 1 sec for DHCP 
+  delay(1000);
+#else
+  // Use Static IP
+  Ethernet.begin(mac, myIP, mydnsServer);
+  
+  Serial.print("Ethernet connected (");
+  Serial.print(Ethernet.localIP());
+  Serial.println(")");
+
+  // give the Ethernet shield minimum 2 secs for staticP to initialize:
+  delay(2000);
+#endif
 
   // Start websockets server.
   server.listen(port);

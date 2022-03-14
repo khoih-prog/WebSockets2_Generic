@@ -183,6 +183,13 @@ void setup()
 
 #endif
 
+// give the Ethernet shield minimum 1 sec for DHCP and 2 secs for staticP to initialize:
+#if USING_DHCP
+  delay(1000);
+#else  
+  delay(2000);
+#endif
+
   // Start websockets server.
   socketServer.listen(websocketsPort);
 
