@@ -169,6 +169,7 @@ namespace websockets2_generic
       //////
   #elif defined(ESP32)
       void setCACert(const char* ca_cert);
+      void setCACertBundle(const uint8_t* ca_cert_bundle);
       void setCertificate(const char* client_ca);
       void setPrivateKey(const char* private_key);
   #endif
@@ -211,6 +212,7 @@ namespace websockets2_generic
       //////
   #elif defined(ESP32)
       const char* _optional_ssl_ca_cert = nullptr;
+      const uint8_t* _optional_ssl_ca_cert_bundle = nullptr;
       const char* _optional_ssl_client_ca = nullptr;
       const char* _optional_ssl_private_key = nullptr;
   #endif
