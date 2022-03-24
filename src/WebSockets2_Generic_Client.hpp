@@ -458,11 +458,17 @@ namespace websockets2_generic
     
   #elif defined(ESP32)
 
-    if (this->_optional_ssl_ca_cert || this->_optional_ssl_client_ca || this->_optional_ssl_private_key)
+    if (this->_optional_ssl_ca_cert || this->_optional_ssl_ca_cert_bundle ||
+        this->_optional_ssl_client_ca || this->_optional_ssl_private_key)
     {
       if (this->_optional_ssl_ca_cert)
       {
         client->setCACert(this->_optional_ssl_ca_cert);
+      }
+
+      if (this->_optional_ssl_ca_cert_bundle)
+      {
+        client->setCACertBundle(this->_optional_ssl_ca_cert_bundle);
       }
 
       if (this->_optional_ssl_client_ca)
@@ -1119,6 +1125,13 @@ namespace websockets2_generic
   
   /////////////////////////////////////////////////////////
 
+  void WebsocketsClient::setCACertBundle(const uint8_t* ca_cert_bundle)
+  {
+    this->_optional_ssl_ca_cert_bundle = ca_cert_bundle;
+  }
+
+  /////////////////////////////////////////////////////////
+
   void WebsocketsClient::setCertificate(const char* client_ca)
   {
     this->_optional_ssl_client_ca = client_ca;
@@ -1136,6 +1149,7 @@ namespace websockets2_generic
   void WebsocketsClient::setInsecure()
   {
     this->_optional_ssl_ca_cert = nullptr;
+    this->_optional_ssl_ca_cert_bundle = nullptr;
     this->_optional_ssl_client_ca = nullptr;
     this->_optional_ssl_private_key = nullptr;
   }

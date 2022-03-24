@@ -48,6 +48,11 @@ namespace websockets2_generic
           this->client.setCACert(ca_cert);
         }
     
+        void setCACertBundle(const uint8_t* ca_cert_bundle)
+        {
+          this->client.setCACertBundle(ca_cert_bundle);
+        }
+
         void setCertificate(const char* client_ca)
         {
           this->client.setCertificate(client_ca);
