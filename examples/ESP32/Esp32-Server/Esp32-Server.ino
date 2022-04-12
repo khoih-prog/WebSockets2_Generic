@@ -79,7 +79,7 @@ void check_status()
 void setup()
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.print("\nStart ESP32-Server on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);

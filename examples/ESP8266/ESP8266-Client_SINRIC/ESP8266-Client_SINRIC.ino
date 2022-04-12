@@ -179,8 +179,8 @@ void setup()
   digitalWrite(LED_PIN, LED_BUILTIN_OFF);
   
   Serial.begin(115200);
-  while (!Serial);
-
+  while (!Serial && millis() < 5000);
+  
   Serial.print("\nStart ESP8266-Client_SINRIC on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 

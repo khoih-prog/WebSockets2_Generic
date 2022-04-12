@@ -179,7 +179,7 @@ void setup()
   digitalWrite(LED_PIN, LOW);
   
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.print("\nStart WT32_ETH01_Client_SINRIC on "); Serial.print(ARDUINO_BOARD);
   Serial.print(" with "); Serial.println(SHIELD_TYPE);

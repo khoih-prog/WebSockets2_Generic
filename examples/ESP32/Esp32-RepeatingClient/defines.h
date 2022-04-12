@@ -34,10 +34,11 @@
 #define _WEBSOCKETS_LOGLEVEL_     3
 
 // Uncomment to test sending WS headers in lower-case
-//#define WS_HEADERS_NORMAL_CASE    false
+#define WS_HEADERS_NORMAL_CASE    false
 
 const char* ssid = "ssid"; //Enter SSID
 const char* password = "password"; //Enter Password
+
 
 const char* websockets_server_host = "192.168.2.127"; //Enter server address
 //const char* websockets_server_host = "serverip_or_name"; //Enter server address

@@ -69,7 +69,7 @@ void onEventsCallback(WebsocketsEvent event, String data)
 void setup() 
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.print("\nStart ESP8266-RepeatingClient on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);

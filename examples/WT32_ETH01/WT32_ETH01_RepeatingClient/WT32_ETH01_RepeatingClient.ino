@@ -63,7 +63,7 @@ void onEventsCallback(WebsocketsEvent event, String data)
 void setup()
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.print("\nStart WT32_ETH01_RepeatingClient on "); Serial.print(ARDUINO_BOARD);
   Serial.print(" with "); Serial.println(SHIELD_TYPE);

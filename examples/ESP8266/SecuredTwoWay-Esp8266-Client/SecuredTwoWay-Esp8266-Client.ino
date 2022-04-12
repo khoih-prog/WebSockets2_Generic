@@ -173,7 +173,7 @@ WebsocketsClient client;
 void setup() 
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
   
   Serial.print("\nStart SecuredTwoWay-ESP8266-Client on "); Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
