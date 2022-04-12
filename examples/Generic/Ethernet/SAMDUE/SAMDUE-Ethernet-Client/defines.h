@@ -26,14 +26,14 @@
 
 #if defined(WEBSOCKETS_ETHERNET_USE_SAMDUE)
 
-// For SAM DUE
-#if defined(ARDUINO_SAM_DUE)
-#define BOARD_TYPE      "SAM DUE"
-#elif defined(__SAM3X8E__)
-#define BOARD_TYPE      "SAM SAM3X8E"
-#else
-#define BOARD_TYPE      "SAM Unknown"
-#endif
+  // For SAM DUE
+  #if defined(ARDUINO_SAM_DUE)
+    #define BOARD_TYPE      "SAM DUE"
+  #elif defined(__SAM3X8E__)
+    #define BOARD_TYPE      "SAM SAM3X8E"
+  #else
+    #define BOARD_TYPE      "SAM Unknown"
+  #endif
 
 #endif
 
@@ -47,23 +47,14 @@
 
 // Just select one to be true. If all is false, default is Ethernet. 
 // If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
-#define USE_ETHERNET                  false
-#define USE_ETHERNET2                 false
-#define USE_ETHERNET_LARGE            true
+#define USE_ETHERNET_GENERIC          true
 #define USE_ETHERNET_ENC              false
-
 #define USE_UIP_ETHERNET              false
 
-#if USE_ETHERNET
-  // Also default to Ethernet library
-  #include <Ethernet.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
-#elif USE_ETHERNET2
-  #include <Ethernet2.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet2 Library"
-#elif USE_ETHERNET_LARGE
-  #include <EthernetLarge.h>
-  #define ETHERNET_TYPE               "W5x00 and EthernetLarge Library"
+#if USE_ETHERNET_GENERIC
+  // Also default to Ethernet_Generic library
+  #include <Ethernet_Generic.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet_Generic Library"
 #elif USE_ETHERNET_ENC
   #include <EthernetENC.h>
   #define ETHERNET_TYPE               "ENC28J60 and EthernetENC Library"  
@@ -71,10 +62,11 @@
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
+  #error ENC28J60 and UIPEthernet Library not yet supported for RP2040
 #else
-  // Default to Ethernet library
-  #include <Ethernet.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+  // Default to Ethernet_Generic library
+  #include <Ethernet_Generic.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet_Generic Library"
 #endif
 
 #ifndef USE_THIS_SS_PIN
@@ -85,18 +77,41 @@
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-uint8_t mac[6] =  { 0xDE, 0xAD, 0xBE, 0xEF, 0xDE, 0x04 };
+#if USE_ETHERNET_GENERIC
+  // Change to true if using old Ethernet card with built-in SD
+  #define ETHERNET_WITH_SD_CARD   false
+#endif
 
-// Select the IP address according to your local network
-IPAddress serverIP(192, 168, 2, 93);
+#if (defined(ETHERNET_WITH_SD_CARD) && ETHERNET_WITH_SD_CARD)
+  #define W5100_CS        10
+  #define SDCARD_CS       4
+#endif
 
-const char* websockets_server_host = "192.168.2.93"; //Enter server address
-//const char* websockets_server_host = "serverip_or_name"; //Enter server address
+// Enter a MAC address and IP address for your controller below.
+#define NUMBER_OF_MAC      20
 
-#define WEBSOCKETS_PORT   8080
-
-const uint16_t websockets_server_port = WEBSOCKETS_PORT; // Enter server port
-
-#define SDCARD_CS       4
+byte mac[][NUMBER_OF_MAC] =
+{
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x01 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x02 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x03 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x04 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x05 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x06 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x07 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x08 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x09 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x0A },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x0B },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x0C },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x0D },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x0E },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x0F },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x10 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x11 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x12 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xFE, 0x13 },
+  { 0xDE, 0xAD, 0xBE, 0xEF, 0xBE, 0x14 },
+};
 
 #endif      //defines_h

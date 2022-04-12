@@ -37,6 +37,21 @@ using namespace websockets2_generic;
 
 WebsocketsClient* client;
 
+////////////////////////////////////////////////////
+
+// Select the IP address according to your local network
+IPAddress serverIP(192, 168, 2, 30);
+IPAddress clientIP(192, 168, 2, 222);
+
+const char* websockets_server_host = "192.168.2.30"; //Enter server address
+//const char* websockets_server_host = "serverip_or_name"; //Enter server address
+
+#define WEBSOCKETS_PORT   8080
+
+const uint16_t websockets_server_port = WEBSOCKETS_PORT; // Enter server port
+
+////////////////////////////////////////////////////
+
 void onEventsCallback(WebsocketsEvent event, String data) 
 {
   (void) data;
@@ -59,32 +74,105 @@ void onEventsCallback(WebsocketsEvent event, String data)
   }
 }
 
+void initEthernet()
+{
+#if USING_LAN8720
+  LOGWARN(F("=========== USING_LAN8720 ==========="));
+#elif USE_LAN8742A_ETHERNET
+  LOGWARN(F("=========== USE_LAN8742A_ETHERNET ===========")); 
+#elif USE_ETHERNET_GENERIC
+  LOGWARN(F("=========== USE_ETHERNET_GENERIC ==========="));  
+#elif USE_ETHERNET_ESP8266
+  LOGWARN(F("=========== USE_ETHERNET_ESP8266 ==========="));
+#elif USE_ETHERNET_ENC
+  LOGWARN(F("=========== USE_ETHERNET_ENC ==========="));  
+#else
+  LOGWARN(F("========================="));
+#endif
+
+#if !(USE_BUILTIN_ETHERNET)
+  #if (USING_SPI2)
+    #if defined(CUR_PIN_MISO)
+      LOGWARN(F("Default SPI pinout:"));
+      LOGWARN1(F("MOSI:"), CUR_PIN_MOSI);
+      LOGWARN1(F("MISO:"), CUR_PIN_MISO);
+      LOGWARN1(F("SCK:"),  CUR_PIN_SCK);
+      LOGWARN1(F("SS:"),   CUR_PIN_SS);
+      LOGWARN(F("========================="));
+    #endif
+  #else
+    LOGWARN(F("Default SPI pinout:"));
+    LOGWARN1(F("MOSI:"), MOSI);
+    LOGWARN1(F("MISO:"), MISO);
+    LOGWARN1(F("SCK:"),  SCK);
+    LOGWARN1(F("SS:"),   SS);
+    LOGWARN(F("========================="));
+  #endif
+
+  pinMode(USE_THIS_SS_PIN, OUTPUT);
+  digitalWrite(USE_THIS_SS_PIN, HIGH);
+  
+  LOGWARN2(BOARD_NAME, F(" setCsPin:"), USE_THIS_SS_PIN);
+  
+  // For other boards, to change if necessary
+  #if ( USE_ETHERNET_GENERIC || USE_ETHERNET_ENC )
+    // Must use library patch for Ethernet, EthernetLarge libraries
+    // For RPI Pico using Arduino Mbed RP2040 core
+    // SCK: GPIO2,  MOSI: GPIO3, MISO: GPIO4, SS/CS: GPIO5
+    // For RPI Pico using E. Philhower RP2040 core
+    // SCK: GPIO18,  MOSI: GPIO19, MISO: GPIO16, SS/CS: GPIO17
+    // Default pin 5/17 to SS/CS
+  
+    //Ethernet.setCsPin (USE_THIS_SS_PIN);
+    Ethernet.init (USE_THIS_SS_PIN);
+     
+  #endif    //( USE_ETHERNET_GENERIC || USE_ETHERNET_ENC )
+
+  LOGWARN(F("========================="));
+  
+  #if defined(CUR_PIN_MISO)
+    LOGWARN(F("Currently Used SPI pinout:"));
+    LOGWARN1(F("MOSI:"), CUR_PIN_MOSI);
+    LOGWARN1(F("MISO:"), CUR_PIN_MISO);
+    LOGWARN1(F("SCK:"),  CUR_PIN_SCK);
+    LOGWARN1(F("SS:"),   CUR_PIN_SS);
+  #else
+    LOGWARN(F("Currently Used SPI pinout:"));
+    LOGWARN1(F("MOSI:"), MOSI);
+    LOGWARN1(F("MISO:"), MISO);
+    LOGWARN1(F("SCK:"),  SCK);
+    LOGWARN1(F("SS:"),   SS);
+  #endif
+  
+  LOGWARN(F("========================="));
+
+#endif  
+}
+
 void setup() 
 {
-#if (USE_ETHERNET || USE_ETHERNET2 || USE_ETHERNET_LARGE)
+#if (defined(ETHERNET_WITH_SD_CARD) && ETHERNET_WITH_SD_CARD)
   pinMode(SDCARD_CS, OUTPUT);
   digitalWrite(SDCARD_CS, HIGH); // Deselect the SD card
 #endif
   
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
+  
   delay(2000);
 
   Serial.println("\nStarting STM32-Ethernet-Client_LAN8720 on " + String(BOARD_NAME));
   Serial.println("Ethernet using " + String(ETHERNET_TYPE));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
- #if ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET2 || USE_ETHERNET_ENC )
-  // Must use library patch for Ethernet, EthernetLarge libraries
-  //Ethernet.setCsPin (USE_THIS_SS_PIN);
-  Ethernet.init (USE_THIS_SS_PIN);
-#endif  // ( USE_ETHERNET || USE_ETHERNET_LARGE || USE_ETHERNET2 || USE_ETHERNET_ENC )
- 
+  initEthernet();
+
   // start the ethernet connection and the server:
+  // Use DHCP dynamic IP and random mac
+  uint16_t index = millis() % NUMBER_OF_MAC;
   // Use Static IP
-  //Ethernet.begin(mac, clientIP);
-  //Configure IP address via DHCP
-  Ethernet.begin(mac);
+  //Ethernet.begin(mac[index], clientIP);
+  Ethernet.begin(mac[index]);
 
   Serial.print("WebSockets Client IP address: ");
   Serial.println(Ethernet.localIP());
