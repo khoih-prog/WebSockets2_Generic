@@ -64,7 +64,7 @@ void onEventsCallback(WebsocketsEvent event, String data)
 void setup() 
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.println("\nStarting SAMD_WiFi101-Client with WiFi101 on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);

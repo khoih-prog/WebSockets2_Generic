@@ -178,7 +178,7 @@ void setup()
   digitalWrite(LED_PIN, LOW);
   
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.println("\nStarting nRF52-Client_SINRIC with WiFiNINA on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);

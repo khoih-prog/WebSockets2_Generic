@@ -36,13 +36,13 @@
 */
 
 #if ( defined(CORE_TEENSY) && defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) )
-// For Teensy 4.1
-#define BOARD_TYPE      "TEENSY 4.1"
-// Use true for NativeEthernet Library, false if using other Ethernet libraries
-#define USE_NATIVE_ETHERNET     false
-#define USE_QN_ETHERNET         true
+  // For Teensy 4.1
+  #define BOARD_TYPE      "TEENSY 4.1"
+  // Use true for NativeEthernet Library, false if using other Ethernet libraries
+  #define USE_NATIVE_ETHERNET     false
+  #define USE_QN_ETHERNET         true
 #else
-#error Only Teensy 4.1 supported
+  #error Only Teensy 4.1 supported
 #endif
 
 #ifndef BOARD_NAME
@@ -82,6 +82,7 @@ byte mac[6];
 #include "QNEthernet.h"       // https://github.com/ssilverman/QNEthernet
 using namespace qindesign::network;
 #warning Using QNEthernet lib for Teensy 4.1. Must also use Teensy Packages Patch or error
+
 #define SHIELD_TYPE           "using QNEthernet"
 
 //#define USING_DHCP            true
@@ -101,6 +102,7 @@ IPAddress mydnsServer(8, 8, 8, 8);
 // Note: wss:// currently not working.
 // ws://echo.websocket.org is no longer working. Please create your own WS Local Server to test
 //const char* url  = "ws://echo.websocket.org";
+//const char* url  = "ws://192.168.2.95:80";
 const char* url  = "ws://192.168.2.30:8080";
 
 void setup()
@@ -112,7 +114,7 @@ void setup()
 
   // Start Serial and wait until it is ready.
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.print("\nStarting Teensy41_Client on "); Serial.print(BOARD_NAME);
   Serial.print(" "); Serial.println(SHIELD_TYPE);
@@ -151,11 +153,11 @@ void setup()
 
   if (!Ethernet.waitForLocalIP(5000))
   {
-    Serial.println(F("Failed to configure Ethernet"));
+    Serial.println("Failed to configure Ethernet");
 
     if (!Ethernet.linkStatus())
     {
-      Serial.println(F("Ethernet cable is not connected."));
+      Serial.println("Ethernet cable is not connected.");
     }
 
     // Stay here forever
@@ -164,9 +166,15 @@ void setup()
       delay(1);
     }
   }
+
+  if (!Ethernet.waitForLink(5000))
+  {
+    Serial.println(F("Failed to wait for Link"));
+  }
   else
   {
-    Serial.print(F("Connected! IP address:")); Serial.println(Ethernet.localIP());
+    Serial.print("IP Address = ");
+    Serial.println(Ethernet.localIP());
   }
 
 #endif
@@ -183,7 +191,7 @@ void setup()
   {
     Serial.print("Connected to server : "); Serial.println(url);
     // Send welcome message.
-    client.send("Hello Server");
+    client.send("Hello Server from Teensy 4.1 QNEthernet");
   }
   else
   {

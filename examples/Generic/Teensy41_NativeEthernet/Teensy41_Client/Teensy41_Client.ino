@@ -80,9 +80,9 @@ void setup()
 
   // Start Serial and wait until it is ready.
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
-  Serial.println("\nStart Teensy41_Client on Teensy 4.1");
+  Serial.println("\nStart Teensy41_Client on Teensy 4.1 NativeEthernet");
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   // Connect to ethernet.
@@ -117,7 +117,7 @@ void setup()
   {
     Serial.printf("Connected to server %s\n", url);
     // Send welcome message.
-    client.send("Hello Server");
+    client.send("Hello Server from Teensy 4.1 NativeEthernet");
   } 
   else 
   {

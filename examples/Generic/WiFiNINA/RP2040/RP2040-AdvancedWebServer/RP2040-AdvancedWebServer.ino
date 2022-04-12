@@ -101,8 +101,8 @@ void drawGraph()
 
 void setup()
 {
-Serial.begin(115200);
-  while (!Serial);
+  Serial.begin(115200);
+  while (!Serial && millis() < 5000);
 
   Serial.println("\nStarting RP2040-AdvancedWebServer with WiFiNINA on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);

@@ -79,7 +79,7 @@ int status = WL_IDLE_STATUS;
 void setup() 
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.print("\nStarting Portenta_H7-Minimal-Client using WiFi on "); Serial.println(BOARD_NAME);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
@@ -95,9 +95,6 @@ void setup()
   Serial.print(F("Connecting to SSID: "));
   Serial.println(ssid);
  
-  // Connect to wifi
-  // Static IP
-  WiFi.config(clientIP);
   status = WiFi.begin(ssid, password);
 
   delay(1000);

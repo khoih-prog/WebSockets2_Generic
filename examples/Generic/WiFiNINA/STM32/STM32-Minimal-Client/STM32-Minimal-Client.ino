@@ -77,7 +77,7 @@ WebsocketsClient client;
 void setup() 
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.println("\nStarting STM32-Minimal-Client with WiFiNINA on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
@@ -91,6 +91,7 @@ void setup()
   }
 
   String fv = WiFi.firmwareVersion();
+  
   if (fv < WIFI_FIRMWARE_LATEST_VERSION) 
   {
     Serial.println("Please upgrade the firmware");

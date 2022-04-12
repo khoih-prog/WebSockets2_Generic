@@ -102,7 +102,7 @@ void setup()
 {
   // Start Serial and wait until it is ready.
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.print("\nStarting Portenta_H7_Ethernet_Server on "); Serial.print(BOARD_NAME);
   Serial.print(" "); Serial.println(SHIELD_TYPE);

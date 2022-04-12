@@ -103,8 +103,8 @@ void drawGraph()
 
 void setup()
 {
-Serial.begin(115200);
-  while (!Serial);
+  Serial.begin(115200);
+  while (!Serial && millis() < 5000);
 
   Serial.println("\nStarting STM32-AdvancedWebServer with WiFiNINA on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
@@ -125,6 +125,7 @@ Serial.begin(115200);
   }
 
   String fv = WiFi.firmwareVersion();
+  
   if (fv < WIFI_FIRMWARE_LATEST_VERSION) 
   {
     Serial.println("Please upgrade the firmware");

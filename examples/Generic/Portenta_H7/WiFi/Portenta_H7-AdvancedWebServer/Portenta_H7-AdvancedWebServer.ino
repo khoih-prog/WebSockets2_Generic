@@ -106,7 +106,7 @@ void drawGraph()
 void setup()
 {
   Serial.begin(115200);
-  while (!Serial);
+  while (!Serial && millis() < 5000);
 
   Serial.print("\nStarting Portenta_H7-AdvancedWebServer using WiFi on "); Serial.println(BOARD_NAME);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
