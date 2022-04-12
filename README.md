@@ -43,6 +43,9 @@
     * [8.1. To use BOARD_NAME](#81-to-use-board_name)
     * [8.2. To avoid compile error relating to microsecondsToClockCycles](#82-to-avoid-compile-error-relating-to-microsecondstoclockcycles)
   * [9. For Portenta_H7 boards using Arduino IDE in Linux](#9-for-portenta_h7-boards-using-arduino-ide-in-linux)
+  * [10. For RTL8720DN boards using AmebaD core](#10-for-rtl8720dn-boards-using-amebad-core)
+  * [11. For SAMD21 and SAMD51 boards using ArduinoCore-fab-sam core](#11-For-SAMD21-and-SAMD51-boards-using-ArduinoCore-fab-sam-core)
+  * [12. For Seeeduino RP2040 boards](#12-For-Seeeduino-RP2040-boards)
 * [Libraries' Patches](#libraries-patches)
   * [1. For application requiring 2K+ HTML page](#1-for-application-requiring-2k-html-page)
   * [2. For Ethernet library](#2-for-ethernet-library)
@@ -202,12 +205,14 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
 
 #### Currently supported Ethernet shields/modules
 
-1. W5x00 using [`Ethernet`](https://www.arduino.cc/en/Reference/Ethernet), [`EthernetLarge`](https://github.com/OPEnSLab-OSU/EthernetLarge), [`Ethernet2`](https://github.com/adafruit/Ethernet2) or [`Ethernet3`](https://github.com/sstaub/Ethernet3) library
-2. ENC28J60 using [`EthernetENC`](https://github.com/jandrassy/EthernetENC) or [`UIPEthernet`](https://github.com/UIPEthernet/UIPEthernet) library
-3. LAN8720 Ethernet used in WT32_ETH01 boards
-4. Teensy 4.1 built-in Ethernet using [`NativeEthernet`](https://github.com/vjmuzik/NativeEthernet) library
-5. Teensy 4.1 built-in Ethernet using [`QNEthernet`](https://github.com/ssilverman/QNEthernet) library
-6. Portenta_H7 using Ethernet from [Portenta Vision shields](https://store-usa.arduino.cc/products/arduino-portenta-vision-shield-ethernet)
+1. W5x00 using [`Ethernet_Generic`](https://github.com/khoih-prog/Ethernet_Generic) library
+2. W5x00 using [`Ethernet`](https://www.arduino.cc/en/Reference/Ethernet), [`EthernetLarge`](https://github.com/OPEnSLab-OSU/EthernetLarge), [`Ethernet2`](https://github.com/adafruit/Ethernet2) or [`Ethernet3`](https://github.com/sstaub/Ethernet3) library
+3. ENC28J60 using [`EthernetENC`](https://github.com/jandrassy/EthernetENC) or [`UIPEthernet`](https://github.com/UIPEthernet/UIPEthernet) library
+4. LAN8720 Ethernet used in WT32_ETH01 boards
+5. LAN8742A or LAN8720 using [`STM32Ethernet`](https://github.com/stm32duino/STM32Ethernet) and [`LwIP`](https://github.com/stm32duino/LwIP) libraries.
+6. Teensy 4.1 built-in Ethernet using [`NativeEthernet`](https://github.com/vjmuzik/NativeEthernet) library
+7. Teensy 4.1 built-in Ethernet using [`QNEthernet`](https://github.com/ssilverman/QNEthernet) library
+8. Portenta_H7 using Ethernet from [Portenta Vision shields](https://store-usa.arduino.cc/products/arduino-portenta-vision-shield-ethernet)
   
 <p align="center">
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Portenta_Vision.jpg">
@@ -224,31 +229,28 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
  3. [`Teensy core v1.56+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards.
  4. [`Arduino SAM DUE core v1.6.12+`](https://github.com/arduino/ArduinoCore-sam) for SAM DUE ARM Cortex-M3 boards.
  5. [`Arduino SAMD core 1.8.13+`](https://github.com/arduino/ArduinoCore-samd) for SAMD ARM Cortex-M0+ boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-samd.svg)](https://github.com/arduino/ArduinoCore-samd/releases/latest)
- 6. [`Adafruit SAMD core 1.7.9+`](https://github.com/adafruit/ArduinoCore-samd) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). [![GitHub release](https://img.shields.io/github/release/adafruit/ArduinoCore-samd.svg)](https://github.com/adafruit/ArduinoCore-samd/releases/latest)
+ 6. [`Adafruit SAMD core 1.7.10+`](https://github.com/adafruit/ArduinoCore-samd) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). [![GitHub release](https://img.shields.io/github/release/adafruit/ArduinoCore-samd.svg)](https://github.com/adafruit/ArduinoCore-samd/releases/latest)
  7. [`Seeeduino SAMD core 1.8.2+`](https://github.com/Seeed-Studio/ArduinoCore-samd) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). [![Latest release](https://img.shields.io/github/release/Seeed-Studio/ArduinoCore-samd.svg)](https://github.com/Seeed-Studio/ArduinoCore-samd/releases/latest/)
  8. [`Adafruit nRF52 v1.3.0+`](https://github.com/adafruit/Adafruit_nRF52_Arduino) for nRF52 boards such as Adafruit NRF52840_FEATHER, NRF52832_FEATHER, NRF52840_FEATHER_SENSE, NRF52840_ITSYBITSY, NRF52840_CIRCUITPLAY, NRF52840_CLUE, NRF52840_METRO, NRF52840_PCA10056, PARTICLE_XENON, **NINA_B302_ublox**, etc. [![GitHub release](https://img.shields.io/github/release/adafruit/Adafruit_nRF52_Arduino.svg)](https://github.com/adafruit/Adafruit_nRF52_Arduino/releases/latest)
  9. [`ESP32 Core 2.0.2+`](https://github.com/espressif/arduino-esp32) for ESP32-based boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
 10. [`ESP8266 Core 3.0.2+`](https://github.com/esp8266/Arduino) for ESP8266-based boards. [![Latest release](https://img.shields.io/github/release/esp8266/Arduino.svg)](https://github.com/esp8266/Arduino/releases/latest/). To use ESP8266 core 2.7.1+ for LittleFS.
-11. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core 2.8.0+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
-12. [`Earle Philhower's arduino-pico core v1.13.0+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
+11. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core v3.0.1+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+12. [`Earle Philhower's arduino-pico core v1.13.1+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
 13. [`Arduino Core for STM32 v2.2.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
 
 14. [`WiFiNINA_Generic library v1.8.14-3+`](https://github.com/khoih-prog/WiFiNINA_Generic) if for WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
-15. [`EthernetWebServer library v2.0.1+`](https://github.com/khoih-prog/EthernetWebServer) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer.svg?)](https://www.ardu-badge.com/EthernetWebServer)
-16. [`EthernetWebServer_STM32 library v1.3.4+`](https://github.com/khoih-prog/EthernetWebServer_STM32) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer_STM32.svg?)](https://www.ardu-badge.com/EthernetWebServer_STM32)
+15. [`EthernetWebServer library v2.1.2+`](https://github.com/khoih-prog/EthernetWebServer) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer.svg?)](https://www.ardu-badge.com/EthernetWebServer)
+16. [`EthernetWebServer_STM32 library v1.4.0+`](https://github.com/khoih-prog/EthernetWebServer_STM32) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer_STM32.svg?)](https://www.ardu-badge.com/EthernetWebServer_STM32)
 17. [`WebServer_WT32_ETH01 library v1.4.1+`](https://github.com/khoih-prog/WebServer_WT32_ETH01) if necessary to use WT32_ETH01 boards. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WebServer_WT32_ETH01.svg?)](https://www.ardu-badge.com/WebServer_WT32_ETH01)
 18. Depending on which Ethernet card you're using:
-   - [`Ethernet library v2.0.0+`](https://github.com/arduino-libraries/Ethernet) for W5100, W5200 and W5500.  [![GitHub release](https://img.shields.io/github/release/arduino-libraries/Ethernet.svg)](https://github.com/arduino-libraries/Ethernet/releases/latest). You can also use the forked and modified library at [Patched Ethernet](https://github.com/khoih-prog/Ethernet)
-   - [`EthernetLarge library v2.0.0+`](https://github.com/OPEnSLab-OSU/EthernetLarge) for W5100, W5200 and W5500. You can also use the forked and modified library at [Patched EthernetLarge](https://github.com/khoih-prog/EthernetLarge)
-   - [`Ethernet2 library v1.0.4+`](https://github.com/khoih-prog/Ethernet2) for W5500. [![GitHub release](https://img.shields.io/github/release/adafruit/Ethernet2.svg)](https://github.com/adafruit/Ethernet2/releases/latest). You can also use the forked and modified library at [Patched Ethernet2](https://github.com/khoih-prog/Ethernet2)
-   - [`Ethernet3 library v1.5.5+`](https://github.com/sstaub/Ethernet3) for W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip. [![GitHub release](https://img.shields.io/github/release/sstaub/Ethernet3.svg)](https://github.com/sstaub/Ethernet3/releases/latest). You can also use the forked and modified library at [Patched Ethernet3](https://github.com/khoih-prog/Ethernet3)
+   - [`Ethernet_Generic library v2.0.1+`](https://github.com/khoih-prog/Ethernet_Generic) for W5100, W5200 and W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip.  [![GitHub release](https://img.shields.io/github/release/khoih-prog/Ethernet_Generic.svg)](https://github.com/khoih-prog/Ethernet_Generic/releases/latest)
    - [`EthernetENC library v2.0.2+`](https://github.com/jandrassy/EthernetENC) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/jandrassy/EthernetENC.svg)](https://github.com/jandrassy/EthernetENC/releases/latest). **New and Better**
    - [`UIPEthernet library v2.0.11+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/UIPEthernet/UIPEthernet.svg)](https://github.com/UIPEthernet/UIPEthernet/releases/latest)
    - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in LAN8742A Ethernet on (Nucleo-144, Discovery). [![GitHub release](https://img.shields.io/github/release/stm32duino/STM32Ethernet.svg)](https://github.com/stm32duino/STM32Ethernet/releases/latest). To be used with [`LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP). [![GitHub release](https://img.shields.io/github/release/stm32duino/LwIP.svg)](https://github.com/stm32duino/LwIP/releases/latest).
    - [`NativeEthernet Library version stable111+`](https://github.com/vjmuzik/NativeEthernet) for Teensy 4.1 built-in Ethernet.
-   - [`QNEthernet Library version v0.13.0+`](https://github.com/ssilverman/QNEthernet) for Teensy 4.1 built-in Ethernet.
+   - [`QNEthernet Library version v0.14.0+`](https://github.com/ssilverman/QNEthernet) for Teensy 4.1 built-in Ethernet.
    
-19. [`WiFiWebServer library v1.6.3+`](https://github.com/khoih-prog/WiFiWebServer) if necessary to use certain WiFi/WiFiNINA features. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiWebServer.svg?)](https://www.ardu-badge.com/WiFiWebServer)
+19. [`WiFiWebServer library v1.7.0+`](https://github.com/khoih-prog/WiFiWebServer) if necessary to use certain WiFi/WiFiNINA features. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiWebServer.svg?)](https://www.ardu-badge.com/WiFiWebServer)
 20. [`FlashStorage_SAMD library v1.3.2+`](https://github.com/khoih-prog/FlashStorage_SAMD) for SAMD21 and SAMD51 boards (ZERO, MKR, NANO_33_IOT, M0, M0 Pro, AdaFruit Itsy-Bitsy M4, etc.) if necessary to use certain features. [![GitHub release](https://img.shields.io/github/release/khoih-prog/FlashStorage_SAMD.svg)](https://github.com/khoih-prog/FlashStorage_SAMD/releases/latest)
 21. [`FlashStorage_STM32 library v1.2.0+`](https://github.com/khoih-prog/FlashStorage_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/khoih-prog/FlashStorage_STM32.svg)](https://github.com/khoih-prog/FlashStorage_STM32/releases/latest) if necessary to use certain features.
 22. [`DueFlashStorage library v1.0.0+`](https://github.com/sebnil/DueFlashStorage) for SAM DUE if necessary to use certain features. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/DueFlashStorage.svg?)](https://www.ardu-badge.com/DueFlashStorage).
@@ -350,13 +352,13 @@ This file must be copied into the directory:
 
 #### 4. For Arduino SAMD boards
  
- ***To be able to compile, run and automatically detect and display BOARD_NAME on Arduino SAMD (Nano-33-IoT, etc) boards***, you have to copy the whole [Arduino SAMD Packages_Patches](Packages_Patches/arduino/hardware/samd/1.8.12) directory into Arduino SAMD directory (~/.arduino15/packages/arduino/hardware/samd/1.8.12).
+ ***To be able to compile, run and automatically detect and display BOARD_NAME on Arduino SAMD (Nano-33-IoT, etc) boards***, you have to copy the whole [Arduino SAMD Packages_Patches](Packages_Patches/arduino/hardware/samd/1.8.13) directory into Arduino SAMD directory (~/.arduino15/packages/arduino/hardware/samd/1.8.13).
  
 #### For core version v1.8.10+
 
-Supposing the Arduino SAMD version is 1.8.12. Now only one file must be copied into the directory:
+Supposing the Arduino SAMD version is 1.8.13. Now only one file must be copied into the directory:
 
-- `~/.arduino15/packages/arduino/hardware/samd/1.8.12/platform.txt`
+- `~/.arduino15/packages/arduino/hardware/samd/1.8.13/platform.txt`
 
 Whenever a new version is installed, remember to copy this files into the new version directory. For example, new version is x.yy.zz
 
@@ -497,12 +499,12 @@ With core after v1.5.0, this step is not necessary anymore thanks to the PR [Add
 
 #### 9. For Portenta_H7 boards using Arduino IDE in Linux
 
-  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/2.7.2/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/2.7.2/portenta_post_install.sh). 
+  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh). 
   
   Then run the following command using `sudo`
   
 ```
-$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/2.7.2
+$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0
 $ chmod 755 portenta_post_install.sh
 $ sudo ./portenta_post_install.sh
 ```
@@ -515,15 +517,59 @@ This will create the file `/etc/udev/rules.d/49-portenta_h7.rules` as follows:
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="035b", GROUP="plugdev", MODE="0666"
 ```
 
-Supposing the ArduinoCore-mbed core version is 2.7.2. Now only one file must be copied into the directory:
+Supposing the ArduinoCore-mbed core version is 3.0.0. Now only one file must be copied into the directory:
 
-- `~/.arduino15/packages/arduino/hardware/mbed_portenta/2.7.2/portenta_post_install.sh`
+- `~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh`
 
 Whenever a new version is installed, remember to copy this files into the new version directory. For example, new version is x.yy.zz
 
 This file must be copied into the directory:
 
 - `~/.arduino15/packages/arduino/hardware/mbed_portenta/x.yy.zz/portenta_post_install.sh`
+
+
+#### 10. For RTL8720DN boards using AmebaD core
+ 
+ To avoid compile error relating to PROGMEM, you have to copy the file [Realtek AmebaD core pgmspace.h](Packages_Patches/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h) into Realtek AmebaD directory (~/.arduino15/packages/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h). 
+
+Supposing the Realtek AmebaD core version is 3.1.2. This file must be copied into the directory:
+
+- `~/.arduino15/packages/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/realtek/hardware/AmebaD/x.yy.zz/cores/arduino/avr/pgmspace.h`
+
+
+#### 11. For SAMD21 and SAMD51 boards using ArduinoCore-fab-sam core
+ 
+ To avoid compile error relating to SAMD21/SAMD51, you have to copy the file [ArduinoCore-fab-sam core pgmspace.h](Packages_Patches/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt) into `ArduinoCore-fab-sam` samd directory (~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt). 
+
+Supposing the `ArduinoCore-fab-sam` samd core version is 1.6.18-alpha2. This file must be copied into the directory:
+
+- `~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/x.yy.zz/boards.txt`
+
+
+#### 12. For Seeeduino RP2040 boards
+ 
+ ***To be able to compile, run and automatically detect and display BOARD_NAME on Seeeduino RP2040 (XIAO RP2040, Wio RP2040 Mini) boards***, you have to copy the whole [Seeeduino RP2040 Packages_Patches](Packages_Patches/Seeeduino/hardware/rp2040/2.7.2) directory into Seeeduino samd directory (~/.arduino15/packages/Seeeduino/hardware/rp2040/2.7.2). 
+
+Supposing the Seeeduino SAMD core version is 2.7.2. This file must be copied into the directory:
+
+- `~/.arduino15/packages/Seeeduino/hardware/rp2040/2.7.2/boards.txt`
+- `~/.arduino15/packages/Seeeduino/hardware/rp2040/2.7.2/variants/Seeed_XIAO_RP2040/pins_arduino.h`
+
+Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
+This file must be copied into the directory:
+
+- `~/.arduino15/packages/Seeeduino/hardware/samd/x.yy.zz/boards.txt`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/x.yy.zz/variants/Seeed_XIAO_RP2040/pins_arduino.h`
 
 
 ---
@@ -963,8 +1009,6 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
-
-#define USE_UIP_ETHERNET                  false
 ```
 
  - To use `W5x00` module/shield with `Ethernet` library
@@ -972,38 +1016,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      true
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                false
+#define USE_ETHERNET_GENERIC              true
 #define USE_ETHERNET_ENC                  false
-
 #define USE_UIP_ETHERNET                  false
 ```
 
- - To use `W5x00` module/shield with `Ethernet2` library
-
-```cpp
-#define WEBSOCKETS_USE_ETHERNET           true
-
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     true
-#define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  false
-
-#define USE_UIP_ETHERNET                  false
-```
- - To use` W5x00` module/shield with `EthernetLarge` library
-
-```cpp
-#define WEBSOCKETS_USE_ETHERNET           true
-
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                true
-#define USE_ETHERNET_ENC                  false
-
-#define USE_UIP_ETHERNET                  false
-```
 
 #### 2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
 
@@ -1014,11 +1031,8 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                false
+#define USE_ETHERNET_GENERIC              false
 #define USE_ETHERNET_ENC                  false
-
 #define USE_UIP_ETHERNET                  true
 ```
 
@@ -1031,11 +1045,8 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                false
+#define USE_ETHERNET_GENERIC              false
 #define USE_ETHERNET_ENC                  true
-
 #define USE_UIP_ETHERNET                  false
 ```
 
@@ -1046,23 +1057,14 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 
 // Just select one to be true. If all is false, default is Ethernet. 
 // If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
-#define USE_ETHERNET                  false
-#define USE_ETHERNET2                 false
-#define USE_ETHERNET_LARGE            true
+#define USE_ETHERNET_GENERIC          true
 #define USE_ETHERNET_ENC              false
-
 #define USE_UIP_ETHERNET              false
 
-#if USE_ETHERNET
-  // Also default to Ethernet library
-  #include <Ethernet.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
-#elif USE_ETHERNET2
-  #include <Ethernet2.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet2 Library"
-#elif USE_ETHERNET_LARGE
-  #include <EthernetLarge.h>
-  #define ETHERNET_TYPE               "W5x00 and EthernetLarge Library"
+#if USE_ETHERNET_GENERIC
+  // Also default to Ethernet_Generic library
+  #include <Ethernet_Generic.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet_Generic Library"
 #elif USE_ETHERNET_ENC
   #include <EthernetENC.h>
   #define ETHERNET_TYPE               "ENC28J60 and EthernetENC Library"  
@@ -1070,14 +1072,15 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
+  #error ENC28J60 and UIPEthernet Library not yet supported for RP2040
 #else
-  // Default to Ethernet library
-  #include <Ethernet.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+  // Default to Ethernet_Generic library
+  #include <Ethernet_Generic.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet_Generic Library"
 #endif
 
 #ifndef USE_THIS_SS_PIN
-#define USE_THIS_SS_PIN   10    // For other boards
+  #define USE_THIS_SS_PIN   10    // For other boards
 #endif
 ```
 
@@ -1101,43 +1104,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      true
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  false
-
-#define USE_UIP_ETHERNET                  false
-#define USING_LAN8720                     false
 #define USE_LAN8742A_ETHERNET             false
-```
-
- - To use `W5x00` module/shield with `Ethernet2` library
-
-```cpp
-#define WEBSOCKETS_USE_ETHERNET           true
-
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     true
-#define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  false
-
-#define USE_UIP_ETHERNET                  false
 #define USING_LAN8720                     false
-#define USE_LAN8742A_ETHERNET             false
-```
- - To use` W5x00` module/shield with `EthernetLarge` library
-
-```cpp
-#define WEBSOCKETS_USE_ETHERNET           true
-
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                true
+#define USE_ETHERNET_GENERIC              true
 #define USE_ETHERNET_ENC                  false
-
 #define USE_UIP_ETHERNET                  false
-#define USING_LAN8720                     false
-#define USE_LAN8742A_ETHERNET             false
 ```
 
 #### 2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
@@ -1145,14 +1116,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  false
-
-#define USE_UIP_ETHERNET                  true
-#define USING_LAN8720                     false
 #define USE_LAN8742A_ETHERNET             false
+#define USING_LAN8720                     false
+#define USE_ETHERNET_GENERIC              false
+#define USE_ETHERNET_ENC                  false
+#define USE_UIP_ETHERNET                  true
 ```
 
 #### 3. To use Ethernet `ENC28J60` module/shield with new `EthernetENC` library
@@ -1160,14 +1128,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  true
-
-#define USE_UIP_ETHERNET                  false
-#define USING_LAN8720                     false
 #define USE_LAN8742A_ETHERNET             false
+#define USING_LAN8720                     false
+#define USE_ETHERNET_GENERIC              false
+#define USE_ETHERNET_ENC                  true
+#define USE_UIP_ETHERNET                  false
 ```
 
 #### 4. To use Ethernet `LAN8742A` built-in module/shield with `STM32Ethernet` library
@@ -1175,14 +1140,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  false
-
-#define USE_UIP_ETHERNET                  false
-#define USING_LAN8720                     false
 #define USE_LAN8742A_ETHERNET             true
+#define USING_LAN8720                     false
+#define USE_ETHERNET_GENERIC              false
+#define USE_ETHERNET_ENC                  false
+#define USE_UIP_ETHERNET                  false
 ```
 
 #### 5. To use Ethernet `LAN8720` module/shield with `STM32Ethernet` library
@@ -1190,14 +1152,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  false
-
-#define USE_UIP_ETHERNET                  false
+#define USE_LAN8742A_ETHERNET             false
 #define USING_LAN8720                     true
-#define USE_LAN8742A_ETHERNET             true
+#define USE_ETHERNET_GENERIC              true
+#define USE_ETHERNET_ENC                  false
+#define USE_UIP_ETHERNET                  false
 ```
 
 #### 6. It's much easier just add to the sketch
@@ -1207,40 +1166,36 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 
 // Just select one to be true. If all is false, default is Ethernet. 
 // If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
-#define USE_ETHERNET                  false
-#define USE_ETHERNET2                 false
-#define USE_ETHERNET_LARGE            true
-#define USE_ETHERNET_ENC              false
-
-#define USE_UIP_ETHERNET              false
+#define USING_LAN8720                 true
 #define USE_LAN8742A_ETHERNET         false
+#define USE_ETHERNET_GENERIC          false
+#define USE_ETHERNET_ENC              false
+#define USE_UIP_ETHERNET              false
 
-#if USE_ETHERNET
-  // Also default to Ethernet library
-  #include <Ethernet.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
-#elif USE_ETHERNET2
-  #include <Ethernet2.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet2 Library"
-#elif USE_ETHERNET_LARGE
-  #include <EthernetLarge.h>
-  #define ETHERNET_TYPE               "W5x00 and EthernetLarge Library"
+#if ( USE_LAN8742A_ETHERNET  || USING_LAN8720 )
+  #define USE_BUILTIN_ETHERNET        true
+  #include <LwIP.h>
+  #include <STM32Ethernet.h>
+  #if USING_LAN8720
+    #define ETHERNET_TYPE             "LAN8720 and STM32Ethernet Library"
+  #else
+    #define ETHERNET_TYPE             "LAN8742A and STM32Ethernet Library"
+  #endif
+#elif USE_ETHERNET_GENERIC
+  // Also default to Ethernet_Generic library
+  #include <Ethernet_Generic.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet_Generic Library"
 #elif USE_ETHERNET_ENC
   #include <EthernetENC.h>
   #define ETHERNET_TYPE               "ENC28J60 and EthernetENC Library"  
 #elif USE_UIP_ETHERNET
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
-  #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
-#elif USE_LAN8742A_ETHERNET
-  #define USE_BUILTIN_ETHERNET        true
-  #include <LwIP.h>
-  #include <STM32Ethernet.h>
-  #define ETHERNET_TYPE               "LAN8742A and STM32Ethernet Library"  
+  #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library" 
 #else
-  // Default to Ethernet library
-  #include <Ethernet.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+  // Default to Ethernet_Generic library
+  #include <Ethernet_Generic.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet_Generic Library"
 #endif
 
 #ifndef USE_THIS_SS_PIN
@@ -1252,54 +1207,24 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 
 ###  For Teensy 4.1, 4.0, 3.x using Ethernet W5x0, ENC28J60 or LAN8742A
 
-#### To use Ethernet W5x00 module/shield with Ethernetx library
+#### To use Ethernet W5x00 module/shield with Ethernet_Generic library
 
 #### 1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
-#define USE_UIP_ETHERNET                  false
 ```
 
- - To use `W5x00` module/shield with `Ethernet` library
+ - To use `W5x00` module/shield with `Ethernet_Generic` library
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      true
-#define USE_ETHERNET2                     false
+#define USE_ETHERNET_GENERIC              true
 #define USE_ETHERNET_LARGE                false
 #define USE_ETHERNET_ENC                  false
-#define USE_NATIVE_ETHERNET               false
-
 #define USE_UIP_ETHERNET                  false
-```
-
- - To use `W5x00` module/shield with `Ethernet2` library
-
-```cpp
-#define WEBSOCKETS_USE_ETHERNET           true
-
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     true
-#define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  false
 #define USE_NATIVE_ETHERNET               false
-
-#define USE_UIP_ETHERNET                  false
-```
- - To use` W5x00` module/shield with `EthernetLarge` library
-
-```cpp
-#define WEBSOCKETS_USE_ETHERNET           true
-
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
-#define USE_ETHERNET_LARGE                true
-#define USE_ETHERNET_ENC                  false
-#define USE_NATIVE_ETHERNET               false
-
-#define USE_UIP_ETHERNET                  false
 ```
 
 #### 2. To use Ethernet `ENC28J60` module/shield with `UIPEthernet` library
@@ -1307,13 +1232,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
+#define USE_ETHERNET_GENERIC              false
 #define USE_ETHERNET_LARGE                false
 #define USE_ETHERNET_ENC                  false
-#define USE_NATIVE_ETHERNET               false
-
 #define USE_UIP_ETHERNET                  true
+#define USE_NATIVE_ETHERNET               false
 ```
 
 #### 3. To use Ethernet `ENC28J60` module/shield with new `EthernetENC` library
@@ -1321,13 +1244,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
+#define USE_ETHERNET_GENERIC              false
 #define USE_ETHERNET_LARGE                false
 #define USE_ETHERNET_ENC                  true
-#define USE_NATIVE_ETHERNET               false
-
 #define USE_UIP_ETHERNET                  false
+#define USE_NATIVE_ETHERNET               false
 ```
 
 #### 4. To use Teensy 4.1 NativeEthernet built-in module/shield with `NativeEthernet` library
@@ -1335,12 +1256,11 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
 
-#define USE_ETHERNET                      false
-#define USE_ETHERNET2                     false
+#define USE_ETHERNET_GENERIC              false
 #define USE_ETHERNET_LARGE                false
-#define USE_ETHERNET_ENC                  true
-
+#define USE_ETHERNET_ENC                  false
 #define USE_UIP_ETHERNET                  false
+#define USE_NATIVE_ETHERNET               true
 ```
 
 #### 5. It's much easier just add to the sketch
@@ -1349,40 +1269,32 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 #define WEBSOCKETS_USE_ETHERNET           true
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
-#define USE_ETHERNET                  false
-#define USE_ETHERNET2                 true
+// If more than one are true, the priority is USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
+#define USE_ETHERNET_GENERIC          true
 #define USE_ETHERNET_LARGE            false
 #define USE_ETHERNET_ENC              false
-#define USE_NATIVE_ETHERNET           false
-
 #define USE_UIP_ETHERNET              false
+#define USE_NATIVE_ETHERNET           false
 
 #if ( defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_NATIVE_ETHERNET )
   // Also default to Ethernet library
   #include <NativeEthernet.h>
   #define ETHERNET_TYPE               "Teensy 4.1 NativeEthernet Library"
-#elif USE_ETHERNET
-  // Also default to Ethernet library
-  #include <Ethernet.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
-#elif USE_ETHERNET2
-  #include <Ethernet2.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet2 Library"
-#elif USE_ETHERNET_LARGE
-  #include <EthernetLarge.h>
-  #define ETHERNET_TYPE               "W5x00 and EthernetLarge Library"
+#elif USE_ETHERNET_GENERIC
+  // Also default to Ethernet_Generic library
+  #include <Ethernet_Generic.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet_Generic Library"
 #elif USE_ETHERNET_ENC
   #include <EthernetENC.h>
   #define ETHERNET_TYPE               "ENC28J60 and EthernetENC Library"  
 #elif USE_UIP_ETHERNET
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
-  #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
+  #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library" 
 #else
-  // Default to Ethernet library
-  #include <Ethernet.h>
-  #define ETHERNET_TYPE               "W5x00 and Ethernet Library"
+  // Default to Ethernet_Generic library
+  #include <Ethernet_Generic.h>
+  #define ETHERNET_TYPE               "W5x00 and Ethernet_Generic Library"
 #endif
 
 #ifndef USE_THIS_SS_PIN
@@ -1391,7 +1303,6 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 ```
 
 ---
-
 ---
 
 ###  For Teensy 4.1 using NativeEthernet
@@ -1622,12 +1533,12 @@ Please take a look at other examples, as well.
 
 #### 1. File [SAMD-Client_SINRIC.ino](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino)
 
-https://github.com/khoih-prog/WebSockets2_Generic/blob/aef0fba324bac40647ecc3387f0cb505e8c39d98/examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino#L1-L263
+https://github.com/khoih-prog/WebSockets2_Generic/blob/02d82b0d957abe4e801c192ba995aabb0d6368aa/examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino#L29-L263
 
 
 #### 2. File [defines.h](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h)
 
-https://github.com/khoih-prog/WebSockets2_Generic/blob/aef0fba324bac40647ecc3387f0cb505e8c39d98/examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h#L17-L164
+https://github.com/khoih-prog/WebSockets2_Generic/blob/02d82b0d957abe4e801c192ba995aabb0d6368aa/examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h#L17-L164
 
 
 ---
@@ -1638,7 +1549,7 @@ This is the terminal output when running [SAMD-Client_SINRIC](examples/Generic/W
 
 ```
 Starting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on SAMD NANO_33_IOT
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 WiFi-begin: return1 = 3
 WiFi-begin: return2 = 3
 Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
@@ -1778,7 +1689,7 @@ This is terminal debug output when running [SAMD-Ethernet-Client_SINRIC](example
 ```
 Starting WebSockets2_Generic SAMD-Ethernet-Client_SINRIC on SAMD ADAFRUIT_ITSYBITSY_M4_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ENC28J60_CONTROL_CS =16
 SS =16
 SPI_MOSI =25
@@ -1820,16 +1731,29 @@ Turn off Device ID: 012345678901234567890123
 
 ---
 
-#### 2. [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server) on SAM-DUE with W5100 using EthernetLarge library
+#### 2. [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server) on SAM-DUE with W5100 using Ethernet_Generic library
 
-This is terminal debug output when running [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server) on **SAM DUE board with Ethernet W5100 shield using EthernetLarge library**, and receiving WebSockets connection from an ESP8266 board.
+This is terminal debug output when running [SAMDUE-Ethernet-Server](examples/Generic/Ethernet/SAMDUE/SAMDUE-Ethernet-Server) on **SAM DUE board with Ethernet W5100 shield using Ethernet_Generic library**, and receiving WebSockets connection from an ESP8266 board.
 
 ```
 Starting WebSockets2_Generic SAMDUE-Ethernet-Server on SAM DUE
-Ethernet using W5x00 and EthernetLarge Library
-WebSockets2_Generic v1.10.2
-W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
-W5100::init: W5100, SSIZE =4096
+Ethernet using W5x00 and Ethernet_Generic Library
+WebSockets2_Generic v1.10.3
+[WS] =========== USE_ETHERNET_GENERIC ===========
+[WS] Default SPI pinout:
+[WS] MOSI: 75
+[WS] MISO: 74
+[WS] SCK: 76
+[WS] SS: 10
+[WS] =========================
+[WS] SAM DUE  setCsPin: 10
+[WS] =========================
+[WS] Currently Used SPI pinout:
+[WS] MOSI: 75
+[WS] MISO: 74
+[WS] SCK: 76
+[WS] SS: 10
+[WS] =========================
 WebSockets Server Running and Ready on SAM DUE
 IP address: 192.168.2.153, Port: 8080
 H[WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.153
@@ -1862,7 +1786,7 @@ This is terminal debug output when running [nRF52-Ethernet-Server](examples/Gene
 ```
 Starting WebSockets2_Generic nRF52-Ethernet-Server on NRF52840_ITSYBITSY_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ENC28J60_CONTROL_CS =10
 SS =5
 SPI_MOSI =24
@@ -1900,7 +1824,8 @@ This is terminal debug output when running [STM32-Ethernet-Client_SINRIC](exampl
 ```
 Starting WebSockets2_Generic STM32-Ethernet-Client_SINRIC on NUCLEO_F767ZI
 Ethernet using LAN8742A and STM32Ethernet Library
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
+[WS] =========== USE_LAN8742A_ETHERNET ===========
 WebSockets Client IP address: 192.168.2.135
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = ********
@@ -1947,9 +1872,22 @@ This is the terminal debug output when running [SAMDUE-Ethernet_ServerAllFunctio
 
 ```
 Start Generic_WebSocketServerAllFunctionsDemo_W5500
-WebSockets2_Generic v1.10.2
-W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 10
-W5100::init: W5100, SSIZE =4096
+WebSockets2_Generic v1.10.3
+[WS] =========== USE_ETHERNET_GENERIC ===========
+[WS] Default SPI pinout:
+[WS] MOSI: 75
+[WS] MISO: 74
+[WS] SCK: 76
+[WS] SS: 10
+[WS] =========================
+[WS] SAM DUE  setCsPin: 10
+[WS] =========================
+[WS] Currently Used SPI pinout:
+[WS] MOSI: 75
+[WS] MISO: 74
+[WS] SCK: 76
+[WS] SS: 10
+[WS] =========================
 WebSockets Server IP address: 192.168.2.95
 WebSockets Server Running and Ready on SAM DUE
 IP address: 192.168.2.95, Port: 8080
@@ -2010,7 +1948,8 @@ This is terminal debug output when running [STM32-Ethernet-Client_SINRIC_LAN8720
 ```
 Starting STM32-Ethernet-Client_SINRIC_LAN8720 on BLACK_F407VE
 Ethernet using LAN8720 and STM32Ethernet Library
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
+[WS] =========== USE_LAN8720_ETHERNET ===========
 WebSockets Client IP address: 192.168.2.160
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
@@ -2053,7 +1992,7 @@ This is terminal debug output when running [ESP32-Client_SINRIC](examples/ESP32/
 
 ```
 Starting ESP32-Client_SINRIC on ESP32S2_DEV
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ....Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2097,7 +2036,7 @@ This is terminal debug output when running [Secured-ESP32-Client](examples/ESP32
 
 ```
 Starting WebSockets Secured-ESP32-Client on ESP32S2_DEV
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ....
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2157,7 +2096,7 @@ This is terminal debug output when running [InSecured-ESP32-Client](examples/ESP
 
 ```
 Starting WebSockets InSecured-ESP32-Client on ESP32_DEV
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ...
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2218,7 +2157,7 @@ This is terminal debug output when running [ESP8266-Client_SINRIC](examples/ESP3
 
 ```
 Starting ESP8266-Client_SINRIC on ESP8266_NODEMCU_ESP12E
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ......Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2259,11 +2198,23 @@ This is terminal debug output when running [RP2040-Ethernet-Client_SINRIC](examp
 
 ```
 Starting RP2040-Ethernet-Client_SINRIC on RASPBERRY_PI_PICO
-Ethernet using W5x00 and EthernetLarge Library
-WebSockets2_Generic v1.10.2
-_pinCS = 0
-W5100 init, using SS_PIN_DEFAULT = 10, new ss_pin = 10, W5100Class::ss_pin = 17
-W5100::init: W5500, SSIZE =8192
+Ethernet using W5x00 and Ethernet_Generic Library
+WebSockets2_Generic v1.10.3
+[WS] =========== USE_ETHERNET_GENERIC ===========
+[WS] Default SPI pinout:
+[WS] MOSI: 19
+[WS] MISO: 16
+[WS] SCK: 18
+[WS] SS: 17
+[WS] =========================
+[WS] RASPBERRY_PI_PICO setCsPin: 17
+[WS] =========================
+[WS] Currently Used SPI pinout:
+[WS] MOSI: 19
+[WS] MISO: 16
+[WS] SCK: 18
+[WS] SS: 17
+[WS] =========================
 WebSockets Client IP address: 192.168.2.152
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::connect: step 1
@@ -2317,11 +2268,23 @@ This is terminal debug output when running [RP2040-Ethernet-Client_SINRIC](examp
 
 ```
 Starting RP2040-Ethernet-Client_SINRIC on RaspberryPi Pico
-Ethernet using W5x00 and EthernetLarge Library
-WebSockets2_Generic v1.10.2
-_pinCS = 0
-W5100 init, using SS_PIN_DEFAULT = 5, new ss_pin = 10, W5100Class::ss_pin = 5
-W5100::init: W5500, SSIZE =8192
+Ethernet using W5x00 and Ethernet_Generic Library
+WebSockets2_Generic v1.10.3
+[WS] =========== USE_ETHERNET_GENERIC ===========
+[WS] Default SPI pinout:
+[WS] MOSI: 19
+[WS] MISO: 16
+[WS] SCK: 18
+[WS] SS: 17
+[WS] =========================
+[WS] MBED RASPBERRY_PI_PICO setCsPin: 17
+[WS] =========================
+[WS] Currently Used SPI pinout:
+[WS] MOSI: 19
+[WS] MISO: 16
+[WS] SCK: 18
+[WS] SS: 17
+[WS] =========================
 WebSockets Client IP address: 192.168.2.152
 Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::connect: step 1
@@ -2376,7 +2339,7 @@ This is terminal debug output when running [WT32_ETH01_Client_SINRIC](examples/W
 ```
 Starting WT32_ETH01_Client_SINRIC on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.232, FULL_DUPLEX, 100Mbps
 Connected. Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
@@ -2422,7 +2385,7 @@ This is terminal debug output when running [WT32_ETH01_SecuredClient](examples/W
 ```
 Starting WT32_ETH01_SecuredClient on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.232, FULL_DUPLEX, 100Mbps
 Connected. Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2481,7 +2444,7 @@ This is terminal debug output when running [WT32_ETH01_AdvancedWebServer](exampl
 ```
 Starting WT32_ETH01_AdvancedWebServer on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.95, FULL_DUPLEX, 100Mbps
 MDNS responder started
 WebSockets Server Running and Ready on WT32-ETH01
@@ -2520,7 +2483,7 @@ This is terminal debug output and screenshot when running [SocketAndHttp_Teensy4
 
 ```
 Start SocketAndHttp_Teensy41_Server on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using DHCP => Connected! IP address:192.168.2.119
 Visit http://192.168.2.119 in the browser to connect.
@@ -2561,7 +2524,7 @@ This is terminal debug output when running [MultiClients_Teensy41_Server](exampl
 
 ```
 Starting MultiClients_Teensy41_Server on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using DHCP => Connected! IP address:192.168.2.119
 Server available at ws://192.168.2.119:81
@@ -2593,7 +2556,7 @@ Got Message: Hello to Server from ESP32
 
 ```
 Starting ESP32-RepeatingClient on ESP32_DEV
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 ....Connected to Wifi, Connecting to WebSockets Server @192.168.2.119
 [WS] WebsocketsClient::generateHandshake: base64Authorization = 
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2635,7 +2598,7 @@ This is terminal debug output when running [Portenta_H7_Ethernet_Server](example
 
 ```
 Starting Portenta_H7_Ethernet_Server on PORTENTA_H7_M7 Ethernet using Portenta_Ethernet Library
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 WebSockets Client @ IP address: 192.168.2.132
 Server available at ws://192.168.2.132:8080
 [WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.132
@@ -2671,7 +2634,7 @@ This is terminal debug output when running [Portenta_H7-Client_SINRIC](examples/
 
 ```
 Starting Portenta_H7-Client_SINRIC using WiFi on PORTENTA_H7_M7
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 Connecting to SSID: HueNet1
 Connected to Wifi, IP address: 192.168.2.130
 Connecting to WebSockets Server @iot.sinric.com
@@ -2719,7 +2682,7 @@ This is terminal debug output when running [Portenta_H7-Client_SINRIC](examples/
 
 ```
 Starting RP2040-AdvancedWebServer with WiFiNINA on MBED NANO_RP2040_CONNECT
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 Attempting to connect to SSID: HueNet1
 Connected to Wifi, IP address: 192.168.2.96
 WebSockets Server Running and Ready on MBED NANO_RP2040_CONNECT
@@ -2761,7 +2724,7 @@ This is terminal debug output when running [Teensy41_Client](examples/Generic/Te
 
 ```
 Starting Teensy41_Client on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.10.2
+WebSockets2_Generic v1.10.3
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using static IP => Connected! IP address:192.168.2.222
 [WS] WebsocketsClient::doestStartsWith: str = ws://192.168.2.30:8080
@@ -2922,6 +2885,10 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 31. Reduce QNEthernet latency
 32. Fix bug when using `QNEthernet` staticIP. 
 32. Add staticIP option to `NativeEthernet` examples
+33. Use new [**Ethernet_Generic** library](https://github.com/khoih-prog/Ethernet_Generic) as default for W5x00.
+34. Support **SPI2 for ESP32**
+35. Add support to SPI1 for RP2040 using [arduino-pico core](https://github.com/earlephilhower/arduino-pico)
+36. Use new `waitForLink()` function of QNEthernet
 
 ---
 ---

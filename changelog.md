@@ -44,6 +44,15 @@
 
 ## Changelog
 
+### Release v1.10.3
+
+1. Use new [Ethernet_Generic library](https://github.com/khoih-prog/Ethernet_Generic) as default for W5x00.
+2. Add support to SPI2 for ESP32
+3. Add support to SPI1 for RP2040 using [arduino-pico core](https://github.com/earlephilhower/arduino-pico)
+4. Rewrite all the examples to support new features
+5. Use new `waitForLink()` function of QNEthernet
+6. Update `Packages' Patches`
+
 ### Release v1.10.2
 
 1. Fix bug when using `QNEthernet` staticIP. Check [QNEthernet and NativeEthernet staticIP not working with WS Server #39](https://github.com/khoih-prog/WebSockets2_Generic/issues/39)

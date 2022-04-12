@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.10.2
+  Version: 1.10.3
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -19,7 +19,8 @@
   1.9.1   K Hoang      17/12/2021 Fix QNEthernet TCP interface
   1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
   1.10.1  K Hoang      26/02/2022 Reduce QNEthernet latency
-  1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet *****************************************************************************************************************************/
+  1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet
+  1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040/ESP32 *****************************************************************************************************************************/
  
 #pragma once
 
@@ -32,28 +33,33 @@
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-// KH, from v1.1.0
+/////////////////////////
+
 #if ( defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_NATIVE_ETHERNET )
   // Also default to Ethernet library
   #include <NativeEthernet.h>
+#elif (USE_ETHERNET_GENERIC_LIB || USE_ETHERNET_GENERIC)
+  #warning Using Ethernet_Generic Lib in RP2040_Ethernet_tcp.hpp
+  #include <Ethernet_Generic.h>
 #elif (USE_ETHERNET_LIB || USE_ETHERNET)
-  #warning Using Ethernet Lib in Teensy_Ethernet_W5x00_tcp.hpp
+  #warning Using Ethernet Lib in RP2040_Ethernet_tcp.hpp
   #include <Ethernet.h>
 #elif (USE_ETHERNET2_LIB || USE_ETHERNET2)
-  #warning Using Ethernet2 Lib in Teensy_Ethernet_W5x00_tcp.hpp
+  #warning Using Ethernet2 Lib in RP2040_Ethernet_tcp.hpp
   #include <Ethernet2.h>
 #elif (USE_ETHERNET_LARGE_LIB || USE_ETHERNET_LARGE)
-  #warning Using EthernetLarge Lib in Teensy_Ethernet_W5x00_tcp.hpp
+  #warning Using EthernetLarge Lib in RP2040_Ethernet_tcp.hpp
   #include <EthernetLarge.h>
 #elif (USE_ETHERNET_ENC_LIB || USE_ETHERNET_ENC)
-  #warning Using EthernetENC Lib in Teensy_Ethernet_W5x00_tcp.hpp
+  #warning Using EthernetENC Lib in RP2040_Ethernet_tcp.hpp
   #include <EthernetENC.h>  
 #else
-  // Default to Ethernet library
-  #warning Using default Ethernet Lib in Teensy_Ethernet_W5x00_tcp.hpp
-  #include <Ethernet.h>
+  // Default to Ethernet_Generic library
+  #warning Using default Ethernet_Generic Lib in RP2040_Ethernet_tcp.hpp
+  #include <Ethernet_Generic.h>
 #endif
-//////
+
+/////////////////////////
 
 namespace websockets2_generic
 {

@@ -9,7 +9,7 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.10.2
+  Version: 1.10.3
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -20,6 +20,7 @@
   1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
   1.10.1  K Hoang      26/02/2022 Reduce QNEthernet latency
   1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet
+  1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040/ESP32
  *****************************************************************************************************************************/
 
 #ifndef _WEBSOCKETS2_GENERIC_CLIENT_H
@@ -357,8 +358,8 @@ namespace websockets2_generic
       WSString value = header.substr(colonIndex + 2); // +2 (ignore space and ':')
       
       // KH
-      LOGDEBUG1("WebsocketsClient::generateHandshake: key =", internals2_generic::fromInternalString(key));
-      LOGDEBUG1("WebsocketsClient::generateHandshake: value =", internals2_generic::fromInternalString(value));
+      LOGINFO1("WebsocketsClient::generateHandshake: key =", internals2_generic::fromInternalString(key));
+      LOGINFO1("WebsocketsClient::generateHandshake: value =", internals2_generic::fromInternalString(value));
       ////// 
   
       if (isCaseInsensetiveEqual(key, HEADER_UPGRADE_LOWER_CASE))
@@ -458,17 +459,11 @@ namespace websockets2_generic
     
   #elif defined(ESP32)
 
-    if (this->_optional_ssl_ca_cert || this->_optional_ssl_ca_cert_bundle ||
-        this->_optional_ssl_client_ca || this->_optional_ssl_private_key)
+    if (this->_optional_ssl_ca_cert || this->_optional_ssl_client_ca || this->_optional_ssl_private_key)
     {
       if (this->_optional_ssl_ca_cert)
       {
         client->setCACert(this->_optional_ssl_ca_cert);
-      }
-
-      if (this->_optional_ssl_ca_cert_bundle)
-      {
-        client->setCACertBundle(this->_optional_ssl_ca_cert_bundle);
       }
 
       if (this->_optional_ssl_client_ca)
@@ -533,7 +528,7 @@ namespace websockets2_generic
       url = url.substr(6); //strlen("wss://") == 6
   
       // KH
-      LOGDEBUG("WebsocketsClient::connect: wss upgradeToSecuredConnection");
+      LOGINFO("WebsocketsClient::connect: wss upgradeToSecuredConnection");
       //////
       
       upgradeToSecuredConnection();
@@ -545,7 +540,7 @@ namespace websockets2_generic
       url = url.substr(8); //strlen("https://") == 8
       
       // KH
-      LOGDEBUG("WebsocketsClient::connect: https upgradeToSecuredConnection");
+      LOGINFO("WebsocketsClient::connect: https upgradeToSecuredConnection");
       //////
   
       upgradeToSecuredConnection();
@@ -605,7 +600,7 @@ namespace websockets2_generic
     if (!this->_connectionOpen)
     {
       // KH
-      LOGDEBUG3("WebsocketsClient::connect: not _connectionOpen, host =", host, ", port =", port);
+      LOGINFO3("WebsocketsClient::connect: not _connectionOpen, host =", host, ", port =", port);
       //////
     
       return false;
@@ -1125,13 +1120,6 @@ namespace websockets2_generic
   
   /////////////////////////////////////////////////////////
 
-  void WebsocketsClient::setCACertBundle(const uint8_t* ca_cert_bundle)
-  {
-    this->_optional_ssl_ca_cert_bundle = ca_cert_bundle;
-  }
-
-  /////////////////////////////////////////////////////////
-
   void WebsocketsClient::setCertificate(const char* client_ca)
   {
     this->_optional_ssl_client_ca = client_ca;
@@ -1149,7 +1137,6 @@ namespace websockets2_generic
   void WebsocketsClient::setInsecure()
   {
     this->_optional_ssl_ca_cert = nullptr;
-    this->_optional_ssl_ca_cert_bundle = nullptr;
     this->_optional_ssl_client_ca = nullptr;
     this->_optional_ssl_private_key = nullptr;
   }
