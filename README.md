@@ -77,7 +77,7 @@
     * [Reading WebSockets Client messages using non-blocking mode (new from v1.0.6)](#reading-websockets-client-messages-using-non-blocking-mode-new-from-v106)
 * [HOWTO use WiFiNINA module/shield with WiFiNINA_Generic library](#howto-use-wifinina-moduleshield-with-wifinina_generic-library)
 * [For SAMD21/SAMD51, nRF52, SAM DUE using Ethernet W5x0 or ENC28J60](#for-samd21samd51-nrf52-sam-due-using-ethernet-w5x0-or-enc28j60)
-* [For STM32F/L/H/G/WB/MP1 using Ethernet W5x0, ENC28J60, LAN8720 or LAN8742A](#for-stm32flhgwbmp1--using-ethernet-w5x0-enc28j60-lan8720-or-lan8742a)
+* [For STM32F/L/H/G/WB/MP1 using Ethernet W5x0, ENC28J60, LAN8720 or LAN8742A](#for-stm32flhgwbmp1--using-ethernet-w5x0-enc28j60-or-lan8742a)
 * [For Teensy 4.1, 4.0, 3.x using Ethernet W5x0, ENC28J60 or LAN8742A](#for-teensy-41-40-3x-using-ethernet-w5x0-enc28j60-or-lan8742a)
 * [For Teensy 4.1 using NativeEthernet](#for-teensy-41-using-nativeethernet)
 * [For Teensy 4.1 using QNEthernet](#for-teensy-41-using-qnethernet)
