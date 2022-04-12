@@ -1056,7 +1056,7 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 #define WEBSOCKETS_USE_ETHERNET           true
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
+// If more than one are true, the priority is USE_ETHERNET_GENERIC, USE_ETHERNET2, USE_ETHERNET_ENC, USE_UIP_ETHERNET
 #define USE_ETHERNET_GENERIC          true
 #define USE_ETHERNET_ENC              false
 #define USE_UIP_ETHERNET              false
@@ -1090,16 +1090,14 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 
 #### To use Ethernet W5x00 module/shield with Ethernetx library
 
-#### 1. To use Ethernet `W5x00` module/shield with one of the Ethernet libraries
+#### 1. To use Ethernet `W5x00` module/shield with Ethernet_Generic libraries
 
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
-#define USE_UIP_ETHERNET                  false
-#define USE_LAN8742A_ETHERNET             false
 ```
 
- - To use `W5x00` module/shield with `Ethernet` library
+ - To use `W5x00` module/shield with `Ethernet_Generic` library
 
 ```cpp
 #define WEBSOCKETS_USE_ETHERNET           true
@@ -1154,7 +1152,7 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 
 #define USE_LAN8742A_ETHERNET             false
 #define USING_LAN8720                     true
-#define USE_ETHERNET_GENERIC              true
+#define USE_ETHERNET_GENERIC              false
 #define USE_ETHERNET_ENC                  false
 #define USE_UIP_ETHERNET                  false
 ```
@@ -1165,7 +1163,7 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 #define WEBSOCKETS_USE_ETHERNET           true
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
+// If more than one are true, the priority is USE_LAN8742A_ETHERNET, USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
 #define USING_LAN8720                 true
 #define USE_LAN8742A_ETHERNET         false
 #define USE_ETHERNET_GENERIC          false
@@ -1221,7 +1219,6 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 #define WEBSOCKETS_USE_ETHERNET           true
 
 #define USE_ETHERNET_GENERIC              true
-#define USE_ETHERNET_LARGE                false
 #define USE_ETHERNET_ENC                  false
 #define USE_UIP_ETHERNET                  false
 #define USE_NATIVE_ETHERNET               false
@@ -1233,7 +1230,6 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 #define WEBSOCKETS_USE_ETHERNET           true
 
 #define USE_ETHERNET_GENERIC              false
-#define USE_ETHERNET_LARGE                false
 #define USE_ETHERNET_ENC                  false
 #define USE_UIP_ETHERNET                  true
 #define USE_NATIVE_ETHERNET               false
@@ -1245,7 +1241,6 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 #define WEBSOCKETS_USE_ETHERNET           true
 
 #define USE_ETHERNET_GENERIC              false
-#define USE_ETHERNET_LARGE                false
 #define USE_ETHERNET_ENC                  true
 #define USE_UIP_ETHERNET                  false
 #define USE_NATIVE_ETHERNET               false
@@ -1257,7 +1252,6 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 #define WEBSOCKETS_USE_ETHERNET           true
 
 #define USE_ETHERNET_GENERIC              false
-#define USE_ETHERNET_LARGE                false
 #define USE_ETHERNET_ENC                  false
 #define USE_UIP_ETHERNET                  false
 #define USE_NATIVE_ETHERNET               true
@@ -1269,9 +1263,8 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 #define WEBSOCKETS_USE_ETHERNET           true
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
+// If more than one are true, the priority is USE_NATIVE_ETHERNET, USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
 #define USE_ETHERNET_GENERIC          true
-#define USE_ETHERNET_LARGE            false
 #define USE_ETHERNET_ENC              false
 #define USE_UIP_ETHERNET              false
 #define USE_NATIVE_ETHERNET           false
