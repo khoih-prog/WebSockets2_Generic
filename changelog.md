@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Release v1.10.3](#release-v1103)
   * [Release v1.10.2](#release-v1102)
   * [Release v1.10.1](#release-v1101)
   * [Major Release v1.10.0](#major-release-v1100)
