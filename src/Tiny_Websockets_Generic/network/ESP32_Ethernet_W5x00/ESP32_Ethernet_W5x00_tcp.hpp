@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  Teensy_UIPEthernet_tcp.hpp
-  For Teensy boards with UIPEthernet ENC28J60 module/shield.
+  RP2040_Ethernet_tcp.hpp
+  For RP2040 boards with Ethernet W5x00 module/shield.
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy, RP2040 boards besides ESP8266 and ESP32
@@ -22,33 +22,41 @@
   1.10.1  K Hoang      26/02/2022 Reduce QNEthernet latency
   1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet
   1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040
-  1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
- *****************************************************************************************************************************/
+  1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet *****************************************************************************************************************************/
  
 #pragma once
 
-#if ( defined(CORE_TEENSY) || defined(__IMXRT1062__) || defined(ARDUINO_TEENSY41) || defined(ARDUINO_TEENSY40) || \
-      defined(__MK66FX1M0__) || defined(__MK64FX512__) || defined(__MKL26Z64__) || defined(__MK20DX256__) || \
-      defined(__MK20DX128__) )
-      
+#if ( defined(ESP32) )
 
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-// KH, from v1.0.2
-#if USE_UIP_ETHERNET
-  #warning Using UIPEthernet Lib in nRF52_UIPEthernet_tcp.hpp
-  #include <UIPEthernet.h>
-  #include <utility/logging.h> 
+/////////////////////////
+
+#if (USE_ETHERNET_GENERIC_LIB || USE_ETHERNET_GENERIC)
+  #warning Using Ethernet_Generic Lib in ESP32_Ethernet_tcp.hpp
+  #include <Ethernet_Generic.h>
+#elif (USE_ETHERNET_LIB || USE_ETHERNET)
+  #warning Using Ethernet Lib in ESP32_Ethernet_tcp.hpp
+  #include <Ethernet.h>
+#elif (USE_ETHERNET2_LIB || USE_ETHERNET2)
+  #warning Using Ethernet2 Lib in ESP32_Ethernet_tcp.hpp
+  #include <Ethernet2.h>
+#elif (USE_ETHERNET_LARGE_LIB || USE_ETHERNET_LARGE)
+  #warning Using EthernetLarge Lib in ESP32_Ethernet_tcp.hpp
+  #include <EthernetLarge.h>
+#elif (USE_ETHERNET_ENC_LIB || USE_ETHERNET_ENC)
+  #warning Using EthernetENC Lib in ESP32_Ethernet_tcp.hpp
+  #include <EthernetENC.h>  
 #else
-  // Default to UIPEthernet library
-  #warning default UIPEthernet Lib in nRF52_UIPEthernet_tcp.hpp
-  #include <UIPEthernet.h>
-  #include <utility/logging.h> 
+  // Default to Ethernet_Generic library
+  #warning Using default Ethernet_Generic Lib in ESP32_Ethernet_tcp.hpp
+  #include <Ethernet_Generic.h>
 #endif
-//////
+
+/////////////////////////
 
 namespace websockets2_generic
 {
@@ -181,4 +189,4 @@ namespace websockets2_generic
     };
   }   // namespace network2_generic
 }     // namespace websockets2_generic
-#endif // #ifdef Teensy
+#endif // defined(ESP32)

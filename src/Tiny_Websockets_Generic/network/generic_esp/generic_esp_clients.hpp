@@ -9,7 +9,8 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.10.3
+  
+  Version: 1.11.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -20,7 +21,8 @@
   1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
   1.10.1  K Hoang      26/02/2022 Reduce QNEthernet latency
   1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet
-  1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040/ESP32
+  1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040
+  1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
  *****************************************************************************************************************************/
  
 #pragma once
@@ -38,8 +40,9 @@ namespace websockets2_generic
       public:
         GenericEspTcpClient(WifiClientImpl c) : client(c) 
         {
-        
-#if ( defined(ESP32)  || defined(ESP8266) )   
+ 
+// KH mod for ESP32 Ethernet        
+#if ( ( defined(ESP32) || defined(ESP8266) ) && !WEBSOCKETS_USE_ETHERNET )
           client.setNoDelay(true);
 #endif          
         }
@@ -51,7 +54,8 @@ namespace websockets2_generic
           yield();
           auto didConnect = client.connect(host.c_str(), port);
           
-#if ( defined(ESP32)  || defined(ESP8266) )           
+// KH mod for ESP32 Ethernet        
+#if ( ( defined(ESP32) || defined(ESP8266) ) && !WEBSOCKETS_USE_ETHERNET )         
           client.setNoDelay(true);
 #endif
           

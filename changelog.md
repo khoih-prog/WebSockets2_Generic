@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Release v1.11.0](#release-v1110)
   * [Release v1.10.3](#release-v1103)
   * [Release v1.10.2](#release-v1102)
   * [Release v1.10.1](#release-v1101)
@@ -44,6 +45,11 @@
 ---
 
 ## Changelog
+
+### Release v1.11.0
+
+1. Add support to `ESP32` using `W5x00` Ethernet
+2. Update `Packages' Patches`
 
 ### Release v1.10.3
 

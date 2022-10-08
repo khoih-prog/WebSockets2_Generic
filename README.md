@@ -97,11 +97,12 @@
   * [For Teensy boards using Ethernet (W5x00, ENC28J60 or LAN8742A). New in v1.1.0](#for-teensy-boards-using-ethernet-w5x00-enc28j60-or-lan8742a-new-in-v110)
   * [For Teensy 4.1 boards using NativeEthernet (KSZ8081MNX/KSZ8081RNB). New in v1.1.0](#for-teensy-41-boards-using-nativeethernet-ksz8081mnxksz8081rnb-new-in-v110)
   * [For RP2040 boards using Ethernet (W5x00 or ENC28J60)](#for-rp2040-boards-using-ethernet-w5x00-or-enc28j60).
-  * [For WT32_ETH01 boards](#for-wt32_eth01-boards). **New**
-  * [For Teensy 4.1 boards using QNEthernet (KSZ8081MNX/KSZ8081RNB). New in v1.6.0](#for-teensy-41-boards-using-qnethernet-ksz8081mnxksz8081rnb-new-in-v160) **New**
-  * [For Portenta_H7 boards using Vision-shield Ethernet. New in v1.7.0](#for-portenta_h7-boards-using-vision-shield-ethernet-new-in-v170) **New**
-  * [For Portenta_H7 boards using Murata WiFi. New in v1.7.0](#for-portenta_h7-boards-using-murata-wifi-new-in-v170) **New**
-  * [For RP2040 boards using WiFiNINA. New in v1.8.0](#for-rp2040-boards-using-wifinina-new-in-v180) **New**
+  * [For WT32_ETH01 boards](#for-wt32_eth01-boards)
+  * [For Teensy 4.1 boards using QNEthernet (KSZ8081MNX/KSZ8081RNB). New in v1.6.0](#for-teensy-41-boards-using-qnethernet-ksz8081mnxksz8081rnb-new-in-v160)
+  * [For Portenta_H7 boards using Vision-shield Ethernet. New in v1.7.0](#for-portenta_h7-boards-using-vision-shield-ethernet-new-in-v170)
+  * [For Portenta_H7 boards using Murata WiFi. New in v1.7.0](#for-portenta_h7-boards-using-murata-wifi-new-in-v170)
+  * [For RP2040 boards using WiFiNINA. New in v1.8.0](#for-rp2040-boards-using-wifinina-new-in-v180)
+  * [For ESP32 boards using W5x00 Ethernet. New in v1.11.0](#for-ESP32-boards-using-W5x00-Ethernet-new-in-v1110) **New** 
 * [Example SAMD-Client_SINRIC](#example-samd-client_sinric)
   * [1. File SAMD-Client_SINRIC.ino](#1-file-samd-client_sinricino)
   * [2. File defines.h](#2-file-definesh)
@@ -180,7 +181,7 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
   - Generic Flight Controllers
   - Midatronics boards
 
- 7. **ESP32**
+ 7. **ESP32, using either WiFi or W5x00 Ethernet**
  8. **ESP8266**
  
  9. RP2040-based boards, such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, using [**Arduino-mbed RP2040** core](https://github.com/arduino/ArduinoCore-mbed) or [**Earle Philhower's arduino-pico** core](https://github.com/earlephilhower/arduino-pico).
@@ -226,31 +227,31 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
 
  1. [`Arduino IDE 1.8.19+` for Arduino](https://www.arduino.cc/en/Main/Software). [![GitHub release](https://img.shields.io/github/release/arduino/Arduino.svg)](https://github.com/arduino/Arduino/releases/latest)
  2. [`Arduino AVR core 1.8.5+`](https://github.com/arduino/ArduinoCore-avr) for Arduino (Use Arduino Board Manager) AVR boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-avr.svg)](https://github.com/arduino/ArduinoCore-avr/releases/latest)
- 3. [`Teensy core v1.56+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards.
+ 3. [`Teensy core v1.57+`](https://www.pjrc.com/teensy/td_download.html) for Teensy (4.1, 4.0, 3.6, 3.5, 3,2, 3.1, 3.0) boards.
  4. [`Arduino SAM DUE core v1.6.12+`](https://github.com/arduino/ArduinoCore-sam) for SAM DUE ARM Cortex-M3 boards.
  5. [`Arduino SAMD core 1.8.13+`](https://github.com/arduino/ArduinoCore-samd) for SAMD ARM Cortex-M0+ boards. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-samd.svg)](https://github.com/arduino/ArduinoCore-samd/releases/latest)
  6. [`Adafruit SAMD core 1.7.10+`](https://github.com/adafruit/ArduinoCore-samd) for SAMD ARM Cortex-M0+ and M4 boards (Nano 33 IoT, etc.). [![GitHub release](https://img.shields.io/github/release/adafruit/ArduinoCore-samd.svg)](https://github.com/adafruit/ArduinoCore-samd/releases/latest)
- 7. [`Seeeduino SAMD core 1.8.2+`](https://github.com/Seeed-Studio/ArduinoCore-samd) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). [![Latest release](https://img.shields.io/github/release/Seeed-Studio/ArduinoCore-samd.svg)](https://github.com/Seeed-Studio/ArduinoCore-samd/releases/latest/)
+ 7. [`Seeeduino SAMD core 1.8.3+`](https://github.com/Seeed-Studio/ArduinoCore-samd) for SAMD21/SAMD51 boards (XIAO M0, Wio Terminal, etc.). [![Latest release](https://img.shields.io/github/release/Seeed-Studio/ArduinoCore-samd.svg)](https://github.com/Seeed-Studio/ArduinoCore-samd/releases/latest/)
  8. [`Adafruit nRF52 v1.3.0+`](https://github.com/adafruit/Adafruit_nRF52_Arduino) for nRF52 boards such as Adafruit NRF52840_FEATHER, NRF52832_FEATHER, NRF52840_FEATHER_SENSE, NRF52840_ITSYBITSY, NRF52840_CIRCUITPLAY, NRF52840_CLUE, NRF52840_METRO, NRF52840_PCA10056, PARTICLE_XENON, **NINA_B302_ublox**, etc. [![GitHub release](https://img.shields.io/github/release/adafruit/Adafruit_nRF52_Arduino.svg)](https://github.com/adafruit/Adafruit_nRF52_Arduino/releases/latest)
- 9. [`ESP32 Core 2.0.2+`](https://github.com/espressif/arduino-esp32) for ESP32-based boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
+ 9. [`ESP32 Core 2.0.5+`](https://github.com/espressif/arduino-esp32) for ESP32-based boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
 10. [`ESP8266 Core 3.0.2+`](https://github.com/esp8266/Arduino) for ESP8266-based boards. [![Latest release](https://img.shields.io/github/release/esp8266/Arduino.svg)](https://github.com/esp8266/Arduino/releases/latest/). To use ESP8266 core 2.7.1+ for LittleFS.
-11. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core v3.0.1+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
-12. [`Earle Philhower's arduino-pico core v1.13.1+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
-13. [`Arduino Core for STM32 v2.2.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest)
+11. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core v3.3.0+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
+12. [`Earle Philhower's arduino-pico core v2.6.0+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
+13. [`Arduino Core for STM32 v2.3.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest). Use STM32 core `v2.2.0` for LAN8720 or compile error.
 
-14. [`WiFiNINA_Generic library v1.8.14-3+`](https://github.com/khoih-prog/WiFiNINA_Generic) if for WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
-15. [`EthernetWebServer library v2.1.2+`](https://github.com/khoih-prog/EthernetWebServer) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer.svg?)](https://www.ardu-badge.com/EthernetWebServer)
-16. [`EthernetWebServer_STM32 library v1.4.0+`](https://github.com/khoih-prog/EthernetWebServer_STM32) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer_STM32.svg?)](https://www.ardu-badge.com/EthernetWebServer_STM32)
-17. [`WebServer_WT32_ETH01 library v1.4.1+`](https://github.com/khoih-prog/WebServer_WT32_ETH01) if necessary to use WT32_ETH01 boards. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WebServer_WT32_ETH01.svg?)](https://www.ardu-badge.com/WebServer_WT32_ETH01)
+14. [`WiFiNINA_Generic library v1.8.14-6+`](https://github.com/khoih-prog/WiFiNINA_Generic) if for WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
+15. [`EthernetWebServer library v2.2.3+`](https://github.com/khoih-prog/EthernetWebServer) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer.svg?)](https://www.ardu-badge.com/EthernetWebServer)
+16. [`EthernetWebServer_STM32 library v1.5.0+`](https://github.com/khoih-prog/EthernetWebServer_STM32) if necessary to use Ethernet modules/shields. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/EthernetWebServer_STM32.svg?)](https://www.ardu-badge.com/EthernetWebServer_STM32)
+17. [`WebServer_WT32_ETH01 library v1.5.1+`](https://github.com/khoih-prog/WebServer_WT32_ETH01) if necessary to use WT32_ETH01 boards. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WebServer_WT32_ETH01.svg?)](https://www.ardu-badge.com/WebServer_WT32_ETH01)
 18. Depending on which Ethernet card you're using:
-   - [`Ethernet_Generic library v2.0.1+`](https://github.com/khoih-prog/Ethernet_Generic) for W5100, W5200 and W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip.  [![GitHub release](https://img.shields.io/github/release/khoih-prog/Ethernet_Generic.svg)](https://github.com/khoih-prog/Ethernet_Generic/releases/latest)
-   - [`EthernetENC library v2.0.2+`](https://github.com/jandrassy/EthernetENC) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/jandrassy/EthernetENC.svg)](https://github.com/jandrassy/EthernetENC/releases/latest). **New and Better**
-   - [`UIPEthernet library v2.0.11+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/UIPEthernet/UIPEthernet.svg)](https://github.com/UIPEthernet/UIPEthernet/releases/latest)
-   - [`STM32Ethernet library v1.2.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in LAN8742A Ethernet on (Nucleo-144, Discovery). [![GitHub release](https://img.shields.io/github/release/stm32duino/STM32Ethernet.svg)](https://github.com/stm32duino/STM32Ethernet/releases/latest). To be used with [`LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP). [![GitHub release](https://img.shields.io/github/release/stm32duino/LwIP.svg)](https://github.com/stm32duino/LwIP/releases/latest).
-   - [`NativeEthernet Library version stable111+`](https://github.com/vjmuzik/NativeEthernet) for Teensy 4.1 built-in Ethernet.
-   - [`QNEthernet Library version v0.14.0+`](https://github.com/ssilverman/QNEthernet) for Teensy 4.1 built-in Ethernet.
+   - [`Ethernet_Generic library v2.6.1+`](https://github.com/khoih-prog/Ethernet_Generic) for W5100, W5200 and W5500/WIZ550io/WIZ850io/USR-ES1 with Wiznet W5500 chip.  [![GitHub release](https://img.shields.io/github/release/khoih-prog/Ethernet_Generic.svg)](https://github.com/khoih-prog/Ethernet_Generic/releases/latest)
+   - [`EthernetENC library v2.0.3+`](https://github.com/jandrassy/EthernetENC) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/jandrassy/EthernetENC.svg)](https://github.com/jandrassy/EthernetENC/releases/latest). **New and Better**
+   - [`UIPEthernet library v2.0.12+`](https://github.com/UIPEthernet/UIPEthernet) for ENC28J60. [![GitHub release](https://img.shields.io/github/release/UIPEthernet/UIPEthernet.svg)](https://github.com/UIPEthernet/UIPEthernet/releases/latest)
+   - [`STM32Ethernet library v1.3.0+`](https://github.com/stm32duino/STM32Ethernet) for built-in LAN8742A Ethernet on (Nucleo-144, Discovery). [![GitHub release](https://img.shields.io/github/release/stm32duino/STM32Ethernet.svg)](https://github.com/stm32duino/STM32Ethernet/releases/latest). To be used with [`LwIP library v2.1.2+`](https://github.com/stm32duino/LwIP). [![GitHub release](https://img.shields.io/github/release/stm32duino/LwIP.svg)](https://github.com/stm32duino/LwIP/releases/latest).
+   - [`NativeEthernet Library version stable111+`](https://github.com/vjmuzik/NativeEthernet) for Teensy 4.1 built-in Ethernet. **Not suggested**
+   - [`QNEthernet Library version v0.15.0+`](https://github.com/ssilverman/QNEthernet) for Teensy 4.1 built-in Ethernet. **Suggested**
    
-19. [`WiFiWebServer library v1.7.0+`](https://github.com/khoih-prog/WiFiWebServer) if necessary to use certain WiFi/WiFiNINA features. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiWebServer.svg?)](https://www.ardu-badge.com/WiFiWebServer)
+19. [`WiFiWebServer library v1.9.5+`](https://github.com/khoih-prog/WiFiWebServer) if necessary to use certain WiFi/WiFiNINA features. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiWebServer.svg?)](https://www.ardu-badge.com/WiFiWebServer)
 20. [`FlashStorage_SAMD library v1.3.2+`](https://github.com/khoih-prog/FlashStorage_SAMD) for SAMD21 and SAMD51 boards (ZERO, MKR, NANO_33_IOT, M0, M0 Pro, AdaFruit Itsy-Bitsy M4, etc.) if necessary to use certain features. [![GitHub release](https://img.shields.io/github/release/khoih-prog/FlashStorage_SAMD.svg)](https://github.com/khoih-prog/FlashStorage_SAMD/releases/latest)
 21. [`FlashStorage_STM32 library v1.2.0+`](https://github.com/khoih-prog/FlashStorage_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/khoih-prog/FlashStorage_STM32.svg)](https://github.com/khoih-prog/FlashStorage_STM32/releases/latest) if necessary to use certain features.
 22. [`DueFlashStorage library v1.0.0+`](https://github.com/sebnil/DueFlashStorage) for SAM DUE if necessary to use certain features. To install, check [![arduino-library-badge](https://www.ardu-badge.com/badge/DueFlashStorage.svg?)](https://www.ardu-badge.com/DueFlashStorage).
@@ -293,6 +294,7 @@ Another way to install is to:
 **To be able to compile, run and automatically detect and display BOARD_NAME on nRF52840/nRF52832 boards**, you have to copy the whole [nRF52 Packages_Patches](Packages_Patches/adafruit/hardware/nrf52/1.3.0) directory into Adafruit nRF52 directory (~/.arduino15/packages/adafruit/hardware/nrf52/1.3.0). 
 
 Supposing the Adafruit nRF52 version is 1.3.0. These files must be copied into the directory:
+
 - `~/.arduino15/packages/adafruit/hardware/nrf52/1.3.0/platform.txt`
 - `~/.arduino15/packages/adafruit/hardware/nrf52/1.3.0/boards.txt`
 - `~/.arduino15/packages/adafruit/hardware/nrf52/1.3.0/cores/nRF5/Udp.h`
@@ -391,13 +393,13 @@ Whenever the above-mentioned compiler error issue is fixed with the new Arduino 
 
 #### 5. For Adafruit SAMD boards
  
- ***To be able to compile, run and automatically detect and display BOARD_NAME on Adafruit SAMD (Itsy-Bitsy M4, etc) boards***, you have to copy the whole [Adafruit SAMD Packages_Patches](Packages_Patches/adafruit/hardware/samd/1.7.9) directory into Adafruit samd directory (~/.arduino15/packages/adafruit/hardware/samd/1.7.9). 
+ ***To be able to compile, run and automatically detect and display BOARD_NAME on Adafruit SAMD (Itsy-Bitsy M4, etc) boards***, you have to copy the whole [Adafruit SAMD Packages_Patches](Packages_Patches/adafruit/hardware/samd/1.7.10) directory into Adafruit samd directory (~/.arduino15/packages/adafruit/hardware/samd/1.7.10). 
 
-Supposing the Adafruit SAMD core version is 1.7.9. This file must be copied into the directory:
+Supposing the Adafruit SAMD core version is 1.7.10. This file must be copied into the directory:
 
-- `~/.arduino15/packages/adafruit/hardware/samd/1.7.9/platform.txt`
-- `~/.arduino15/packages/adafruit/hardware/samd/1.7.9/cores/arduino/Print.h`
-- `~/.arduino15/packages/adafruit/hardware/samd/1.7.9/cores/arduino/Print.cpp`
+- `~/.arduino15/packages/adafruit/hardware/samd/1.7.10/platform.txt`
+- `~/.arduino15/packages/adafruit/hardware/samd/1.7.10/cores/arduino/Print.h`
+- `~/.arduino15/packages/adafruit/hardware/samd/1.7.10/cores/arduino/Print.cpp`
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
 This file must be copied into the directory:
@@ -408,14 +410,14 @@ This file must be copied into the directory:
 
 #### 6. For Seeeduino SAMD boards
  
- ***To be able to compile, run and automatically detect and display BOARD_NAME on Seeeduino SAMD (XIAO M0, Wio Terminal, etc) boards***, you have to copy the whole [Seeeduino SAMD Packages_Patches](Packages_Patches/Seeeduino/hardware/samd/1.8.2) directory into Seeeduino samd directory (~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2). 
+ ***To be able to compile, run and automatically detect and display BOARD_NAME on Seeeduino SAMD (XIAO M0, Wio Terminal, etc) boards***, you have to copy the whole [Seeeduino SAMD Packages_Patches](Packages_Patches/Seeeduino/hardware/samd/1.8.3) directory into Seeeduino samd directory (~/.arduino15/packages/Seeeduino/hardware/samd/1.8.3). 
 
-Supposing the Seeeduino SAMD core version is 1.8.2. This file must be copied into the directory:
+Supposing the Seeeduino SAMD core version is 1.8.3. This file must be copied into the directory:
 
-- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2/platform.txt`
-- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2/cores/arduino/Arduino.h`
-- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2/cores/arduino/Print.h`
-- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.2/cores/arduino/Print.cpp`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.3/platform.txt`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.3/cores/arduino/Arduino.h`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.3/cores/arduino/Print.h`
+- `~/.arduino15/packages/Seeeduino/hardware/samd/1.8.3/cores/arduino/Print.cpp`
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
 This file must be copied into the directory:
@@ -435,12 +437,12 @@ To use LAN8720 on some STM32 boards
 - **Discovery (DISCO_F746NG)**
 - **STM32F4 boards (BLACK_F407VE, BLACK_F407VG, BLACK_F407ZE, BLACK_F407ZG, BLACK_F407VE_Mini, DIYMORE_F407VGT, FK407M1)**
 
-you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.2.0/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.2.0/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system) to overwrite the old files.
+you have to copy the files [stm32f4xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.3.0/system/STM32F4xx) and [stm32f7xx_hal_conf_default.h](Packages_Patches/STM32/hardware/stm32/2.3.0/system/STM32F7xx) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.3.0/system) to overwrite the old files.
 
-Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into the directory:
+Supposing the STM32 stm32 core version is 2.3.0. These files must be copied into the directory:
 
-- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system/STM32F4xx/stm32f4xx_hal_conf_default.h` for STM32F4.
-- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.3.0/system/STM32F4xx/stm32f4xx_hal_conf_default.h` for STM32F4.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.3.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
 theses files must be copied into the corresponding directory:
@@ -451,12 +453,12 @@ theses files must be copied into the corresponding directory:
 
 #### 7.2 For STM32 boards to use Serial1
 
-**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/2.2.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.2.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
+**To use Serial1 on some STM32 boards without Serial1 definition (Nucleo-144 NUCLEO_F767ZI, Nucleo-64 NUCLEO_L053R8, etc.) boards**, you have to copy the files [STM32 variant.h](Packages_Patches/STM32/hardware/stm32/2.3.0) into STM32 stm32 directory (~/.arduino15/packages/STM32/hardware/stm32/2.3.0). You have to modify the files corresponding to your boards, this is just an illustration how to do.
 
-Supposing the STM32 stm32 core version is 2.2.0. These files must be copied into the directory:
+Supposing the STM32 stm32 core version is 2.3.0. These files must be copied into the directory:
 
-- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
-- `~/.arduino15/packages/STM32/hardware/stm32/2.2.0/variants/STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.3.0/variants/STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT/NUCLEO_F767ZI/variant.h` for Nucleo-144 NUCLEO_F767ZI.
+- `~/.arduino15/packages/STM32/hardware/stm32/2.3.0/variants/STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
 theses files must be copied into the corresponding directory:
@@ -499,12 +501,12 @@ With core after v1.5.0, this step is not necessary anymore thanks to the PR [Add
 
 #### 9. For Portenta_H7 boards using Arduino IDE in Linux
 
-  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh). 
+  **To be able to upload firmware to Portenta_H7 using Arduino IDE in Linux (Ubuntu, etc.)**, you have to copy the file [portenta_post_install.sh](Packages_Patches/arduino/hardware/mbed_portenta/3.3.0/portenta_post_install.sh) into mbed_portenta directory (~/.arduino15/packages/arduino/hardware/mbed_portenta/3.3.0/portenta_post_install.sh). 
   
   Then run the following command using `sudo`
   
 ```
-$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0
+$ cd ~/.arduino15/packages/arduino/hardware/mbed_portenta/3.3.0
 $ chmod 755 portenta_post_install.sh
 $ sudo ./portenta_post_install.sh
 ```
@@ -517,9 +519,9 @@ This will create the file `/etc/udev/rules.d/49-portenta_h7.rules` as follows:
 SUBSYSTEMS=="usb", ATTRS{idVendor}=="2341", ATTRS{idProduct}=="035b", GROUP="plugdev", MODE="0666"
 ```
 
-Supposing the ArduinoCore-mbed core version is 3.0.0. Now only one file must be copied into the directory:
+Supposing the ArduinoCore-mbed core version is 3.3.0. Now only one file must be copied into the directory:
 
-- `~/.arduino15/packages/arduino/hardware/mbed_portenta/3.0.0/portenta_post_install.sh`
+- `~/.arduino15/packages/arduino/hardware/mbed_portenta/3.3.0/portenta_post_install.sh`
 
 Whenever a new version is installed, remember to copy this files into the new version directory. For example, new version is x.yy.zz
 
@@ -530,11 +532,11 @@ This file must be copied into the directory:
 
 #### 10. For RTL8720DN boards using AmebaD core
  
- To avoid compile error relating to PROGMEM, you have to copy the file [Realtek AmebaD core pgmspace.h](Packages_Patches/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h) into Realtek AmebaD directory (~/.arduino15/packages/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h). 
+ To avoid compile error relating to PROGMEM, you have to copy the file [Realtek AmebaD core pgmspace.h](Packages_Patches/realtek/hardware/AmebaD/3.1.4/cores/arduino/avr/pgmspace.h) into Realtek AmebaD directory (~/.arduino15/packages/realtek/hardware/AmebaD/3.1.4/cores/arduino/avr/pgmspace.h). 
 
-Supposing the Realtek AmebaD core version is 3.1.2. This file must be copied into the directory:
+Supposing the Realtek AmebaD core version is 3.1.4. This file must be copied into the directory:
 
-- `~/.arduino15/packages/realtek/hardware/AmebaD/3.1.2/cores/arduino/avr/pgmspace.h`
+- `~/.arduino15/packages/realtek/hardware/AmebaD/3.1.4/cores/arduino/avr/pgmspace.h`
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
 This file must be copied into the directory:
@@ -544,11 +546,11 @@ This file must be copied into the directory:
 
 #### 11. For SAMD21 and SAMD51 boards using ArduinoCore-fab-sam core
  
- To avoid compile error relating to SAMD21/SAMD51, you have to copy the file [ArduinoCore-fab-sam core pgmspace.h](Packages_Patches/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt) into `ArduinoCore-fab-sam` samd directory (~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt). 
+ To avoid compile error relating to SAMD21/SAMD51, you have to copy the file [ArduinoCore-fab-sam core pgmspace.h](Packages_Patches/Fab_SAM_Arduino/hardware/samd/1.7.0/boards.txt) into `ArduinoCore-fab-sam` samd directory (~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/1.7.0/boards.txt). 
 
-Supposing the `ArduinoCore-fab-sam` samd core version is 1.6.18-alpha2. This file must be copied into the directory:
+Supposing the `ArduinoCore-fab-sam` samd core version is 1.7.0. This file must be copied into the directory:
 
-- `~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/1.6.18-alpha2/boards.txt`
+- `~/.arduino15/packages/Fab_SAM_Arduino/hardware/samd/1.7.0/boards.txt`
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz
 This file must be copied into the directory:
@@ -643,7 +645,7 @@ To fix [`ESP32 compile error`](https://github.com/espressif/arduino-esp32), just
 
 To fix `ESP8266 compile error` such as
 
-```
+```cpp
 error: 'class EthernetClass' has no member named 'init'
 Ethernet.init (USE_THIS_SS_PIN);
 ```
@@ -665,13 +667,13 @@ In Platform IO, to fix the error when using [`LittleFS_esp32 v1.0`](https://gith
 
 from
 
-```
+```cpp
 //#define CONFIG_LITTLEFS_FOR_IDF_3_2   /* For old IDF - like in release 1.0.4 */
 ```
 
 to
 
-```
+```cpp
 #define CONFIG_LITTLEFS_FOR_IDF_3_2   /* For old IDF - like in release 1.0.4 */
 ```
 
@@ -690,22 +692,22 @@ Please have a look at [**ESP_WiFiManager Issue 39: Not able to read analog port 
 
 #### 2. ESP32 ADCs functions
 
-- ADC1 controls ADC function for pins **GPIO32-GPIO39**
-- ADC2 controls ADC function for pins **GPIO0, 2, 4, 12-15, 25-27**
+- `ADC1` controls ADC function for pins **GPIO32-GPIO39**
+- `ADC2` controls ADC function for pins **GPIO0, 2, 4, 12-15, 25-27**
 
 #### 3.. ESP32 WiFi uses ADC2 for WiFi functions
 
 Look in file [**adc_common.c**](https://github.com/espressif/esp-idf/blob/master/components/driver/adc_common.c#L61)
 
-> In ADC2, there're two locks used for different cases:
+> In `ADC2`, there're two locks used for different cases:
 > 1. lock shared with app and Wi-Fi:
 >    ESP32:
->         When Wi-Fi using the ADC2, we assume it will never stop, so app checks the lock and returns immediately if failed.
+>         When Wi-Fi using the `ADC2`, we assume it will never stop, so app checks the lock and returns immediately if failed.
 >    ESP32S2:
->         The controller's control over the ADC is determined by the arbiter. There is no need to control by lock.
+>         The controller's control over the `ADC` is determined by the arbiter. There is no need to control by lock.
 > 
 > 2. lock shared between tasks:
->    when several tasks sharing the ADC2, we want to guarantee
+>    when several tasks sharing the `ADC2`, we want to guarantee
 >    all the requests will be handled.
 >    Since conversions are short (about 31us), app returns the lock very soon,
 >    we use a spinlock to stand there waiting to do conversions one by one.
@@ -713,10 +715,10 @@ Look in file [**adc_common.c**](https://github.com/espressif/esp-idf/blob/master
 > adc2_spinlock should be acquired first, then adc2_wifi_lock or rtc_spinlock.
 
 
-- In order to use ADC2 for other functions, we have to **acquire complicated firmware locks and very difficult to do**
-- So, it's not advisable to use ADC2 with WiFi/BlueTooth (BT/BLE).
-- Use ADC1, and pins GPIO32-GPIO39
-- If somehow it's a must to use those pins serviced by ADC2 (**GPIO0, 2, 4, 12, 13, 14, 15, 25, 26 and 27**), use the **fix mentioned at the end** of [**ESP_WiFiManager Issue 39: Not able to read analog port when using the autoconnect example**](https://github.com/khoih-prog/ESP_WiFiManager/issues/39) to work with ESP32 WiFi/BlueTooth (BT/BLE).
+- In order to use `ADC2` for other functions, we have to **acquire complicated firmware locks and very difficult to do**
+- So, it's not advisable to use `ADC2` with WiFi/BlueTooth (BT/BLE).
+- Use `ADC1`, and pins GPIO32-GPIO39
+- If somehow it's a must to use those pins serviced by `ADC2` (**GPIO0, 2, 4, 12, 13, 14, 15, 25, 26 and 27**), use the **fix mentioned at the end** of [**ESP_WiFiManager Issue 39: Not able to read analog port when using the autoconnect example**](https://github.com/khoih-prog/ESP_WiFiManager/issues/39) to work with ESP32 WiFi/BlueTooth (BT/BLE).
 
 ---
 ---
@@ -915,11 +917,10 @@ client.onMessage([&](WebsocketsMessage message)
 
 #### Reading WebSockets Client messages using non-blocking mode (new from v1.0.6):
 
-Using this new feature to enable doing other tasks in the loop(), such as WebServer, control tasks, etc.
-Server, using library version before v1.0.6, can only read Client messages in blocking mode. Therefore, the WebSocket Server can't hang, waiting for Client, and block all other tasks from running.
+Using this new feature to enable doing other tasks in the loop(), such as `WebServer`, control tasks, etc.
+Server, using library version before `v1.0.6`, can only read Client messages in blocking mode. Therefore, the WebSocket Server can't hang, waiting for Client, and block all other tasks from running.
 
 ```c++
-
   // You can do some other tasks here, such as WebServer, controlling tasks, etc.
   
   WebsocketsClient client = SocketsServer.accept();
@@ -940,15 +941,15 @@ Server, using library version before v1.0.6, can only read Client messages in bl
   }
 ```
 
-Please test using one of these following new examples with v1.0.6 and v1.0.5- to see the blocking effects. Please remember to change in loop() from
+Please test using one of these following new examples with `v1.0.6` and `v1.0.5-` to see the blocking effects. Please remember to change in loop() from
 
-```
+```cpp
 WebsocketsMessage msg = client.readNonBlocking();
 ```
 
 to
 
-```
+```cpp
 WebsocketsMessage msg = client.readBlocking();
 ```
 
@@ -989,7 +990,7 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
 
 ---
 
-###  For SAMD21/SAMD51, nRF52, SAM DUE using Ethernet W5x0 or ENC28J60
+###  For SAMD21/SAMD51, nRF52, SAM DUE, ESP32 using Ethernet W5x0 or ENC28J60
 
 #### To use Ethernet W5x00 module/shield with Ethernetx library
 
@@ -1072,7 +1073,6 @@ as **client.readNonBlocking() is a new function in v1.0.6+.**
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
-  #error ENC28J60 and UIPEthernet Library not yet supported for RP2040
 #else
   // Default to Ethernet_Generic library
   #include <Ethernet_Generic.h>
@@ -1517,6 +1517,18 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 6. [RP2040-Server](examples/Generic/Generic/WiFiNINA/RP2040/RP2040-Server)
 7. [RP2040_ServerAllFunctionsDemo](examples/Generic/WiFiNINA/RP2040/RP2040_ServerAllFunctionsDemo)
 
+
+#### For ESP32 boards using W5x00 Ethernet. New in v1.11.0
+
+1. [ESP32_Ethernet-Client](examples/Generic/Ethernet/ESP32/ESP32_Ethernet-Client)
+2. [ESP32_Ethernet-Minimal-Client](examples/Generic/Ethernet/ESP32/ESP32_Ethernet-Minimal-Client)
+3. [ESP32_Ethernet-Client_SINRIC](examples/Generic/Ethernet/ESP32/ESP32_Ethernet-Client_SINRIC)
+4. [ESP32_Ethernet-Server](examples/Generic/Ethernet/ESP32/ESP32_Ethernet-Server)
+5. [ESP32_Ethernet-RepeatingClient](examples/Generic/Ethernet/ESP32/ESP32_Ethernet-RepeatingClient)
+6. [ESP32_Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/ESP32/ESP32_Ethernet_ServerAllFunctionsDemo)
+7. [ESP32_Ethernet_AdvancedWebServer](examples/Generic/Ethernet/ESP32/ESP32_Ethernet_AdvancedWebServer).
+
+
 ---
 ---
 
@@ -1542,7 +1554,7 @@ This is the terminal output when running [SAMD-Client_SINRIC](examples/Generic/W
 
 ```
 Starting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on SAMD NANO_33_IOT
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 WiFi-begin: return1 = 3
 WiFi-begin: return2 = 3
 Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
@@ -1587,6 +1599,7 @@ See [issue #32](https://github.com/gilmaimon/ArduinoWebsockets/issues/32) for fu
 ### SSL and WSS Support
 
 No matter what board you are using, in order to use WSS (websockets over SSL) you need to use
+
 ```c++
 client.connect("wss://your-secured-server-ip:port/uri");
 ```
@@ -1602,6 +1615,7 @@ client.setInsecure();
 ```
 
 You can also use a `SSL Fingerprint` to validate the SSL connection, for example:
+
 ```c++
 // To update SHA1 fingerprint, use Google Chrome to connect to https://www.websocket.org/echo.html 
 // Then "View Site Information" => "Certificate Viewer" => Copy SHA1 fingerprint
@@ -1613,13 +1627,14 @@ client.setFingerprint(echo_org_ssl_fingerprint);
 ```
 
 or you could use the `setKnownKey()` method to specify the public key of a certificate in order to validate the server you are connecting to.
-```
+
+```cpp
 PublicKey *publicKey = new PublicKey(public_key);
 client.setKnownKey(publicKey);
 ```
 or you can specify the Certificate Authority (CA) using `setTrustAnchors` method, as follows:
 
-```
+```cpp
 X509List *serverTrustedCA = new X509List(ca_cert);
 client.setTrustAnchors(serverTrustedCA);
 ```
@@ -1682,7 +1697,7 @@ This is terminal debug output when running [SAMD-Ethernet-Client_SINRIC](example
 ```
 Starting WebSockets2_Generic SAMD-Ethernet-Client_SINRIC on SAMD ADAFRUIT_ITSYBITSY_M4_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ENC28J60_CONTROL_CS =16
 SS =16
 SPI_MOSI =25
@@ -1731,7 +1746,7 @@ This is terminal debug output when running [SAMDUE-Ethernet-Server](examples/Gen
 ```
 Starting WebSockets2_Generic SAMDUE-Ethernet-Server on SAM DUE
 Ethernet using W5x00 and Ethernet_Generic Library
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 [WS] =========== USE_ETHERNET_GENERIC ===========
 [WS] Default SPI pinout:
 [WS] MOSI: 75
@@ -1779,7 +1794,7 @@ This is terminal debug output when running [nRF52-Ethernet-Server](examples/Gene
 ```
 Starting WebSockets2_Generic nRF52-Ethernet-Server on NRF52840_ITSYBITSY_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ENC28J60_CONTROL_CS =10
 SS =5
 SPI_MOSI =24
@@ -1817,7 +1832,7 @@ This is terminal debug output when running [STM32-Ethernet-Client_SINRIC](exampl
 ```
 Starting WebSockets2_Generic STM32-Ethernet-Client_SINRIC on NUCLEO_F767ZI
 Ethernet using LAN8742A and STM32Ethernet Library
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 [WS] =========== USE_LAN8742A_ETHERNET ===========
 WebSockets Client IP address: 192.168.2.135
 Connecting to WebSockets Server @iot.sinric.com
@@ -1865,7 +1880,7 @@ This is the terminal debug output when running [SAMDUE-Ethernet_ServerAllFunctio
 
 ```
 Start Generic_WebSocketServerAllFunctionsDemo_W5500
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 [WS] =========== USE_ETHERNET_GENERIC ===========
 [WS] Default SPI pinout:
 [WS] MOSI: 75
@@ -1941,7 +1956,7 @@ This is terminal debug output when running [STM32-Ethernet-Client_SINRIC_LAN8720
 ```
 Starting STM32-Ethernet-Client_SINRIC_LAN8720 on BLACK_F407VE
 Ethernet using LAN8720 and STM32Ethernet Library
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 [WS] =========== USE_LAN8720_ETHERNET ===========
 WebSockets Client IP address: 192.168.2.160
 Connecting to WebSockets Server @iot.sinric.com
@@ -1985,7 +2000,7 @@ This is terminal debug output when running [ESP32-Client_SINRIC](examples/ESP32/
 
 ```
 Starting ESP32-Client_SINRIC on ESP32S2_DEV
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ....Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2029,7 +2044,7 @@ This is terminal debug output when running [Secured-ESP32-Client](examples/ESP32
 
 ```
 Starting WebSockets Secured-ESP32-Client on ESP32S2_DEV
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ....
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2089,7 +2104,7 @@ This is terminal debug output when running [InSecured-ESP32-Client](examples/ESP
 
 ```
 Starting WebSockets InSecured-ESP32-Client on ESP32_DEV
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ...
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2150,7 +2165,7 @@ This is terminal debug output when running [ESP8266-Client_SINRIC](examples/ESP3
 
 ```
 Starting ESP8266-Client_SINRIC on ESP8266_NODEMCU_ESP12E
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ......Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2192,7 +2207,7 @@ This is terminal debug output when running [RP2040-Ethernet-Client_SINRIC](examp
 ```
 Starting RP2040-Ethernet-Client_SINRIC on RASPBERRY_PI_PICO
 Ethernet using W5x00 and Ethernet_Generic Library
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 [WS] =========== USE_ETHERNET_GENERIC ===========
 [WS] Default SPI pinout:
 [WS] MOSI: 19
@@ -2262,7 +2277,7 @@ This is terminal debug output when running [RP2040-Ethernet-Client_SINRIC](examp
 ```
 Starting RP2040-Ethernet-Client_SINRIC on RaspberryPi Pico
 Ethernet using W5x00 and Ethernet_Generic Library
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 [WS] =========== USE_ETHERNET_GENERIC ===========
 [WS] Default SPI pinout:
 [WS] MOSI: 19
@@ -2332,7 +2347,7 @@ This is terminal debug output when running [WT32_ETH01_Client_SINRIC](examples/W
 ```
 Starting WT32_ETH01_Client_SINRIC on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.232, FULL_DUPLEX, 100Mbps
 Connected. Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
@@ -2378,7 +2393,7 @@ This is terminal debug output when running [WT32_ETH01_SecuredClient](examples/W
 ```
 Starting WT32_ETH01_SecuredClient on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.232, FULL_DUPLEX, 100Mbps
 Connected. Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2437,7 +2452,7 @@ This is terminal debug output when running [WT32_ETH01_AdvancedWebServer](exampl
 ```
 Starting WT32_ETH01_AdvancedWebServer on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.95, FULL_DUPLEX, 100Mbps
 MDNS responder started
 WebSockets Server Running and Ready on WT32-ETH01
@@ -2476,7 +2491,7 @@ This is terminal debug output and screenshot when running [SocketAndHttp_Teensy4
 
 ```
 Start SocketAndHttp_Teensy41_Server on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using DHCP => Connected! IP address:192.168.2.119
 Visit http://192.168.2.119 in the browser to connect.
@@ -2517,7 +2532,7 @@ This is terminal debug output when running [MultiClients_Teensy41_Server](exampl
 
 ```
 Starting MultiClients_Teensy41_Server on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using DHCP => Connected! IP address:192.168.2.119
 Server available at ws://192.168.2.119:81
@@ -2549,7 +2564,7 @@ Got Message: Hello to Server from ESP32
 
 ```
 Starting ESP32-RepeatingClient on ESP32_DEV
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 ....Connected to Wifi, Connecting to WebSockets Server @192.168.2.119
 [WS] WebsocketsClient::generateHandshake: base64Authorization = 
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2591,7 +2606,7 @@ This is terminal debug output when running [Portenta_H7_Ethernet_Server](example
 
 ```
 Starting Portenta_H7_Ethernet_Server on PORTENTA_H7_M7 Ethernet using Portenta_Ethernet Library
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 WebSockets Client @ IP address: 192.168.2.132
 Server available at ws://192.168.2.132:8080
 [WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.132
@@ -2627,7 +2642,7 @@ This is terminal debug output when running [Portenta_H7-Client_SINRIC](examples/
 
 ```
 Starting Portenta_H7-Client_SINRIC using WiFi on PORTENTA_H7_M7
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 Connecting to SSID: HueNet1
 Connected to Wifi, IP address: 192.168.2.130
 Connecting to WebSockets Server @iot.sinric.com
@@ -2675,7 +2690,7 @@ This is terminal debug output when running [Portenta_H7-Client_SINRIC](examples/
 
 ```
 Starting RP2040-AdvancedWebServer with WiFiNINA on MBED NANO_RP2040_CONNECT
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 Attempting to connect to SSID: HueNet1
 Connected to Wifi, IP address: 192.168.2.96
 WebSockets Server Running and Ready on MBED NANO_RP2040_CONNECT
@@ -2717,7 +2732,7 @@ This is terminal debug output when running [Teensy41_Client](examples/Generic/Te
 
 ```
 Starting Teensy41_Client on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.10.3
+WebSockets2_Generic v1.11.0
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using static IP => Connected! IP address:192.168.2.222
 [WS] WebsocketsClient::doestStartsWith: str = ws://192.168.2.30:8080
@@ -2756,6 +2771,70 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::connect: step 7
 Connected to server : ws://192.168.2.30:8080
 Got Message: Hello Server
+```
+
+---
+
+#### 22. [ESP32_Ethernet-Client](examples/Generic/Ethernet/ESP32/ESP32_Ethernet-Client) using W5x00 Ethernet on ESP32_DEV
+
+This is terminal debug output when running [ESP32_Ethernet-Client](examples/Generic/Ethernet/ESP32/ESP32_Ethernet-Client) on **ESP32_DEV** using `W5x00 Ethernet` with `Ethernet_Generic` Library
+
+```
+Starting ESP32_Ethernet-Client on ESP32_DEV
+Ethernet using W5x00 and Ethernet_Generic Library
+WebSockets2_Generic v1.11.0
+[WS] Default SPI pinout:
+[WS] MOSI: 23
+[WS] MISO: 19
+[WS] SCK: 18
+[WS] SS: 5
+[WS] =========================
+[WS] ESP32 setCsPin: 5
+[WS] =========================
+[WS] Currently Used SPI pinout:
+[WS] MOSI: 23
+[WS] MISO: 19
+[WS] SCK: 18
+[WS] SS: 5
+[WS] =========================
+Using mac index = 1
+Connected! IP address: 192.168.2.81
+WebSockets Client IP address: 192.168.2.84
+Connecting to WebSockets Server @192.168.2.30
+[WS] WebsocketsClient::connect: step 1
+[WS] WebsocketsClient::generateHandshake: base64Authorization = 
+[WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
+Host: 192.168.2.30
+Sec-WebSocket-Key: MDEyMzQ1Njc4OWFiY2RlZg==
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Version: 13
+User-Agent: TinyWebsockets Client
+Authorization: Basic 
+Origin: https://github.com/khoih-prog/Websockets2_Generic
+
+
+[WS] WebsocketsClient::connect: base64Authorization = 
+[WS] WebsocketsClient::connect: step 2
+[WS] WebsocketsClient::connect: step 3
+[WS] WebsocketsClient::connect: step 4
+[WS] WebsocketsClient::doestStartsWith: str = HTTP/1.1 101 Switching Protocols
+
+[WS] WebsocketsClient::doestStartsWith: prefix = HTTP/1.1 101
+[WS] WebsocketsClient::connect: step 5
+[WS] WebsocketsClient::connect: step 6
+[WS] WebsocketsClient::generateHandshake: key = Upgrade
+[WS] WebsocketsClient::generateHandshake: value = websocket
+[WS] WebsocketsClient::generateHandshake: key = Connection
+[WS] WebsocketsClient::generateHandshake: value = Upgrade
+[WS] WebsocketsClient::generateHandshake: key = Sec-WebSocket-Accept
+[WS] WebsocketsClient::generateHandshake: value = BACScCJPNqyz+UBoqMH89VmURoA=
+[WS] WebsocketsClient::generateHandshake: key = Origin
+[WS] WebsocketsClient::generateHandshake: value = https://github.com/khoih-prog/Websockets2_Generic
+[WS] WebsocketsClient::connect: step 7
+Connnection Opened
+Connected!
+Got Message: Hello to Server from ESP32_DEV
 ```
 
 ---
@@ -2804,7 +2883,7 @@ Got Message: Hello Server
 
 ### Debug
 
-Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, change the _WEBSOCKETS_LOGLEVEL_ to 0
+Debug is enabled by default on `Serial`. Debug Level from 0 to 4. To disable, change the `_WEBSOCKETS_LOGLEVEL_` to 0
 
 ```cpp
 // Use this to output debug msgs to Serial
@@ -2819,7 +2898,7 @@ Debug is enabled by default on Serial. Debug Level from 0 to 4. To disable, chan
 
 ## Troubleshooting
 
-If you get compilation errors, more often than not, you may need to install a newer version of the board's core, applying Libraries' Patches, Packages' Patches or this library latest version.
+If you get compilation errors, more often than not, you may need to install a newer version of the board's core, applying `Libraries' Patches`, `Packages' Patches` or this library latest version.
 
 ---
 ---
@@ -2834,7 +2913,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 
 ### TO DO
 
- 1. Support more boards (Teensy, etc.)
+ 1. Support more boards (RP2040W, etc.)
  2. Support ESP8266/ESP32-AT shields.
  3. Add SSL client support to SAMD21/SAMD51 and nRF52 using WiFiNINA.
  4. Support more non-compatible Ethernet Libraries such as Ethernet_Shield_W5200, EtherCard, EtherSia
@@ -2882,6 +2961,8 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 34. Support **SPI2 for ESP32**
 35. Add support to SPI1 for RP2040 using [arduino-pico core](https://github.com/earlephilhower/arduino-pico)
 36. Use new `waitForLink()` function of QNEthernet
+37. Add support to `ESP32` using `W5x00` Ethernet
+
 
 ---
 ---
@@ -2924,6 +3005,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 ### Contributing
 
 If you want to contribute to this project:
+
 - Report bugs and errors
 - Ask for enhancements
 - Create issues and pull requests

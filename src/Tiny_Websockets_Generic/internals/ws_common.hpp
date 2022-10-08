@@ -9,7 +9,8 @@
   
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  Version: 1.10.3
+  
+  Version: 1.11.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -20,7 +21,8 @@
   1.10.0  K Hoang      18/12/2021 Supporting case-insensitive headers, according to RFC2616
   1.10.1  K Hoang      26/02/2022 Reduce QNEthernet latency
   1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet
-  1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040/ESP32
+  1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040
+  1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
  *****************************************************************************************************************************/
  
 #pragma once
@@ -64,19 +66,23 @@ namespace websockets2_generic
 
 #elif defined(ESP32)
 
-  // Using ESP32 WiFi
-  #warning Using ESP32 WiFi for ESP32 in ws_common.hpp
+  #if !(WEBSOCKETS_USE_ETHERNET)
 
-  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+		// Using ESP32 WiFi
+		#warning Using ESP32 WiFi for ESP32 in ws_common.hpp
+
+		#define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+		
+		#include <Tiny_Websockets_Generic/network/esp32/esp32_tcp.hpp>
+		#define WSDefaultTcpClient websockets2_generic::network2_generic::Esp32TcpClient
+		#define WSDefaultTcpServer websockets2_generic::network2_generic::Esp32TcpServer
+		
+		#ifndef _WS_CONFIG_NO_SSL
+		  // OpenSSL Dependent
+		  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEsp32TcpClient
+		#endif //_WS_CONFIG_NO_SSL
   
-  #include <Tiny_Websockets_Generic/network/esp32/esp32_tcp.hpp>
-  #define WSDefaultTcpClient websockets2_generic::network2_generic::Esp32TcpClient
-  #define WSDefaultTcpServer websockets2_generic::network2_generic::Esp32TcpServer
-  
-  #ifndef _WS_CONFIG_NO_SSL
-  // OpenSSL Dependent
-  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEsp32TcpClient
-  #endif //_WS_CONFIG_NO_SSL
+  #endif
       
 #endif    // ESP8266
 
