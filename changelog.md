@@ -12,6 +12,7 @@
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Release v1.12.0](#release-v1120)
   * [Release v1.11.0](#release-v1110)
   * [Release v1.10.3](#release-v1103)
   * [Release v1.10.2](#release-v1102)
@@ -45,6 +46,19 @@
 ---
 
 ## Changelog
+
+### Release v1.12.0
+
+1. Add support to ENC28J60 using `EthernetENC` or `UIPEthernet` Library for these supported boards
+
+- ESP32
+- nRF52
+- RP2040
+- SAM DUE
+- SAMD
+- STM32
+- Teensy
+
 
 ### Release v1.11.0
 

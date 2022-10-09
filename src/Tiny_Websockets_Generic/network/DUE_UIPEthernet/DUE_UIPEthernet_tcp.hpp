@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.11.0
+  Version: 1.12.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -23,6 +23,7 @@
   1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet
   1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040
   1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
+  1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
  *****************************************************************************************************************************/
  
 #pragma once
@@ -35,18 +36,20 @@
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-// KH, from v1.0.2
+/////////////////////////
+
 #if USE_UIP_ETHERNET
-  #warning Using UIPEthernet Lib in DUE_UIPEthernet_tcp.hpp
+  #warning Using UIPEthernet Lib in ESP32_UIPEthernet_tcp.hpp
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
 #else
   // Default to UIPEthernet library
-  #warning default UIPEthernet Lib in DUE_UIPEthernet_tcp.hpp
+  #warning default UIPEthernet Lib in ESP32_UIPEthernet_tcp.hpp
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
 #endif
-//////
+
+/////////////////////////
 
 namespace websockets2_generic
 {

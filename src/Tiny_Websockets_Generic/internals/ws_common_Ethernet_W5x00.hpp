@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.11.0
+  Version: 1.12.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -23,6 +23,7 @@
   1.10.2  K Hoang      14/03/2022 Fix bug when using QNEthernet staticIP. Add staticIP option to NativeEthernet
   1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040
   1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
+  1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
  *****************************************************************************************************************************/
  
 #pragma once
@@ -51,125 +52,13 @@ namespace websockets2_generic
       || defined(ARDUINO_SAMD_CIRCUITPLAYGROUND_EXPRESS) || defined(__SAMD21E18A__) || defined(__SAMD51__) || defined(__SAMD51J20A__) || defined(__SAMD51J19A__) \
       || defined(__SAMD51G19A__) || defined(__SAMD51P19A__) || defined(__SAMD21G18A__) )
          
-      // Using Ethernet W5x00
-      #warning Using Ethernet for SAMD in ws_common_Ethernet_W5x00.hpp
-      
-      #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-      #define _WS_CONFIG_NO_SSL   true
-      
-      #include <Tiny_Websockets_Generic/network/SAMD_Ethernet_W5x00/SAMD_Ethernet_W5x00_tcp.hpp>
-      #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
-      #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
-      
-      #ifndef _WS_CONFIG_NO_SSL
-      // OpenSSL Dependent
-      #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
-      #endif //_WS_CONFIG_NO_SSL
-      
-  #elif ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
-      defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
-      defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
-   
     // Using Ethernet W5x00
-    #warning Using Ethernet for NRF52 in ws_common_Ethernet_W5x00.hpp
+    #warning Using Ethernet W5x00 for SAMD in ws_common_Ethernet_W5x00.hpp
     
     #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
     #define _WS_CONFIG_NO_SSL   true
     
-    #include <Tiny_Websockets_Generic/network/nRF52_Ethernet_W5x00/nRF52_Ethernet_W5x00_tcp.hpp>
-    #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
-    #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
-    
-    #ifndef _WS_CONFIG_NO_SSL
-    // OpenSSL Dependent
-    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
-    #endif //_WS_CONFIG_NO_SSL      
-    
-  #elif ( defined(ARDUINO_SAM_DUE) || defined(__SAM3X8E__) )
-    // From v1.0.1
-  
-    // Using Ethernet W5x00
-    #warning Using Ethernet for SAM DUE in ws_common_Ethernet_W5x00.hpp
-    
-    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-    #define _WS_CONFIG_NO_SSL   true
-    
-    #include <Tiny_Websockets_Generic/network/DUE_Ethernet_W5x00/DUE_Ethernet_W5x00_tcp.hpp>
-    #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
-    #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
-    
-    #ifndef _WS_CONFIG_NO_SSL
-    // OpenSSL Dependent
-    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
-    #endif //_WS_CONFIG_NO_SSL    
- 
- #elif ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
-         defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
-         defined(STM32WB) || defined(STM32MP1) )
-    // From v1.0.3
-  
-    // Using Ethernet W5x00
-    #warning Using Ethernet for STM32 in ws_common_Ethernet_W5x00.hpp
-    
-    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-    #define _WS_CONFIG_NO_SSL   true
-    
-    #include <Tiny_Websockets_Generic/network/STM32_Ethernet_W5x00/STM32_Ethernet_W5x00_tcp.hpp>
-    #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
-    #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
-    
-    #ifndef _WS_CONFIG_NO_SSL
-    // OpenSSL Dependent
-    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
-    #endif //_WS_CONFIG_NO_SSL   
-       
-       
-  #elif ( defined(CORE_TEENSY) || defined(__IMXRT1062__) || defined(ARDUINO_TEENSY41) || defined(ARDUINO_TEENSY40) || \
-      defined(__MK66FX1M0__) || defined(__MK64FX512__) || defined(__MKL26Z64__) || defined(__MK20DX256__) || \
-      defined(__MK20DX128__) )
-    
-    // From v1.1.0
-  
-    // Using Ethernet W5x00
-    #warning Using Ethernet for Teensy in ws_common_Ethernet_W5x00.hpp
-    
-    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-    #define _WS_CONFIG_NO_SSL   true
-    
-    #include <Tiny_Websockets_Generic/network/Teensy_Ethernet_W5x00/Teensy_Ethernet_W5x00_tcp.hpp>
-    #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
-    #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
-    
-    #ifndef _WS_CONFIG_NO_SSL
-    // OpenSSL Dependent
-    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
-    #endif //_WS_CONFIG_NO_SSL       
-  
-  #elif ( defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || \
-      defined(ARDUINO_GENERIC_RP2040) )
-    // Using Ethernet W5x00
-    #warning Using Ethernet for RP2040 in ws_common_Ethernet_W5x00.hpp
-    
-    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-    #define _WS_CONFIG_NO_SSL   true
-    
-    #include <Tiny_Websockets_Generic/network/RP2040_Ethernet_W5x00/RP2040_Ethernet_W5x00_tcp.hpp>
-    #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
-    #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
-    
-    #ifndef _WS_CONFIG_NO_SSL
-    // OpenSSL Dependent
-    #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
-    #endif //_WS_CONFIG_NO_SSL      
-
-  #elif ( defined(ESP32) )
-    // Using Ethernet W5x00
-    #warning Using Ethernet for ESP32 in ws_common_Ethernet_W5x00.hpp
-    
-    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-    #define _WS_CONFIG_NO_SSL   true
-    
-    #include <Tiny_Websockets_Generic/network/ESP32_Ethernet_W5x00/ESP32_Ethernet_W5x00_tcp.hpp>
+    #include <Tiny_Websockets_Generic/network/SAMD_Ethernet_W5x00/SAMD_Ethernet_W5x00_tcp.hpp>
     #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
     #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
     
@@ -177,5 +66,112 @@ namespace websockets2_generic
     // OpenSSL Dependent
     #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
     #endif //_WS_CONFIG_NO_SSL
-                  
-  #endif  
+    
+#elif ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
+    defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
+    defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
+ 
+  // Using Ethernet W5x00
+  #warning Using Ethernet W5x00 for NRF52 in ws_common_Ethernet_W5x00.hpp
+  
+  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+  #define _WS_CONFIG_NO_SSL   true
+  
+  #include <Tiny_Websockets_Generic/network/nRF52_Ethernet_W5x00/nRF52_Ethernet_W5x00_tcp.hpp>
+  #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+  #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+  
+  #ifndef _WS_CONFIG_NO_SSL
+  // OpenSSL Dependent
+  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+  #endif //_WS_CONFIG_NO_SSL      
+  
+#elif ( defined(ARDUINO_SAM_DUE) || defined(__SAM3X8E__) )
+
+  // Using Ethernet W5x00
+  #warning Using Ethernet W5x00 for SAM DUE in ws_common_Ethernet_W5x00.hpp
+  
+  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+  #define _WS_CONFIG_NO_SSL   true
+  
+  #include <Tiny_Websockets_Generic/network/DUE_Ethernet_W5x00/DUE_Ethernet_W5x00_tcp.hpp>
+  #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+  #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+  
+  #ifndef _WS_CONFIG_NO_SSL
+  // OpenSSL Dependent
+  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+  #endif //_WS_CONFIG_NO_SSL    
+
+#elif ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
+       defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
+       defined(STM32WB) || defined(STM32MP1) )
+
+  // Using Ethernet W5x00
+  #warning Using Ethernet W5x00 for STM32 in ws_common_Ethernet_W5x00.hpp
+  
+  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+  #define _WS_CONFIG_NO_SSL   true
+  
+  #include <Tiny_Websockets_Generic/network/STM32_Ethernet_W5x00/STM32_Ethernet_W5x00_tcp.hpp>
+  #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+  #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+  
+  #ifndef _WS_CONFIG_NO_SSL
+  // OpenSSL Dependent
+  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+  #endif //_WS_CONFIG_NO_SSL   
+          
+#elif ( defined(CORE_TEENSY) || defined(__IMXRT1062__) || defined(ARDUINO_TEENSY41) || defined(ARDUINO_TEENSY40) || \
+    defined(__MK66FX1M0__) || defined(__MK64FX512__) || defined(__MKL26Z64__) || defined(__MK20DX256__) || \
+    defined(__MK20DX128__) )
+  
+  // Using Ethernet W5x00
+  #warning Using Ethernet W5x00 for Teensy in ws_common_Ethernet_W5x00.hpp
+  
+  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+  #define _WS_CONFIG_NO_SSL   true
+  
+  #include <Tiny_Websockets_Generic/network/Teensy_Ethernet_W5x00/Teensy_Ethernet_W5x00_tcp.hpp>
+  #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+  #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+  
+  #ifndef _WS_CONFIG_NO_SSL
+  // OpenSSL Dependent
+  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+  #endif //_WS_CONFIG_NO_SSL       
+
+#elif ( defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || \
+    defined(ARDUINO_GENERIC_RP2040) )
+  // Using Ethernet W5x00
+  #warning Using Ethernet W5x00 for RP2040 in ws_common_Ethernet_W5x00.hpp
+  
+  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+  #define _WS_CONFIG_NO_SSL   true
+  
+  #include <Tiny_Websockets_Generic/network/RP2040_Ethernet_W5x00/RP2040_Ethernet_W5x00_tcp.hpp>
+  #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+  #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+  
+  #ifndef _WS_CONFIG_NO_SSL
+  // OpenSSL Dependent
+  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+  #endif //_WS_CONFIG_NO_SSL      
+
+#elif ( defined(ESP32) )
+  // Using Ethernet W5x00
+  #warning Using Ethernet W5x00 for ESP32 in ws_common_Ethernet_W5x00.hpp
+  
+  #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+  #define _WS_CONFIG_NO_SSL   true
+  
+  #include <Tiny_Websockets_Generic/network/ESP32_Ethernet_W5x00/ESP32_Ethernet_W5x00_tcp.hpp>
+  #define WSDefaultTcpClient websockets2_generic::network2_generic::EthernetTcpClient
+  #define WSDefaultTcpServer websockets2_generic::network2_generic::EthernetTcpServer
+  
+  #ifndef _WS_CONFIG_NO_SSL
+  // OpenSSL Dependent
+  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
+  #endif //_WS_CONFIG_NO_SSL
+                
+#endif  
