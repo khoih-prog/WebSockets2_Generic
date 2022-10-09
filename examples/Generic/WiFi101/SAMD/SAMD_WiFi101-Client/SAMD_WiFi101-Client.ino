@@ -141,7 +141,7 @@ void setup()
   sendMessage();
 }
 
-void sendMessage(void)
+void sendMessage()
 {
 // try to connect to Websockets server
   bool connected = client.connect(websockets_server_host, websockets_server_port, "/");

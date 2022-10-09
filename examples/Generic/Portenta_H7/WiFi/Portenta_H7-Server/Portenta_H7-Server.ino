@@ -43,7 +43,7 @@ WebsocketsServer server;
 
 int status = WL_IDLE_STATUS;
 
-void heartBeatPrint(void)
+void heartBeatPrint()
 {
   static int num = 1;
 
