@@ -43,7 +43,7 @@ WebsocketsServer server;
 // Select the IP address according to your local network
 IPAddress serverIP(192, 168, 2, 95);
 
-void heartBeatPrint(void)
+void heartBeatPrint()
 {
   static int num = 1;
 
