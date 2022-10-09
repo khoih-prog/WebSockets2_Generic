@@ -62,13 +62,12 @@
 #endif
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
+// If more than one are true, the priority is USE_NATIVE_ETHERNET, USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
 #define USE_ETHERNET_GENERIC          true
 #define USE_ETHERNET_LARGE            false
 #define USE_ETHERNET_ENC              false
 #define USE_UIP_ETHERNET              false
 #define USE_NATIVE_ETHERNET           false
-#define USE_QN_ETHERNET               false
 
 #if ( defined(__IMXRT1062__) && defined(ARDUINO_TEENSY41) && USE_NATIVE_ETHERNET )
   // Also default to Ethernet library

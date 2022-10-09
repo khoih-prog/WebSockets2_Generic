@@ -73,7 +73,7 @@
 #endif
 
 // Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
+// If more than one are true, the priority is USING_LAN8720, USE_LAN8742A_ETHERNET, USE_ETHERNET_GENERIC, USE_ETHERNET_ENC or USE_UIP_ETHERNET
 #define USING_LAN8720                 true
 #define USE_LAN8742A_ETHERNET         false
 #define USE_ETHERNET_GENERIC          false

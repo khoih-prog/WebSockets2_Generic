@@ -96,7 +96,7 @@
 
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     3
+#define _WEBSOCKETS_LOGLEVEL_     2
 
 #if USE_ETHERNET_GENERIC
   // Change to true if using old Ethernet card with built-in SD
