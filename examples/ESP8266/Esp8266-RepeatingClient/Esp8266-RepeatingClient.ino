@@ -124,10 +124,10 @@ void checkToSendMessage()
 {
   #define REPEAT_INTERVAL    10000L
   
-  static unsigned long checkstatus_timeout = 0;
+  static unsigned long checkstatus_timeout = 1000;
 
   // Send WebSockets message every REPEAT_INTERVAL (10) seconds.
-  if ((millis() > checkstatus_timeout) || (checkstatus_timeout == 0))
+  if (millis() > checkstatus_timeout)
   {
     sendMessage();
     checkstatus_timeout = millis() + REPEAT_INTERVAL;

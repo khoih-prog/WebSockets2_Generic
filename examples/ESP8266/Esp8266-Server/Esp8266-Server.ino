@@ -42,7 +42,7 @@ using namespace websockets2_generic;
 
 WebsocketsServer server;
 
-void heartBeatPrint(void)
+void heartBeatPrint()
 {
   static int num = 1;
 
