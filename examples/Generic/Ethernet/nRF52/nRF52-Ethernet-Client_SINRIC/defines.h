@@ -1,9 +1,9 @@
 /****************************************************************************************************************************
   defines.h
-  For Teensy with Ethernet module/shield.
-
+  For nRF52 with Ethernet module/shield.
+  
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
-  to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy boards besides ESP8266 and ESP32
+  to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
 
   The library provides simple and easy interface for websockets (Client and Server).
   
@@ -68,8 +68,8 @@
   #endif
 #endif
 
-// Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
+// Just select one to be true. If all is false, default is Ethernet_Generic. 
+// If more than one are true, the priority is USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
 #define USE_ETHERNET_GENERIC          true
 #define USE_ETHERNET_ENC              false
 #define USE_UIP_ETHERNET              false
@@ -85,7 +85,6 @@
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
-  #error ENC28J60 and UIPEthernet Library not yet supported for RP2040
 #else
   // Default to Ethernet_Generic library
   #include <Ethernet_Generic.h>

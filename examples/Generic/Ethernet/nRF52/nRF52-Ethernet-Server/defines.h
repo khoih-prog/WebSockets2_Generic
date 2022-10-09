@@ -68,8 +68,8 @@
   #endif
 #endif
 
-// Just select one to be true. If all is false, default is Ethernet. 
-// If more than one are true, the priority is USE_ETHERNET, USE_ETHERNET2, USE_ETHERNET_LARGE, USE_UIP_ETHERNET
+// Just select one to be true. If all is false, default is Ethernet_Generic. 
+// If more than one are true, the priority is USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
 #define USE_ETHERNET_GENERIC          true
 #define USE_ETHERNET_ENC              false
 #define USE_UIP_ETHERNET              false
@@ -85,7 +85,6 @@
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
-  #error ENC28J60 and UIPEthernet Library not yet supported for RP2040
 #else
   // Default to Ethernet_Generic library
   #include <Ethernet_Generic.h>

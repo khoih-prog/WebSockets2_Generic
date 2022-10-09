@@ -41,8 +41,8 @@
 
 // Just select one to be true. If all is false, default is Ethernet_Generic. 
 // If more than one are true, the priority is USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
-#define USE_ETHERNET_GENERIC          true
-#define USE_ETHERNET_ENC              false
+#define USE_ETHERNET_GENERIC          false
+#define USE_ETHERNET_ENC              true
 #define USE_UIP_ETHERNET              false
 
 #if USE_ETHERNET_GENERIC
@@ -78,12 +78,11 @@
   #include <EthernetENC.h>
   #define ETHERNET_TYPE               "ENC28J60 and EthernetENC Library"  
 
-  #error ENC28J60 and EthernetENC Library not yet supported for ESP32
 #elif USE_UIP_ETHERNET
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
-  #error ENC28J60 and UIPEthernet Library not yet supported for ESP32
+
 #else
   // Default to Ethernet_Generic library
   #include <Ethernet_Generic.h>
@@ -92,7 +91,7 @@
 
 #define DEBUG_WEBSOCKETS_PORT     Serial
 // Debug Level from 0 to 4
-#define _WEBSOCKETS_LOGLEVEL_     1
+#define _WEBSOCKETS_LOGLEVEL_     4
 
 #if USE_ETHERNET_GENERIC
   // Change to true if using old Ethernet card with built-in SD

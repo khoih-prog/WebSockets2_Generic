@@ -78,12 +78,11 @@
   #include <EthernetENC.h>
   #define ETHERNET_TYPE               "ENC28J60 and EthernetENC Library"  
 
-  #error ENC28J60 and EthernetENC Library not yet supported for ESP32
 #elif USE_UIP_ETHERNET
   #include <UIPEthernet.h>
   #include <utility/logging.h> 
   #define ETHERNET_TYPE               "ENC28J60 and UIPEthernet Library"
-  #error ENC28J60 and UIPEthernet Library not yet supported for ESP32
+
 #else
   // Default to Ethernet_Generic library
   #include <Ethernet_Generic.h>
