@@ -41,8 +41,8 @@
 
 // Just select one to be true. If all is false, default is Ethernet_Generic. 
 // If more than one are true, the priority is USE_ETHERNET_GENERIC, USE_ETHERNET_ENC, USE_UIP_ETHERNET
-#define USE_ETHERNET_GENERIC          false
-#define USE_ETHERNET_ENC              true
+#define USE_ETHERNET_GENERIC          true
+#define USE_ETHERNET_ENC              false
 #define USE_UIP_ETHERNET              false
 
 #if USE_ETHERNET_GENERIC

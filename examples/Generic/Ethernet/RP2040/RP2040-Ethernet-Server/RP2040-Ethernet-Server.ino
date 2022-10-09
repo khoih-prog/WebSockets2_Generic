@@ -44,7 +44,7 @@ WebsocketsServer server;
 
 #define WEBSOCKETS_PORT     8080
 
-void heartBeatPrint(void)
+void heartBeatPrint()
 {
   static int num = 1;
 

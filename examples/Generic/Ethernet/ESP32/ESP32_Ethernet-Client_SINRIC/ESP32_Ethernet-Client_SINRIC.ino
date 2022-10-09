@@ -272,9 +272,6 @@ LOGWARN1(F("ESP32 setCsPin:"), USE_THIS_SS_PIN);
 
   Serial.print(F("Using mac index = "));
   Serial.println(index);
-
-  Serial.print(F("Connected! IP address: "));
-  Serial.println(Ethernet.localIP());
 }
 
 void setup()
@@ -290,18 +287,13 @@ void setup()
   Serial.begin(115200);
   while (!Serial && millis() < 5000);
 
+  delay(500);
+
   Serial.println("\nStarting ESP32_Ethernet-Client_SINRIC on " + String(BOARD_NAME));
   Serial.println("Ethernet using " + String(ETHERNET_TYPE));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   initEthernet();
-
-  // start the ethernet connection and the server:
-  // Use DHCP dynamic IP and random mac
-  uint16_t index = millis() % NUMBER_OF_MAC;
-  // Use Static IP
-  //Ethernet.begin(mac[index], clientIP);
-  Ethernet.begin(mac[index]);
 
   Serial.print("WebSockets Client IP address: ");
   Serial.println(Ethernet.localIP());
