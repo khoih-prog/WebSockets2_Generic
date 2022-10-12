@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.12.1
+  Version: 1.13.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -25,6 +25,7 @@
   1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
   1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
   1.12.1  K Hoang      09/10/2022 Fix bug in examples
+  1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi
  *****************************************************************************************************************************/
 
 #pragma once
@@ -32,13 +33,15 @@
 #ifndef _WEBSOCKETS2_GENERIC_H
 #define _WEBSOCKETS2_GENERIC_H
 
-#define WEBSOCKETS2_GENERIC_VERSION     "WebSockets2_Generic v1.12.1"
+/////////////////////////////////////////////////////
+
+#define WEBSOCKETS2_GENERIC_VERSION     "WebSockets2_Generic v1.13.0"
 
 #define WEBSOCKETS2_GENERIC_VERSION_MAJOR    1
-#define WEBSOCKETS2_GENERIC_VERSION_MINOR    12
-#define WEBSOCKETS2_GENERIC_VERSION_PATCH    1
+#define WEBSOCKETS2_GENERIC_VERSION_MINOR    13
+#define WEBSOCKETS2_GENERIC_VERSION_PATCH    0
 
-#define WEBSOCKETS2_GENERIC_VERSION_INT      1012001
+#define WEBSOCKETS2_GENERIC_VERSION_INT      1013000
 
 /////////////////////////////////////////////////////
 
@@ -46,7 +49,8 @@
 #include "Tiny_Websockets_Generic/client.hpp"
 #include "Tiny_Websockets_Generic/server.hpp"
 
-// KH, from v1.0.1
+/////////////////////////////////////////////////////
+
 #include <WebSockets2_Generic_Client.hpp>
 #include <WebSockets2_Generic_Server.hpp>
 #include <WebSockets2_Generic_Message.hpp>

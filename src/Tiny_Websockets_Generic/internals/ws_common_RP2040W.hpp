@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  ws_common_WiFi_Portenta_H7.hpp
+  ws_common_RP2040W.hpp
   For WebSockets2_Generic Library
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
@@ -34,6 +34,8 @@
 #include <string>
 #include <Arduino.h>
 
+/////////////////////////////////////////////////////
+
 namespace websockets2_generic
 {
   typedef std::string WSString;
@@ -48,51 +50,27 @@ namespace websockets2_generic
   }   // namespace internals2_generic 
 }     // namespace websockets 2_generic
 
-
-// From v1.7.0
-#if WEBSOCKETS_USE_PORTENTA_H7_WIFI
-  #warning Using PORTENTA_H7 WIFI in ws_common_WiFi_Portenta_H7.hpp
+#if WEBSOCKETS_USE_RP2040W
+  #warning Using RP2040W CYC43439 WIFI in ws_common_RP2040W.hpp
 #endif
 
-#if ( ( defined(ARDUINO_PORTENTA_H7_M7) || defined(ARDUINO_PORTENTA_H7_M4) ) && defined(ARDUINO_ARCH_MBED) )
-
-  #if defined(BOARD_NAME)
-    #undef BOARD_NAME
-  #endif
-
-  #if defined(CORE_CM7)
-    #warning Using Portenta H7 M7 core
-    #define BOARD_NAME            "PORTENTA_H7_M7"
-  #else
-    #warning Using Portenta H7 M4 core
-    #define BOARD_NAME            "PORTENTA_H7_M4"
-  #endif
-
-  #define USE_WIFI_PORTENTA_H7  true
-
-  #define USE_WIFI_NINA         false
-
-  // To use the default WiFi library here 
-  #define USE_WIFI_CUSTOM       false
-
-#else
-
-  #error For Portenta_H7 only
+/////////////////////////////////////////////////////
   
+#if ( defined(ARDUINO_RASPBERRY_PI_PICO_W) && USE_RP2040W_WIFI )
+       
+    // Using RP2040W CYC43439 WIFI   
+    #warning Using CYC43439 WIFI for RP2040W in ws_common_RP2040W.hpp
+      
+    #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
+    #define _WS_CONFIG_NO_SSL   true
+    
+    #include <Tiny_Websockets_Generic/network/RP2040W/RP2040W_tcp.hpp>
+    #define WSDefaultTcpClient websockets2_generic::network2_generic::RP2040W_TcpClient
+    #define WSDefaultTcpServer websockets2_generic::network2_generic::RP2040W_TcpServer
+    
+    #if (defined(_WS_CONFIG_NO_SSL) && !_WS_CONFIG_NO_SSL)
+      // OpenSSL Dependent
+      #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::Secured_RP2040W_TcpClient
+    #endif //_WS_CONFIG_NO_SSL   
+          
 #endif
-  
-// Using PORTENTA_H7 WIFI   
-#define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
-
-// KH test for Portenta_H7 WiFi only
-//#define _WS_CONFIG_NO_SSL   true
-
-#include <Tiny_Websockets_Generic/network/Portenta_H7_WiFi/Portenta_H7_WiFi_tcp.hpp>
-#define WSDefaultTcpClient websockets2_generic::network2_generic::WiFiTcpClient
-#define WSDefaultTcpServer websockets2_generic::network2_generic::WiFiTcpServer
-
-#ifndef _WS_CONFIG_NO_SSL
-  // OpenSSL Dependent
-  #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredWiFiTcpClient
-#endif //_WS_CONFIG_NO_SSL   
-  

@@ -1,6 +1,6 @@
 /****************************************************************************************************************************
-  nRF52_EthernetENC_tcp.hpp
-  For nRF52 boards with EthernetENC ENC28J60 module/shield.
+  RP2040W_tcp.hpp
+  For RP2040 boards with WiFiNINA module/shield such as Nano_RP2040_Connect
   
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy, RP2040 boards besides ESP8266 and ESP32
@@ -30,38 +30,26 @@
  
 #pragma once
 
-#if ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
-      defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
-      defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
+#if ( defined(ARDUINO_RASPBERRY_PI_PICO_W) && USE_RP2040W_WIFI )
       
-
 #include <Tiny_Websockets_Generic/internals/ws_common.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/network/tcp_server.hpp>
 #include <Tiny_Websockets_Generic/network/generic_esp/generic_esp_clients.hpp>
 
-////////////////
-
-#if (USE_ETHERNET_ENC_LIB || USE_ETHERNET_ENC)
-  #warning Using EthernetENC Lib in DUE_EthernetENC_tcp.hpp
-  #include <EthernetENC.h>
-#else
-  // Default to EthernetENC library
-  #warning default EthernetENC Lib in DUE_EthernetENC_tcp.hpp
-  #include <EthernetENC.h>
-#endif
-
-////////////////
+#include <WiFi.h>
 
 namespace websockets2_generic
 {
   namespace network2_generic
   {
-    typedef GenericEspTcpClient<EthernetClient> EthernetTcpClient;
+    typedef GenericEspTcpClient<WiFiClient> RP2040W_TcpClient;
 
-#if 0
-    // KH, no SSL support for Ethernet
-    class SecuredEthernetTcpClient : public GenericEspTcpClient<EthernetSSLClient> 
+    /////////////////////////////////////////////////////
+
+#if (defined(_WS_CONFIG_NO_SSL) && !_WS_CONFIG_NO_SSL)
+    // KH, no SSL support yet for RP2040W
+    class Secured_RP2040W_TcpClient : public GenericEspTcpClient<WiFiSSLClient> 
     {
       public:
         void setInsecure() 
@@ -72,10 +60,12 @@ namespace websockets2_generic
     
         void setFingerprint(const char* fingerprint) 
         {
+          (void) fingerprint;
+          
           // KH, to fix, for testing only
           //this->client.setFingerprint(fingerprint);
         }
-
+#if 0    
         void setClientRSACert(const X509List *cert, const PrivateKey *sk) 
         {
           // KH, to fix, for v1.0.0 only
@@ -86,9 +76,12 @@ namespace websockets2_generic
         {
           // KH, to fix, for v1.0.0 only
           //this->client.setTrustAnchors(ta);
-        }  
+        }
+#endif    
     };
 #endif
+
+    /////////////////////////////////////////////////////
     
     #ifndef WEBSOCKETS_PORT
       #define DUMMY_PORT    8080
@@ -96,13 +89,17 @@ namespace websockets2_generic
       #define DUMMY_PORT    WEBSOCKETS_PORT
     #endif
     
-    // KH, quick fix for Ethernet port
+    // KH, quick fix for WiFiNINA port
     #define CLOSED     0
+
+    /////////////////////////////////////////////////////
     
-    class EthernetTcpServer : public TcpServer 
+    class RP2040W_TcpServer : public TcpServer 
     {
       public:
-        EthernetTcpServer() : server(DUMMY_PORT) {}
+        RP2040W_TcpServer() : server(DUMMY_PORT) {}
+
+        /////////////////////////////////////////////////////
         
         bool poll() override 
         {
@@ -113,18 +110,19 @@ namespace websockets2_generic
           return true;
           //////
         }
+
+        /////////////////////////////////////////////////////
     
         bool listen(const uint16_t port) override 
         {
-          (void) port;
-          
           yield();
-          // KH, already use WEBSOCKETS_PORT
-          //server.begin(port);
-          server.begin();
-          //////
+
+          server.begin(port);
+
           return available();
         }
+
+        /////////////////////////////////////////////////////
     
         TcpClient* accept() override 
         {   
@@ -135,9 +133,8 @@ namespace websockets2_generic
             
             if (client)
             {         
-              return new EthernetTcpClient{client};
+              return new RP2040W_TcpClient{client};
             }
-            // KH, from v1.0.6, add to enable non-blocking when no WS Client
             else
             {
               // Return NULL Client. Remember to test for NULL and process correctly
@@ -145,19 +142,19 @@ namespace websockets2_generic
             }            
           }
                    
-          return new EthernetTcpClient;
+          return new RP2040W_TcpClient;
         }
+
+        /////////////////////////////////////////////////////
     
         bool available() override 
         {
           yield();
           
-          // KH
-          //return server.status() != CLOSED;
-          // Use EthernetServer::operator bool()
-          //return (server);
-          return true;
+          return server.status() != CLOSED;
         }
+
+        /////////////////////////////////////////////////////
     
         void close() override 
         {
@@ -167,21 +164,31 @@ namespace websockets2_generic
           //server.close();
           //////
         }
+
+        /////////////////////////////////////////////////////
     
-        virtual ~EthernetTcpServer() 
+        virtual ~RP2040W_TcpServer() 
         {
-          if (available()) close();
+          if (available()) 
+            close();
         }
+
+        /////////////////////////////////////////////////////
     
       protected:
+
+        /////////////////////////////////////////////////////
+      
         int getSocket() const override 
         {
           return -1;
         }
+
+        /////////////////////////////////////////////////////
     
       private:
-        EthernetServer server;
+        WiFiServer server;
     };
   }   // namespace network2_generic
 }     // namespace websockets2_generic
-#endif // #ifdef nRF52
+#endif // #ifdef RP2040

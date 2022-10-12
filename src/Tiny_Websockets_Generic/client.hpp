@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.12.1
+  Version: 1.13.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -25,12 +25,15 @@
   1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
   1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
   1.12.1  K Hoang      09/10/2022 Fix bug in examples
+  1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi
  *****************************************************************************************************************************/
 
 #ifndef _CLIENT_HPP_
 #define _CLIENT_HPP_
 
 #pragma once
+
+/////////////////////////////////////////////////////
 
 #include <Tiny_Websockets_Generic/network/tcp_client.hpp>
 #include <Tiny_Websockets_Generic/internals/data_frame.hpp>
@@ -40,7 +43,8 @@
 #include <functional>
 #include <vector>
 
-// KH, from v1.0.1
+/////////////////////////////////////////////////////
+
 #if (WEBSOCKETS_USE_ETHERNET || WEBSOCKETS_USE_PORTENTA_H7_ETHERNET)
   #if USE_UIP_ETHERNET
     // KH, from v1.0.2
@@ -74,22 +78,39 @@
     #warning WEBSOCKETS_USE_ETHERNET in client.hpp
     #include <Tiny_Websockets_Generic/internals/ws_common_Ethernet_W5x00.hpp>
   #endif
+
+/////////////////////////////////////////////////////
+  
+#elif WEBSOCKETS_USE_RP2040W
+  #warning WEBSOCKETS_USE_RP2040W in client.hpp
+  #include <Tiny_Websockets_Generic/internals/ws_common_RP2040W.hpp> 
+
+/////////////////////////////////////////////////////
+    
 #elif WEBSOCKETS_USE_WIFININA
   #warning WEBSOCKETS_USE_WIFININA in client.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common_WiFiNINA.hpp>
+
+/////////////////////////////////////////////////////
+  
 #elif WEBSOCKETS_USE_WIFI101
   #warning WEBSOCKETS_USE_WIFI101 in client.hpp
-  #include <Tiny_Websockets_Generic/internals/ws_common_WiFi101.hpp> 
+  #include <Tiny_Websockets_Generic/internals/ws_common_WiFi101.hpp>
+
+/////////////////////////////////////////////////////
+  
 #elif WEBSOCKETS_USE_PORTENTA_H7_WIFI
   #warning WEBSOCKETS_USE_PORTENTA_H7_WIFI in client.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common_WiFi_Portenta_H7.hpp> 
+
+/////////////////////////////////////////////////////
+  
 #else
   #warning WEBSOCKETS_USE_ESP_WIFI in client.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common.hpp>  
 #endif
-//////
 
-
+/////////////////////////////////////////////////////
 
 namespace websockets2_generic 
 {
@@ -99,6 +120,8 @@ namespace websockets2_generic
     ConnectionClosed,
     GotPing, GotPong
   };
+
+  /////////////////////////////////////////////////////
   
   class WebsocketsClient;
   typedef std::function<void(WebsocketsClient&, WebsocketsMessage)> MessageCallback;
@@ -106,7 +129,9 @@ namespace websockets2_generic
   
   typedef std::function<void(WebsocketsClient&, WebsocketsEvent, WSInterfaceString)> EventCallback;
   typedef std::function<void(WebsocketsEvent, WSInterfaceString)> PartialEventCallback;
-  
+
+  /////////////////////////////////////////////////////
+   
   class WebsocketsClient 
   {
     public:
@@ -150,9 +175,7 @@ namespace websockets2_generic
       void setFragmentsPolicy(const FragmentsPolicy newPolicy);
       FragmentsPolicy getFragmentsPolicy() const;
   
-      // KH add in v1.0.6
       WebsocketsMessage readNonBlocking();
-      //////
       
       WebsocketsMessage readBlocking();
   
@@ -161,13 +184,18 @@ namespace websockets2_generic
   
       void close(const CloseReason reason = CloseReason_NormalClosure);
       CloseReason getCloseReason() const;
-  
+        
+      /////////////////////////////////////////////////////
+ 
       void setUseMasking(bool useMasking) 
       {
         _endpoint.setUseMasking(useMasking);
       }
-  
+        
+      /////////////////////////////////////////////////////
+   
       void setInsecure();
+      
   #ifdef ESP8266
       void setFingerprint(const char* fingerprint);
       void setClientRSACert(const X509List *cert, const PrivateKey *sk);
@@ -184,15 +212,12 @@ namespace websockets2_generic
   
       virtual ~WebsocketsClient();
       
-      // KH add
       void setAuthorization(const char * user, const char * password);
       WSString getAuthorization(void);
-      //////
   
     private:
-      // KH add
+
       WSString base64Authorization;    ///< Base64 encoded Auth request
-      //////
     
       std::shared_ptr<network2_generic::TcpClient> _client;
       std::vector<std::pair<WSString, WSString>> _customHeaders;
@@ -200,27 +225,31 @@ namespace websockets2_generic
       bool _connectionOpen;
       MessageCallback _messagesCallback;
       EventCallback _eventsCallback;
+        
+      /////////////////////////////////////////////////////
+       
       enum SendMode 
       {
         SendMode_Normal,
         SendMode_Streaming
-      } _sendMode;
-  
-  
+      } _sendMode; 
+        
+      /////////////////////////////////////////////////////
+   
   #ifdef ESP8266
       const char* _optional_ssl_fingerprint = nullptr;
       const X509List* _optional_ssl_trust_anchors = nullptr;
       
       // KH, New in v1.0.5 (sync with v0.4.18)
-      const PublicKey* _optional_ssl_known_key = nullptr;
-      const X509List* _optional_ssl_rsa_cert = nullptr;
+      const PublicKey*  _optional_ssl_known_key       = nullptr;
+      const X509List*   _optional_ssl_rsa_cert        = nullptr;
       const PrivateKey* _optional_ssl_rsa_private_key = nullptr;
-      const X509List* _optional_ssl_ec_cert = nullptr;
-      const PrivateKey* _optional_ssl_ec_private_key = nullptr; 
+      const X509List*   _optional_ssl_ec_cert         = nullptr;
+      const PrivateKey* _optional_ssl_ec_private_key  = nullptr; 
       //////
   #elif defined(ESP32)
-      const char* _optional_ssl_ca_cert = nullptr;
-      const char* _optional_ssl_client_ca = nullptr;
+      const char* _optional_ssl_ca_cert     = nullptr;
+      const char* _optional_ssl_client_ca   = nullptr;
       const char* _optional_ssl_private_key = nullptr;
   #endif
   
@@ -230,6 +259,9 @@ namespace websockets2_generic
       
       void upgradeToSecuredConnection();
   };
+  
+  /////////////////////////////////////////////////////
+ 
 }   // namespace websockets2_generic 
 
 #endif    // _CLIENT_HPP_

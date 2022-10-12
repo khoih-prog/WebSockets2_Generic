@@ -82,6 +82,7 @@
 * [For Teensy 4.1 using NativeEthernet](#for-teensy-41-using-nativeethernet)
 * [For Teensy 4.1 using QNEthernet](#for-teensy-41-using-qnethernet)
 * [To use ESP8266/ESP32 native WiFi](#to-use-esp8266esp32-native-wifi)
+* [To use RP2040W built-in WiFi](#To-use-RP2040W-built-in-WiFi)
 * [Examples](#examples)
   * [For ESP32 boards](#for-esp32-boards)
   * [For ESP8266 boards](#for-esp8266-boards)
@@ -102,7 +103,8 @@
   * [For Portenta_H7 boards using Vision-shield Ethernet. New in v1.7.0](#for-portenta_h7-boards-using-vision-shield-ethernet-new-in-v170)
   * [For Portenta_H7 boards using Murata WiFi. New in v1.7.0](#for-portenta_h7-boards-using-murata-wifi-new-in-v170)
   * [For RP2040 boards using WiFiNINA. New in v1.8.0](#for-rp2040-boards-using-wifinina-new-in-v180)
-  * [For ESP32 boards using Ethernet. New in v1.11.0](#for-ESP32-boards-using-Ethernet-new-in-v1110) **New** 
+  * [For ESP32 boards using Ethernet. New in v1.11.0](#for-ESP32-boards-using-Ethernet-new-in-v1110) **New**
+  * [For RP2040W boards using built-in WiFi. New in v1.13.0](#for-RP2040W-boards-using-built-in-WiFi-new-in-v1130) **New**
 * [Example SAMD-Client_SINRIC](#example-samd-client_sinric)
   * [1. File SAMD-Client_SINRIC.ino](#1-file-samd-client_sinricino)
   * [2. File defines.h](#2-file-definesh)
@@ -192,6 +194,9 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
 
 12. **RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040**, using WiFiNINA or Ethernet
 
+12. **RP2040W boards, such as RASPBERRY_PI_PICO_W**, using Cyw43439 WiFi or Ethernet
+
+
 ---
 
 #### Currently supported WiFi shields/modules
@@ -201,6 +206,7 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
 3. U-Blox W101, W102 using [`WiFiNINA_Generic library`](https://github.com/khoih-prog/WiFiNINA_Generic)
 4. ESP32 and ESP8266 WiFi
 5. **Portenta_H7 built-in Murata WiFi**
+6. **RP2040W built-in CYW43439 WiFi**
 
 ---
 
@@ -236,7 +242,7 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
  9. [`ESP32 Core 2.0.5+`](https://github.com/espressif/arduino-esp32) for ESP32-based boards. [![Latest release](https://img.shields.io/github/release/espressif/arduino-esp32.svg)](https://github.com/espressif/arduino-esp32/releases/latest/)
 10. [`ESP8266 Core 3.0.2+`](https://github.com/esp8266/Arduino) for ESP8266-based boards. [![Latest release](https://img.shields.io/github/release/esp8266/Arduino.svg)](https://github.com/esp8266/Arduino/releases/latest/). To use ESP8266 core 2.7.1+ for LittleFS.
 11. [`ArduinoCore-mbed mbed_rp2040, mbed_nano, mbed_portenta core v3.3.0+`](https://github.com/arduino/ArduinoCore-mbed) for Arduino (Use Arduino Board Manager) **Portenta_H7, RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO**. [![GitHub release](https://img.shields.io/github/release/arduino/ArduinoCore-mbed.svg)](https://github.com/arduino/ArduinoCore-mbed/releases/latest)
-12. [`Earle Philhower's arduino-pico core v2.6.0+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
+12. [`Earle Philhower's arduino-pico core v2.6.0+`](https://github.com/earlephilhower/arduino-pico) for RP2040-based boards such as **RASPBERRY_PI_PICO, RASPBERRY_PI_PICO_W, ADAFRUIT_FEATHER_RP2040 and GENERIC_RP2040**, etc. [![GitHub release](https://img.shields.io/github/release/earlephilhower/arduino-pico.svg)](https://github.com/earlephilhower/arduino-pico/releases/latest)
 13. [`Arduino Core for STM32 v2.3.0+`](https://github.com/stm32duino/Arduino_Core_STM32) for STM32F/L/H/G/WB/MP1 boards. [![GitHub release](https://img.shields.io/github/release/stm32duino/Arduino_Core_STM32.svg)](https://github.com/stm32duino/Arduino_Core_STM32/releases/latest). Use STM32 core `v2.2.0` for LAN8720 or compile error.
 
 14. [`WiFiNINA_Generic library v1.8.14-6+`](https://github.com/khoih-prog/WiFiNINA_Generic) if for WiFiNINA. To install. check [![arduino-library-badge](https://www.ardu-badge.com/badge/WiFiNINA_Generic.svg?)](https://www.ardu-badge.com/WiFiNINA_Generic).
@@ -1311,6 +1317,9 @@ Just as simple as:
 #define USE_QN_ETHERNET             false
 ```
 
+---
+---
+
 ###  For Teensy 4.1 using QNEthernet
 
 Just as simple as:
@@ -1328,6 +1337,16 @@ Just as simple as:
 ### To use ESP8266/ESP32 native WiFi
 
 Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything special.
+
+---
+
+### To use RP2040W built-in WiFi
+
+```cpp
+#define WEBSOCKETS_USE_RP2040W            true
+#define USE_RP2040W_WIFI                  true
+#define USE_WIFI_NINA                     false
+```
 
 ---
 ---
@@ -1529,6 +1548,15 @@ Default is using `ESP8266/ESP32 native WiFi`. You don't need to do anything spec
 6. [ESP32_Ethernet_ServerAllFunctionsDemo](examples/Generic/Ethernet/ESP32/ESP32_Ethernet_ServerAllFunctionsDemo)
 7. [ESP32_Ethernet_AdvancedWebServer](examples/Generic/Ethernet/ESP32/ESP32_Ethernet_AdvancedWebServer).
 
+#### For RP2040W boards using built-in WiFi. New in v1.13.0
+
+1. [RP2040W-AdvancedWebServer](examples/Generic/RP2040W/RP2040W-AdvancedWebServer)
+2. [RP2040W-Client](examples/Generic/RP2040W/RP2040W-Client)
+3. [RP2040W-Client_SINRIC](examples/Generic/RP2040W/RP2040W-Client_SINRIC)
+4. [RP2040W-Minimal-Client](examples/Generic/RP2040W/RP2040W-Minimal-Client)
+5. [RP2040W-RepeatingClient](examples/Generic/RP2040W/RP2040W-RepeatingClient)
+6. [RP2040W-Server](examples/Generic/Generic/RP2040W/RP2040W-Server)
+7. [RP2040W_ServerAllFunctionsDemo](examples/Generic/RP2040W/RP2040W_ServerAllFunctionsDemo)
 
 ---
 ---
@@ -1555,7 +1583,7 @@ This is the terminal output when running [SAMD-Client_SINRIC](examples/Generic/W
 
 ```
 Starting WebSockets2_Generic SAMD-Client_SINRIC with WiFiNINA on SAMD NANO_33_IOT
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 WiFi-begin: return1 = 3
 WiFi-begin: return2 = 3
 Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
@@ -1698,7 +1726,7 @@ This is terminal debug output when running [SAMD-Ethernet-Client_SINRIC](example
 ```
 Starting WebSockets2_Generic SAMD-Ethernet-Client_SINRIC on SAMD ADAFRUIT_ITSYBITSY_M4_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ENC28J60_CONTROL_CS =16
 SS =16
 SPI_MOSI =25
@@ -1747,7 +1775,7 @@ This is terminal debug output when running [SAMDUE-Ethernet-Server](examples/Gen
 ```
 Starting WebSockets2_Generic SAMDUE-Ethernet-Server on SAM DUE
 Ethernet using W5x00 and Ethernet_Generic Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] =========== USE_ETHERNET_GENERIC ===========
 [WS] Default SPI pinout:
 [WS] MOSI: 75
@@ -1795,7 +1823,7 @@ This is terminal debug output when running [nRF52-Ethernet-Server](examples/Gene
 ```
 Starting WebSockets2_Generic nRF52-Ethernet-Server on NRF52840_ITSYBITSY_EXPRESS
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ENC28J60_CONTROL_CS =10
 SS =5
 SPI_MOSI =24
@@ -1833,7 +1861,7 @@ This is terminal debug output when running [STM32-Ethernet-Client_SINRIC](exampl
 ```
 Starting WebSockets2_Generic STM32-Ethernet-Client_SINRIC on NUCLEO_F767ZI
 Ethernet using LAN8742A and STM32Ethernet Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] =========== USE_LAN8742A_ETHERNET ===========
 WebSockets Client IP address: 192.168.2.135
 Connecting to WebSockets Server @iot.sinric.com
@@ -1881,7 +1909,7 @@ This is the terminal debug output when running [SAMDUE-Ethernet_ServerAllFunctio
 
 ```
 Start Generic_WebSocketServerAllFunctionsDemo_W5500
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] =========== USE_ETHERNET_GENERIC ===========
 [WS] Default SPI pinout:
 [WS] MOSI: 75
@@ -1957,7 +1985,7 @@ This is terminal debug output when running [STM32-Ethernet-Client_SINRIC_LAN8720
 ```
 Starting STM32-Ethernet-Client_SINRIC_LAN8720 on BLACK_F407VE
 Ethernet using LAN8720 and STM32Ethernet Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] =========== USE_LAN8720_ETHERNET ===========
 WebSockets Client IP address: 192.168.2.160
 Connecting to WebSockets Server @iot.sinric.com
@@ -2001,7 +2029,7 @@ This is terminal debug output when running [ESP32-Client_SINRIC](examples/ESP32/
 
 ```
 Starting ESP32-Client_SINRIC on ESP32S2_DEV
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ....Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2045,7 +2073,7 @@ This is terminal debug output when running [Secured-ESP32-Client](examples/ESP32
 
 ```
 Starting WebSockets Secured-ESP32-Client on ESP32S2_DEV
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ....
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2105,7 +2133,7 @@ This is terminal debug output when running [InSecured-ESP32-Client](examples/ESP
 
 ```
 Starting WebSockets InSecured-ESP32-Client on ESP32_DEV
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ...
 Connected to Wifi, Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2166,7 +2194,7 @@ This is terminal debug output when running [ESP8266-Client_SINRIC](examples/ESP3
 
 ```
 Starting ESP8266-Client_SINRIC on ESP8266_NODEMCU_ESP12E
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ......Connected to Wifi, Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2208,7 +2236,7 @@ This is terminal debug output when running [RP2040-Ethernet-Client_SINRIC](examp
 ```
 Starting RP2040-Ethernet-Client_SINRIC on RASPBERRY_PI_PICO
 Ethernet using W5x00 and Ethernet_Generic Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] =========== USE_ETHERNET_GENERIC ===========
 [WS] Default SPI pinout:
 [WS] MOSI: 19
@@ -2278,7 +2306,7 @@ This is terminal debug output when running [RP2040-Ethernet-Client_SINRIC](examp
 ```
 Starting RP2040-Ethernet-Client_SINRIC on RaspberryPi Pico
 Ethernet using W5x00 and Ethernet_Generic Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] =========== USE_ETHERNET_GENERIC ===========
 [WS] Default SPI pinout:
 [WS] MOSI: 19
@@ -2348,7 +2376,7 @@ This is terminal debug output when running [WT32_ETH01_Client_SINRIC](examples/W
 ```
 Starting WT32_ETH01_Client_SINRIC on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.232, FULL_DUPLEX, 100Mbps
 Connected. Connecting to WebSockets Server @iot.sinric.com
 [WS] WebsocketsClient::generateHandshake: base64Authorization = YXBpa2V5OjkxMjdkNDc4LTExNjAtNDE4OC04MDQ4LTQ3OWJhNWM2OTExNA==
@@ -2394,7 +2422,7 @@ This is terminal debug output when running [WT32_ETH01_SecuredClient](examples/W
 ```
 Starting WT32_ETH01_SecuredClient on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.232, FULL_DUPLEX, 100Mbps
 Connected. Connecting to WebSockets Server @wss://echo.websocket.org/
 [WS] WebsocketsClient::doestStartsWith: str = wss://echo.websocket.org/
@@ -2453,7 +2481,7 @@ This is terminal debug output when running [WT32_ETH01_AdvancedWebServer](exampl
 ```
 Starting WT32_ETH01_AdvancedWebServer on ESP32_DEV with ETH_PHY_LAN8720
 WebServer_WT32_ETH01 v1.4.1
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ETH MAC: A8:03:2A:A1:61:73, IPv4: 192.168.2.95, FULL_DUPLEX, 100Mbps
 MDNS responder started
 WebSockets Server Running and Ready on WT32-ETH01
@@ -2492,7 +2520,7 @@ This is terminal debug output and screenshot when running [SocketAndHttp_Teensy4
 
 ```
 Start SocketAndHttp_Teensy41_Server on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using DHCP => Connected! IP address:192.168.2.119
 Visit http://192.168.2.119 in the browser to connect.
@@ -2533,7 +2561,7 @@ This is terminal debug output when running [MultiClients_Teensy41_Server](exampl
 
 ```
 Starting MultiClients_Teensy41_Server on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using DHCP => Connected! IP address:192.168.2.119
 Server available at ws://192.168.2.119:81
@@ -2565,7 +2593,7 @@ Got Message: Hello to Server from ESP32
 
 ```
 Starting ESP32-RepeatingClient on ESP32_DEV
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 ....Connected to Wifi, Connecting to WebSockets Server @192.168.2.119
 [WS] WebsocketsClient::generateHandshake: base64Authorization = 
 [WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
@@ -2607,7 +2635,7 @@ This is terminal debug output when running [Portenta_H7_Ethernet_Server](example
 
 ```
 Starting Portenta_H7_Ethernet_Server on PORTENTA_H7_M7 Ethernet using Portenta_Ethernet Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 WebSockets Client @ IP address: 192.168.2.132
 Server available at ws://192.168.2.132:8080
 [WS] WebsocketsServer::recvHandshakeRequest: value = 192.168.2.132
@@ -2643,7 +2671,7 @@ This is terminal debug output when running [Portenta_H7-Client_SINRIC](examples/
 
 ```
 Starting Portenta_H7-Client_SINRIC using WiFi on PORTENTA_H7_M7
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 Connecting to SSID: HueNet1
 Connected to Wifi, IP address: 192.168.2.130
 Connecting to WebSockets Server @iot.sinric.com
@@ -2691,7 +2719,7 @@ This is terminal debug output when running [Portenta_H7-Client_SINRIC](examples/
 
 ```
 Starting RP2040-AdvancedWebServer with WiFiNINA on MBED NANO_RP2040_CONNECT
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 Attempting to connect to SSID: HueNet1
 Connected to Wifi, IP address: 192.168.2.96
 WebSockets Server Running and Ready on MBED NANO_RP2040_CONNECT
@@ -2733,7 +2761,7 @@ This is terminal debug output when running [Teensy41_Client](examples/Generic/Te
 
 ```
 Starting Teensy41_Client on TEENSY 4.1 using QNEthernet
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 =========== USE_QN_ETHERNET ===========
 Initialize Ethernet using static IP => Connected! IP address:192.168.2.222
 [WS] WebsocketsClient::doestStartsWith: str = ws://192.168.2.30:8080
@@ -2783,7 +2811,7 @@ This is terminal debug output when running [ESP32_Ethernet-Client](examples/Gene
 ```
 Starting ESP32_Ethernet-Client on ESP32_DEV
 Ethernet using W5x00 and Ethernet_Generic Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] Default SPI pinout:
 [WS] MOSI: 23
 [WS] MISO: 19
@@ -2848,7 +2876,7 @@ This is terminal debug output when running [ESP32_Ethernet-Client](examples/Gene
 ```
 Starting ESP32_Ethernet-Client on ESP32_DEV
 Ethernet using ENC28J60 and EthernetENC Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] Default SPI pinout:
 [WS] MOSI: 23
 [WS] MISO: 19
@@ -2910,7 +2938,7 @@ This is terminal debug output when running [ESP32_Ethernet-Client](examples/Gene
 ```
 Starting ESP32_Ethernet-Client on ESP32_DEV
 Ethernet using ENC28J60 and UIPEthernet Library
-WebSockets2_Generic v1.12.1
+WebSockets2_Generic v1.13.0
 [WS] Default SPI pinout:
 [WS] MOSI: 23
 [WS] MISO: 19
@@ -2963,6 +2991,46 @@ Got a Ping!
 
 
 ---
+
+#### 25. [RP2040W-Client](examples/Generic/RP2040W/RP2040W-Client) using built-in WiFi on RASPBERRY_PI_PICO_W
+
+This is terminal debug output when running [RP2040W-Client](examples/Generic/RP2040W/RP2040W-Client) on **RASPBERRY_PI_PICO_W** using built-in `CYW43439 WiFi`
+
+
+```
+Starting RP2040W-Client on RASPBERRY_PI_PICO_W
+WebSockets2_Generic v1.13.0
+Connecting to SSID: HueNet1
+SSID: HueNet1
+Local IP Address: 192.168.2.77
+Connecting to WebSockets Server @192.168.2.30
+[WS] WebsocketsClient::generateHandshake: base64Authorization = 
+[WS] WebsocketsClient::generateHandshake: handshake = GET / HTTP/1.1
+Host: 192.168.2.30
+Sec-WebSocket-Key: MDEyMzQ1Njc4OWFiY2RlZg==
+Upgrade: websocket
+Connection: Upgrade
+Sec-WebSocket-Version: 13
+User-Agent: TinyWebsockets Client
+Authorization: Basic 
+Origin: https://github.com/khoih-prog/Websockets2_Generic
+[WS] WebsocketsClient::connect: base64Authorization = 
+[WS] WebsocketsClient::generateHandshake: key = Upgrade
+[WS] WebsocketsClient::generateHandshake: value = websocket
+[WS] WebsocketsClient::generateHandshake: key = Connection
+[WS] WebsocketsClient::generateHandshake: value = Upgrade
+[WS] WebsocketsClient::generateHandshake: key = Sec-WebSocket-Accept
+[WS] WebsocketsClient::generateHandshake: value = BACScCJPNqyz+UBoqMH89VmURoA=
+[WS] WebsocketsClient::generateHandshake: key = Origin
+[WS] WebsocketsClient::generateHandshake: value = https://github.com/khoih-prog/Websockets2_Generic
+Connnection Opened
+Connected!
+Got Message: Hello to Server from RASPBERRY_PI_PICO_W
+Got a Ping!
+Got a Ping!
+```
+
+---
 ---
 
 ### Screenshots
@@ -3003,6 +3071,12 @@ Got a Ping!
     <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_RP2040.png">
 </p>
 
+7. This is the screenshot when running [RP2040W-AdvancedWebServer](examples/Generic/RP2040W/RP2040W-AdvancedWebServer) on **RASPBERRY_PI_PICO_W** using built-in WiFi, to demonstrate the new non-blocking feature of WebSockets Server enabling WebServer and WebSockets Server to run concurrently.
+
+<p align="center">
+    <img src="https://github.com/khoih-prog/WebSockets2_Generic/blob/master/pics/Web_WS_Server_RP2040W.png">
+</p>
+
 ---
 ---
 
@@ -3038,7 +3112,7 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 
 ### TO DO
 
- 1. Support more boards (RP2040W, etc.)
+ 1. Support more boards
  2. Support ESP8266/ESP32-AT shields.
  3. Add SSL client support to Teensy, SAMD21/SAMD51 and nRF52 using WiFiNINA.
  4. Support more non-compatible Ethernet Libraries such as Ethernet_Shield_W5200, EtherCard, EtherSia
@@ -3090,6 +3164,9 @@ Submit issues to: [WebSockets2_Generic issues](https://github.com/khoih-prog/Web
 36. Use new `waitForLink()` function of QNEthernet
 37. Add support to `ESP32` using either `W5x00` or `ENC28J60` Ethernet
 38. Add support to ENC28J60 using `EthernetENC` or `UIPEthernet` Library for these supported boards: **ESP32, nRF52, RP2040, SAM DUE, SAMD, STM32, Teensy**
+39. Add support to `RP2040W` using `CYW43439 WiFi` or `Ethernet` with `arduino-pico` core
+
+
 
 ---
 ---

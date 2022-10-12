@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.12.1
+  Version: 1.13.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -25,6 +25,7 @@
   1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
   1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
   1.12.1  K Hoang      09/10/2022 Fix bug in examples
+  1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi
  *****************************************************************************************************************************/
  
 #pragma once
@@ -32,6 +33,8 @@
 #include <Tiny_Websockets_Generic/ws_config_defs.hpp>
 #include <string>
 #include <Arduino.h>
+
+/////////////////////////////////////////////////////
 
 namespace websockets2_generic
 {
@@ -46,6 +49,8 @@ namespace websockets2_generic
     WSInterfaceString fromInternalString(const WSString&& str);
   }   // namespace internals2_generic 
 }     // namespace websockets 2_generic
+
+/////////////////////////////////////////////////////
 
 #if    ( defined(ARDUINO_SAMD_ZERO) || defined(ARDUINO_SAMD_MKR1000) || defined(ARDUINO_SAMD_MKRWIFI1010) \
       || defined(ARDUINO_SAMD_NANO_33_IOT) || defined(ARDUINO_SAMD_MKRFox1200) || defined(ARDUINO_SAMD_MKRWAN1300) || defined(ARDUINO_SAMD_MKRWAN1310) \
@@ -67,6 +72,8 @@ namespace websockets2_generic
     // OpenSSL Dependent
     #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
     #endif //_WS_CONFIG_NO_SSL
+
+/////////////////////////////////////////////////////
     
 #elif ( defined(NRF52840_FEATHER) || defined(NRF52832_FEATHER) || defined(NRF52_SERIES) || defined(ARDUINO_NRF52_ADAFRUIT) || \
     defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
@@ -86,6 +93,8 @@ namespace websockets2_generic
   // OpenSSL Dependent
   #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
   #endif //_WS_CONFIG_NO_SSL      
+
+/////////////////////////////////////////////////////
   
 #elif ( defined(ARDUINO_SAM_DUE) || defined(__SAM3X8E__) )
 
@@ -103,6 +112,8 @@ namespace websockets2_generic
   // OpenSSL Dependent
   #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
   #endif //_WS_CONFIG_NO_SSL    
+
+/////////////////////////////////////////////////////
 
 #elif ( defined(STM32F0) || defined(STM32F1) || defined(STM32F2) || defined(STM32F3)  ||defined(STM32F4) || defined(STM32F7) || \
        defined(STM32L0) || defined(STM32L1) || defined(STM32L4) || defined(STM32H7)  ||defined(STM32G0) || defined(STM32G4) || \
@@ -122,6 +133,8 @@ namespace websockets2_generic
   // OpenSSL Dependent
   #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
   #endif //_WS_CONFIG_NO_SSL   
+
+/////////////////////////////////////////////////////
           
 #elif ( defined(CORE_TEENSY) || defined(__IMXRT1062__) || defined(ARDUINO_TEENSY41) || defined(ARDUINO_TEENSY40) || \
     defined(__MK66FX1M0__) || defined(__MK64FX512__) || defined(__MKL26Z64__) || defined(__MK20DX256__) || \
@@ -142,6 +155,8 @@ namespace websockets2_generic
   #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
   #endif //_WS_CONFIG_NO_SSL       
 
+/////////////////////////////////////////////////////
+
 #elif ( defined(ARDUINO_ARCH_RP2040) || defined(ARDUINO_RASPBERRY_PI_PICO) || defined(ARDUINO_ADAFRUIT_FEATHER_RP2040) || \
     defined(ARDUINO_GENERIC_RP2040) )
   // Using Ethernet W5x00
@@ -159,6 +174,8 @@ namespace websockets2_generic
   #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
   #endif //_WS_CONFIG_NO_SSL      
 
+/////////////////////////////////////////////////////
+
 #elif ( defined(ESP32) )
   // Using Ethernet W5x00
   #warning Using Ethernet W5x00 for ESP32 in ws_common_Ethernet_W5x00.hpp
@@ -174,5 +191,7 @@ namespace websockets2_generic
   // OpenSSL Dependent
   #define WSDefaultSecuredTcpClient websockets2_generic::network2_generic::SecuredEthernetTcpClient
   #endif //_WS_CONFIG_NO_SSL
+
+/////////////////////////////////////////////////////
                 
 #endif  

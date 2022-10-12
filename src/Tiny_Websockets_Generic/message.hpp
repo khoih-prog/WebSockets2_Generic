@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.12.1
+  Version: 1.13.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -25,6 +25,7 @@
   1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
   1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
   1.12.1  K Hoang      09/10/2022 Fix bug in examples
+  1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi
  *****************************************************************************************************************************/
 
 #ifndef _MESSAGE_HPP_
@@ -34,7 +35,8 @@
 
 #include <Tiny_Websockets_Generic/internals/data_frame.hpp>
 
-// KH, from v1.0.1
+/////////////////////////////////////////////////////
+
 #if (WEBSOCKETS_USE_ETHERNET || WEBSOCKETS_USE_PORTENTA_H7_ETHERNET)
   #if USE_UIP_ETHERNET
     // KH, from v1.0.2
@@ -68,43 +70,84 @@
     #warning WEBSOCKETS_USE_ETHERNET in message.hpp
     #include <Tiny_Websockets_Generic/internals/ws_common_Ethernet_W5x00.hpp>
   #endif
+
+/////////////////////////////////////////////////////
+  
+#elif WEBSOCKETS_USE_RP2040W
+  #warning WEBSOCKETS_USE_RP2040W in message.hpp
+  #include <Tiny_Websockets_Generic/internals/ws_common_RP2040W.hpp>
+
+/////////////////////////////////////////////////////
+     
 #elif WEBSOCKETS_USE_WIFININA
   #warning WEBSOCKETS_USE_WIFININA in message.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common_WiFiNINA.hpp>
+
+/////////////////////////////////////////////////////
+  
 #elif WEBSOCKETS_USE_WIFI101
   #warning WEBSOCKETS_USE_WIFI101 in message.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common_WiFi101.hpp>
+
+/////////////////////////////////////////////////////
+  
 #elif WEBSOCKETS_USE_PORTENTA_H7_WIFI
   #warning WEBSOCKETS_USE_PORTENTA_H7_WIFI in client.hpp
-  #include <Tiny_Websockets_Generic/internals/ws_common_WiFi_Portenta_H7.hpp>   
+  #include <Tiny_Websockets_Generic/internals/ws_common_WiFi_Portenta_H7.hpp>
+
+/////////////////////////////////////////////////////
+  
 #else
   #warning WEBSOCKETS_USE_ESP_WIFI in message.hpp
   #include <Tiny_Websockets_Generic/internals/ws_common.hpp>  
 #endif
-//////
+
+/////////////////////////////////////////////////////
 
 namespace websockets2_generic
 {
   enum class MessageType
   {
     Empty,
-    Text, Binary,
-    Ping, Pong, Close
+    Text, 
+    Binary,
+    Ping, 
+    Pong, 
+    Close
   };
+
+  /////////////////////////////////////////////////////
   
   MessageType messageTypeFromOpcode(uint8_t opcode);
+
+  /////////////////////////////////////////////////////
   
   enum class MessageRole
   {
-    Complete, First, Continuation, Last
+    Complete, 
+    First, 
+    Continuation, 
+    Last
   };
+
+  /////////////////////////////////////////////////////
   
   // The class the user will interact with as a message
   // This message can be partial (so practically this is a Frame and not a message)
   struct WebsocketsMessage
   {
-    WebsocketsMessage(MessageType msgType, const WSString& msgData, MessageRole msgRole = MessageRole::Complete) : _type(msgType), _length(msgData.size()), _data(msgData), _role(msgRole) {}
+    WebsocketsMessage(MessageType msgType, const WSString& msgData, MessageRole msgRole = MessageRole::Complete) : 
+      _type(msgType), 
+      _length(msgData.size()), 
+      _data(msgData), 
+      _role(msgRole) 
+    {}
+
+    /////////////////////////////////////////////////////
+    
     WebsocketsMessage() : WebsocketsMessage(MessageType::Empty, "", MessageRole::Complete) {}
+
+    /////////////////////////////////////////////////////
 
     static WebsocketsMessage CreateFromFrame(internals2_generic::WebsocketsFrame frame, MessageType overrideType = MessageType::Empty) 
     {
@@ -137,11 +180,15 @@ namespace websockets2_generic
       return WebsocketsMessage(type, std::move(frame.payload), msgRole);
     }
 
+    /////////////////////////////////////////////////////
+
     // for validation
     bool isEmpty() const 
     {
       return this->_type == MessageType::Empty;
     }
+
+    /////////////////////////////////////////////////////
 
     // Type Helper Functions
     MessageType type() const 
@@ -149,30 +196,42 @@ namespace websockets2_generic
       return this->_type;
     }
 
+    /////////////////////////////////////////////////////
+
     bool isText() const 
     {
       return this->_type == MessageType::Text;
     }
+
+    /////////////////////////////////////////////////////
     
     bool isBinary() const 
     {
       return this->_type == MessageType::Binary;
     }
 
+    /////////////////////////////////////////////////////
+
     bool isPing() const 
     {
       return this->_type == MessageType::Ping;
     }
+
+    /////////////////////////////////////////////////////
     
     bool isPong() const 
     {
       return this->_type == MessageType::Pong;
     }
 
+    /////////////////////////////////////////////////////
+
     bool isClose() const 
     {
       return this->_type == MessageType::Close;
     }
+
+    /////////////////////////////////////////////////////
 
     // Role Helper Function
     MessageRole role() const 
@@ -180,55 +239,78 @@ namespace websockets2_generic
       return this->_role;
     }
 
+    /////////////////////////////////////////////////////
+
     bool isComplete() const 
     {
       return this->_role == MessageRole::Complete;
     }
+
+    /////////////////////////////////////////////////////
     
     bool isPartial() const 
     {
       return this->_role != MessageRole::Complete;
     }
+
+    /////////////////////////////////////////////////////
     
     bool isFirst() const 
     {
       return this->_role == MessageRole::First;
     }
+
+    /////////////////////////////////////////////////////
     
     bool isContinuation() const 
     {
       return this->_role == MessageRole::Continuation;
     }
+
+    /////////////////////////////////////////////////////
     
     bool isLast() const 
     {
       return this->_role == MessageRole::Last;
     }
 
+    /////////////////////////////////////////////////////
+
     WSInterfaceString data() const 
     {
       return internals2_generic::fromInternalString(this->_data);
     }
+
+    /////////////////////////////////////////////////////
     
     const WSString& rawData() const 
     {
       return this->_data;
     }
+
+    /////////////////////////////////////////////////////
     
     const char* c_str() const 
     {
       return this->_data.c_str();
     }
 
+    /////////////////////////////////////////////////////
+
     uint32_t length() const 
     {
       return this->_length;
     }
 
+    /////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////
+
     class StreamBuilder 
     {
       public:
         StreamBuilder(bool dummyMode = false) : _dummyMode(dummyMode), _empty(true) {}
+
+        /////////////////////////////////////////////////////
 
         void first(const internals2_generic::WebsocketsFrame& frame) 
         {
@@ -263,6 +345,8 @@ namespace websockets2_generic
           }
         }
 
+        /////////////////////////////////////////////////////
+
         void append(const internals2_generic::WebsocketsFrame& frame) 
         {
           if (isErrored()) 
@@ -286,6 +370,8 @@ namespace websockets2_generic
             badFragment();
           }
         }
+
+        /////////////////////////////////////////////////////
 
         void end(const internals2_generic::WebsocketsFrame& frame) 
         {
@@ -319,30 +405,42 @@ namespace websockets2_generic
           this->_isComplete = false;
         }
 
+        /////////////////////////////////////////////////////
+
         bool isErrored() 
         {
           return this->_didErrored;
         }
+
+        /////////////////////////////////////////////////////
 
         bool isOk() 
         {
           return !this->_didErrored;
         }
 
+        /////////////////////////////////////////////////////
+
         bool isComplete() 
         {
           return this->_isComplete;
         }
+
+        /////////////////////////////////////////////////////
 
         bool isEmpty() 
         {
           return this->_empty;
         }
 
+        /////////////////////////////////////////////////////
+
         MessageType type() 
         {
           return this->_type;
         }
+
+        /////////////////////////////////////////////////////
 
         WebsocketsMessage build() 
         {
@@ -353,6 +451,8 @@ namespace websockets2_generic
                  );
         }
 
+        /////////////////////////////////////////////////////
+
       private:
         bool _dummyMode;
         bool _empty;
@@ -362,6 +462,9 @@ namespace websockets2_generic
         bool _didErrored;
         
     };    // class StreamBuilder 
+
+    /////////////////////////////////////////////////////
+    /////////////////////////////////////////////////////
   
     private:
       const MessageType _type;

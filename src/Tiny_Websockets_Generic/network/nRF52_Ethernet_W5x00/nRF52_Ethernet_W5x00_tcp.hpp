@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.12.1
+  Version: 1.13.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -24,7 +24,8 @@
   1.10.3  K Hoang      11/04/2022 Use Ethernet_Generic library as default. Support SPI1/SPI2 for RP2040
   1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
   1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
-  1.12.1  K Hoang      09/10/2022 Fix bug in examples *****************************************************************************************************************************/
+  1.12.1  K Hoang      09/10/2022 Fix bug in examples
+  1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi *****************************************************************************************************************************/
  
 #pragma once
 
@@ -68,6 +69,8 @@ namespace websockets2_generic
   {
     typedef GenericEspTcpClient<EthernetClient> EthernetTcpClient;
 
+    /////////////////////////////////////////////////////
+
 #if 0
     // KH, no SSL support for Ethernet
     class SecuredEthernetTcpClient : public GenericEspTcpClient<EthernetSSLClient> 
@@ -98,6 +101,8 @@ namespace websockets2_generic
         }  
     };
 #endif
+
+    /////////////////////////////////////////////////////
     
     #ifndef WEBSOCKETS_PORT
       #define DUMMY_PORT    8080
@@ -107,11 +112,15 @@ namespace websockets2_generic
     
     // KH, quick fix for Ethernet port
     #define CLOSED     0
+
+    /////////////////////////////////////////////////////
     
     class EthernetTcpServer : public TcpServer 
     {
       public:
         EthernetTcpServer() : server(DUMMY_PORT) {}
+
+        /////////////////////////////////////////////////////
         
         bool poll() override 
         {
@@ -122,6 +131,8 @@ namespace websockets2_generic
           return true;
           //////
         }
+
+        /////////////////////////////////////////////////////
     
         bool listen(const uint16_t port) override 
         {
@@ -134,6 +145,8 @@ namespace websockets2_generic
           //////
           return available();
         }
+
+        /////////////////////////////////////////////////////
     
         TcpClient* accept() override 
         {   
@@ -156,6 +169,8 @@ namespace websockets2_generic
                    
           return new EthernetTcpClient;
         }
+
+        /////////////////////////////////////////////////////
     
         bool available() override 
         {
@@ -167,6 +182,8 @@ namespace websockets2_generic
           //return (server);
           return true;
         }
+
+        /////////////////////////////////////////////////////
     
         void close() override 
         {
@@ -176,17 +193,26 @@ namespace websockets2_generic
           //server.close();
           //////
         }
+
+        /////////////////////////////////////////////////////
     
         virtual ~EthernetTcpServer() 
         {
           if (available()) close();
         }
+
+        /////////////////////////////////////////////////////
     
       protected:
+
+        /////////////////////////////////////////////////////
+      
         int getSocket() const override 
         {
           return -1;
         }
+
+        /////////////////////////////////////////////////////
     
       private:
         EthernetServer server;

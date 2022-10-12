@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.12.1
+  Version: 1.13.0
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -25,6 +25,7 @@
   1.11.0  K Hoang      08/10/2022 Add support to ESP32 using W5x00 Ethernet
   1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
   1.12.1  K Hoang      09/10/2022 Fix bug in examples
+  1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi
  *****************************************************************************************************************************/
  
 #pragma once
@@ -45,6 +46,8 @@ namespace websockets2_generic
   namespace network2_generic
   {
     typedef GenericEspTcpClient<WiFiClient> WiFiTcpClient;
+
+    /////////////////////////////////////////////////////
 
     class SecuredWiFiTcpClient : public GenericEspTcpClient<WiFiSSLClient> 
     {
@@ -78,6 +81,7 @@ namespace websockets2_generic
 #endif    
     };
 
+    /////////////////////////////////////////////////////
     
     #ifndef WEBSOCKETS_PORT
       #define DUMMY_PORT    8080
@@ -87,11 +91,15 @@ namespace websockets2_generic
     
     // KH, quick fix for WiFiNINA port
     #define CLOSED     0
+
+    /////////////////////////////////////////////////////
     
     class WiFiTcpServer : public TcpServer 
     {
       public:
         WiFiTcpServer() : server(DUMMY_PORT) {}
+
+        /////////////////////////////////////////////////////
         
         bool poll() override 
         {
@@ -102,6 +110,8 @@ namespace websockets2_generic
           return true;
           //////
         }
+
+        /////////////////////////////////////////////////////
     
         bool listen(const uint16_t port) override 
         {         
@@ -112,6 +122,8 @@ namespace websockets2_generic
           //////
           return available();
         }
+
+        /////////////////////////////////////////////////////
         
         TcpClient* accept() override 
         {   
@@ -134,6 +146,8 @@ namespace websockets2_generic
                    
           return new WiFiTcpClient;
         }
+
+        /////////////////////////////////////////////////////
        
         bool available() override 
         {
@@ -151,6 +165,8 @@ namespace websockets2_generic
           //return server.status() != CLOSED;
           return result;
         }
+
+        /////////////////////////////////////////////////////
     
         void close() override 
         {
@@ -160,17 +176,26 @@ namespace websockets2_generic
           //server.close();
           //////
         }
+
+        /////////////////////////////////////////////////////
     
         virtual ~WiFiTcpServer() 
         {
           if (available()) close();
         }
+
+        /////////////////////////////////////////////////////
     
       protected:
+
+        /////////////////////////////////////////////////////
+      
         int getSocket() const override 
         {
           return -1;
         }
+
+        /////////////////////////////////////////////////////
     
       private:
         WiFiServer server;
