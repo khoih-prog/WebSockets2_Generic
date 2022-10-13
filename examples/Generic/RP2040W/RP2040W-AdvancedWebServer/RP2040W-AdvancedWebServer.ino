@@ -33,11 +33,27 @@ WebsocketsServer SocketsServer;
 
 WiFiWebServer server(80);
 
+#define LED_OFF             LOW
+#define LED_ON              HIGH
+
 #define BUFFER_SIZE         640
 char temp[BUFFER_SIZE];
 
 void handleRoot()
 {
+  static uint32_t pageCount   = 0;
+  static uint32_t maxfreeHeap = 0;
+  static uint32_t minFreeHeap = 0xFFFFFFFF;
+  uint32_t curFreeHeap = rp2040.getFreeHeap();
+
+  if (maxfreeHeap < curFreeHeap)
+    maxfreeHeap = curFreeHeap;
+
+  if (minFreeHeap > curFreeHeap)
+    minFreeHeap = curFreeHeap;
+  
+  digitalWrite(LED_BUILTIN, LED_ON);
+    
   int sec = millis() / 1000;
   int min = sec / 60;
   int hr = min / 60;
@@ -55,16 +71,21 @@ body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; Col
 <body>\
 <h2>WebSockets&WebServer!</h2>\
 <h3>both on %s</h3>\
-<p>Uptime: %d d %02d:%02d:%02d</p>\
+<p>Uptime: %d d %02d:%02d:%02d, pageCount: %lu</p>\
+<p>Heap Free: %lu, Max: %lu, Min: %lu</p>\
 <img src=\"/test.svg\" />\
 </body>\
-</html>", BOARD_NAME, BOARD_NAME, day, hr % 24, min % 60, sec % 60);
+</html>", BOARD_NAME, BOARD_NAME, day, hr % 24, min % 60, sec % 60, ++pageCount, curFreeHeap, maxfreeHeap, minFreeHeap);
 
   server.send(200, "text/html", temp);
+
+  digitalWrite(LED_BUILTIN, LED_OFF);
 }
 
 void handleNotFound()
 {
+  digitalWrite(LED_BUILTIN, LED_ON);
+  
   String message = "File Not Found\n\n";
   message += "URI: ";
   message += server.uri();
@@ -80,6 +101,8 @@ void handleNotFound()
   }
 
   server.send(404, "text/plain", message);
+
+  digitalWrite(LED_BUILTIN, LED_OFF);
 }
 
 #define ORIGINAL_STR_LEN        4000
@@ -90,7 +113,9 @@ String out;
 void drawGraph()
 {  
   char temp[TEMP_STR_LEN];
-  static uint16_t previousStrLen = ORIGINAL_STR_LEN;
+  static uint32_t previousStrLen = ORIGINAL_STR_LEN;
+
+  digitalWrite(LED_BUILTIN, LED_ON);
     
   if (out.length() == 0)
   {
@@ -108,7 +133,7 @@ void drawGraph()
   {
     int y2 = rand() % 130;
 
-    memset(temp, TEMP_STR_LEN, 0);
+    memset(temp, 0, TEMP_STR_LEN);
     
     //sprintf(temp, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke-width=\"2\" />\n", x, 140 - y, x + 10, 140 - y2);
     snprintf(temp, TEMP_STR_LEN - 1, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke-width=\"2\" />\n", x, 140 - y, x + 15, 140 - y2);
@@ -130,6 +155,8 @@ void drawGraph()
   out += F("</g>\n</svg>\n");
 
   server.send(200, "image/svg+xml", out);
+
+  digitalWrite(LED_BUILTIN, LED_OFF);
 }
 
 void printWifiStatus()
@@ -146,6 +173,9 @@ void printWifiStatus()
 
 void setup()
 {
+  pinMode(LED_BUILTIN, OUTPUT);
+  digitalWrite(LED_BUILTIN, LED_OFF);
+  
   Serial.begin(115200);
   while (!Serial && millis() < 5000);
 
