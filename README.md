@@ -194,7 +194,7 @@ This [**WebSockets_Generic2** library](https://github.com/khoih-prog/WebSockets2
 
 12. **RP2040-based boards, such as Nano_RP2040_Connect, RASPBERRY_PI_PICO, ADAFRUIT_FEATHER_RP2040**, using WiFiNINA or Ethernet
 
-12. **RP2040W boards, such as RASPBERRY_PI_PICO_W**, using Cyw43439 WiFi or Ethernet
+13. **RP2040W boards, such as RASPBERRY_PI_PICO_W**, using Cyw43439 WiFi or Ethernet
 
 
 ---
@@ -452,7 +452,7 @@ Supposing the STM32 stm32 core version is 2.3.0. These files must be copied into
 - `~/.arduino15/packages/STM32/hardware/stm32/2.3.0/system/STM32F7xx/stm32f7xx_hal_conf_default.h` for Nucleo-144 STM32F7.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
-theses files must be copied into the corresponding directory:
+these files must be copied into the corresponding directory:
 
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system/STM32F4xx/stm32f4xx_hal_conf_default.h`
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/system/STM32F7xx/stm32f7xx_hal_conf_default.h
@@ -468,7 +468,7 @@ Supposing the STM32 stm32 core version is 2.3.0. These files must be copied into
 - `~/.arduino15/packages/STM32/hardware/stm32/2.3.0/variants/STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T/NUCLEO_L053R8/variant.h` for Nucleo-64 NUCLEO_L053R8.
 
 Whenever a new version is installed, remember to copy this file into the new version directory. For example, new version is x.yy.zz,
-theses files must be copied into the corresponding directory:
+these files must be copied into the corresponding directory:
 
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/STM32F7xx/F765Z(G-I)T_F767Z(G-I)T_F777ZIT/NUCLEO_F767ZI/variant.h`
 - `~/.arduino15/packages/STM32/hardware/stm32/x.yy.zz/variants/STM32L0xx/L052R(6-8)T_L053R(6-8)T_L063R8T/NUCLEO_L053R8/variant.h`
@@ -870,10 +870,10 @@ client.onMessage([&](WebsocketsMessage message)
 });
 ```
 
-2. Using normal calback function
+2. Using normal callback function
 
 ```cpp
-// run callback when events are occuring
+// run callback when events are occurring
   client.onMessage(onMessageCallback);
 ```
 
@@ -2118,7 +2118,7 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::generateHandshake: value = Kaazing Gateway
 [WS] WebsocketsClient::generateHandshake: key = Upgrade
 [WS] WebsocketsClient::generateHandshake: value = websocket
-Connnection Opened
+Connection Opened
 Connected!
 Got Message: Hello to Server from ESP32S2_DEV
 Got a Pong!
@@ -2178,7 +2178,7 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::generateHandshake: value = Kaazing Gateway
 [WS] WebsocketsClient::generateHandshake: key = Upgrade
 [WS] WebsocketsClient::generateHandshake: value = websocket
-Connnection Opened
+Connection Opened
 Connected!
 Got Message: Hello to Server from ESP32_DEV
 Got a Pong!
@@ -2466,7 +2466,7 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::generateHandshake: value = Kaazing Gateway
 [WS] WebsocketsClient::generateHandshake: key = Upgrade
 [WS] WebsocketsClient::generateHandshake: value = websocket
-Connnection Opened
+Connection Opened
 Connected!
 Got Message: Hello to Server from ESP32_DEV
 Got a Pong!
@@ -2618,7 +2618,7 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::generateHandshake: value = 13
 [WS] WebsocketsClient::generateHandshake: key = Sec-WebSocket-Accept
 [WS] WebsocketsClient::generateHandshake: value = BACScCJPNqyz+UBoqMH89VmURoA=
-Connnection Opened
+Connection Opened
 Connected!
 Got Message: Hello from Teensy
 Got Message: Echo: Hello to Server from ESP32
@@ -2861,7 +2861,7 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::generateHandshake: key = Origin
 [WS] WebsocketsClient::generateHandshake: value = https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::connect: step 7
-Connnection Opened
+Connection Opened
 Connected!
 Got Message: Hello to Server from ESP32_DEV
 ```
@@ -2919,7 +2919,7 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::generateHandshake: key = Origin
 [WS] WebsocketsClient::generateHandshake: value = https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::connect: step 7
-Connnection Opened
+Connection Opened
 Connected!
 Got Message: Hello to Server from ESP32_DEV
 Got a Ping!
@@ -2981,7 +2981,7 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::generateHandshake: key = Origin
 [WS] WebsocketsClient::generateHandshake: value = https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::connect: step 7
-Connnection Opened
+Connection Opened
 Connected!
 Got Message: Hello to Server from ESP32_DEV
 Got a Ping!
@@ -3023,7 +3023,7 @@ Origin: https://github.com/khoih-prog/Websockets2_Generic
 [WS] WebsocketsClient::generateHandshake: value = BACScCJPNqyz+UBoqMH89VmURoA=
 [WS] WebsocketsClient::generateHandshake: key = Origin
 [WS] WebsocketsClient::generateHandshake: value = https://github.com/khoih-prog/Websockets2_Generic
-Connnection Opened
+Connection Opened
 Connected!
 Got Message: Hello to Server from RASPBERRY_PI_PICO_W
 Got a Ping!
