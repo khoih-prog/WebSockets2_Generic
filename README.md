@@ -1600,12 +1600,12 @@ Please take a look at other examples, as well.
 
 #### 1. File [SAMD-Client_SINRIC.ino](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino)
 
-https://github.com/khoih-prog/WebSockets2_Generic/blob/02d82b0d957abe4e801c192ba995aabb0d6368aa/examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino#L29-L263
+https://github.com/khoih-prog/WebSockets2_Generic/blob/d1139159d520fa9b8b7b812dde7f893d23d0e789/examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/SAMD-Client_SINRIC.ino#L29-L263
 
 
 #### 2. File [defines.h](examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h)
 
-https://github.com/khoih-prog/WebSockets2_Generic/blob/02d82b0d957abe4e801c192ba995aabb0d6368aa/examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h#L17-L164
+https://github.com/khoih-prog/WebSockets2_Generic/blob/d1139159d520fa9b8b7b812dde7f893d23d0e789/examples/Generic/WiFiNINA/SAMD/SAMD-Client_SINRIC/defines.h#L17-L164
 
 
 ---
