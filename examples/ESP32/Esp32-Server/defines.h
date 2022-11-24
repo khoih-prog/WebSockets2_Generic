@@ -29,7 +29,7 @@
 #endif
 
 #ifndef BOARD_NAME
-#define BOARD_NAME    BOARD_TYPE
+  #define BOARD_NAME    BOARD_TYPE
 #endif
 
 #define DEBUG_WEBSOCKETS_PORT     Serial

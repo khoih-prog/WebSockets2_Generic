@@ -107,18 +107,20 @@ void drawGraph()
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
-  Serial.print("\nStart ESP32-AdvancedWebServer on "); Serial.println(ARDUINO_BOARD);
+  Serial.print("\nStart ESP32-AdvancedWebServer on ");
+  Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   Serial.print("Attempting to connect to SSID: ");
   Serial.println(ssid);
 
   WiFi.mode(WIFI_STA);
-  
-  WiFi.config(serverIP, static_GW, static_SN); 
-  
+
+  WiFi.config(serverIP, static_GW, static_SN);
+
   WiFi.begin(ssid, password);
 
   // Wait some time to connect to wifi
@@ -139,7 +141,7 @@ void setup()
     return;
   }
 
-  if (MDNS.begin("esp32")) 
+  if (MDNS.begin("esp32"))
   {
     Serial.println("MDNS responder started");
   }

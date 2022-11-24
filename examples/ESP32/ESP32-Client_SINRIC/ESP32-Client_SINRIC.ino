@@ -7,7 +7,7 @@
 
 
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
  *****************************************************************************************************************************/
@@ -86,7 +86,7 @@ void turnOff(String deviceId)
 void onEventsCallback(WebsocketsEvent event, String data)
 {
   (void) data;
-  
+
   if (event == WebsocketsEvent::ConnectionOpened)
   {
     if (!isConnected)
@@ -120,7 +120,7 @@ void onEventsCallback(WebsocketsEvent event, String data)
 void onMessagesCallback(WebsocketsMessage message)
 {
   String SINRIC_message = message.data();
-  
+
   Serial.print("Got Message: ");
   Serial.println(SINRIC_message /*message.data()*/);
 
@@ -136,23 +136,26 @@ void onMessagesCallback(WebsocketsMessage message)
   DynamicJsonDocument json(1024);
   //auto deserializeError = deserializeJson(json, (char*)message.data());
   auto deserializeError = deserializeJson(json, SINRIC_message);
-  
+
   if ( deserializeError )
   {
     Serial.println("JSON parseObject() failed");
     return;
   }
+
   //serializeJson(json, Serial);
 #else
   DynamicJsonBuffer jsonBuffer;
   // Parse JSON string
   JsonObject& json = jsonBuffer.parseObject(SINRIC_message);
+
   // Test if parsing succeeds.
   if (!json.success())
   {
     Serial.println("JSON parseObject() failed");
     return;
   }
+
 #endif
 
   String deviceId = json ["deviceId"];
@@ -162,6 +165,7 @@ void onMessagesCallback(WebsocketsMessage message)
   {
     // Switch or Light
     String value = json ["value"];
+
     if (value == "ON")
     {
       turnOn(deviceId);
@@ -177,11 +181,13 @@ void setup()
 {
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
-  
+
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
-  Serial.print("\nStart ESP32-Client_SINRIC on "); Serial.println(ARDUINO_BOARD);
+  Serial.print("\nStart ESP32-Client_SINRIC on ");
+  Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   // Connect to wifi

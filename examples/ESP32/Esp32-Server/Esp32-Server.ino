@@ -7,7 +7,7 @@
 
 
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
  *****************************************************************************************************************************/
@@ -48,9 +48,9 @@ void heartBeatPrint()
 
   if (WiFi.status() == WL_CONNECTED)
     Serial.print("H");        // H means server WiFi connected
-  else  
+  else
     Serial.print("F");        // F means server WiFi not connected
-    
+
   if (num == 80)
   {
     Serial.println();
@@ -68,6 +68,7 @@ void check_status()
 
   //KH
 #define HEARTBEAT_INTERVAL    10000L
+
   // Print hearbeat every HEARTBEAT_INTERVAL (10) seconds.
   if ((millis() > checkstatus_timeout) || (checkstatus_timeout == 0))
   {
@@ -79,15 +80,17 @@ void check_status()
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
-  Serial.print("\nStart ESP32-Server on "); Serial.println(ARDUINO_BOARD);
+  Serial.print("\nStart ESP32-Server on ");
+  Serial.println(ARDUINO_BOARD);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   WiFi.mode(WIFI_STA);
-  
-  WiFi.config(serverIP, static_GW, static_SN); 
-  
+
+  WiFi.config(serverIP, static_GW, static_SN);
+
   // Connect to wifi
   WiFi.begin(ssid, password);
 
@@ -107,7 +110,7 @@ void setup()
   }
 
   server.listen(WEBSOCKETS_PORT);
-  
+
   Serial.print(server.available() ? "WebSockets Server Running and Ready on " : "Server Not Running on ");
   Serial.println(BOARD_NAME);
   Serial.print("IP address: ");
@@ -117,11 +120,11 @@ void setup()
 }
 
 void loop()
-{ 
+{
   check_status();
-  
+
   WebsocketsClient client = server.accept();
- 
+
   if (client.available())
   {
     //WebsocketsMessage msg = client.readNonBlocking();

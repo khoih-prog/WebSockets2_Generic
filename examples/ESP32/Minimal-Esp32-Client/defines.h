@@ -1,5 +1,5 @@
 /****************************************************************************************************************************
-  defines.h for ESP32-Client.ino
+  defines.h
   For ESP32.
 
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
