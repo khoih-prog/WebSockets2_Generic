@@ -1,16 +1,16 @@
 /****************************************************************************************************************************
   WebSockets2_Generic_Debug.h
   For WebSockets2_Generic Library
-  
+
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, SAM DUE, Teensy, RP2040 boards besides ESP8266 and ESP32
 
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
-  
-  Version: 1.13.0
+
+  Version: 1.13.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -26,6 +26,7 @@
   1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
   1.12.1  K Hoang      09/10/2022 Fix bug in examples
   1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi
+  1.13.1  K Hoang      24/11/2022 Using new WiFi101_Generic library
  *****************************************************************************************************************************/
 
 #ifndef WebSockets2_Generic_Debug_h

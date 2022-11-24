@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.13.0
+  Version: 1.13.1
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -26,6 +26,7 @@
   1.12.0  K Hoang      09/10/2022 Add support to ENC28J60 using EthernetENC or UIPEthernet for all supported boards
   1.12.1  K Hoang      09/10/2022 Fix bug in examples
   1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi
+  1.13.1  K Hoang      24/11/2022 Using new WiFi101_Generic library
  *****************************************************************************************************************************/
  
 #pragma once
@@ -49,7 +50,7 @@ namespace websockets2_generic
 }     // namespace websockets 2_generic
 
 #if WEBSOCKETS_USE_WIFI101
-  #warning Using WIFI101 in ws_common_WiFi101.hpp
+  #warning Using WIFI101_Generic in ws_common_WiFi101.hpp
 #endif
 
   
@@ -60,8 +61,8 @@ namespace websockets2_generic
       || defined(__SAMD51G19A__) || defined(__SAMD51P19A__) || defined(__SAMD21G18A__) )
       
  
-    // Using WiFi101  
-    #warning Using WiFi101 for SAMD in ws_common_WiFi101.hpp
+    // Using WiFi101_Generic  
+    #warning Using WiFi101_Generic for SAMD in ws_common_WiFi101.hpp
       
     #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
     
@@ -79,8 +80,8 @@ namespace websockets2_generic
       defined(NRF52840_FEATHER_SENSE) || defined(NRF52840_ITSYBITSY) || defined(NRF52840_CIRCUITPLAY) || defined(NRF52840_CLUE) || \
       defined(NRF52840_METRO) || defined(NRF52840_PCA10056) || defined(PARTICLE_XENON) || defined(NINA_B302_ublox) || defined(NINA_B112_ublox) )
    
-    // Using WiFi101
-    #warning Using WiFi101 for NRF52 in ws_common_WiFi101.hpp
+    // Using WiFi101_Generic
+    #warning Using WiFi101_Generic for NRF52 in ws_common_WiFi101.hpp
     
     #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
     
@@ -97,8 +98,8 @@ namespace websockets2_generic
 #elif ( defined(ARDUINO_SAM_DUE) || defined(__SAM3X8E__) )
     // From v1.0.1
   
-    // Using WiFi101
-    #warning Using WiFi101 for SAM DUE in ws_common_WiFi101.hpp
+    // Using WiFi101_Generic
+    #warning Using WiFi101_Generic for SAM DUE in ws_common_WiFi101.hpp
     
     #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
     
@@ -116,8 +117,8 @@ namespace websockets2_generic
         defined(STM32WB) || defined(STM32MP1) )
     // From v1.0.4
   
-    // Using WiFi101
-    #warning Using WiFi101 for STM32F/L/H/G/WB/MP1 in ws_common_WiFi101.hpp
+    // Using WiFi101_Generic
+    #warning Using WiFi101_Generic for STM32F/L/H/G/WB/MP1 in ws_common_WiFi101.hpp
     
     #define PLATFORM_DOES_NOT_SUPPORT_BLOCKING_READ
     
