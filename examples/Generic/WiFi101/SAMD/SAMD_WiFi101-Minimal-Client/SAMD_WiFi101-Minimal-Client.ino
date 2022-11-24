@@ -1,17 +1,17 @@
 /****************************************************************************************************************************
   SAMD_WiFi101-Minimal-Client.ino
   For SAMD21/SAMD51 with WiFi101 module/shield.
-  
+
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
-  
+
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Example first created on: 10.05.2018
   Original Author: Markus Sattler
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
-  Licensed under MIT license    
+  Licensed under MIT license
  *****************************************************************************************************************************/
 /****************************************************************************************************************************
   SAMD-Minimal-Client: Minimal SAMD21/SAMD51 Websockets Client
@@ -44,27 +44,27 @@
 
 using namespace websockets2_generic;
 
-void onMessageCallback(WebsocketsMessage message) 
+void onMessageCallback(WebsocketsMessage message)
 {
   Serial.print("Got Message: ");
   Serial.println(message.data());
 }
 
-void onEventsCallback(WebsocketsEvent event, String data) 
+void onEventsCallback(WebsocketsEvent event, String data)
 {
-  if (event == WebsocketsEvent::ConnectionOpened) 
+  if (event == WebsocketsEvent::ConnectionOpened)
   {
     Serial.println("Connnection Opened");
-  } 
-  else if (event == WebsocketsEvent::ConnectionClosed) 
+  }
+  else if (event == WebsocketsEvent::ConnectionClosed)
   {
     Serial.println("Connnection Closed");
-  } 
-  else if (event == WebsocketsEvent::GotPing) 
+  }
+  else if (event == WebsocketsEvent::GotPing)
   {
     Serial.println("Got a Ping!");
-  } 
-  else if (event == WebsocketsEvent::GotPong) 
+  }
+  else if (event == WebsocketsEvent::GotPong)
   {
     Serial.println("Got a Pong!");
   }
@@ -72,16 +72,17 @@ void onEventsCallback(WebsocketsEvent event, String data)
 
 WebsocketsClient client;
 
-void setup() 
+void setup()
 {
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
-  Serial.println("\nStarting SAMD_WiFi101-Minimal-Client with WiFi101 on " + String(BOARD_NAME));
+  Serial.println("\nStarting SAMD_WiFi101-Minimal-Client with WiFi101_Generic on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   // check for the WiFi module:
-  if (WiFi.status() == WL_NO_SHIELD) 
+  if (WiFi.status() == WL_NO_SHIELD)
   {
     Serial.println("Communication with WiFi module failed!");
     // don't continue
@@ -93,19 +94,19 @@ void setup()
   Serial.println(fv);
 
   String latestFv;
-    
-  if (REV(GET_CHIPID()) >= REV_3A0) 
+
+  if (REV(GET_CHIPID()) >= REV_3A0)
   {
     // model B
     latestFv = WIFI_FIRMWARE_LATEST_MODEL_B;
-  } 
-  else 
+  }
+  else
   {
     // model A
     latestFv = WIFI_FIRMWARE_LATEST_MODEL_A;
   }
-  
-  if (fv < latestFv) 
+
+  if (fv < latestFv)
   {
     Serial.println("Please upgrade the firmware");
     // Print required firmware version
@@ -122,7 +123,7 @@ void setup()
   WiFi.begin(ssid, password);
 
   // Wait some time to connect to wifi
-  for (int i = 0; i < 10 && WiFi.status() != WL_CONNECTED; i++) 
+  for (int i = 0; i < 10 && WiFi.status() != WL_CONNECTED; i++)
   {
     Serial.print(".");
     delay(1000);
@@ -140,7 +141,7 @@ void setup()
     Serial.println("\nNo WiFi");
     return;
   }
- 
+
   // run callback when messages are received
   client.onMessage(onMessageCallback);
 
@@ -158,7 +159,7 @@ void setup()
   client.ping();
 }
 
-void loop() 
+void loop()
 {
   client.poll();
 }

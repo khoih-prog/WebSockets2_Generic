@@ -1,15 +1,15 @@
 /****************************************************************************************************************************
   SAMD_WiFi101_AdvancedWebServer.ino
   For SAMD21/SAMD51 with WiFi101 module/shield.
-  
+
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
-  
+
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Example first created on: 10.05.2018
   Original Author: Markus Sattler
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
  *****************************************************************************************************************************/
@@ -104,13 +104,14 @@ void drawGraph()
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
-  Serial.println("\nStarting SAMD_WiFi101_AdvancedWebServer with WiFi101 on " + String(BOARD_NAME));
+  Serial.println("\nStarting SAMD_WiFi101_AdvancedWebServer with WiFi101_Generic on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   // check for the WiFi module:
-  if (WiFi.status() == WL_NO_SHIELD) 
+  if (WiFi.status() == WL_NO_SHIELD)
   {
     Serial.println("Communication with WiFi module failed!");
     // don't continue
@@ -122,19 +123,19 @@ void setup()
   Serial.println(fv);
 
   String latestFv;
-    
-  if (REV(GET_CHIPID()) >= REV_3A0) 
+
+  if (REV(GET_CHIPID()) >= REV_3A0)
   {
     // model B
     latestFv = WIFI_FIRMWARE_LATEST_MODEL_B;
-  } 
-  else 
+  }
+  else
   {
     // model A
     latestFv = WIFI_FIRMWARE_LATEST_MODEL_A;
   }
-  
-  if (fv < latestFv) 
+
+  if (fv < latestFv)
   {
     Serial.println("Please upgrade the firmware");
     // Print required firmware version

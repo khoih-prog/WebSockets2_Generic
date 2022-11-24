@@ -1,15 +1,15 @@
 /****************************************************************************************************************************
-  SAMD_WiFi101_ServerAllFunctionsDemo.ino  
+  SAMD_WiFi101_ServerAllFunctionsDemo.ino
   For SAMD21/SAMD51 with WiFi101 module/shield.
-  
+
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52 and SAMD21/SAMD51 boards besides ESP8266 and ESP32
-  
+
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Example first created on: 10.05.2018
   Original Author: Markus Sattler
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
  *****************************************************************************************************************************/
@@ -34,11 +34,12 @@ WebsocketsServer SocketsServer;
 WiFiWebServer server(80);
 
 void setup()
-{ 
+{
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
-  Serial.println("\nStarting SAMD_WiFi101_ServerAllFunctionsDemo with WiFi101 on " + String(BOARD_NAME));
+  Serial.println("\nStarting SAMD_WiFi101_ServerAllFunctionsDemo with WiFi101_Generic on " + String(BOARD_NAME));
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   pinMode(RED_LED, OUTPUT);
@@ -50,7 +51,7 @@ void setup()
   digitalWrite(BLUE_LED, 1);
 
   // check for the WiFi module:
-  if (WiFi.status() == WL_NO_SHIELD) 
+  if (WiFi.status() == WL_NO_SHIELD)
   {
     Serial.println("Communication with WiFi module failed!");
     // don't continue
@@ -62,19 +63,19 @@ void setup()
   Serial.println(fv);
 
   String latestFv;
-    
-  if (REV(GET_CHIPID()) >= REV_3A0) 
+
+  if (REV(GET_CHIPID()) >= REV_3A0)
   {
     // model B
     latestFv = WIFI_FIRMWARE_LATEST_MODEL_B;
-  } 
-  else 
+  }
+  else
   {
     // model A
     latestFv = WIFI_FIRMWARE_LATEST_MODEL_A;
   }
-  
-  if (fv < latestFv) 
+
+  if (fv < latestFv)
   {
     Serial.println("Please upgrade the firmware");
     // Print required firmware version
@@ -107,14 +108,14 @@ void setup()
   }
 
   SocketsServer.listen(WEBSOCKETS_PORT);
- 
+
   Serial.print(SocketsServer.available() ? "WebSockets Server Running and Ready on " : "Server Not Running on ");
   Serial.println(BOARD_NAME);
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
   Serial.print(", Port: ");
   Serial.println(WEBSOCKETS_PORT);    // Websockets Server Port
-  
+
   // handle index
   server.on("/", []()
   {
@@ -122,13 +123,14 @@ void setup()
     Serial.print("wsServer: ");
     Serial.println(wsServer);
 
-        
+
     // send index.html
-    server.send(200, "text/html", "<html><head><script>var connection = new WebSocket(wsServer, ['arduino']);connection.onopen = function () {  connection.send('Connect ' + new Date()); }; connection.onerror = function (error) {    console.log('WebSocket Error ', error);};connection.onmessage = function (e) {  console.log('Server: ', e.data);};function sendRGB() {  var r = parseInt(document.getElementById('r').value).toString(16);  var g = parseInt(document.getElementById('g').value).toString(16);  var b = parseInt(document.getElementById('b').value).toString(16);  if(r.length < 2) { r = '0' + r; }   if(g.length < 2) { g = '0' + g; }   if(b.length < 2) { b = '0' + b; }   var rgb = '#'+r+g+b;    console.log('RGB: ' + rgb); connection.send(rgb); }</script></head><body>LED Control:<br/><br/>R: <input id=\"r\" type=\"range\" min=\"0\" max=\"255\" step=\"1\" oninput=\"sendRGB();\" /><br/>G: <input id=\"g\" type=\"range\" min=\"0\" max=\"255\" step=\"1\" oninput=\"sendRGB();\" /><br/>B: <input id=\"b\" type=\"range\" min=\"0\" max=\"255\" step=\"1\" oninput=\"sendRGB();\" /><br/></body></html>");
+    server.send(200, "text/html",
+                "<html><head><script>var connection = new WebSocket(wsServer, ['arduino']);connection.onopen = function () {  connection.send('Connect ' + new Date()); }; connection.onerror = function (error) {    console.log('WebSocket Error ', error);};connection.onmessage = function (e) {  console.log('Server: ', e.data);};function sendRGB() {  var r = parseInt(document.getElementById('r').value).toString(16);  var g = parseInt(document.getElementById('g').value).toString(16);  var b = parseInt(document.getElementById('b').value).toString(16);  if(r.length < 2) { r = '0' + r; }   if(g.length < 2) { g = '0' + g; }   if(b.length < 2) { b = '0' + b; }   var rgb = '#'+r+g+b;    console.log('RGB: ' + rgb); connection.send(rgb); }</script></head><body>LED Control:<br/><br/>R: <input id=\"r\" type=\"range\" min=\"0\" max=\"255\" step=\"1\" oninput=\"sendRGB();\" /><br/>G: <input id=\"g\" type=\"range\" min=\"0\" max=\"255\" step=\"1\" oninput=\"sendRGB();\" /><br/>B: <input id=\"b\" type=\"range\" min=\"0\" max=\"255\" step=\"1\" oninput=\"sendRGB();\" /><br/></body></html>");
   });
 
   server.begin();
-  
+
   digitalWrite(RED_LED, 0);
   digitalWrite(GREEN_LED, 0);
   digitalWrite(BLUE_LED, 0);
@@ -145,18 +147,18 @@ void loop()
   if (client)
   {
     *client = SocketsServer.accept();
-  
+
     if (client->available())
     {
       WebsocketsMessage msg = client->readNonBlocking();
-  
+
       // log
       Serial.print("Got Message: ");
       Serial.println(msg.data());
-  
+
       // return echo
       client->send("Echo: " + msg.data());
-  
+
       // close the connection
       client->close();
     }
