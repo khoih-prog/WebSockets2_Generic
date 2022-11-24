@@ -1,13 +1,13 @@
 /****************************************************************************************************************************
   RP2040W-Client_SINRIC.ino
   For RP2040W with CYW43439 WiFi.
-  
+
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, RP2040 boards besides ESP8266 and ESP32
 
 
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
  *****************************************************************************************************************************/
@@ -102,7 +102,7 @@ void turnOff(String deviceId)
 void onEventsCallback(WebsocketsEvent event, String data)
 {
   (void) data;
-  
+
   if (event == WebsocketsEvent::ConnectionOpened)
   {
     if (!isConnected)
@@ -136,7 +136,7 @@ void onEventsCallback(WebsocketsEvent event, String data)
 void onMessagesCallback(WebsocketsMessage message)
 {
   String SINRIC_message = message.data();
-  
+
   Serial.print("Got Message: ");
   Serial.println(SINRIC_message /*message.data()*/);
 
@@ -152,23 +152,26 @@ void onMessagesCallback(WebsocketsMessage message)
   DynamicJsonDocument json(1024);
   //auto deserializeError = deserializeJson(json, (char*)message.data());
   auto deserializeError = deserializeJson(json, SINRIC_message);
-  
+
   if ( deserializeError )
   {
     Serial.println("JSON parseObject() failed");
     return;
   }
+
   //serializeJson(json, Serial);
 #else
   DynamicJsonBuffer jsonBuffer;
   // Parse JSON string
   JsonObject& json = jsonBuffer.parseObject(SINRIC_message);
+
   // Test if parsing succeeds.
   if (!json.success())
   {
     Serial.println("JSON parseObject() failed");
     return;
   }
+
 #endif
 
   String deviceId = json ["deviceId"];
@@ -178,6 +181,7 @@ void onMessagesCallback(WebsocketsMessage message)
   {
     // Switch or Light
     String value = json ["value"];
+
     if (value == "ON")
     {
       turnOn(deviceId);
@@ -205,8 +209,9 @@ void setup()
 {
   pinMode(LED_PIN, OUTPUT);
   digitalWrite(LED_PIN, LOW);
-  
+
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
   Serial.println("\nStarting RP2040W-Client_SINRIC on " + String(BOARD_NAME));
@@ -218,22 +223,23 @@ void setup()
   if (WiFi.status() == WL_NO_MODULE)
   {
     Serial.println("Communication with WiFi module failed!");
+
     // don't continue
     while (true);
   }
 
   Serial.print(F("Connecting to SSID: "));
   Serial.println(ssid);
- 
+
   status = WiFi.begin(ssid, pass);
 
   delay(1000);
-   
+
   // attempt to connect to WiFi network
   while ( status != WL_CONNECTED)
   {
     delay(500);
-        
+
     // Connect to WPA/WPA2 network
     status = WiFi.status();
   }

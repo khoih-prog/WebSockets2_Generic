@@ -1,13 +1,13 @@
 /****************************************************************************************************************************
   RP2040W-AdvancedWebServer.ino
   For RP2040W with CYW43439 WiFi.
-  
+
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, RP2040 boards besides ESP8266 and ESP32
 
 
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
  *****************************************************************************************************************************/
@@ -51,9 +51,9 @@ void handleRoot()
 
   if (minFreeHeap > curFreeHeap)
     minFreeHeap = curFreeHeap;
-  
+
   digitalWrite(LED_BUILTIN, LED_ON);
-    
+
   int sec = millis() / 1000;
   int min = sec / 60;
   int hr = min / 60;
@@ -85,7 +85,7 @@ body { background-color: #cccccc; font-family: Arial, Helvetica, Sans-Serif; Col
 void handleNotFound()
 {
   digitalWrite(LED_BUILTIN, LED_ON);
-  
+
   String message = "File Not Found\n\n";
   message += "URI: ";
   message += server.uri();
@@ -109,14 +109,14 @@ void handleNotFound()
 #define TEMP_STR_LEN            80
 
 String out;
-  
+
 void drawGraph()
-{  
+{
   char temp[TEMP_STR_LEN];
   static uint32_t previousStrLen = ORIGINAL_STR_LEN;
 
   digitalWrite(LED_BUILTIN, LED_ON);
-    
+
   if (out.length() == 0)
   {
     LOGWARN1(F("String Len = 0, extend to"), ORIGINAL_STR_LEN);
@@ -126,7 +126,7 @@ void drawGraph()
   out = F( "<svg xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\" width=\"310\" height=\"150\">\n" \
            "<rect width=\"310\" height=\"150\" fill=\"rgb(250, 230, 210)\" stroke-width=\"3\" stroke=\"rgb(0, 0, 0)\" />\n" \
            "<g stroke=\"blue\">\n");
- 
+
   int y = rand() % 130;
 
   for (int x = 15; x < 300; x += 15)
@@ -134,24 +134,25 @@ void drawGraph()
     int y2 = rand() % 130;
 
     memset(temp, 0, TEMP_STR_LEN);
-    
+
     //sprintf(temp, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke-width=\"2\" />\n", x, 140 - y, x + 10, 140 - y2);
-    snprintf(temp, TEMP_STR_LEN - 1, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke-width=\"2\" />\n", x, 140 - y, x + 15, 140 - y2);
+    snprintf(temp, TEMP_STR_LEN - 1, "<line x1=\"%d\" y1=\"%d\" x2=\"%d\" y2=\"%d\" stroke-width=\"2\" />\n", x, 140 - y,
+             x + 15, 140 - y2);
 
     if (out.length() > previousStrLen - TEMP_STR_LEN)
-    {  
+    {
       LOGERROR3(F("String Len > "), previousStrLen, F(", extend to"), previousStrLen + TEMP_STR_LEN * 2);
-      
+
       // Add twice to be safe
-      previousStrLen += TEMP_STR_LEN * 2;     
-      
+      previousStrLen += TEMP_STR_LEN * 2;
+
       out.reserve(previousStrLen);
     }
-    
+
     out += temp;
     y = y2;
   }
-  
+
   out += F("</g>\n</svg>\n");
 
   server.send(200, "image/svg+xml", out);
@@ -175,11 +176,13 @@ void setup()
 {
   pinMode(LED_BUILTIN, OUTPUT);
   digitalWrite(LED_BUILTIN, LED_OFF);
-  
+
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
-  Serial.print("\nStarting RP2040W-AdvancedWebServer on "); Serial.println(BOARD_NAME);
+  Serial.print("\nStarting RP2040W-AdvancedWebServer on ");
+  Serial.println(BOARD_NAME);
   Serial.println(WEBSOCKETS2_GENERIC_VERSION);
 
   ///////////////////////////////////
@@ -188,22 +191,23 @@ void setup()
   if (WiFi.status() == WL_NO_MODULE)
   {
     Serial.println("Communication with WiFi module failed!");
+
     // don't continue
     while (true);
   }
 
   Serial.print(F("Connecting to SSID: "));
   Serial.println(ssid);
- 
+
   status = WiFi.begin(ssid, pass);
 
   delay(1000);
-   
+
   // attempt to connect to WiFi network
   while ( status != WL_CONNECTED)
   {
     delay(500);
-        
+
     // Connect to WPA/WPA2 network
     status = WiFi.status();
   }
@@ -248,18 +252,18 @@ void checkClient()
     if (client.available())
     {
       WebsocketsMessage msg = client.readNonBlocking();
-    
+
       // log
       Serial.print("Got Message: ");
       Serial.println(msg.data());
-  
+
       // return echo
       client.send("Echo: " + msg.data());
-  
+
       // close the connection
       client.close();
     }
-    
+
     checkClient_timeout = millis() + CLIENT_CHECK_INTERVAL;
   }
 }

@@ -32,7 +32,7 @@
 // Debug Level from 0 to 4
 #define _WEBSOCKETS_LOGLEVEL_     3
 
-const char* ssid  = "ssid";       //Enter SSID
-const char* pass  = "password";   //Enter Password
+char ssid[] = "your_ssid";        // your network SSID (name)
+char pass[] = "12345678";         // your network password (use for WPA, or use as key for WEP), length must be 8+
 
 #endif      //defines_h

@@ -1,13 +1,13 @@
 /****************************************************************************************************************************
   RP2040W-Server.ino
   For RP2040W with CYW43439 WiFi.
-  
+
   Based on and modified from Gil Maimon's ArduinoWebsockets library https://github.com/gilmaimon/ArduinoWebsockets
   to support STM32F/L/H/G/WB/MP1, nRF52, SAMD21/SAMD51, RP2040 boards besides ESP8266 and ESP32
 
 
   The library provides simple and easy interface for websockets (Client and Server).
-  
+
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
  *****************************************************************************************************************************/
@@ -52,9 +52,9 @@ void heartBeatPrint()
 
   if (WiFi.status() == WL_CONNECTED)
     Serial.print("H");        // H means server WiFi connected
-  else  
+  else
     Serial.print("F");        // F means server WiFi not connected
-    
+
   if (num == 80)
   {
     Serial.println();
@@ -72,6 +72,7 @@ void check_status()
 
   //KH
 #define HEARTBEAT_INTERVAL    10000L
+
   // Print hearbeat every HEARTBEAT_INTERVAL (10) seconds.
   if ((millis() > checkstatus_timeout) || (checkstatus_timeout == 0))
   {
@@ -95,6 +96,7 @@ void printWifiStatus()
 void setup()
 {
   Serial.begin(115200);
+
   while (!Serial && millis() < 5000);
 
   Serial.println("\nStarting RP2040W-Server on " + String(BOARD_NAME));
@@ -106,22 +108,23 @@ void setup()
   if (WiFi.status() == WL_NO_MODULE)
   {
     Serial.println("Communication with WiFi module failed!");
+
     // don't continue
     while (true);
   }
 
   Serial.print(F("Connecting to SSID: "));
   Serial.println(ssid);
- 
+
   status = WiFi.begin(ssid, pass);
 
   delay(1000);
-   
+
   // attempt to connect to WiFi network
   while ( status != WL_CONNECTED)
   {
     delay(500);
-        
+
     // Connect to WPA/WPA2 network
     status = WiFi.status();
   }
@@ -131,7 +134,7 @@ void setup()
   ///////////////////////////////////
 
   server.listen(WEBSOCKETS_PORT);
-  
+
   Serial.print(server.available() ? "WebSockets Server Running and Ready on " : "Server Not Running on ");
   Serial.println(BOARD_NAME);
   Serial.print("IP address: ");
@@ -141,11 +144,11 @@ void setup()
 }
 
 void loop()
-{ 
+{
   check_status();
-  
+
   WebsocketsClient client = server.accept();
- 
+
   if (client.available())
   {
     WebsocketsMessage msg = client.readNonBlocking();
