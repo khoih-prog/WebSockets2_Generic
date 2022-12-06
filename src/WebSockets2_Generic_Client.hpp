@@ -10,7 +10,7 @@
   Built by Khoi Hoang https://github.com/khoih-prog/Websockets2_Generic
   Licensed under MIT license
   
-  Version: 1.13.1
+  Version: 1.13.2
 
   Version Modified By   Date      Comments
   ------- -----------  ---------- -----------
@@ -27,6 +27,7 @@
   1.12.1  K Hoang      09/10/2022 Fix bug in examples
   1.13.0  K Hoang      11/10/2022 Add support to RP2040W using CYW43439 WiFi
   1.13.1  K Hoang      24/11/2022 Using new WiFi101_Generic library
+  1.13.2  K Hoang      06/12/2022 Fix compiler error using QNEthernet v0.17.0
  *****************************************************************************************************************************/
 
 #ifndef _WEBSOCKETS2_GENERIC_CLIENT_H

@@ -10,12 +10,14 @@
 <a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Donate to my libraries using BuyMeACoffee" style="height: 50px !important;width: 181px !important;" ></a>
 <a href="https://www.buymeacoffee.com/khoihprog6" title="Donate to my libraries using BuyMeACoffee"><img src="https://img.shields.io/badge/buy%20me%20a%20coffee-donate-orange.svg?logo=buy-me-a-coffee&logoColor=FFDD00" style="height: 20px !important;width: 200px !important;" ></a>
 
+
 ---
 ---
 
 ## Table of Contents
 
 * [Changelog](#changelog)
+  * [Release v1.13.2](#release-v1132)
   * [Release v1.13.1](#release-v1131)
   * [Release v1.13.0](#release-v1130)
   * [Release v1.12.1](#release-v1121)
@@ -53,6 +55,10 @@
 ---
 
 ## Changelog
+
+### Release v1.13.2
+
+1. Fix compiler error using Teensy 4.1 QNEthernet `v0.17.0`
 
 ### Release v1.13.1
 
